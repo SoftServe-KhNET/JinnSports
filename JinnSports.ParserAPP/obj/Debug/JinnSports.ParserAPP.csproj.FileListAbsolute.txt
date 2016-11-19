@@ -1,0 +1,12 @@
+c:\Users\Denis\Git\ClonedJinnSports\JinnSportsParser.APP\bin\Debug\JinnSports.Parser.APP.exe.config
+c:\Users\Denis\Git\ClonedJinnSports\JinnSportsParser.APP\bin\Debug\JinnSports.Parser.APP.exe
+c:\Users\Denis\Git\ClonedJinnSports\JinnSportsParser.APP\bin\Debug\JinnSports.Parser.APP.pdb
+c:\Users\Denis\Git\ClonedJinnSports\JinnSportsParser.APP\obj\Debug\JinnSports.ParserAPP.csprojResolveAssemblyReference.cache
+c:\Users\Denis\Git\ClonedJinnSports\JinnSportsParser.APP\obj\Debug\JinnSports.Parser.APP.exe
+c:\Users\Denis\Git\ClonedJinnSports\JinnSportsParser.APP\obj\Debug\JinnSports.Parser.APP.pdb
+c:\Users\Denis\Git\ClonedJinnSports\JinnSports.ParserAPP\bin\Debug\JinnSports.Parser.APP.exe.config
+c:\Users\Denis\Git\ClonedJinnSports\JinnSports.ParserAPP\obj\Debug\JinnSports.Parser.APP.exe
+c:\Users\Denis\Git\ClonedJinnSports\JinnSports.ParserAPP\obj\Debug\JinnSports.Parser.APP.pdb
+c:\Users\Denis\Git\ClonedJinnSports\JinnSports.ParserAPP\bin\Debug\JinnSports.Parser.APP.exe
+c:\Users\Denis\Git\ClonedJinnSports\JinnSports.ParserAPP\bin\Debug\JinnSports.Parser.APP.pdb
+c:\Users\Denis\Git\ClonedJinnSports\JinnSports.ParserAPP\obj\Debug\JinnSports.ParserAPP.csprojResolveAssemblyReference.cache

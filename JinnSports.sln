@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JinnSports.BLL", "JinnSport
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JinnSports.DAL", "JinnSports.DAL\JinnSports.DAL.csproj", "{BE36F33A-801A-4B21-8130-FF952C3A5F97}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JinnSportsParser.APP", "JinnSportsParser.APP\JinnSportsParser.APP.csproj", "{EFA96B10-9AE3-4770-A55D-D0A9F1BD88A2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JinnSports.ParserAPP", "JinnSports.ParserAPP\JinnSports.ParserAPP.csproj", "{EFA96B10-9AE3-4770-A55D-D0A9F1BD88A2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
