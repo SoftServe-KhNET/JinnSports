@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JinnSports.DAL", "JinnSport
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JinnSports.Parser.App", "JinnSports.Parser.App\JinnSports.Parser.App.csproj", "{C5F8DE8E-BEA1-4A55-A0B4-1190EEE9D017}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JinnSports.DataAccessInterfaces", "JinnSports.DataAccessInterfaces\JinnSports.DataAccessInterfaces.csproj", "{07107E13-6DDF-47AF-90BC-FB344B060511}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{C5F8DE8E-BEA1-4A55-A0B4-1190EEE9D017}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C5F8DE8E-BEA1-4A55-A0B4-1190EEE9D017}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C5F8DE8E-BEA1-4A55-A0B4-1190EEE9D017}.Release|Any CPU.Build.0 = Release|Any CPU
+		{07107E13-6DDF-47AF-90BC-FB344B060511}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{07107E13-6DDF-47AF-90BC-FB344B060511}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{07107E13-6DDF-47AF-90BC-FB344B060511}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{07107E13-6DDF-47AF-90BC-FB344B060511}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
