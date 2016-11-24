@@ -8,8 +8,8 @@ namespace JinnSports.DataAccessInterfaces
         IEnumerable<T> GetAll();
         T Get(int id);
         //IEnumerable<T> Find(Func<T, Boolean> predicate);
-        void Add(T item);
-        void AddAll(T[] items);
-        void Delete(T item);
+        void Create(T item);
+        void Update(T item);
+        void Delete(int id);
     }
 }

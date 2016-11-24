@@ -35,17 +35,3 @@ D:\Work\SoftServe\JinnParser\JinnSports.DAL\obj\Debug\JinnSports.DAL.dll
 D:\Work\SoftServe\JinnParser\JinnSports.DAL\obj\Debug\JinnSports.DAL.pdb
 D:\Work\SoftServe\JinnParser\JinnSports.DAL\bin\Debug\JinnSports.DataAccessInterfaces.dll
 D:\Work\SoftServe\JinnParser\JinnSports.DAL\bin\Debug\JinnSports.DataAccessInterfaces.pdb
-C:\Users\Ivan\Documents\GitHub\JinnSports\JinnSports.DAL\obj\Debug\JinnSports.DAL.csprojResolveAssemblyReference.cache
-C:\Users\Ivan\Documents\GitHub\JinnSports\JinnSports.DAL\obj\Debug\JinnSports.DAL.dll
-C:\Users\Ivan\Documents\GitHub\JinnSports\JinnSports.DAL\obj\Debug\JinnSports.DAL.pdb
-C:\Users\Ivan\Documents\GitHub\JinnSports\JinnSports.DAL\bin\Debug\JinnSports.DAL.dll.config
-C:\Users\Ivan\Documents\GitHub\JinnSports\JinnSports.DAL\bin\Debug\JinnSports.DAL.dll
-C:\Users\Ivan\Documents\GitHub\JinnSports\JinnSports.DAL\bin\Debug\JinnSports.DAL.pdb
-C:\Users\Ivan\Documents\GitHub\JinnSports\JinnSports.DAL\bin\Debug\Antlr3.Runtime.dll
-C:\Users\Ivan\Documents\GitHub\JinnSports\JinnSports.DAL\bin\Debug\EntityFramework.dll
-C:\Users\Ivan\Documents\GitHub\JinnSports\JinnSports.DAL\bin\Debug\EntityFramework.SqlServer.dll
-C:\Users\Ivan\Documents\GitHub\JinnSports\JinnSports.DAL\bin\Debug\JinnSports.DataAccessInterfaces.dll
-C:\Users\Ivan\Documents\GitHub\JinnSports\JinnSports.DAL\bin\Debug\JinnSports.DataAccessInterfaces.pdb
-C:\Users\Ivan\Documents\GitHub\JinnSports\JinnSports.DAL\bin\Debug\Antlr3.Runtime.pdb
-C:\Users\Ivan\Documents\GitHub\JinnSports\JinnSports.DAL\bin\Debug\EntityFramework.xml
-C:\Users\Ivan\Documents\GitHub\JinnSports\JinnSports.DAL\bin\Debug\EntityFramework.SqlServer.xml
