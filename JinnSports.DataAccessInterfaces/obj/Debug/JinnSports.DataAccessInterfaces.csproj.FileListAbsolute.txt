@@ -2,3 +2,8 @@ D:\Work\SoftServe\JinnParser\JinnSports.DataAccessInterfaces\bin\Debug\JinnSport
 D:\Work\SoftServe\JinnParser\JinnSports.DataAccessInterfaces\bin\Debug\JinnSports.DataAccessInterfaces.pdb
 D:\Work\SoftServe\JinnParser\JinnSports.DataAccessInterfaces\obj\Debug\JinnSports.DataAccessInterfaces.dll
 D:\Work\SoftServe\JinnParser\JinnSports.DataAccessInterfaces\obj\Debug\JinnSports.DataAccessInterfaces.pdb
+C:\Users\Ivan\Documents\GitHub\JinnSports\JinnSports.DataAccessInterfaces\bin\Debug\JinnSports.DataAccessInterfaces.dll
+C:\Users\Ivan\Documents\GitHub\JinnSports\JinnSports.DataAccessInterfaces\bin\Debug\JinnSports.DataAccessInterfaces.pdb
+C:\Users\Ivan\Documents\GitHub\JinnSports\JinnSports.DataAccessInterfaces\obj\Debug\JinnSports.DataAccessInterfaces.csprojResolveAssemblyReference.cache
+C:\Users\Ivan\Documents\GitHub\JinnSports\JinnSports.DataAccessInterfaces\obj\Debug\JinnSports.DataAccessInterfaces.dll
+C:\Users\Ivan\Documents\GitHub\JinnSports\JinnSports.DataAccessInterfaces\obj\Debug\JinnSports.DataAccessInterfaces.pdb

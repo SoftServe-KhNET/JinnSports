@@ -55,14 +55,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="EF\SportsContext.cs" />
+    <Compile Include="DBContext\SportsContext.cs" />
     <Compile Include="Entities\CompetitionEvent.cs" />
     <Compile Include="Entities\Result.cs" />
     <Compile Include="Entities\SportType.cs" />
     <Compile Include="Entities\Team.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\BaseRepository.cs" />
-    <Compile Include="Repositories\EFUnitOfWork.cs" />
+    <Compile Include="Repositories\Storage.cs" />
+    <Compile Include="Test.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
