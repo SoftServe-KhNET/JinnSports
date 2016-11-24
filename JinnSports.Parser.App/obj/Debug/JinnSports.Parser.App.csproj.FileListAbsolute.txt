@@ -34,3 +34,17 @@ D:\Work\SoftServe\JinnParser\JinnSports.Parser.App\bin\Debug\Newtonsoft.Json.xml
 D:\Work\SoftServe\JinnParser\JinnSports.Parser.App\bin\Debug\EntityFramework.xml
 D:\Work\SoftServe\JinnParser\JinnSports.Parser.App\bin\Debug\JinnSports.DataAccessInterfaces.dll
 D:\Work\SoftServe\JinnParser\JinnSports.Parser.App\bin\Debug\JinnSports.DataAccessInterfaces.pdb
+C:\Users\Ivan\Documents\GitHub\JinnSports\JinnSports.Parser.App\bin\Debug\JinnSports.Parser.App.exe.config
+C:\Users\Ivan\Documents\GitHub\JinnSports\JinnSports.Parser.App\bin\Debug\JinnSports.Parser.App.exe
+C:\Users\Ivan\Documents\GitHub\JinnSports\JinnSports.Parser.App\bin\Debug\JinnSports.Parser.App.pdb
+C:\Users\Ivan\Documents\GitHub\JinnSports\JinnSports.Parser.App\bin\Debug\JinnSports.DAL.dll
+C:\Users\Ivan\Documents\GitHub\JinnSports\JinnSports.Parser.App\bin\Debug\JinnSports.DataAccessInterfaces.dll
+C:\Users\Ivan\Documents\GitHub\JinnSports\JinnSports.Parser.App\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Ivan\Documents\GitHub\JinnSports\JinnSports.Parser.App\bin\Debug\EntityFramework.dll
+C:\Users\Ivan\Documents\GitHub\JinnSports\JinnSports.Parser.App\bin\Debug\JinnSports.DAL.pdb
+C:\Users\Ivan\Documents\GitHub\JinnSports\JinnSports.Parser.App\bin\Debug\JinnSports.DataAccessInterfaces.pdb
+C:\Users\Ivan\Documents\GitHub\JinnSports\JinnSports.Parser.App\bin\Debug\Newtonsoft.Json.xml
+C:\Users\Ivan\Documents\GitHub\JinnSports\JinnSports.Parser.App\bin\Debug\EntityFramework.xml
+C:\Users\Ivan\Documents\GitHub\JinnSports\JinnSports.Parser.App\obj\Debug\JinnSports.Parser.App.csprojResolveAssemblyReference.cache
+C:\Users\Ivan\Documents\GitHub\JinnSports\JinnSports.Parser.App\obj\Debug\JinnSports.Parser.App.exe
+C:\Users\Ivan\Documents\GitHub\JinnSports\JinnSports.Parser.App\obj\Debug\JinnSports.Parser.App.pdb
