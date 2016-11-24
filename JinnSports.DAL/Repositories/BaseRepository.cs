@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using JinnSports.DAL.EF;
+using JinnSports.DAL.Context;
 using JinnSports.DataAccessInterfaces;
 using System.Data.Entity;
 
@@ -9,13 +9,11 @@ namespace JinnSports.DAL.Repositories
 {
     public class BaseRepository<T> : IRepository<T> where T : class
     {
-        SportsContext db; 
         internal DbSet<T> dbSet;
 
-        public BaseRepository(SportsContext context)
+        public BaseRepository(DbSet<T> dbSet)
         {
-            this.db = context;
-            this.dbSet = context.Set<T>();
+            this.dbSet = dbSet;
         }
 
         public IEnumerable<T> GetAll()
@@ -29,25 +27,19 @@ namespace JinnSports.DAL.Repositories
             return dbSet.Find(id);
         }
 
-        public void Create(T entity)
+        public void Add(T entity)
         {
             dbSet.Add(entity);
         }
-        public void Update(T entity)
+
+        public void AddAll(T[] entitys)
         {
-            dbSet.Attach(entity);
-            db.Entry(entity).State = EntityState.Modified;
+            dbSet.AddRange(entitys);
         }
 
-        //public IEnumerable<T> Find(Func<Result, Boolean> predicate)
-        //{
-        //    return db.Results.Where(predicate).ToList();
-        //}
-
-        public void Delete(int id)
+        public void Delete(T entity)
         {
-            T entityToDelete = dbSet.Find(id);
-            db.Entry(entityToDelete).State = EntityState.Deleted;
+            dbSet.Remove(entity);
         }
     }
 }
