@@ -12,7 +12,6 @@ namespace JinnSports.Parser.App
     {
         static void Main(string[] args)
         {
-            
         }
     }
 }

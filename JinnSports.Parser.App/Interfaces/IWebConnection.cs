@@ -5,7 +5,7 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace JinnSports.Parser.App.Inerfaces
+namespace JinnSports.Parser.App.Interfaces
 {
     interface IWebConnection
     {
