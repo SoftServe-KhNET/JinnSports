@@ -9,5 +9,10 @@ namespace JinnSports.Entities
         public string Name { get; set; }
 
         public virtual ICollection<Team> Teams { get; set; }
+
+        public override string ToString()
+        {
+            return Name;
+        }
     }
 }

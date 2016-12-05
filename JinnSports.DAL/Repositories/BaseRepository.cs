@@ -4,6 +4,7 @@ using System.Linq;
 using JinnSports.DAL.EFContext;
 using JinnSports.DataAccessInterfaces;
 using System.Data.Entity;
+using System.Linq.Expressions;
 
 namespace JinnSports.DAL.Repositories
 {
@@ -19,6 +20,16 @@ namespace JinnSports.DAL.Repositories
         public IList<T> GetAll()
         {
             return dbSet.ToList();
+        }
+
+        public IList<T> GetAll(Expression<Func<T, bool>> where)
+        {
+            return dbSet.Where(where).ToList();
+        }
+
+        public T Get(Expression<Func<T, bool>> where)
+        {
+            return dbSet.Where(where).FirstOrDefault();
         }
 
         public T GetByID(int id)
