@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace JinnSports.Entities
+namespace JinnSports.Entities.Entities
 {
     public class Team
     {
@@ -18,14 +18,12 @@ namespace JinnSports.Entities
         public override bool Equals(object obj)
         {
             Team t = (Team)obj;
-            return ((t.Name == Name) && (SportType.Id == t.SportType.Id));
+            return (t.Name == this.Name) && (SportType.Id == t.SportType.Id);
         }
 
         public override string ToString()
         {
-            return "Id: " + Id + " Name: " + Name + "SportType: " + SportType.Name;
+            return "Id: " + this.Id + " Name: " + this.Name + "SportType: " + this.SportType.Name;
         }
     }
-
-
 }

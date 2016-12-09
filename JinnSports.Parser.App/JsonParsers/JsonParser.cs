@@ -4,9 +4,12 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using Newtonsoft.Json;
-using JinnSports.Entities;
 using JinnSports.DAL.Repositories;
+<<<<<<< HEAD:JinnSports.Parser.App/JsonParserService/JsonParser.cs
+using JinnSports.Entities.Entities;
+=======
 using JinnSports.DataAccessInterfaces.Interfaces;
+>>>>>>> 806d646c7cf07f30d62598c7179ee887f3fcdeff:JinnSports.Parser.App/JsonParsers/JsonParser.cs
 using JinnSports.Parser.App.Interfaces;
 using JinnSports.Parser.App.JsonParsers.JsonEntities;
 using JinnSports.Parser.App.ProxyService.ProxyConnection;
@@ -182,6 +185,14 @@ namespace JinnSports.Parser.App.JsonParsers
             }
         }
 
+<<<<<<< HEAD:JinnSports.Parser.App/JsonParserService/JsonParser.cs
+        public void DbSaveChanges(List<Result> results)
+        {
+            //uow.Results.AddAll(results.ToArray());
+        }
+
+=======
+>>>>>>> 806d646c7cf07f30d62598c7179ee887f3fcdeff:JinnSports.Parser.App/JsonParsers/JsonParser.cs
         private DateTime GetEventDate(Event ev)
         {
             int startTime = (int)ev.StartTime;

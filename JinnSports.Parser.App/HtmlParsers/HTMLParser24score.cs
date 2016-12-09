@@ -1,13 +1,16 @@
 ﻿using AngleSharp.Dom;
 using AngleSharp.Parser.Html;
-using JinnSports.Entities;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using JinnSports.DataAccessInterfaces.Interfaces;
+<<<<<<< HEAD
+using JinnSports.Entities.Entities;
+=======
 using JinnSports.Parser.App.ProxyService.ProxyConnection;
 using System.Diagnostics;
+>>>>>>> 806d646c7cf07f30d62598c7179ee887f3fcdeff
 
 namespace JinnSports.Parser.App.HtmlParsers
 {

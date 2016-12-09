@@ -1,8 +1,6 @@
-using System;
 using System.Configuration;
 using System.Data.Entity;
-using System.IO;
-using JinnSports.Entities;
+using JinnSports.Entities.Entities;
 
 namespace JinnSports.DAL.EFContext
 {
@@ -11,12 +9,10 @@ namespace JinnSports.DAL.EFContext
         static SportsContext()
         {
         }
-        
-        public SportsContext(string connectionString) : base(SportsContext.GetConnectionString(connectionString))
+       
+        public SportsContext(string connectionName) : base(GetConnectionString(connectionName))
         {
-            AppDomain.CurrentDomain.SetData("DataDirectory", "C:");
-            // Getting root folder for solution from Parser.App
-            // TODO: make work from all projects     
+            Database.SetInitializer(new SportsDbInitializer());
         }
 
         public DbSet<CompetitionEvent> CompetitionEvents { get; set; }
@@ -24,10 +20,9 @@ namespace JinnSports.DAL.EFContext
         public DbSet<SportType> SportTypes { get; set; }
         public DbSet<Team> Teams { get; set; }
 
-        private static string GetConnectionString(string connectionString)
+        private static string GetConnectionString(string connectionName)
         {
-            connectionString = ConfigurationManager.ConnectionStrings[connectionString].ConnectionString;
-            return connectionString;
+            return ConfigurationManager.ConnectionStrings[connectionName].ConnectionString;
         }
     }
 }

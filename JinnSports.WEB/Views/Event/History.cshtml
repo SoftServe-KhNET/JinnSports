@@ -19,14 +19,14 @@
             {
                 <tr>
                     <td colspan="2">
-                        <h4>@sportEvents.SportName</h4>
+                        <h3>@sportEvents.SportName</h3>
                     </td>
                 </tr>
                 foreach (var events in sportEvents.Events)
                 {
                     <tr>
-                        <td><h6>@events.Result</h6></td>
-                        <td><h6>@events.Date</h6></td>
+                        <td><h4>@events.Result</h4></td>
+                        <td><h4>@events.Date</h4></td>
                     </tr>
                 }
             }

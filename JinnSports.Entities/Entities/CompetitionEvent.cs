@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace JinnSports.Entities
+namespace JinnSports.Entities.Entities
 {
     public class CompetitionEvent
     {
@@ -22,7 +22,7 @@ namespace JinnSports.Entities
 
         public override string ToString()
         {
-            return "Id: " + Id + " Date: " + Date;
+            return "Id: " + this.Id + " Date: " + this.Date;
         }
     }
 }
