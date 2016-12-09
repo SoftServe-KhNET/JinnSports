@@ -8,11 +8,6 @@ namespace JinnSports.Parser.App.WebConnection
         private string url;
         private string encoding = "utf-8";
 
-        public WebConnection()
-        {
-
-        }
-
         public WebResponse GetResponse()
         {
             WebRequest request = WebRequest.Create(this.url);

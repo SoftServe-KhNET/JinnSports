@@ -1,7 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
-namespace JinnSports.Entities
+namespace JinnSports.Entities.Entities
 {
     public class SportType
     {
@@ -18,12 +17,12 @@ namespace JinnSports.Entities
         public override bool Equals(object obj)
         {
             SportType st = (SportType)obj;
-            return (st.Name == Name);
+            return st.Name == this.Name;
         }
 
         public override string ToString()
         {
-            return "Id: " + Id + " Name: " + Name;
+            return "Id: " + this.Id + " Name: " + this.Name;
         }
     }
 }

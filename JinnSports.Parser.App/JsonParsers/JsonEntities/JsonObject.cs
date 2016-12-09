@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace JinnSports.Parser.App.JsonParsers.JsonEntities
+﻿namespace JinnSports.Parser.App.JsonParsers.JsonEntities
 {
     public abstract class JsonObject
     {

@@ -9,7 +9,7 @@ using System;
 namespace JinnSports.DAL.Repositories
 {
     public class BaseRepository<T> : IRepository<T> where T : class
-    { 
+    {
         public BaseRepository(SportsContext db)
         {
             this.DbSet = db.Set<T>();
@@ -32,7 +32,7 @@ namespace JinnSports.DAL.Repositories
             return this.DbSet.Where(where).FirstOrDefault();
         }
 
-        public T GetByID(int id)
+        public T GetById(int id)
         {
             return this.DbSet.Find(id);
         }

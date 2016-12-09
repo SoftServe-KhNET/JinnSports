@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace JinnSports.Entities
+﻿namespace JinnSports.Entities.Entities
 {
     public class Result
     {
@@ -18,12 +15,12 @@ namespace JinnSports.Entities
         public override bool Equals(object obj)
         {
             Result result = (Result)obj;
-            return ((result.Team.Id == Team.Id) && (result.CompetitionEvent.Id == CompetitionEvent.Id));
+            return (result.Team.Id == Team.Id) && (result.CompetitionEvent.Id == CompetitionEvent.Id);
         }
 
         public override string ToString()
         {
-            return "Id: " + " TeamId: " + " EventId: " + CompetitionEvent.Id + " Score: " + Score;
+            return "Id: " + " TeamId: " + " EventId: " + this.CompetitionEvent.Id + " Score: " + this.Score;
         }
     }
 }

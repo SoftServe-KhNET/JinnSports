@@ -1,0 +1,24 @@
+﻿@model JinnSports.WEB.Models.TeamDetailsViewModel
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Details</title>
+</head>
+<body>
+<div>
+    <h3>ID: @Model.Id</h3>
+    <h4>NAME: @Model.Name</h4>
+    @foreach (var resultDetailsViewModel in Model.Results)
+    {
+        @Html.Partial("_ResultPartial", resultDetailsViewModel)
+    }
+</div>
+</body>
+</html>

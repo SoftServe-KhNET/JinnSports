@@ -1,14 +1,10 @@
-﻿using JinnSports.BLL.DTO;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using JinnSports.BLL.Dtos;
 
 namespace JinnSports.BLL.Interfaces
 {
     public interface IEventService : IService
     {
-        IList<CompetitionEventDTO> GetCEvents();
+        IList<CompetitionEventDto> GetCEvents();
     }
 }
