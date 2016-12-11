@@ -5,6 +5,7 @@
 
     <PropertyGroup>
         <OutputDir>bin</OutputDir>
+	   <Configuration>Debug</Configuration>
 		<PublishDir>../output</PublishDir>
         <TransformInputFile>output/Web.config</TransformInputFile>
         <TransformFile>JinnSports.WEB/Web.$(Configuration).config</TransformFile>
