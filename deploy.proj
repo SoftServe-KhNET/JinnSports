@@ -6,7 +6,6 @@
     <PropertyGroup>
         <OutputDir>bin</OutputDir>
 		<PublishDir>../output</PublishDir>
-		<Configuration>Dev</Configuration>
         <TransformInputFile>..\project\project\Web.template.config</TransformInputFile>
         <TransformFile>..\project\project\Web.$(Configuration).config</TransformFile>
         <TransformOutputFile>..\project\output\Web.config</TransformOutputFile>
@@ -15,7 +14,7 @@
 
     <ItemGroup>
         <ProjectToBuild Include="JinnSports.sln">
-            <Properties>WebProjectOutputDir=$(PublishDir);OutputPath=$(OutputDir);Configuration=Dev</Properties>
+            <Properties>WebProjectOutputDir=$(PublishDir);OutputPath=$(OutputDir)</Properties>
         </ProjectToBuild>
     </ItemGroup>
 
