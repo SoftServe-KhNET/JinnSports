@@ -36,7 +36,7 @@
 			<ftpHost>sportwin.1gb.ua</ftpHost>
 			<ftpUser>1gbua_sportwin</ftpUser>
 			<ftpPass>3e489491689</ftpPass>
-			<LocalDirectory>..\project\output</LocalDirectory>
+			<LocalDirectory>output</LocalDirectory>
 		</PropertyGroup>
         <FtpUploadDirectoryContent
 			ServerHost="$(ftpHost)"
