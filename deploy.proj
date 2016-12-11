@@ -33,7 +33,7 @@
 
 	<Target Name="AfterBuild" AfterTargets="CreateWebConfigs">
 		<PropertyGroup>
-			<ftpHost>sportwin.1gb.ua</ftpHost>
+			<ftpHost>ftp://sportwin.1gb.ua/http/</ftpHost>
 			<ftpUser>1gbua_sportwin</ftpUser>
 			<ftpPass>3e489491689</ftpPass>
 			<LocalDirectory>output</LocalDirectory>
