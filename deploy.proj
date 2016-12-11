@@ -6,15 +6,16 @@
     <PropertyGroup>
         <OutputDir>bin</OutputDir>
 		<PublishDir>../output</PublishDir>
-        <TransformInputFile>..\project\project\Web.template.config</TransformInputFile>
-        <TransformFile>..\project\project\Web.$(Configuration).config</TransformFile>
-        <TransformOutputFile>..\project\output\Web.config</TransformOutputFile>
+		<Configuration>Dev</Configuration>
+        <TransformInputFile>../output/Web.config</TransformInputFile>
+        <TransformFile>JinnSports.WEB/Web.$(Configuration).config</TransformFile>
+        <TransformOutputFile>../output/Web.config</TransformOutputFile>
         <StackTraceEnabled>False</StackTraceEnabled>
     </PropertyGroup>
 
     <ItemGroup>
         <ProjectToBuild Include="JinnSports.sln">
-            <Properties>WebProjectOutputDir=$(PublishDir);OutputPath=$(OutputDir)</Properties>
+            <Properties>WebProjectOutputDir=$(PublishDir);OutputPath=$(OutputDir);Configuration=Dev</Properties>
         </ProjectToBuild>
     </ItemGroup>
 
