@@ -30,7 +30,7 @@
 		Destination="$(TransformOutputFile)"
 	/>
 </Target>
-        <Target Name="CopyRoslynFiles" AfterTargets="CreateWebConfigs" Condition="!$(Disable_CopyWebApplication) And '$(OutDir)' != '$(OutputPath)'">
+        <Target Name="CopyRoslynFiles" AfterTargets="CreateWebConfigs" Condition="'$(OutDir)' != '$(OutputPath)'">
     	<ItemGroup>
       	<RoslynFiles Include="$(CscToolPath)\*" />
     	</ItemGroup>
