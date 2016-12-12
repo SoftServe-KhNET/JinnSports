@@ -5,6 +5,7 @@ namespace JinnSports.Entities.Entities
     public class Team
     {
         public int Id { get; set; }
+        
         public virtual SportType SportType { get; set; }
         public string Name { get; set; }
 

@@ -10,6 +10,7 @@ namespace JinnSports.Entities.Entities
         public DateTime Date { get; set; }
 
         public virtual SportType SportType { get; set; }
+
         public virtual ICollection<Result> Results { get; set; }
 
         public override bool Equals(object obj)

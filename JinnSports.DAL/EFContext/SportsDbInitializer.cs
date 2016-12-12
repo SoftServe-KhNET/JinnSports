@@ -6,11 +6,11 @@ namespace JinnSports.DAL.EFContext
 {
     public class SportsDbInitializer : CreateDatabaseIfNotExists<SportsContext>
     {
-        protected override void Seed(SportsContext context)
+        /*protected override void Seed(SportsContext context)
         {
             /*
                 ---- Init sport types ----
-            */
+            
             SportType football = new SportType()
             {
                 Id = 1,
@@ -38,7 +38,7 @@ namespace JinnSports.DAL.EFContext
 
             /*
                 ---- Init teams ----
-            */
+            
 
             // Football teams
             Team MU = new Team()
@@ -95,7 +95,7 @@ namespace JinnSports.DAL.EFContext
 
             /*
                 --- Init Events --- 
-            */
+            
             SportEvent ChicagoBulls_vs_LA_event = new SportEvent()
             {
                 Id = 1,
@@ -288,6 +288,6 @@ namespace JinnSports.DAL.EFContext
 
             context.SaveChanges();
             base.Seed(context);
-        }
+        }*/
     }
 }
