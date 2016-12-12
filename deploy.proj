@@ -5,11 +5,11 @@
 
     <PropertyGroup>
         <OutputDir>bin</OutputDir>
-		<PublishDir>../output</PublishDir>
+		<PublishDir>../deploy</PublishDir>
 		<Configuration>Debug</Configuration>
-        <TransformInputFile>output/Web.config</TransformInputFile>
+        <TransformInputFile>deploy/Web.config</TransformInputFile>
         <TransformFile>JinnSports.WEB/Web.$(Configuration).config</TransformFile>
-        <TransformOutputFile>output/Web.config</TransformOutputFile>
+        <TransformOutputFile>deploy/Web.config</TransformOutputFile>
         <StackTraceEnabled>False</StackTraceEnabled>
     </PropertyGroup>
 
@@ -29,23 +29,5 @@
 		Transform="$(TransformFile)"
 		Destination="$(TransformOutputFile)"
 	/>
-	</Target>
-
-	<Target Name="AfterBuild" AfterTargets="CreateWebConfigs">
-		<PropertyGroup>
-			<ftpHost>sportwin.1gb.ua</ftpHost>
-			<ftpUser>1gbua_sportwin</ftpUser>
-			<ftpPass>3e489491689</ftpPass>
-			<LocalDirectory>..\output</LocalDirectory>
-		</PropertyGroup>
-        <FtpUploadDirectoryContent
-			ServerHost="$(ftpHost)"
-			Port="21"
-			Username="$(ftpUser)"
-			Password="$(ftpPass)"
-			LocalDirectory="$(LocalDirectory)"
-			RemoteDirectory="http"
-			Recursive="true"
-        />
 	</Target>
 </Project>
