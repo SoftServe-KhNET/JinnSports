@@ -23,7 +23,15 @@
         <MSBuild Projects="@(ProjectToBuild)"/>
     </Target>
     
-        <Target Name="CopyRoslynFiles" AfterTargets="Build" Condition="'$(OutDir)' != '$(OutputPath)'">
+    <Target Name="CreateWebConfigs" AfterTargets="Build">
+	<TransformXml
+		Source="$(TransformInputFile)"
+		Transform="$(TransformFile)"
+		Destination="$(TransformOutputFile)"
+	/>
+    </Target>
+
+        <Target Name="CreateWebConfigs" AfterTargets="Build">
     	<ItemGroup>
       	<RoslynFiles Include="$(CscToolPath)\*" />
     	</ItemGroup>
@@ -31,11 +39,4 @@
     	<Copy SourceFiles="@(RoslynFiles)" DestinationFolder="$(WebProjectOutputDir)\bin\roslyn" SkipUnchangedFiles="true" Retries="$(CopyRetryCount)" RetryDelayMilliseconds="$(CopyRetryDelayMilliseconds)" />
 	</Target>
 
-   <Target Name="CreateWebConfigs" AfterTargets="CopyRoslynFiles">
-	<TransformXml
-		Source="$(TransformInputFile)"
-		Transform="$(TransformFile)"
-		Destination="$(TransformOutputFile)"
-	/>
-    </Target>
 </Project>
