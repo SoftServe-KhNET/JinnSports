@@ -31,7 +31,7 @@
 	/>
     </Target>
 
-        <Target Name="CreateWebConfigs" AfterTargets="Build" Condition="!$(Disable_CopyWebApplication) And '$(OutDir)' != '$(OutputPath)'">
+        <Target Name="CreateWebConfigs" AfterTargets="Build" Condition="'$(OutDir)' != '$(OutputPath)'">
     	<ItemGroup>
       	<RoslynFiles Include="$(CscToolPath)\*" />
     	</ItemGroup>
