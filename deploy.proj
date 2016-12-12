@@ -29,14 +29,4 @@
 		Transform="$(TransformFile)"
 		Destination="$(TransformOutputFile)"
 	/>
-    </Target>
-
-        <Target Name="CreateWebConfigs" AfterTargets="Build">
-    	<ItemGroup>
-      	<RoslynFiles Include="$(CscToolPath)\*" />
-    	</ItemGroup>
-    	<MakeDir Directories="$(WebProjectOutputDir)\bin\roslyn" />
-    	<Copy SourceFiles="@(RoslynFiles)" DestinationFolder="$(WebProjectOutputDir)\bin\roslyn" SkipUnchangedFiles="true" Retries="$(CopyRetryCount)" RetryDelayMilliseconds="$(CopyRetryDelayMilliseconds)" />
-	</Target>
-
 </Project>
