@@ -29,7 +29,7 @@
 		Transform="$(TransformFile)"
 		Destination="$(TransformOutputFile)"
 	/>
-    </Target>
+</Target>
         <Target Name="CopyRoslynFiles" AfterTargets="AfterBuild" Condition="!$(Disable_CopyWebApplication) And '$(OutDir)' != '$(OutputPath)'">
     	<ItemGroup>
       	<RoslynFiles Include="$(CscToolPath)\*" />
