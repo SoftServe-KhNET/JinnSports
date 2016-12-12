@@ -109,6 +109,7 @@
     <Content Include="Views\Event\History.cshtml" />
     <Content Include="Views\Team\Details.cshtml" />
     <Content Include="Settings.StyleCop" />
+    <None Include="Properties\PublishProfiles\My.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

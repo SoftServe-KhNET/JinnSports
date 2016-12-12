@@ -6,7 +6,7 @@
     <PropertyGroup>
         <OutputDir>bin</OutputDir>
 		<PublishDir>../deploy</PublishDir>
-		<Configuration>Debug</Configuration>
+		<Configuration>Release</Configuration>
         <TransformInputFile>deploy/Web.config</TransformInputFile>
         <TransformFile>JinnSports.WEB/Web.$(Configuration).config</TransformFile>
         <TransformOutputFile>deploy/Web.config</TransformOutputFile>
@@ -15,7 +15,7 @@
 
     <ItemGroup>
         <ProjectToBuild Include="JinnSports.sln">
-            <Properties>WebProjectOutputDir=$(PublishDir);OutputPath=$(OutputDir);Configuration=Debug</Properties>
+            <Properties>WebProjectOutputDir=$(PublishDir);OutputPath=$(OutputDir);Configuration=Release</Properties>
         </ProjectToBuild>
     </ItemGroup>
 
