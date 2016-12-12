@@ -29,4 +29,5 @@
 		Transform="$(TransformFile)"
 		Destination="$(TransformOutputFile)"
 	/>
+    </Target>
 </Project>
