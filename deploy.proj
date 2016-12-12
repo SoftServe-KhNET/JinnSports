@@ -23,7 +23,6 @@
         <MSBuild Projects="@(ProjectToBuild)"/>
     </Target>
     
-    </Target>
         <Target Name="CopyRoslynFiles" AfterTargets="Build" Condition="'$(OutDir)' != '$(OutputPath)'">
     	<ItemGroup>
       	<RoslynFiles Include="$(CscToolPath)\*" />
@@ -38,4 +37,5 @@
 		Transform="$(TransformFile)"
 		Destination="$(TransformOutputFile)"
 	/>
+    </Target>
 </Project>
