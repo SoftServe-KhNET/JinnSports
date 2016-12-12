@@ -40,7 +40,7 @@
 		</PropertyGroup>
         <FtpUploadDirectoryContent
 			ServerHost="$(ftpHost)"
-			Port="43"
+			Port="21"
 			Username="$(ftpUser)"
 			Password="$(ftpPass)"
 			LocalDirectory="$(LocalDirectory)"
