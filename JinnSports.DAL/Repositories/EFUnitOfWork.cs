@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using JinnSports.DataAccessInterfaces.Interfaces;
 using JinnSports.DAL.EFContext;
 
@@ -6,7 +7,7 @@ namespace JinnSports.DAL.Repositories
 {
     public class EFUnitOfWork : IUnitOfWork
     {
-        private SportsContext db;
+        private readonly SportsContext db;
 
         private bool disposed = false;
 
@@ -15,7 +16,7 @@ namespace JinnSports.DAL.Repositories
             this.db = new SportsContext(connectionString);            
         }
 
-        public IRepository<T> Set<T>() where T : class
+        public IRepository<T> GetRepository<T>() where T : class
         {
             return new BaseRepository<T>(this.db);
         }
@@ -23,6 +24,11 @@ namespace JinnSports.DAL.Repositories
         public void SaveChanges()
         {
             this.db.SaveChanges();
+        }
+
+        public Task SaveAsync()
+        {
+            return this.db.SaveChangesAsync();
         }
 
         public virtual void Dispose(bool disposing)

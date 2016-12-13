@@ -3,9 +3,9 @@ using JinnSports.BLL.Dtos;
 
 namespace JinnSports.BLL.Interfaces
 {
-    public interface ITeamService : IService
+    public interface ITeamService
     {
         IEnumerable<TeamDto> GetAllTeams();
-        TeamDetailsDto GetTeamDetailsById(int id);
+        TeamDto GetTeamById(int id);
     }
 }

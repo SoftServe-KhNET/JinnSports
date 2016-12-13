@@ -3,7 +3,7 @@ using JinnSports.Entities.Entities;
 
 namespace JinnSports.BLL.Interfaces
 {
-    public interface IResultService : IService
+    public interface IResultService
     {
         void SaveResults(List<Result> results);
     }

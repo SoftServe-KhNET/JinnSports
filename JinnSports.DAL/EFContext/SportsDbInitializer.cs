@@ -1,16 +1,14 @@
-﻿using System;
-using System.Data.Entity;
-using JinnSports.Entities.Entities;
+﻿using System.Data.Entity;
 
 namespace JinnSports.DAL.EFContext
 {
     public class SportsDbInitializer : CreateDatabaseIfNotExists<SportsContext>
     {
-        protected override void Seed(SportsContext context)
+        /*protected override void Seed(SportsContext context)
         {
             /*
                 ---- Init sport types ----
-            */
+            
             SportType football = new SportType()
             {
                 Id = 1,
@@ -38,7 +36,7 @@ namespace JinnSports.DAL.EFContext
 
             /*
                 ---- Init teams ----
-            */
+            
 
             // Football teams
             Team MU = new Team()
@@ -95,34 +93,34 @@ namespace JinnSports.DAL.EFContext
 
             /*
                 --- Init Events --- 
-            */
-            CompetitionEvent ChicagoBulls_vs_LA_event = new CompetitionEvent()
+            
+            SportEvent ChicagoBulls_vs_LA_event = new SportEvent()
             {
                 Id = 1,
                 Date = new DateTime(2016, 11, 5, 16, 0, 0)
             };
-            CompetitionEvent ChicagoBulls_vs_Suns_event = new CompetitionEvent()
+            SportEvent ChicagoBulls_vs_Suns_event = new SportEvent()
             {
                 Id = 2,
                 Date = new DateTime(2016, 11, 29, 16, 0, 0)
             };
-            CompetitionEvent LA_vs_Suns_event = new CompetitionEvent()
+            SportEvent LA_vs_Suns_event = new SportEvent()
             {
                 Id = 3,
                 Date = new DateTime(2016, 11, 15, 16, 0, 0)
             };
-            CompetitionEvent MU_vs_Bayern_event = new CompetitionEvent()
+            SportEvent MU_vs_Bayern_event = new SportEvent()
             {
                 Id = 4,
                 Date = new DateTime(2016, 12, 6, 15, 0, 0)
             };
-            CompetitionEvent MU_vs_MC_event = new CompetitionEvent()
+            SportEvent MU_vs_MC_event = new SportEvent()
             {
                 Id = 5,
                 Date = new DateTime(2016, 11, 19, 17, 0, 0)
             };
 
-            CompetitionEvent Bayern_vs_Milano_event = new CompetitionEvent()
+            SportEvent Bayern_vs_Milano_event = new SportEvent()
             {
                 Id = 6,
                 Date = new DateTime(2016, 10, 28, 17, 0, 0)
@@ -131,19 +129,19 @@ namespace JinnSports.DAL.EFContext
             {
                 Id = 9,
                 Team = Bayern,
-                Score = "4",
-                CompetitionEvent = Bayern_vs_Milano_event
+                Score = 4,
+                SportEvent = Bayern_vs_Milano_event
             };
             Result Milano_vs_Bayern = new Result()
             {
                 Id = 10,
                 Team = Milano,
-                Score = "1",
-                CompetitionEvent = Bayern_vs_Milano_event
+                Score = 1,
+                SportEvent = Bayern_vs_Milano_event
             };
 
 
-            CompetitionEvent Chelsea_vs_MC_event = new CompetitionEvent()
+            SportEvent Chelsea_vs_MC_event = new SportEvent()
             {
                 Id = 7,
                 Date = new DateTime(2016, 10, 17, 18, 0, 0)
@@ -152,18 +150,18 @@ namespace JinnSports.DAL.EFContext
             {
                 Id = 11,
                 Team = Chelsea,
-                Score = "0",
-                CompetitionEvent = Chelsea_vs_MC_event
+                Score = 0,
+                SportEvent = Chelsea_vs_MC_event
             };
             Result MC_vs_Chelsea = new Result()
             {
                 Id = 12,
                 Team = MC,
-                Score = "0",
-                CompetitionEvent = Chelsea_vs_MC_event
+                Score = 0,
+                SportEvent = Chelsea_vs_MC_event
             };
 
-            CompetitionEvent Chelsea_vs_Milano_event = new CompetitionEvent()
+            SportEvent Chelsea_vs_Milano_event = new SportEvent()
             {
                 Id = 8,
                 Date = new System.DateTime(2016, 11, 3, 16, 0, 0)
@@ -172,15 +170,15 @@ namespace JinnSports.DAL.EFContext
             {
                 Id = 13,
                 Team = Chelsea,
-                Score = "2",
-                CompetitionEvent = Chelsea_vs_Milano_event
+                Score = 2,
+                SportEvent = Chelsea_vs_Milano_event
             };
             Result Milano_vs_Chelsea = new Result()
             {
                 Id = 14,
                 Team = Milano,
-                Score = "3",
-                CompetitionEvent = Chelsea_vs_Milano_event
+                Score = 3,
+                SportEvent = Chelsea_vs_Milano_event
             };
 
 
@@ -188,60 +186,60 @@ namespace JinnSports.DAL.EFContext
             Result Ch_vs_LA = new Result()
             {
                 Id = 1,
-                Score = "68",
+                Score = 68,
                 Team = ChicagoBulls,
-                CompetitionEvent = ChicagoBulls_vs_LA_event
+                SportEvent = ChicagoBulls_vs_LA_event
             };
             Result LA_vs_Ch = new Result()
             {
                 Id = 2,
-                Score = "65",
+                Score = 65,
                 Team = LALakers,
-                CompetitionEvent = ChicagoBulls_vs_LA_event
+                SportEvent = ChicagoBulls_vs_LA_event
             };
 
             Result LA_vs_Ph = new Result()
             {
                 Id = 3,
-                Score = "65",
+                Score = 65,
                 Team = LALakers,
-                CompetitionEvent = LA_vs_Suns_event
+                SportEvent = LA_vs_Suns_event
             };
             Result Ph_vs_LA = new Result()
             {
                 Id = 4,
-                Score = "64",
+                Score = 64,
                 Team = PhoenixSuns,
-                CompetitionEvent = LA_vs_Suns_event
+                SportEvent = LA_vs_Suns_event
             };
 
             Result Ch_vs_Ph = new Result()
             {
                 Id = 5,
-                Score = "52",
+                Score = 52,
                 Team = ChicagoBulls,
-                CompetitionEvent = ChicagoBulls_vs_Suns_event
+                SportEvent = ChicagoBulls_vs_Suns_event
             };
             Result Ph_vs_Ch = new Result()
             {
                 Id = 6,
-                Score = "52",
+                Score = 52,
                 Team = PhoenixSuns,
-                CompetitionEvent = ChicagoBulls_vs_Suns_event
+                SportEvent = ChicagoBulls_vs_Suns_event
             };
             Result MU_vs_MC = new Result()
             {
                 Id = 7,
-                Score = "2",
+                Score = 2,
                 Team = MU,
-                CompetitionEvent = MU_vs_MC_event
+                SportEvent = MU_vs_MC_event
             };
             Result MC_vs_MU = new Result()
             {
                 Id = 8,
-                Score = "1",
+                Score = 1,
                 Team = MC,
-                CompetitionEvent = MU_vs_MC_event
+                SportEvent = MU_vs_MC_event
             };
 
 
@@ -262,14 +260,14 @@ namespace JinnSports.DAL.EFContext
             context.Teams.Add(LALakers);
             context.Teams.Add(PhoenixSuns);
 
-            context.CompetitionEvents.Add(ChicagoBulls_vs_LA_event);
-            context.CompetitionEvents.Add(ChicagoBulls_vs_Suns_event);
-            context.CompetitionEvents.Add(LA_vs_Suns_event);
-            context.CompetitionEvents.Add(MU_vs_Bayern_event);
-            context.CompetitionEvents.Add(Bayern_vs_Milano_event);
-            context.CompetitionEvents.Add(MU_vs_MC_event);
-            context.CompetitionEvents.Add(Chelsea_vs_Milano_event);
-            context.CompetitionEvents.Add(Chelsea_vs_MC_event);
+            context.SportEvents.Add(ChicagoBulls_vs_LA_event);
+            context.SportEvents.Add(ChicagoBulls_vs_Suns_event);
+            context.SportEvents.Add(LA_vs_Suns_event);
+            context.SportEvents.Add(MU_vs_Bayern_event);
+            context.SportEvents.Add(Bayern_vs_Milano_event);
+            context.SportEvents.Add(MU_vs_MC_event);
+            context.SportEvents.Add(Chelsea_vs_Milano_event);
+            context.SportEvents.Add(Chelsea_vs_MC_event);
 
             context.Results.Add(Ch_vs_LA);
             context.Results.Add(LA_vs_Ch);
@@ -288,6 +286,6 @@ namespace JinnSports.DAL.EFContext
 
             context.SaveChanges();
             base.Seed(context);
-        }
+        }*/
     }
 }

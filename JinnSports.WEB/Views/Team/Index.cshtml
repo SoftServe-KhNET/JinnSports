@@ -7,9 +7,13 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>Index</title>
+    <title>Teams</title>
 </head>
 <body>
+    @Html.ActionLink("Главная", "Index", "Home")
+    @Html.ActionLink("Результаты", "Index", "Event")
+    @Html.ActionLink("Детали команды", "Details", "Team", new { id = 1 }, null)
+@*
 @foreach (var item in Model)
 {
     <div>
@@ -26,7 +30,7 @@
     <p>
         @Html.ActionLink("Details", "Details")
     </p>
-}
+}*@
 <hr />
 </body>
 </html>

@@ -2,7 +2,7 @@
 <ArrayOfProxyServer xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <ProxyServer Status="Unstable" Priority="0">
     <Ip>124.47.7.45</Ip>
-    <LastUsed>2016-12-07T01:11:53.4924819+03:00</LastUsed>
+    <LastUsed>2016-12-12T22:38:21.9043775+03:00</LastUsed>
   </ProxyServer>
   <ProxyServer Status="Unstable" Priority="1">
     <Ip>60.250.81.118</Ip>

@@ -3,8 +3,9 @@ using JinnSports.BLL.Dtos;
 
 namespace JinnSports.BLL.Interfaces
 {
-    public interface IEventService : IService
+    public interface IEventService
     {
-        IList<CompetitionEventDto> GetCEvents();
+        IDictionary<string, List<SportEventDto>> GetSportEvents();
+        void SortEventsByDate(IDictionary<string, List<SportEventDto>> orderedEvents);
     }
 }
