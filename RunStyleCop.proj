@@ -5,7 +5,7 @@
     <PropertyGroup>
   	<MSBuildCommunityTasksPath>.</MSBuildCommunityTasksPath>
     </PropertyGroup>
-    <Import Project="$(teamcity_build_checkoutDir)\packages\MSBuildTasks.1.5.0.214\tools\MSBuild.Community.Tasks.Targets" />
+    <Import Project="packages\MSBuildTasks.1.5.0.214\tools\MSBuild.Community.Tasks.Targets" />
     
     <UsingTask TaskName="XmlRead" AssemblyFile="$(MSBuildCommunityTasksPath)\MSBuild.Community.Tasks.dll" />
  
