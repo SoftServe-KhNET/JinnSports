@@ -3,7 +3,7 @@
     <Import Project="$(MSBuildExtensionsPath)\StyleCop\v4.7\StyleCop.Targets" />
 
     <PropertyGroup>
-  	<MSBuildCommunityTasksPath>$(SolutionDir)packages\MSBuildTasks.1.5.0.214\tools</MSBuildCommunityTasksPath>
+  	<MSBuildCommunityTasksPath>$(teamcity_build_checkoutDir)\packages\MSBuildTasks.1.5.0.214\tools</MSBuildCommunityTasksPath>
     </PropertyGroup>
   
     <UsingTask TaskName="XmlRead" AssemblyFile="$(MSBuildCommunityTasksPath)\MSBuild.Community.Tasks.dll" />
