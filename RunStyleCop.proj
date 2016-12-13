@@ -7,7 +7,7 @@
     </PropertyGroup>
     <Import Project="packages\MSBuildTasks.1.5.0.214\tools\MSBuild.Community.Tasks.Targets" />
     
-    <UsingTask TaskName="XmlRead" AssemblyFile="$(MSBuildCommunityTasksPath)\MSBuild.Community.Tasks.dll" />
+    <UsingTask TaskName="XmlRead" AssemblyFile="$(MSBuildCommunityTasksPath)MSBuild.Community.Tasks.dll" />
  
     <Target Name="RunStyleCop">
         <CreateItem Include="$(teamcity_build_checkoutDir)\**\*.cs">
