@@ -3,7 +3,7 @@
     <Import Project="$(MSBuildExtensionsPath)\StyleCop\v4.7\StyleCop.Targets" />
 
     <PropertyGroup>
-	<MSBuildVersion>1.5.0.214<MSBuildVersion>
+	<MSBuildVersion>1.5.0.214</MSBuildVersion>
   	<MSBuildCommunityTasksPath>$(teamcity_build_checkoutDir)\packages\MSBuildTasks.$(MSBuildVersion)\tools</MSBuildCommunityTasksPath>
     </PropertyGroup>
   
