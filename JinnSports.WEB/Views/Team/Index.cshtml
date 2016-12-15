@@ -12,25 +12,40 @@
 <body>
     @Html.ActionLink("Главная", "Index", "Home")
     @Html.ActionLink("Результаты", "Index", "Event")
-    @Html.ActionLink("Детали команды", "Details", "Team", new { id = 1 }, null)
-@*
-@foreach (var item in Model)
-{
-    <div>
-        <dl class="dl-horizontal">
-            <dt>
-                
-            </dt>
-
-            <dd>
-               
-            </dd>
-        </dl>
+    <div style="width:90%; margin:0 auto;">
+        <table id="teamTable">
+            <thead>
+                <tr>
+                    <th>Team</th>
+                </tr>
+            </thead>
+        </table>
     </div>
-    <p>
-        @Html.ActionLink("Details", "Details")
-    </p>
-}*@
+    @Scripts.Render("~/bundles/jquery")
+    @* Load datatable css *@
+    <link href="http://cdn.datatables.net/1.10.9/css/jquery.dataTables.min.css" rel="stylesheet" />
+    
+        @* Load DataTable js here *@
+        <script src="http://cdn.datatables.net/1.10.9/js/jquery.dataTables.min.js"></script>
+        <script>
+        $(document).ready(function () {
+            $("#teamTable").DataTable({
+                "processing": true,
+                "serverSide": true,
+                "filter": false,
+                "orderMulti": false,
+                "ajax": {
+                    "url": "/Team/LoadTeams",
+                    "type": "POST",
+                    "datatype": "json"
+                },
+                "columns": [
+                        { "data": "Name", "name": "Name", "autoWidth": true }
+                ]
+            });
+        });
+        </script>
+
 <hr />
 </body>
 </html>

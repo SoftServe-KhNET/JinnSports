@@ -12,13 +12,25 @@ namespace JinnSports.BLL.Service
 {
     public class TeamService : ITeamService
     {
-        private IUnitOfWork dataUnit;
+        private const string SPORTCONTEXT = "SportsContext";
+
+        private IUnitOfWork dataUnit;       
+
+        public int Count()
+        {
+            int count;
+            using (this.dataUnit = new EFUnitOfWork(SPORTCONTEXT))
+            {
+                count = this.dataUnit.GetRepository<Team>().Count();
+            }
+            return count;
+        }
 
         public IEnumerable<TeamDto> GetAllTeams()
         {
             IList<TeamDto> teamDtoList = new List<TeamDto>();
 
-            using (this.dataUnit = new EFUnitOfWork("SportsContext"))
+            using (this.dataUnit = new EFUnitOfWork(SPORTCONTEXT))
             {
                 IEnumerable<Team> teams = this.dataUnit.GetRepository<Team>().Get();
                 foreach (Team team in teams)

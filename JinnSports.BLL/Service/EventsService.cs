@@ -10,13 +10,25 @@ namespace JinnSports.BLL.Service
 {
     public class EventsService : IEventService
     {
-        private IUnitOfWork dataUnit; 
-        
+        private const string SPORTCONTEXT = "SportsContext";
+
+        private IUnitOfWork dataUnit;
+
+        public int Count()
+        {
+            int count;
+            using (this.dataUnit = new EFUnitOfWork(SPORTCONTEXT))
+            {
+                count = this.dataUnit.GetRepository<SportEvent>().Count();
+            }
+            return count;
+        }
+
         public IDictionary<string, List<SportEventDto>> GetSportEvents()
         {
             IDictionary<string, List<SportEventDto>> orderedEvents = new Dictionary<string, List<SportEventDto>>();
             
-            using (this.dataUnit = new EFUnitOfWork("SportsContext"))
+            using (this.dataUnit = new EFUnitOfWork(SPORTCONTEXT))
             {
                 IEnumerable<SportEvent> sportEvents = this.dataUnit.GetRepository<SportEvent>().Get();
                 IEnumerable<SportType> sportTypes = this.dataUnit.GetRepository<SportType>().Get();

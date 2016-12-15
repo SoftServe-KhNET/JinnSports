@@ -14,7 +14,6 @@ namespace JinnSports.WEB
                  url: "Results",
                  defaults: new { controller = "Event", action = "Index" });
 
-
             routes.MapRoute(
                 name: "Teams",
                 url: "Teams",
@@ -22,14 +21,17 @@ namespace JinnSports.WEB
 
             routes.MapRoute(
                 name: "TeamDetails",
-                url: "Team/{id}",
+                url: "Teams/{id}",
                 defaults: new { controller = "Team", action = "Details", id = UrlParameter.Optional });
-
 
             routes.MapRoute(
                 name: "Home",
-                url: "",
+                url: string.Empty,
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional });
+
+            routes.MapRoute(
+                name: "Default",
+                url: "{controller}/{action}");
         }
     }
 }
