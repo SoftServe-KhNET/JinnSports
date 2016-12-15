@@ -34,7 +34,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Entities\CompetitionEvent.cs" />
+    <Compile Include="Entities\SportEvent.cs" />
     <Compile Include="Entities\Result.cs" />
     <Compile Include="Entities\SportType.cs" />
     <Compile Include="Entities\Team.cs" />

@@ -11,15 +11,18 @@ namespace JinnSports.Parser.App.ProxyService.ProxyRepository
     public class ProxyRepository<T> : IProxyRepository<T> where T : IProxyServer
     {
         private XmlSerializer xmlSerializer;
+
         private string path;
-        public int Interval { get; private set; }
 
         public ProxyRepository()
         {
             this.path = @"..\..\" + ConfigSettings.Xml();
             this.xmlSerializer = new XmlSerializer(typeof(List<ProxyServer>));
-            Interval = 1;
-    }
+            this.Interval = 1;
+        }
+
+        public int Interval { get; private set; }
+
         public void Delete(string ip)
         {
             List<T> proxyCollection = new List<T>();

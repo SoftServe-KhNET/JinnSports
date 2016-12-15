@@ -4,68 +4,63 @@ using JinnSports.BLL.Interfaces;
 using JinnSports.DAL.Repositories;
 using JinnSports.DataAccessInterfaces.Interfaces;
 using JinnSports.Entities.Entities;
+using System.Linq;
 
 namespace JinnSports.BLL.Service
 {
     public class EventsService : IEventService
     {
+        private const string SPORTCONTEXT = "SportsContext";
+
         private IUnitOfWork dataUnit;
 
-        public IList<CompetitionEventDto> GetCEvents()
+        public int Count()
         {
-            IList<CompetitionEventDto> events = new List<CompetitionEventDto>();
-            string competitionEventResult = string.Empty;
-
-            this.dataUnit = new EFUnitOfWork("SportsContext");
-
-            IRepository<CompetitionEvent> eventsRepository = this.dataUnit.Set<CompetitionEvent>();
-            IRepository<Team> teams = this.dataUnit.Set<Team>();
-            IRepository<Result> results = this.dataUnit.Set<Result>();
-
-            IEnumerable<CompetitionEvent> competitionEvents = eventsRepository.GetAll();
-            foreach (CompetitionEvent ce in competitionEvents)
+            int count;
+            using (this.dataUnit = new EFUnitOfWork(SPORTCONTEXT))
             {
-                CompetitionEventDto competitionEvent = new CompetitionEventDto();
-                competitionEvent.Date = ce.Date;
-
-                var datedResults = results.GetAll(r => r.CompetitionEvent.Id == ce.Id);
-
-                competitionEventResult = string.Empty;
-
-                foreach (Result res in datedResults)
-                {
-                    Team selectedTeam = teams.Get(t => t.Id == res.Team.Id);
-                    if (string.IsNullOrEmpty(competitionEvent.SportType)) 
-                    {
-                        competitionEvent.SportType = selectedTeam.SportType.Name;
-                    }
-
-                    if (string.IsNullOrEmpty(competitionEvent.Team1))
-                    {
-                        competitionEvent.Team1 = res.Team.Name;
-                    }
-                    else
-                    {
-                        competitionEvent.Team2 = res.Team.Name;
-                    }
-
-                    if (string.IsNullOrEmpty(competitionEvent.Result1))
-                    {
-                        competitionEvent.Result1 = res.Score;
-                    }
-                    else
-                    {
-                        competitionEvent.Result2 = res.Score;
-                    }
-                }
-                events.Add(competitionEvent);
+                count = this.dataUnit.GetRepository<SportEvent>().Count();
             }
-            return events;
+            return count;
         }
 
-        public void Dispose()
+        public IDictionary<string, List<SportEventDto>> GetSportEvents()
         {
-            this.dataUnit.Dispose();
+            IDictionary<string, List<SportEventDto>> orderedEvents = new Dictionary<string, List<SportEventDto>>();
+            
+            using (this.dataUnit = new EFUnitOfWork(SPORTCONTEXT))
+            {
+                IEnumerable<SportEvent> sportEvents = this.dataUnit.GetRepository<SportEvent>().Get();
+                IEnumerable<SportType> sportTypes = this.dataUnit.GetRepository<SportType>().Get();
+
+                foreach (SportType sportType in sportTypes)
+                {
+                    orderedEvents.Add(sportType.Name, new List<SportEventDto>());
+                }
+
+                foreach (SportEvent sportEvent in sportEvents)
+                {
+                    SportEventDto eventDto = new SportEventDto { Date = sportEvent.Date };
+
+                    foreach (Result result in sportEvent.Results)
+                    {
+                        eventDto.Results.Add(result.Team.Name, result.Score);
+                    }
+
+                    orderedEvents[sportEvent.SportType.Name].Add(eventDto);        
+                }
+            }
+
+            return orderedEvents;
+        }
+
+        public void SortEventsByDate(IDictionary<string, List<SportEventDto>> orderedEvents)
+        {
+            ICollection<List<SportEventDto>> eventsLists = orderedEvents.Values;
+            foreach (List<SportEventDto> eventsList in eventsLists)
+            {
+                eventsList.OrderBy(e => e.Date);
+            }
         }
     }
 }

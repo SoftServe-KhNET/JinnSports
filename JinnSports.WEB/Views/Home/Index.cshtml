@@ -1,0 +1,20 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>JinnSports Main</title>
+</head>
+<body>
+    <div> 
+        <h2>Main Page</h2>
+        @Html.ActionLink("Команды", "Index", "Team")
+        @Html.ActionLink("Результаты матчей", "Index", "Event")        
+    </div>
+</body>
+</html>

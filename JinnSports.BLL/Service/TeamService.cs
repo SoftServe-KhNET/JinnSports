@@ -2,85 +2,56 @@ using System.Collections.Generic;
 using System.Linq;
 using JinnSports.BLL.Exceptions;
 using JinnSports.BLL.Interfaces;
-using JinnSports.BLL.Mappers;
 using JinnSports.DataAccessInterfaces.Interfaces;
 using JinnSports.DAL.Repositories;
 using JinnSports.Entities.Entities;
 using JinnSports.BLL.Dtos;
+using System;
 
 namespace JinnSports.BLL.Service
 {
     public class TeamService : ITeamService
     {
-        private readonly IUnitOfWork dataUnit;
-        private readonly IRepository<Team> teamsRepository;
-        private readonly IRepository<Result> resultsRepository;
-        private readonly IRepository<CompetitionEvent> competitionsEventsRepository;
+        private const string SPORTCONTEXT = "SportsContext";
 
-        public TeamService()
+        private IUnitOfWork dataUnit;       
+
+        public int Count()
         {
-            this.dataUnit = new EFUnitOfWork("SportsContext");
-            this.teamsRepository = this.dataUnit.Set<Team>();
-            this.resultsRepository = this.dataUnit.Set<Result>();
-            this.competitionsEventsRepository = this.dataUnit.Set<CompetitionEvent>();
+            int count;
+            using (this.dataUnit = new EFUnitOfWork(SPORTCONTEXT))
+            {
+                count = this.dataUnit.GetRepository<Team>().Count();
+            }
+            return count;
         }
 
         public IEnumerable<TeamDto> GetAllTeams()
         {
-            List<TeamDto> teamDtos = new List<TeamDto>();
-            IEnumerable<Team> teams = this.teamsRepository.GetAll();
-            var teamsList = teams as IList<Team> ?? teams.ToList();
+            IList<TeamDto> teamDtoList = new List<TeamDto>();
 
-            if (!teamsList.Any())
+            using (this.dataUnit = new EFUnitOfWork(SPORTCONTEXT))
             {
-                throw new TeamNotFoundException("Teams are not exist.");
+                IEnumerable<Team> teams = this.dataUnit.GetRepository<Team>().Get();
+                foreach (Team team in teams)
+                {
+                    TeamDto teamDto = new TeamDto { Name = team.Name };
+
+                    foreach (Result result in team.Results)
+                    {
+                        teamDto.Results.Add(result.SportEvent.Date, result.Score);
+                    }
+
+                    teamDtoList.Add(teamDto);
+                }
             }
 
-            foreach (var team in teamsList)
-            {
-                teamDtos.Add(team.MapToTeamDto());
-            }
-
-            return teamDtos;
+           return teamDtoList;
         }
 
-        public TeamDetailsDto GetTeamDetailsById(int id)
+        public TeamDto GetTeamById(int id)
         {
-            Team team = this.teamsRepository.GetById(id);
-
-            if (team == null)
-            {
-                throw new TeamNotFoundException($"Team with id '{id}' does not exists.");
-            }
-
-            List<CompetitionEvent> events = new List<CompetitionEvent>();
-            events.AddRange(team
-                .Results
-                .Select(s => s.CompetitionEvent));
-            List<Result> results = this.resultsRepository
-                .GetAll()
-                .Where(s => events.Contains(s.CompetitionEvent))
-                .ToList();
-            TeamDetailsDto teamDetails = new TeamDetailsDto
-            {
-                Id = team.Id,
-                Name = team.Name,
-                Results = new List<ResultDto>()
-            };
-            
-            foreach (var result in results)
-            {
-                teamDetails.Results.Add(result
-                    .MapToResultDto(results
-                        .SingleOrDefault(r => object.Equals(r.CompetitionEvent, result.CompetitionEvent) && r.Team != result.Team)));
-            }
-
-            return teamDetails;
-        }
-
-        public void Dispose()
-        {
-            this.dataUnit.Dispose();
+            throw new NotImplementedException();
         }
     }
 }

@@ -96,9 +96,12 @@ namespace JinnSports.Parser.App.ProxyService.ProxyConnection
             try
             {
                 PingReply reply = ping.Send(address, 2000);
-                if (reply == null) return false;
+                if (reply == null)
+                {
+                    return false;
+                }
 
-                return (reply.Status == IPStatus.Success);
+                return reply.Status == IPStatus.Success;
             }
             catch (PingException e)
             {

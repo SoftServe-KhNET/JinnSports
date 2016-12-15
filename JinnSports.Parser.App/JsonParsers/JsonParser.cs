@@ -16,9 +16,7 @@ namespace JinnSports.Parser.App.JsonParsers
     public class JsonParser : ISaver
     {
         private IUnitOfWork uow;
-
-        public Uri SiteUri { get; private set; }
-
+        
         public JsonParser() : this(new Uri("http://results.fbwebdn.com/results.json.php"))
         {
         }
@@ -37,6 +35,7 @@ namespace JinnSports.Parser.App.JsonParsers
             this.SiteUri = uri;
             this.uow = unit;
         }
+        public Uri SiteUri { get; private set; }
 
         public void StartParser()
         {
@@ -60,11 +59,10 @@ namespace JinnSports.Parser.App.JsonParsers
             {
                 HttpWebRequest req = (HttpWebRequest)WebRequest.Create(this.SiteUri);
                 resp = (HttpWebResponse)req.GetResponse();
-                Console.WriteLine("Proxy wasnt used");
             }
             Stream stream = resp.GetResponseStream();
 
-            for (int i = 1; ; i++)
+            for (int i = 1;; i++)
             {
                 ch = stream.ReadByte();
                 if (ch == -1)
@@ -86,8 +84,8 @@ namespace JinnSports.Parser.App.JsonParsers
 
         public void DBSaveChanges(List<Result> results)
         {
-            uow.Set<Result>().AddAll(results.ToArray());
-            uow.SaveChanges();
+            this.uow.GetRepository<Result>().InsertAll(results.ToArray());
+            this.uow.SaveChanges();
         }
 
         public List<Result> GetResultsList(JsonResult result)
@@ -96,14 +94,14 @@ namespace JinnSports.Parser.App.JsonParsers
             List<SportType> sportList = new List<SportType>();
             foreach (var e in result.Events)
             {
-                Team team1 = new Team() { Results = new List<Result>() };
-                Team team2 = new Team() { Results = new List<Result>() };
+                Team team1 = new Team();
+                Team team2 = new Team();
                 if (this.GetTeamsFromEvent(e, team1, team2))
                 {
-                    SportType sportType = new SportType() { Teams = new List<Team>() };
+                    SportType sportType = new SportType();
                     Result resTeam1 = new Result();
                     Result resTeam2 = new Result();
-                    CompetitionEvent compEvent = new CompetitionEvent() { Date = this.GetEventDate(e), Results = new List<Result>() };
+                    SportEvent compEvent = new SportEvent { Date = this.GetEventDate(e) };
 
                     var sports = result.Sections.Where(n => n.Events.Contains(e.Id)).Select(n => n).ToList();
                     string sportName = result.Sports.Where(n => n.Id == sports[0].Sport).Select(n => n).ToList()[0].Name;
@@ -116,22 +114,14 @@ namespace JinnSports.Parser.App.JsonParsers
                         sportType.Name = result.Sports.Where(n => n.Id == sports[0].Sport).Select(n => n).ToList()[0].Name;
                         sportList.Add(sportType);
                     }
-                    sportType.Teams.Add(team1);
-                    sportType.Teams.Add(team2);
 
                     team1.SportType = sportType;
                     team2.SportType = sportType;
 
                     this.GetResultFromEvent(e, resTeam1, team1, false);
                     this.GetResultFromEvent(e, resTeam2, team2, true);
-                    resTeam1.CompetitionEvent = compEvent;
-                    resTeam2.CompetitionEvent = compEvent;
-
-                    team1.Results.Add(resTeam1);
-                    team2.Results.Add(resTeam2);
-
-                    compEvent.Results.Add(resTeam1);
-                    compEvent.Results.Add(resTeam2);
+                    resTeam1.SportEvent = compEvent;
+                    resTeam2.SportEvent = compEvent;
 
                     resultList.Add(resTeam1);
                     resultList.Add(resTeam2);
@@ -144,6 +134,7 @@ namespace JinnSports.Parser.App.JsonParsers
         {
             res.Team = team;
             string mainScore;
+            int score;
 
             if (ev.Score.Contains("("))
             {
@@ -158,12 +149,13 @@ namespace JinnSports.Parser.App.JsonParsers
 
             if (!invertScore)
             {
-                res.Score = scores[0];
+                int.TryParse(scores[0], out score);
             }
             else
             {
-                res.Score = scores[1];
+                int.TryParse(scores[1], out score);
             }
+            res.Score = score;
         }
 
         private bool GetTeamsFromEvent(Event ev, Team team1, Team team2)

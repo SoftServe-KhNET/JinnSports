@@ -8,7 +8,7 @@ namespace JinnSports.WEB.Controllers
 {
     public class EventController : Controller
     {
-        public ActionResult History()
+        public ActionResult Index()
         {
             return this.View();
         }

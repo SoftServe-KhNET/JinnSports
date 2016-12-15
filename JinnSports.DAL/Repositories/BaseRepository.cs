@@ -5,6 +5,7 @@ using System.Data.Entity;
 using JinnSports.DataAccessInterfaces.Interfaces;
 using System.Linq.Expressions;
 using System;
+using System.Threading.Tasks;
 
 namespace JinnSports.DAL.Repositories
 {
@@ -17,39 +18,73 @@ namespace JinnSports.DAL.Repositories
 
         private DbSet<T> DbSet { get; }
 
-        public IEnumerable<T> GetAll()
+        public virtual IEnumerable<T> Get(
+            Expression<Func<T, bool>> filter = null,
+            Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null,
+            string includeProperties = "")
         {
-            return this.DbSet.ToList();
+            IQueryable<T> query = this.DbSet;
+
+            if (filter != null)
+            {
+                query = query.Where(filter);
+            }
+
+            foreach (var includeProperty in includeProperties.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+            {
+                query = query.Include(includeProperty);
+            }
+
+            return orderBy?.Invoke(query).ToList() ?? query.ToList();
         }
 
-        public IEnumerable<T> GetAll(Expression<Func<T, bool>> where)
-        {
-            return this.DbSet.Where(where).ToList();
-        }
-
-        public T Get(Expression<Func<T, bool>> where)
-        {
-            return this.DbSet.Where(where).FirstOrDefault();
-        }
-
-        public T GetById(int id)
+        public virtual T GetById(object id)
         {
             return this.DbSet.Find(id);
         }
 
-        public void Add(T item)
+        public virtual Task<T> GetByIdAsync(object id)
         {
-            this.DbSet.Add(item);
+            return this.DbSet.FindAsync(id);
         }
 
-        public void AddAll(T[] items)
+        public virtual int Count(Func<T, bool> filter = null)
         {
-            this.DbSet.AddRange(items);
+            return filter == null
+                ? this.DbSet.Count()
+                : this.DbSet.Count(filter);
         }
 
-        public void Remove(T item)
+        public virtual Task<int> CountAsync()
         {
-            this.DbSet.Remove(item);
+            return this.DbSet.CountAsync();
+        }
+
+        public virtual void Insert(T entity)
+        {
+            this.DbSet.Add(entity);
+        }
+
+        public virtual void InsertAll(T[] entitiesToInsert)
+        {
+            this.DbSet.AddRange(entitiesToInsert);
+        }
+
+        public virtual void Update(T entityToUpdate)
+        {
+            this.DbSet.Attach(entityToUpdate);
+        }
+
+        public virtual void Delete(object id)
+        {
+            var entityToDelete = this.DbSet.Find(id);
+            this.Delete(entityToDelete);
+        }
+
+        public virtual void Delete(T entityToDelete)
+        {
+
+            this.DbSet.Remove(entityToDelete);
         }
     }
 }
