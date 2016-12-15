@@ -95,7 +95,7 @@
     <PreBuildEvent>if not exist C:\inetpub\wwwroot\ mkdir C:\inetpub\wwwroot\</PreBuildEvent>
     <PostBuildEvent>xcopy /E /Y "$(ProjectDir)$(OutDir)EntityFramework.SqlServer.dll" "$(SolutionDir)JinnSports.Parser.App\$(OutDir)"
 xcopy /E /Y "$(ProjectDir)$(OutDir)EntityFramework.SqlServer.dll" "$(SolutionDir)Services\$(OutDir)"
-xcopy /E /Y "$(ProjectDir)$(OutDir)EntityFramework.SqlServer.dll" "$(SolutionDir)JinnSports.WEB\$(OutDir)\.."</PostBuildEvent>
+xcopy /E /Y "$(ProjectDir)$(OutDir)EntityFramework.SqlServer.dll" "$(SolutionDir)JinnSports.WEB\$(OutDir)..\"</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
