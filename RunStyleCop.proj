@@ -1,0 +1,39 @@
+<Project DefaultTargets="RunStyleCop" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
+    <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+    <Import Project="$(MSBuildExtensionsPath)\StyleCop\v4.7\StyleCop.Targets" />
+
+    <PropertyGroup>
+	<MSBuildVersion>1.5.0.214</MSBuildVersion>
+  	<MSBuildCommunityTasksPath>$(teamcity_build_checkoutDir)\packages\MSBuildTasks.$(MSBuildVersion)\tools</MSBuildCommunityTasksPath>
+    </PropertyGroup>
+  
+    <UsingTask TaskName="XmlRead" AssemblyFile="$(MSBuildCommunityTasksPath)\MSBuild.Community.Tasks.dll" />
+ 
+    <Target Name="RunStyleCop">
+        <CreateItem Include="$(teamcity_build_checkoutDir)\**\*.cs">
+            <Output TaskParameter="Include" ItemName="StyleCopFiles" />
+        </CreateItem>
+ 
+        <StyleCopTask ProjectFullPath="$(MSBuildProjectFile)"
+                      SourceFiles="@(StyleCopFiles)"
+                      ForceFullAnalysis="true"
+                      TreatErrorsAsWarnings="true"
+                      OutputFile="StyleCopReport.xml"
+                      CacheResults="true"
+                      OverrideSettingsFile="$(teamcity_build_checkoutDir)\Settings.StyleCop" />
+	<PropertyGroup>
+    		<TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    		<CodeAnalysisTreatWarningsAsErrors>true</CodeAnalysisTreatWarningsAsErrors>
+        </PropertyGroup>
+                       
+        <XmlRead XPath="count(//Violation)" XmlFileName="StyleCopReport.xml">
+            <Output TaskParameter="Value" PropertyName="StyleCopViolations" />
+        </XmlRead>
+ 
+        <TeamCitySetStatus Status="$(AllPassed)" Text="StyleCop violations: $(StyleCopViolations)" />
+
+        <TeamCityReportStatsValue Key="StyleCopViolations" Value="$(StyleCopViolations)" />
+
+        <Error Condition="$(StyleCopViolations) > 256" Text="There were $(StyleCopViolations) StyleCop violations." />
+    </Target>
+</Project>
