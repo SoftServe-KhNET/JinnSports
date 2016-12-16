@@ -8,9 +8,9 @@ namespace JinnSports.UnitTests.Entities
     [TestFixture]
     public class SportEventTest
     {
-        SportType sportType;
-        Result res1, res2, res3;
-        SportEvent sportEvent, sportEvent1, sportEvent2, sportEvent3;
+        private SportType sportType;
+        private Result res1, res2, res3;
+        private SportEvent sportEvent, sportEvent1, sportEvent2, sportEvent3;
 
         [SetUp]
         public void Init()
@@ -82,7 +82,7 @@ namespace JinnSports.UnitTests.Entities
             sportEvent.Results.Add(res1);
             sportEvent.Results.Add(res2);
 
-            int hashCheck = date.GetHashCode() ^ sportType.Name.GetHashCode() ^ res1.Team.Name.GetHashCode() ^ res2.Team.Name.GetHashCode() ;
+            int hashCheck = date.GetHashCode() ^ sportType.Name.GetHashCode() ^ res1.Team.Name.GetHashCode() ^ res2.Team.Name.GetHashCode();
             int hashCheckReverce = date.GetHashCode() ^ sportType.Name.GetHashCode() ^ res2.Team.Name.GetHashCode() ^ res1.Team.Name.GetHashCode();
 
             Assert.IsTrue(hashCheck == sportEvent.GetHashCode() && hashCheckReverce == sportEvent.GetHashCode());
@@ -128,7 +128,7 @@ namespace JinnSports.UnitTests.Entities
             ICollection<SportEvent> set = new HashSet<SportEvent>();
             set.Add(sportEvent1);
             set.Add(sportEvent2);
-
+            
             Assert.IsTrue(set.Contains(sportEvent1) && (set.Count == 1));
         }
     }

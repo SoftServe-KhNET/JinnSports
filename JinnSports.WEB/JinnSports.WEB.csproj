@@ -440,7 +440,6 @@
     <Content Include="Views\Shared\_ResultPartial.cshtml" />
     <Content Include="Views\Event\Index.cshtml" />
     <Content Include="Views\Team\Details.cshtml" />
-    <Content Include="Settings.StyleCop" />
     <None Include="Properties\PublishProfiles\My.pubxml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Scripts\jquery-3.1.1.slim.min.map" />
@@ -506,8 +505,10 @@
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props'))" />
     <Error Condition="!Exists('..\packages\MSBuildTasks.1.5.0.214\build\MSBuildTasks.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\MSBuildTasks.1.5.0.214\build\MSBuildTasks.targets'))" />
+    <Error Condition="!Exists('..\packages\StyleCop.MSBuild.4.7.55.0\build\StyleCop.MSBuild.Targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\StyleCop.MSBuild.4.7.55.0\build\StyleCop.MSBuild.Targets'))" />
   </Target>
   <Import Project="..\packages\MSBuildTasks.1.5.0.214\build\MSBuildTasks.targets" Condition="Exists('..\packages\MSBuildTasks.1.5.0.214\build\MSBuildTasks.targets')" />
+  <Import Project="..\packages\StyleCop.MSBuild.4.7.55.0\build\StyleCop.MSBuild.Targets" Condition="Exists('..\packages\StyleCop.MSBuild.4.7.55.0\build\StyleCop.MSBuild.Targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
