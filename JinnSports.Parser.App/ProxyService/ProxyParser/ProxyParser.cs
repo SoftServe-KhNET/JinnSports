@@ -60,7 +60,6 @@ namespace JinnSports.Parser.App.ProxyService.ProxyParser
             HttpWebRequest req;
             HttpWebResponse resp;
             HtmlProxyServerCollection proxyEntities = new HtmlProxyServerCollection();
-            int ch;
             int page = 1;
             bool lastPage = false;
             while (!lastPage)

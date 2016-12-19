@@ -6,13 +6,18 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using JinnSports.DataAccessInterfaces.Interfaces;
+using JinnSports.Parser.App.Exceptions;
 using JinnSports.Parser.App.ProxyService.ProxyConnection;
 using JinnSports.Entities.Entities;
+using log4net;
 
 namespace JinnSports.Parser.App.HtmlParsers
 {
     public class HTMLParser24score
     {
+        private static readonly ILog Log =
+            LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
         public HTMLParser24score(IUnitOfWork unit)
         {
             this.Unit = unit;
@@ -23,51 +28,111 @@ namespace JinnSports.Parser.App.HtmlParsers
 
         public void Parse(uint daysCount = 1)
         {
-            Uri footballUrl = new Uri("https://24score.com/?date=");
-            Uri basketballUrl = new Uri("https://24score.com/basketball/?date=");
-            Uri hokkeyUrl = new Uri("https://24score.com/ice_hockey/?date=");
-            List<Uri> selectedUris = new List<Uri> { footballUrl, basketballUrl, hokkeyUrl };
-
-            foreach (Uri baseUrl in selectedUris)
+            Log.Info("Html parser was started");
+            try
             {
-                string currentSport;
-                if (baseUrl.OriginalString.Contains("basketball"))
-                {
-                    currentSport = "Basketball";
-                }
-                else if (baseUrl.OriginalString.Contains("ice_hockey"))
-                {
-                    currentSport = "Hockey";
-                }
-                else
-                {
-                    currentSport = "Football";
-                }
-                SportType sport = this.Unit.GetRepository<SportType>().Get(t => t.Name == currentSport).FirstOrDefault();
-                DateTime now = DateTime.Now;
+                Uri footballUrl = new Uri("https://24score.com/?date=");
+                Uri basketballUrl = new Uri("https://24score.com/basketball/?date=");
+                Uri hokkeyUrl = new Uri("https://24score.com/ice_hockey/?date=");
+                List<Uri> selectedUris = new List<Uri> { footballUrl, basketballUrl, hokkeyUrl };
 
-                for (int i = 1; i < daysCount + 1; i++)
+                foreach (Uri baseUrl in selectedUris)
                 {
-                    DateTime date = now.Subtract(new TimeSpan(i, 0, 0, 0));
-                    string url = baseUrl.ToString() + date.Date.ToString("yyyy-MM-dd");
-                    string html = this.GetHtml(url);
-                    List<Result> results = this.ParseHtml(html, sport, date);
-                    this.PushEntities(results);
+                    string currentSport;
+                    if (baseUrl.OriginalString.Contains("basketball"))
+                    {
+                        currentSport = "Basketball";
+                    }
+                    else if (baseUrl.OriginalString.Contains("ice_hockey"))
+                    {
+                        currentSport = "Hockey";
+                    }
+                    else
+                    {
+                        currentSport = "Football";
+                    }
+
+                    SportType sport;
+                    try
+                    {
+                        sport = this.Unit.GetRepository<SportType>().Get(t => t.Name == currentSport).FirstOrDefault();
+                    }
+                    catch(Exception ex)
+                    {
+                        throw new GetDataException(ex.Message, ex.InnerException);
+                    }
+                    DateTime now = DateTime.Now;
+
+                    for (int i = 1; i < daysCount + 1; i++)
+                    {
+                        DateTime date = now.Subtract(new TimeSpan(i, 0, 0, 0));
+                        string url = baseUrl.ToString() + date.Date.ToString("yyyy-MM-dd");
+                        string html = this.GetHtml(url);
+                        List<Result> results;
+
+                        try
+                        {
+                            results = this.ParseHtml(html, sport, date);
+                        }
+                        catch (Exception ex)
+                        {
+                            throw new ParseException(ex.Message, ex.InnerException);
+                        }
+
+                        try
+                        {
+                            this.PushEntities(results);
+                            Log.Info("New data from html parser was saved to DataBase");
+                        }
+                        catch (Exception ex)
+                        {
+                            throw new SaveDataException(ex.Message, ex.InnerException);
+                        }
+                    }
                 }
+                this.Unit.Dispose();
             }
-            this.Unit.Dispose();
+            catch (GetDataException ex)
+            {
+                Log.Error(ex);
+            }
+            catch (WebResponseException ex)
+            {
+                Log.Error(ex);
+            }
+            catch (JsonDeserializeException ex)
+            {
+                Log.Error(ex);
+            }
+            catch (ParseException ex)
+            {
+                Log.Error(ex);
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex);
+            }
         }
 
         private string GetHtml(string url)
         {
             ProxyConnection pc = new ProxyConnection();
+            HttpWebResponse resp;
 
             WebRequest reqGet = WebRequest.Create(url);
             reqGet.Headers.Set(HttpRequestHeader.ContentEncoding, "1251");
-            HttpWebResponse resp = pc.MakeProxyRequest(url, 8);
-            if (resp == null)
+
+            try
             {
-                resp = (HttpWebResponse)reqGet.GetResponse();
+                resp = pc.MakeProxyRequest(url, 0);
+                if (resp == null)
+                {
+                    resp = (HttpWebResponse)reqGet.GetResponse();
+                }
+            }
+            catch(Exception ex)
+            {
+                throw new WebResponseException(ex.Message, ex.InnerException);
             }
 
             string html = new StreamReader(resp.GetResponseStream()).ReadToEnd();
