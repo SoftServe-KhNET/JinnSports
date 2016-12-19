@@ -6,6 +6,9 @@ namespace JinnSports.WEB
     {
         public static void RegisterBundles(BundleCollection bundles)
         {
+            bundles.Add(new ScriptBundle("~/bundles/jquery")
+                .Include("~/Scripts/jquery-3.1.1.js"));
+
             bundles.Add(new StyleBundle("~/Content/AdminLTE")
                 .Include("~/Content/bootstrap.css")
                 .Include("~/Content/AdminLTE/AdminLTE.css")

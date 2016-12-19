@@ -22,7 +22,7 @@ namespace JinnSports.WEB
             routes.MapRoute(
                 name: "TeamDetails",
                 url: "Teams/{id}",
-                defaults: new { controller = "Team", action = "Details", id = UrlParameter.Optional });
+                defaults: new { controller = "TeamDetails", action = "Details", id = UrlParameter.Optional });
 
             routes.MapRoute(
                 name: "Home",

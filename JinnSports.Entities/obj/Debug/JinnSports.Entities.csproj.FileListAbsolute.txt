@@ -1,0 +1,9 @@
+D:\Work\SoftServe\JinnLTE\JinnSports.Entities\bin\Debug\JinnSports.Entities.dll
+D:\Work\SoftServe\JinnLTE\JinnSports.Entities\bin\Debug\JinnSports.Entities.pdb
+D:\Work\SoftServe\JinnLTE\JinnSports.Entities\obj\Debug\JinnSports.Entities.dll
+D:\Work\SoftServe\JinnLTE\JinnSports.Entities\obj\Debug\JinnSports.Entities.pdb
+D:\Work\SoftServe\JinnLTE\JinnSports.Entities\obj\Debug\JinnSports.Entities.csprojResolveAssemblyReference.cache
+D:\Work\SoftServe\JinnAdminLTE\JinnSports.Entities\bin\Debug\JinnSports.Entities.dll
+D:\Work\SoftServe\JinnAdminLTE\JinnSports.Entities\bin\Debug\JinnSports.Entities.pdb
+D:\Work\SoftServe\JinnAdminLTE\JinnSports.Entities\obj\Debug\JinnSports.Entities.dll
+D:\Work\SoftServe\JinnAdminLTE\JinnSports.Entities\obj\Debug\JinnSports.Entities.pdb

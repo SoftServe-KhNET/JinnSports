@@ -23,12 +23,6 @@ namespace JinnSports.WEB.Controllers
             return this.View();
         }
 
-        // GET: Team
-        public ActionResult Details(int id)
-        {            
-            return this.View();
-        }
-
         [HttpPost]
         public ActionResult LoadTeams()
         {
