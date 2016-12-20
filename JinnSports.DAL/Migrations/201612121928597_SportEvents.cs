@@ -15,7 +15,7 @@ namespace JinnSports.DAL.Migrations
             this.CreateIndex("dbo.SportEvents", "SportType_Id");
             this.AddForeignKey("dbo.SportEvents", "SportType_Id", "dbo.SportTypes", "Id");
             this.Sql(@"INSERT INTO [dbo].[SportTypes] ([NAME]) VALUES('Football')
-                  INSERT INTO [dbo].[SportTypes] ([NAME]) VALUES('Basletball')
+                  INSERT INTO [dbo].[SportTypes] ([NAME]) VALUES('Basketball')
                   INSERT INTO [dbo].[SportTypes] ([NAME]) VALUES('Hockey')");
         }
         

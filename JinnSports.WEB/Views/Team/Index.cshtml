@@ -35,7 +35,13 @@
                 "datatype": "json"
             },
             "columns": [
-                    { "data": "Name", "name": "Name", "autoWidth": true }
+                    {
+                        "data": "Name", "name":"Name", "autoWidth": true,
+                        "render": function (data, type, full, meta) {
+                            return "<a href='TeamDetails/Details?Id=" + full.Id + "'>" + data + '</a>';
+                        }
+
+                    }
             ]
         });
     });
