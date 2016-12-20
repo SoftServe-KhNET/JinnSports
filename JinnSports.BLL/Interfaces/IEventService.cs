@@ -5,10 +5,20 @@ namespace JinnSports.BLL.Interfaces
 {
     public interface IEventService
     {
-        int Count();
-
-        IDictionary<string, List<SportEventDto>> GetSportEvents();
-
-        void SortEventsByDate(IDictionary<string, List<SportEventDto>> orderedEvents);
+        /// <summary>
+        /// Метод подсчёта количества результатов в заданном виде спорта
+        /// </summary>
+        /// <param name="sport"></param>
+        /// <returns></returns>                        
+        int Count(string sport);
+        
+        /// <summary>
+        /// Метод выдачи результатов по заданному виду спорта
+        /// </summary>
+        /// <param name="sport"></param>
+        /// <param name="skip"></param>
+        /// <param name="take"></param>
+        /// <returns></returns>
+        IEnumerable<SportEventDto> GetSportEvents(string sport, int skip, int take);
     }
 }

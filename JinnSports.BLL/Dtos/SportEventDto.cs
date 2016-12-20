@@ -6,8 +6,18 @@ namespace JinnSports.BLL.Dtos
 {
     public class SportEventDto
     {
-        public string SportType { get; set; }
-        public DateTime Date { get; set; }
-        public IDictionary<string, int> Results { get; set; } = new Dictionary<string, int>();
+        public int TeamFirstId { get; set; }
+
+        public string TeamFirst { get; set; }
+
+        public string ScoreFirst { get; set; }
+
+        public int TeamSecondId { get; set; }
+
+        public string TeamSecond { get; set; }
+
+        public string ScoreSecond { get; set; }
+
+        public string Date { get; set; }        
     }
 }

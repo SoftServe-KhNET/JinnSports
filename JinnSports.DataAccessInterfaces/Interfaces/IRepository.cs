@@ -11,7 +11,9 @@ namespace JinnSports.DataAccessInterfaces.Interfaces
         IEnumerable<T> Get(
             Expression<Func<T, bool>> filter = null,
             Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null,
-            string includeProperties = "");
+            string includeProperties = "",
+            int skip = 0, 
+            int take = -1);
         
         T GetById(object id);
 

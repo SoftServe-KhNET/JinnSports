@@ -15,16 +15,43 @@ namespace JinnSports.BLL.Service
 
         private IUnitOfWork dataUnit;
 
-        public int Count()
+        public int Count(string sport)
         {
             int count;
             using (this.dataUnit = new EFUnitOfWork(SPORTCONTEXT))
             {
-                count = this.dataUnit.GetRepository<SportEvent>().Count();
+                count = this.dataUnit.GetRepository<SportEvent>()
+                    .Get(filter: m => m.SportType.Name == sport)
+                    .Count();
             }
             return count;
         }
 
+        public IEnumerable<SportEventDto> GetSportEvents(string sport, int skip, int take)
+        {
+            IList<SportEventDto> results = new List<SportEventDto>();
+
+            using (this.dataUnit = new EFUnitOfWork(SPORTCONTEXT))
+            {
+                // Выбираем результаты заданного вида спорта, сортируя по дате
+                IEnumerable<SportEvent> sportEvents =
+                    this.dataUnit.GetRepository<SportEvent>().Get(
+                        filter: m => m.SportType.Name == sport,
+                        orderBy: s => s.OrderByDescending(x => x.Date),
+                        skip: skip,
+                        take: take);
+
+                // Формирование SportEventDto из SportEvent при помощи AutoMapper
+                foreach (SportEvent sportEvent in sportEvents)
+                {
+                    results.Add(Mapper.Map<SportEventDto>(sportEvent));
+                }
+            }
+
+            return results;
+        }
+
+        /*
         public IDictionary<string, List<SportEventDto>> GetSportEvents()
         {
             IDictionary<string, List<SportEventDto>> orderedEvents = new Dictionary<string, List<SportEventDto>>();
@@ -56,5 +83,6 @@ namespace JinnSports.BLL.Service
                 eventsList.OrderBy(e => e.Date);
             }
         }
+        */
     }
 }

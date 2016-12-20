@@ -21,7 +21,9 @@ namespace JinnSports.DAL.Repositories
         public virtual IEnumerable<T> Get(
             Expression<Func<T, bool>> filter = null,
             Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null,
-            string includeProperties = "")
+            string includeProperties = "",
+            int skip = 0, 
+            int take = -1)
         {
             IQueryable<T> query = this.DbSet;
 
@@ -35,7 +37,19 @@ namespace JinnSports.DAL.Repositories
                 query = query.Include(includeProperty);
             }
 
-            return orderBy?.Invoke(query).ToList() ?? query.ToList();
+            query = orderBy?.Invoke(query) ?? query;
+
+            if (skip > 0)
+            {
+                query = query.Skip(skip);
+            }
+
+            if (take > 0)
+            {
+                query.Take(take);
+            }
+
+            return query.ToList();
         }
 
         public virtual T GetById(object id)
