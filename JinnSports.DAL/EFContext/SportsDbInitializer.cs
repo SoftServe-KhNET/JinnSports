@@ -41,31 +41,31 @@ namespace JinnSports.DAL.EFContext
 
 
             // Football teams
-            Team MU = new Team()
+            Team mu = new Team()
             {
                 Id = 1,
                 Name = "Manchester United",
                 SportType = football
             };
-            Team Milano = new Team()
+            Team milano = new Team()
             {
                 Id = 2,
                 Name = "Milano",
                 SportType = football
             };
-            Team MC = new Team()
+            Team mc = new Team()
             {
                 Id = 3,
                 Name = "Manchester City",
                 SportType = football
             };
-            Team Chelsea = new Team()
+            Team chelsea = new Team()
             {
                 Id = 4,
                 Name = "Chelsea",
                 SportType = football
             };
-            Team Bayern = new Team()
+            Team bayern = new Team()
             {
                 Id = 5,
                 Name = "Bayern",
@@ -73,19 +73,19 @@ namespace JinnSports.DAL.EFContext
             };
 
             // Basketball teams
-            Team ChicagoBulls = new Team()
+            Team chicagoBulls = new Team()
             {
                 Id = 6,
                 Name = "Chicago Bulls",
                 SportType = basketball
             };
-            Team LALakers = new Team()
+            Team lalakers = new Team()
             {
                 Id = 7,
                 Name = "Los Angeles Lakers",
                 SportType = basketball
             };
-            Team PhoenixSuns = new Team()
+            Team phoenixSuns = new Team()
             {
                 Id = 8,
                 Name = "Phoenix Suns",
@@ -94,155 +94,155 @@ namespace JinnSports.DAL.EFContext
 
             //    --- Init Events --- 
 
-            SportEvent ChicagoBulls_vs_LA_event = new SportEvent()
+            SportEvent chicagoBulls_vs_la_event = new SportEvent()
             {
                 Id = 1,
                 Date = new DateTime(2016, 11, 5, 16, 0, 0),
                 SportType = basketball
             };
-            SportEvent ChicagoBulls_vs_Suns_event = new SportEvent()
+            SportEvent chicagoBulls_vs_suns_event = new SportEvent()
             {
                 Id = 2,
                 Date = new DateTime(2016, 11, 29, 16, 0, 0),
                 SportType = basketball
             };
-            SportEvent LA_vs_Suns_event = new SportEvent()
+            SportEvent la_vs_suns_event = new SportEvent()
             {
                 Id = 3,
                 Date = new DateTime(2016, 11, 15, 16, 0, 0),
                 SportType = basketball
             };
 
-            SportEvent MU_vs_MC_event = new SportEvent()
+            SportEvent mu_vs_mc_event = new SportEvent()
             {
                 Id = 5,
                 Date = new DateTime(2016, 11, 19, 17, 0, 0),
                 SportType = football
             };
 
-            SportEvent Bayern_vs_Milano_event = new SportEvent()
+            SportEvent bayern_vs_milano_event = new SportEvent()
             {
                 Id = 6,
                 Date = new DateTime(2016, 10, 28, 17, 0, 0),
                 SportType = football
             };
-            Result Bayern_vs_Milano = new Result()
+            Result bayern_vs_milano = new Result()
             {
                 Id = 9,
-                Team = Bayern,
+                Team = bayern,
                 Score = 4,
-                SportEvent = Bayern_vs_Milano_event
+                SportEvent = bayern_vs_milano_event
             };
-            Result Milano_vs_Bayern = new Result()
+            Result milano_vs_bayern = new Result()
             {
                 Id = 10,
-                Team = Milano,
+                Team = milano,
                 Score = 1,
-                SportEvent = Bayern_vs_Milano_event
+                SportEvent = bayern_vs_milano_event
             };
 
 
-            SportEvent Chelsea_vs_MC_event = new SportEvent()
+            SportEvent chelsea_vs_mc_event = new SportEvent()
             {
                 Id = 7,
                 Date = new DateTime(2016, 10, 17, 18, 0, 0),
                 SportType = football
             };
-            Result Chelsea_vs_MC = new Result()
+            Result chelsea_vs_mc = new Result()
             {
                 Id = 11,
-                Team = Chelsea,
+                Team = chelsea,
                 Score = 0,
-                SportEvent = Chelsea_vs_MC_event
+                SportEvent = chelsea_vs_mc_event
             };
-            Result MC_vs_Chelsea = new Result()
+            Result mc_vs_chelsea = new Result()
             {
                 Id = 12,
-                Team = MC,
+                Team = mc,
                 Score = 0,
-                SportEvent = Chelsea_vs_MC_event
+                SportEvent = chelsea_vs_mc_event
             };
 
-            SportEvent Chelsea_vs_Milano_event = new SportEvent()
+            SportEvent chelsea_vs_milano_event = new SportEvent()
             {
                 Id = 8,
                 Date = new System.DateTime(2016, 11, 3, 16, 0, 0),
                 SportType = football
             };
-            Result Chelsea_vs_Milano = new Result()
+            Result chelsea_vs_milano = new Result()
             {
                 Id = 13,
-                Team = Chelsea,
+                Team = chelsea,
                 Score = 2,
-                SportEvent = Chelsea_vs_Milano_event
+                SportEvent = chelsea_vs_milano_event
             };
-            Result Milano_vs_Chelsea = new Result()
+            Result milano_vs_chelsea = new Result()
             {
                 Id = 14,
-                Team = Milano,
+                Team = milano,
                 Score = 3,
-                SportEvent = Chelsea_vs_Milano_event
+                SportEvent = chelsea_vs_milano_event
             };
 
 
             // Init Results
-            Result Ch_vs_LA = new Result()
+            Result ch_vs_la = new Result()
             {
                 Id = 1,
                 Score = 68,
-                Team = ChicagoBulls,
-                SportEvent = ChicagoBulls_vs_LA_event
+                Team = chicagoBulls,
+                SportEvent = chicagoBulls_vs_la_event
             };
-            Result LA_vs_Ch = new Result()
+            Result la_vs_ch = new Result()
             {
                 Id = 2,
                 Score = 65,
-                Team = LALakers,
-                SportEvent = ChicagoBulls_vs_LA_event
+                Team = lalakers,
+                SportEvent = chicagoBulls_vs_la_event
             };
 
-            Result LA_vs_Ph = new Result()
+            Result la_vs_ph = new Result()
             {
                 Id = 3,
                 Score = 65,
-                Team = LALakers,
-                SportEvent = LA_vs_Suns_event
+                Team = lalakers,
+                SportEvent = la_vs_suns_event
             };
-            Result Ph_vs_LA = new Result()
+            Result ph_vs_la = new Result()
             {
                 Id = 4,
                 Score = 64,
-                Team = PhoenixSuns,
-                SportEvent = LA_vs_Suns_event
+                Team = phoenixSuns,
+                SportEvent = la_vs_suns_event
             };
 
-            Result Ch_vs_Ph = new Result()
+            Result ch_vs_ph = new Result()
             {
                 Id = 5,
                 Score = 52,
-                Team = ChicagoBulls,
-                SportEvent = ChicagoBulls_vs_Suns_event
+                Team = chicagoBulls,
+                SportEvent = chicagoBulls_vs_suns_event
             };
-            Result Ph_vs_Ch = new Result()
+            Result ph_vs_ch = new Result()
             {
                 Id = 6,
                 Score = 52,
-                Team = PhoenixSuns,
-                SportEvent = ChicagoBulls_vs_Suns_event
+                Team = phoenixSuns,
+                SportEvent = chicagoBulls_vs_suns_event
             };
-            Result MU_vs_MC = new Result()
+            Result mu_vs_mc = new Result()
             {
                 Id = 7,
                 Score = 2,
-                Team = MU,
-                SportEvent = MU_vs_MC_event
+                Team = mu,
+                SportEvent = mu_vs_mc_event
             };
-            Result MC_vs_MU = new Result()
+            Result mc_vs_mu = new Result()
             {
                 Id = 8,
                 Score = 1,
-                Team = MC,
-                SportEvent = MU_vs_MC_event
+                Team = mc,
+                SportEvent = mu_vs_mc_event
             };
 
 
@@ -253,37 +253,37 @@ namespace JinnSports.DAL.EFContext
             context.SportTypes.Add(tennis);
             context.SportTypes.Add(snooker);
 
-            context.Results.Add(Ch_vs_LA);
-            context.Results.Add(LA_vs_Ch);
-            context.Results.Add(Ch_vs_Ph);
-            context.Results.Add(Ph_vs_Ch);
-            context.Results.Add(LA_vs_Ph);
-            context.Results.Add(Ph_vs_LA);
-            context.Results.Add(MU_vs_MC);
-            context.Results.Add(MC_vs_MU);
-            context.Results.Add(Bayern_vs_Milano);
-            context.Results.Add(Milano_vs_Bayern);
-            context.Results.Add(Chelsea_vs_MC);
-            context.Results.Add(MC_vs_Chelsea);
-            context.Results.Add(Chelsea_vs_Milano);
-            context.Results.Add(Milano_vs_Chelsea);
+            context.Results.Add(ch_vs_la);
+            context.Results.Add(la_vs_ch);
+            context.Results.Add(ch_vs_ph);
+            context.Results.Add(ph_vs_ch);
+            context.Results.Add(la_vs_ph);
+            context.Results.Add(ph_vs_la);
+            context.Results.Add(mu_vs_mc);
+            context.Results.Add(mc_vs_mu);
+            context.Results.Add(bayern_vs_milano);
+            context.Results.Add(milano_vs_bayern);
+            context.Results.Add(chelsea_vs_mc);
+            context.Results.Add(mc_vs_chelsea);
+            context.Results.Add(chelsea_vs_milano);
+            context.Results.Add(milano_vs_chelsea);
 
-            context.SportEvents.Add(ChicagoBulls_vs_LA_event);
-            context.SportEvents.Add(ChicagoBulls_vs_Suns_event);
-            context.SportEvents.Add(LA_vs_Suns_event);
-            context.SportEvents.Add(Bayern_vs_Milano_event);
-            context.SportEvents.Add(MU_vs_MC_event);
-            context.SportEvents.Add(Chelsea_vs_Milano_event);
-            context.SportEvents.Add(Chelsea_vs_MC_event);
+            context.SportEvents.Add(chicagoBulls_vs_la_event);
+            context.SportEvents.Add(chicagoBulls_vs_suns_event);
+            context.SportEvents.Add(la_vs_suns_event);
+            context.SportEvents.Add(bayern_vs_milano_event);
+            context.SportEvents.Add(mu_vs_mc_event);
+            context.SportEvents.Add(chelsea_vs_milano_event);
+            context.SportEvents.Add(chelsea_vs_mc_event);
 
-            context.Teams.Add(MU);
-            context.Teams.Add(Milano);
-            context.Teams.Add(MC);
-            context.Teams.Add(Chelsea);
-            context.Teams.Add(Bayern);
-            context.Teams.Add(ChicagoBulls);
-            context.Teams.Add(LALakers);
-            context.Teams.Add(PhoenixSuns);
+            context.Teams.Add(mu);
+            context.Teams.Add(milano);
+            context.Teams.Add(mc);
+            context.Teams.Add(chelsea);
+            context.Teams.Add(bayern);
+            context.Teams.Add(chicagoBulls);
+            context.Teams.Add(lalakers);
+            context.Teams.Add(phoenixSuns);
 
             context.SaveChanges();
             base.Seed(context);

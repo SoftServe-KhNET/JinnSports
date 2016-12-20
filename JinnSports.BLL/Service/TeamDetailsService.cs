@@ -9,6 +9,8 @@ using JinnSports.DAL.Repositories;
 using JinnSports.DataAccessInterfaces.Interfaces;
 using JinnSports.Entities.Entities;
 using System.Collections;
+using JinnSports.BLL.Extentions;
+using AutoMapper;
 
 namespace JinnSports.BLL.Service
 {
@@ -35,7 +37,6 @@ namespace JinnSports.BLL.Service
             using (this.dataUnit = new EFUnitOfWork(SPORTCONTEXT))
             {
                 Team team = this.dataUnit.GetRepository<Team>().GetById(teamId);
-                Result res = this.dataUnit.GetRepository<Result>().GetById(9);
 
                 IEnumerable teamResults = team.Results.ToList();
 
@@ -43,18 +44,8 @@ namespace JinnSports.BLL.Service
                 {
                     IEnumerable<Result> eventResults = teamResult.SportEvent.Results;
                     ResultDto resultDto = new ResultDto();
-                    /*foreach (Result result in eventResults) здесь сделаем переход к листу элементов
-                    {
-                        resultDto.Teams.Add(result.Team.Name);
-                    }*/
-                    resultDto.Id = teamResult.Id;
-                    resultDto.Score = string.Format("{0} : {1}", eventResults.ElementAt(0).Score, eventResults.ElementAt(1).Score);
-                    resultDto.TeamFirst = eventResults.ElementAt(0).Team.Name;
-                    resultDto.TeamSecond = eventResults.ElementAt(1).Team.Name;
-                    resultDto.TeamFirstId = eventResults.ElementAt(0).Team.Id;
-                    resultDto.TeamSecondId = eventResults.ElementAt(1).Team.Id;
-                    resultDto.Date = teamResult.SportEvent.Date;
-                    orderedTeamResults.Add(resultDto);
+
+                    orderedTeamResults.Add(Mapper.Map<Result, ResultDto>(teamResult));
                 }
             }
             return orderedTeamResults;

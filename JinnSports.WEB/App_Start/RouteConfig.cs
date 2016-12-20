@@ -20,11 +20,6 @@ namespace JinnSports.WEB
                 defaults: new { controller = "Team", action = "Index" });
 
             routes.MapRoute(
-                name: "TeamDetails",
-                url: "Teams/{id}",
-                defaults: new { controller = "TeamDetails", action = "Details", id = UrlParameter.Optional });
-
-            routes.MapRoute(
                 name: "Home",
                 url: string.Empty,
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional });

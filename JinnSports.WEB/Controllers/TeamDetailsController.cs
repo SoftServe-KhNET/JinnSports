@@ -26,7 +26,8 @@ namespace JinnSports.WEB.Controllers
         // GET: TeamDetails
         public ActionResult Details()
         {
-            return this.View();
+            string url = string.Format("/TeamDetails/LoadResults?id={0}", this.Request.QueryString["id"]);
+            return this.View((object)url);
         }
 
         [HttpPost]
