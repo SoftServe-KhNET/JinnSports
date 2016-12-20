@@ -35,7 +35,7 @@ namespace JinnSports.BLL.Service
                 IEnumerable<Team> teams = this.dataUnit.GetRepository<Team>().Get();
                 foreach (Team team in teams)
                 {
-                    TeamDto teamDto = new TeamDto { Id=team.Id, Name = team.Name };
+                    TeamDto teamDto = new TeamDto { Id = team.Id, Name = team.Name };
 
                     teamDtoList.Add(teamDto);
                 }

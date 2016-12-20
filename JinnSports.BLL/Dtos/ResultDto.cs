@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using JinnSports.BLL.Extentions;
 
 namespace JinnSports.BLL.Dtos
 {
@@ -10,7 +11,7 @@ namespace JinnSports.BLL.Dtos
     {
         public int Id { get; set; }
         public string Score { get; set; }
-        public DateTime Date { get; set; }
+        public string Date { get; set; }
         public int TeamFirstId { get; set; }
         public string TeamFirst { get; set; }
         public int TeamSecondId { get; set; }
@@ -18,8 +19,8 @@ namespace JinnSports.BLL.Dtos
 
         public bool Equals(ResultDto resultDto)
         {
-            if (this.Date == null || string.IsNullOrEmpty(Score) || Id < 1 || TeamFirstId < 1 || TeamSecondId < 1 || 
-                string.IsNullOrEmpty(TeamFirst) || string.IsNullOrEmpty(TeamSecond) || resultDto == null)
+            if (string.IsNullOrEmpty(this.Date) || string.IsNullOrEmpty(this.Score) || this.Id < 1 || this.TeamFirstId < 1 || this.TeamSecondId < 1 || 
+                string.IsNullOrEmpty(this.TeamFirst) || string.IsNullOrEmpty(this.TeamSecond) || resultDto == null)
             {
                 return false;
             }

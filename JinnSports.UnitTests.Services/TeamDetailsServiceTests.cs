@@ -8,6 +8,9 @@ using JinnSports.DAL.Repositories;
 using JinnSports.DataAccessInterfaces.Interfaces;
 using System.Linq;
 using System.Collections;
+using JinnSports.BLL.Extentions;
+using AutoMapper;
+using JinnSports.BLL.Mapping;
 
 namespace JinnSports.UnitTests.Services
 {
@@ -19,7 +22,9 @@ namespace JinnSports.UnitTests.Services
         List<Team> teams;
         List<Result> results;
         List<SportEvent> sportEvents;
-        IEnumerable<List<ResultDto>> resultsDto;
+        IEnumerable<List<ResultDto>> resultsDtoCollection;
+        List<ResultDto> resultsDto;
+        List<Result> testDtoResults; 
         public class ResultDtoComparer : IComparer, IComparer<ResultDto>
         {
             public int Compare(object x, object y)
@@ -50,8 +55,10 @@ namespace JinnSports.UnitTests.Services
             this.sportTypes = new List<SportType>();
             this.teams = new List<Team>();
             this.results = new List<Result>();
+            this.testDtoResults = new List<Result>();
             this.sportEvents = new List<SportEvent>();
-            this.resultsDto = new List<List<ResultDto>>();
+            this.resultsDto = new List<ResultDto>();
+            this.resultsDtoCollection = new List<List<ResultDto>>();
 
             SportType football = new SportType()
             {
@@ -386,7 +393,7 @@ namespace JinnSports.UnitTests.Services
             //ResultDto formation
             ResultDto ChicagoBulls_vs_LA_Result_Dto = new ResultDto()
             {
-                Date = ChicagoBulls_vs_LA_event.Date,
+                Date = new EventDate(ChicagoBulls_vs_LA_event.Date).ToString(),
                 Id = Ch_vs_LA.Id,
                 Score = String.Format("{0} : {1}", Ch_vs_LA.Score, LA_vs_Ch.Score),
                 TeamFirstId = ChicagoBulls.Id,
@@ -396,7 +403,7 @@ namespace JinnSports.UnitTests.Services
             };
             ResultDto LA_vs_ChicagoBulls_Result_Dto = new ResultDto()
             {
-                Date = LA_vs_Suns_event.Date,
+                Date = new EventDate(LA_vs_Suns_event.Date).ToString(),
                 Id = LA_vs_Ch.Id,
                 Score = String.Format("{0} : {1}", LA_vs_Ch.Score, Ch_vs_LA.Score),
                 TeamFirstId = LALakers.Id,
@@ -406,7 +413,7 @@ namespace JinnSports.UnitTests.Services
             };
             ResultDto Suns_vs_ChicagoBulls_Result_Dto = new ResultDto()
             {
-                Date = ChicagoBulls_vs_Suns_event.Date,
+                Date = new EventDate(ChicagoBulls_vs_Suns_event.Date).ToString(),
                 Id = Ph_vs_Ch.Id,
                 Score = String.Format("{0} : {1}", Ph_vs_Ch.Score, Ch_vs_Ph.Score),
                 TeamFirstId = PhoenixSuns.Id,
@@ -416,7 +423,7 @@ namespace JinnSports.UnitTests.Services
             };
             ResultDto ChicagoBulls_vs_Suns_Result_Dto = new ResultDto()
             {
-                Date = ChicagoBulls_vs_Suns_event.Date,
+                Date = new EventDate(ChicagoBulls_vs_Suns_event.Date).ToString(),
                 Id = Ch_vs_Ph.Id,
                 Score = String.Format("{0} : {1}", Ch_vs_Ph.Score, Ph_vs_Ch.Score),
                 TeamFirstId = ChicagoBulls.Id,
@@ -426,7 +433,7 @@ namespace JinnSports.UnitTests.Services
             };
             ResultDto Suns_vs_LA_Result_Dto = new ResultDto()
             {
-                Date = LA_vs_Suns_event.Date,
+                Date = new EventDate(LA_vs_Suns_event.Date).ToString(),
                 Id = Ph_vs_LA.Id,
                 Score = String.Format("{0} : {1}", Ph_vs_LA.Score, LA_vs_Ph.Score),
                 TeamFirstId = PhoenixSuns.Id,
@@ -436,7 +443,7 @@ namespace JinnSports.UnitTests.Services
             };
             ResultDto LA_vs_Suns_Result_Dto = new ResultDto()
             {
-                Date = LA_vs_Suns_event.Date,
+                Date = new EventDate(LA_vs_Suns_event.Date).ToString(),
                 Id = LA_vs_Ph.Id,
                 Score = String.Format("{0} : {1}", LA_vs_Ph.Score, Ph_vs_LA.Score),
                 TeamFirstId = LALakers.Id,
@@ -459,11 +466,29 @@ namespace JinnSports.UnitTests.Services
                 Suns_vs_ChicagoBulls_Result_Dto,
                 Suns_vs_LA_Result_Dto
             };
-            resultsDto = new List<List<ResultDto>>
+            resultsDtoCollection = new List<List<ResultDto>>
             {
                 Ch_Results_dto,
                 LA_Results_dto,
                 Ph_Results_dto
+            };
+            resultsDto = new List<ResultDto>()
+            {
+                ChicagoBulls_vs_LA_Result_Dto,
+                LA_vs_ChicagoBulls_Result_Dto,
+                Suns_vs_ChicagoBulls_Result_Dto,
+                ChicagoBulls_vs_Suns_Result_Dto,
+                Suns_vs_LA_Result_Dto,
+                LA_vs_Suns_Result_Dto
+            };
+            testDtoResults = new List<Result>()
+            {
+                Ch_vs_LA,
+                LA_vs_Ch,
+                Ph_vs_Ch,
+                Ch_vs_Ph,
+                Ph_vs_LA,
+                LA_vs_Ph
             };
         }
         [Test]
@@ -494,13 +519,37 @@ namespace JinnSports.UnitTests.Services
         {
             TeamDetailsService teamDetailsService = new TeamDetailsService();
             List<ResultDto> resultDtoCollection = new List<ResultDto>();
-            List<ResultDto> dtoTest = this.resultsDto.ElementAt(element);
+            List<ResultDto> dtoTest = this.resultsDtoCollection.ElementAt(element);
             ResultDtoComparer dtoComparer = new ResultDtoComparer();
             
             resultDtoCollection = teamDetailsService.GetResults(teamId).ToList();
 
             //Assert.IsTrue(resultDtoCollection.Equals(dtoTest));
             CollectionAssert.AreEqual(resultDtoCollection, dtoTest, dtoComparer);
+        }
+
+        [Test]
+        public void ResultMapping()
+        {
+            var mappingConfig = new AutoMapper.MapperConfiguration(cfg =>
+            {
+                cfg.AddServiceMapping();
+            });
+
+
+            ResultDtoComparer dtoComparer = new ResultDtoComparer();
+            IMapper mapper = mappingConfig.CreateMapper();
+            List<ResultDto> resultsDto = this.resultsDto;
+            List<ResultDto> mappedDto = new List<ResultDto>();
+
+            List<Result> testResults = this.testDtoResults;
+
+            foreach (Result result in testResults)
+            {
+                mappedDto.Add(mapper.Map<Result, ResultDto>(result));
+            }
+            
+            CollectionAssert.AreEqual(resultsDto, mappedDto, dtoComparer);
         }
     }
 }
