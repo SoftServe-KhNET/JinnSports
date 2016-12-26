@@ -7,14 +7,10 @@ using System.Threading.Tasks;
 
 namespace DTO.JSON
 {
-    
     public class ResultDTO
     {
-        
         public string TeamName { get; set; }
 
-        
-        public int Score { get; set; }
-
+        public int? Score { get; set; }
     }
 }

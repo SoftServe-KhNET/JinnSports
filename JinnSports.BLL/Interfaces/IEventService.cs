@@ -22,6 +22,6 @@ namespace JinnSports.BLL.Interfaces
         /// <returns></returns>
         IEnumerable<ResultDto> GetSportEvents(int sportId, int skip, int take);
 
-        bool SaveSportEvents(ICollection<SportEventDTO> events);
+        bool SaveSportEvents(ICollection<SportEventDTO> eventDTOs);
     }
 }
