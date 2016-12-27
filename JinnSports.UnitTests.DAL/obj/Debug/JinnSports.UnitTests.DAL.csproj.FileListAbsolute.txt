@@ -1,0 +1,15 @@
+C:\Users\Ivan\Documents\GitHub\JinnSports\JinnSports.UnitTests.DAL\obj\Debug\JinnSports.UnitTests.DAL.csprojResolveAssemblyReference.cache
+C:\Users\Ivan\Documents\GitHub\JinnSports\JinnSports.UnitTests.DAL\bin\Debug\JinnSports.UnitTests.DAL.dll
+C:\Users\Ivan\Documents\GitHub\JinnSports\JinnSports.UnitTests.DAL\bin\Debug\JinnSports.UnitTests.DAL.pdb
+C:\Users\Ivan\Documents\GitHub\JinnSports\JinnSports.UnitTests.DAL\bin\Debug\JinnSports.DAL.dll
+C:\Users\Ivan\Documents\GitHub\JinnSports\JinnSports.UnitTests.DAL\bin\Debug\JinnSports.Entities.dll
+C:\Users\Ivan\Documents\GitHub\JinnSports\JinnSports.UnitTests.DAL\bin\Debug\nunit.framework.dll
+C:\Users\Ivan\Documents\GitHub\JinnSports\JinnSports.UnitTests.DAL\bin\Debug\JinnSports.DataAccessInterfaces.dll
+C:\Users\Ivan\Documents\GitHub\JinnSports\JinnSports.UnitTests.DAL\bin\Debug\EntityFramework.dll
+C:\Users\Ivan\Documents\GitHub\JinnSports\JinnSports.UnitTests.DAL\bin\Debug\JinnSports.DAL.pdb
+C:\Users\Ivan\Documents\GitHub\JinnSports\JinnSports.UnitTests.DAL\bin\Debug\JinnSports.Entities.pdb
+C:\Users\Ivan\Documents\GitHub\JinnSports\JinnSports.UnitTests.DAL\bin\Debug\nunit.framework.xml
+C:\Users\Ivan\Documents\GitHub\JinnSports\JinnSports.UnitTests.DAL\bin\Debug\JinnSports.DataAccessInterfaces.pdb
+C:\Users\Ivan\Documents\GitHub\JinnSports\JinnSports.UnitTests.DAL\bin\Debug\EntityFramework.xml
+C:\Users\Ivan\Documents\GitHub\JinnSports\JinnSports.UnitTests.DAL\obj\Debug\JinnSports.UnitTests.DAL.dll
+C:\Users\Ivan\Documents\GitHub\JinnSports\JinnSports.UnitTests.DAL\obj\Debug\JinnSports.UnitTests.DAL.pdb

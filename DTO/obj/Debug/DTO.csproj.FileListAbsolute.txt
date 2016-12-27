@@ -1,0 +1,5 @@
+C:\Users\Ivan\Documents\GitHub\JinnSports\DTO\bin\Debug\DTO.dll
+C:\Users\Ivan\Documents\GitHub\JinnSports\DTO\bin\Debug\DTO.pdb
+C:\Users\Ivan\Documents\GitHub\JinnSports\DTO\obj\Debug\DTO.dll
+C:\Users\Ivan\Documents\GitHub\JinnSports\DTO\obj\Debug\DTO.pdb
+C:\Users\Ivan\Documents\GitHub\JinnSports\DTO\obj\Debug\DTO.csprojResolveAssemblyReference.cache
