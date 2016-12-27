@@ -3,6 +3,8 @@ using JinnSports.BLL.Dtos;
 using JinnSports.BLL.Extentions;
 using JinnSports.BLL.Interfaces;
 using JinnSports.BLL.Service;
+using JinnSports.DAL.EFContext;
+using JinnSports.DAL.Repositories;
 using JinnSports.Entities.Entities;
 using JinnSports.WEB;
 using NUnit.Framework;
@@ -30,7 +32,7 @@ namespace JinnSports.UnitTests.Services
         [OneTimeSetUp]
         public void Init()
         {
-            this.eventService = new EventsService();
+            this.eventService = new EventsService(new EFUnitOfWork(new SportsContext("SportsContext")));
             this.comparer = new TeamDetailsServiceTests.ResultDtoComparer();
             this.databaseSportEvents = new List<SportEvent>();
 

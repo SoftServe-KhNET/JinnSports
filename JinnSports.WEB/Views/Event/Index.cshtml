@@ -1,11 +1,23 @@
-﻿@{
+﻿@using JinnSports.BLL.Dtos
+@model IEnumerable<SportTypeDto>
+@{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 @section styles {
     @Styles.Render("~/Content/DataTable")
 }
-
+<!-- select -->
+<div class="select">
+    <label for="selectSportType">Select a SportType</label>
+    <select class="sportType" id="sportType" onchange="selectSport()">
+        <option value = 0>All</option>
+        @foreach (SportTypeDto sportTypeDto in Model)
+        {
+            <option value=@sportTypeDto.Id>@sportTypeDto.Name</option>
+        }
+    </select>
+</div>
 <div class="box">
     <div class="box-header">
         <h3 class="box-title">Results</h3>
@@ -24,27 +36,41 @@
     </div>
 </div>
 @section scripts {
-    @Scripts.Render("~/Scripts/DataTable")
+    <script>
+        function loadResults(sportTypeId) {
+            $("#eventTable").DataTable({
+                "processing": false,
+                "serverSide": true,
+                "filter": false,
+                "orderMulti": false,
+                "ajax": {
+                    url: '/api/Event/LoadEvents?sportTypeId=' + sportTypeId,
+                    type: 'GET',
+                    datatype: 'json',
+                    dataSrc: 'data'
+                },
+                "columns": [
+                        { 'data': 'TeamNames.0', 'autoWidth': true },
+                        { 'data': 'Score', 'autoWidth': true },
+                        { 'data': 'TeamNames.1', 'autoWidth': true },
+                        { 'data': 'Date', 'autoWidth': true }
+                ]
+            });
+        };
+    </script>
+@Scripts.Render("~/Scripts/DataTable")
+    <script>
+        function selectSport() {
+            var sportTypeList = document.getElementById("sportType");
+            var selectedId = sportTypeList.options[sportTypeList.selectedIndex].value;
+            
+            $('#eventTable').dataTable().fnDestroy();
+            loadResults(selectedId);
+        };
+    </script>
     <script>
     $(document).ready(function () {
-        $("#eventTable").DataTable({
-            "processing": false,
-            "serverSide": true,
-            "filter": false,
-            "orderMulti": false,
-            "ajax": {
-                url: '/api/Event/LoadEvents',
-                type: 'GET',
-                datatype: 'json',
-                dataSrc: 'data'
-            },
-            "columns": [
-                    { 'data': 'TeamNames.0', 'autoWidth': true },
-                    { 'data': 'Score', 'autoWidth': true },
-                    { 'data': 'TeamNames.1', 'autoWidth': true },
-                    { 'data': 'Date', 'autoWidth': true }
-            ]
-        });
+        loadResults(0);
     });
     </script>
 }

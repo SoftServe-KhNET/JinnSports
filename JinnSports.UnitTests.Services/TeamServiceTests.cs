@@ -36,7 +36,7 @@ namespace JinnSports.UnitTests.Services
         {
             this.databaseTeams = new List<TeamDto>();
             this.comparer = new TeamDtoComparer();
-            this.teamService = new TeamService();
+            this.teamService = new TeamService(new EFUnitOfWork(new SportsContext("SportsContext")));
 
             this.databaseTeams.Add(new TeamDto()
             {

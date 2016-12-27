@@ -31,7 +31,7 @@ namespace JinnSports.BLL.Service
 
             Team team = this.dataUnit.GetRepository<Team>().GetById(teamId);
 
-            IEnumerable teamResults = team.Results.OrderByDescending(x => x.SportEvent.Date).Skip(skip).Take(take).ToList();
+            IEnumerable teamResults = team.Results.OrderByDescending(x => x.SportEvent.Date).ThenByDescending(x => x.SportEvent.Id).Skip(skip).Take(take).ToList();
 
             foreach (Result teamResult in teamResults)
             {

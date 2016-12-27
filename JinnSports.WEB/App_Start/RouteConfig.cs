@@ -12,12 +12,13 @@ namespace JinnSports.WEB
             routes.MapRoute(
                  name: "Results",
                  url: "Results",
-                 defaults: new { controller = "Event", action = "Index" });
+                 defaults: new { controller = "Event", action = "Index", id = UrlParameter.Optional });
 
             routes.MapRoute(
                 name: "Teams",
                 url: "Teams",
                 defaults: new { controller = "Team", action = "Index" });
+
 
             routes.MapRoute(
                 name: "TeamDetails",
