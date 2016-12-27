@@ -1,4 +1,5 @@
-﻿using JinnSports.DAL.Repositories;
+﻿using JinnSports.DAL.EFContext;
+using JinnSports.DAL.Repositories;
 using JinnSports.Parser.App.HtmlParsers;
 using System.ServiceProcess;
 using System.Threading;
@@ -21,7 +22,7 @@ namespace Services
         {
             Thread.Sleep(20000);
             EventLog.WriteEntry("begin");
-            HTMLParser24score parser = new HTMLParser24score(new EFUnitOfWork("SportsContext"));
+            HTMLParser24score parser = new HTMLParser24score(new EFUnitOfWork(new SportsContext("SportsContext")));
             EventLog.WriteEntry("parser created");
             this.htmlParserThread = new Thread(new ThreadStart(() => parser.Parse()));
             EventLog.WriteEntry("thread init");
