@@ -1,0 +1,5 @@
+C:\Users\Ivan\Documents\GitHub\JinnSports\JinnSports.Entities\bin\Debug\JinnSports.Entities.dll
+C:\Users\Ivan\Documents\GitHub\JinnSports\JinnSports.Entities\bin\Debug\JinnSports.Entities.pdb
+C:\Users\Ivan\Documents\GitHub\JinnSports\JinnSports.Entities\obj\Debug\JinnSports.Entities.dll
+C:\Users\Ivan\Documents\GitHub\JinnSports\JinnSports.Entities\obj\Debug\JinnSports.Entities.pdb
+C:\Users\Ivan\Documents\GitHub\JinnSports\JinnSports.Entities\obj\Debug\JinnSports.Entities.csprojResolveAssemblyReference.cache

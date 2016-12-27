@@ -1,0 +1,9 @@
+C:\Users\Ivan\Documents\GitHub\JinnSports\JinnSports.UnitTests.BLL\bin\Debug\JinnSports.UnitTests.BLL.dll
+C:\Users\Ivan\Documents\GitHub\JinnSports\JinnSports.UnitTests.BLL\bin\Debug\JinnSports.UnitTests.BLL.pdb
+C:\Users\Ivan\Documents\GitHub\JinnSports\JinnSports.UnitTests.BLL\bin\Debug\JinnSports.Entities.dll
+C:\Users\Ivan\Documents\GitHub\JinnSports\JinnSports.UnitTests.BLL\bin\Debug\nunit.framework.dll
+C:\Users\Ivan\Documents\GitHub\JinnSports\JinnSports.UnitTests.BLL\bin\Debug\JinnSports.Entities.pdb
+C:\Users\Ivan\Documents\GitHub\JinnSports\JinnSports.UnitTests.BLL\bin\Debug\nunit.framework.xml
+C:\Users\Ivan\Documents\GitHub\JinnSports\JinnSports.UnitTests.BLL\obj\Debug\JinnSports.UnitTests.BLL.csprojResolveAssemblyReference.cache
+C:\Users\Ivan\Documents\GitHub\JinnSports\JinnSports.UnitTests.BLL\obj\Debug\JinnSports.UnitTests.BLL.dll
+C:\Users\Ivan\Documents\GitHub\JinnSports\JinnSports.UnitTests.BLL\obj\Debug\JinnSports.UnitTests.BLL.pdb
