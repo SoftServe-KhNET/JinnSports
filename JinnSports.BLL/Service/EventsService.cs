@@ -89,53 +89,52 @@ namespace JinnSports.BLL.Service
         }
 
         public bool SaveSportEvents(ICollection<SportEventDTO> eventDTOs)
-        {
-            Log.Info("Writing transferred data...");
+        {            
             try
             {
-                Log.Info("Writing transferred data...");                
-                NamingMatcher matcher = new NamingMatcher(this.dataUnit);
+                Log.Info("Writing transferred data...");  
 
                 IEnumerable<SportType> sportTypes = this.dataUnit.GetRepository<SportType>().Get();
                 IEnumerable<SportEvent> exustingEvents = this.dataUnit.GetRepository<SportEvent>().Get();
+
+                NamingMatcher matcher = new NamingMatcher(this.dataUnit);
 
                 foreach (SportEventDTO eventDTO in eventDTOs)
                 {
                     SportType sportType = sportTypes.FirstOrDefault(st => st.Name == eventDTO.SportType) 
                                             ?? new SportType { Name = eventDTO.SportType };
                     
-                    bool isConflictExist = false;
+                    bool conflictExist = false;
                     List<Result> results = new List<Result>();
                     List<TempResult> tempResults = new List<TempResult>();
 
                     foreach (ResultDTO resultDTO in eventDTO.Results)
-                    {
-                        List<Conformity> conformities = new List<Conformity>();
-
+                    {     
                         Team team = new Team { Name = resultDTO.TeamName, SportType = sportType };
-                        Team resolvedTeam = matcher.ResolveNaming(team, out conformities);
+                        List<Conformity> conformities = matcher.ResolveNaming(team);
 
-                        if (resolvedTeam != null)
+                        if (conformities == null)
                         {
+                            team = this.dataUnit.GetRepository<Team>().Get((x) => x.Names.Contains(new TeamName { Name = team.Name })).FirstOrDefault();
                             Result result = new Result { Team = team, Score = resultDTO.Score };
                             results.Add(result);                            
                         }
                         else
                         {
-                            isConflictExist = true;
+                            conflictExist = true;
 
-                            TempResult result = new TempResult { Team = team, Score = resultDTO.Score };
+                            TempResult tempResult = new TempResult { Team = team, Score = resultDTO.Score };
                             
                             foreach (Conformity conformity in conformities)
                             {
-                                result.Conformities.Add(conformity);
+                                tempResult.Conformities.Add(conformity);
                             }
                             conformities.Clear();
-                            tempResults.Add(result);                            
+                            tempResults.Add(tempResult);                            
                         }                        
                     }
 
-                    if (isConflictExist)
+                    if (conflictExist)
                     {
                         TempSportEvent tempSportEvent = new TempSportEvent { SportType = sportType, Date = new DateTime(eventDTO.Date) };
                         foreach (TempResult tempResult in tempResults)

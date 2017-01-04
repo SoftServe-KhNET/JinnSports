@@ -18,5 +18,32 @@ namespace JinnSports.Entities.Entities
         public bool IsConfirmed { get; set; }
 
         public TempResult TempResult { get; set; }
+
+        public bool Equals(Conformity conformity)
+        {
+            if (InputName == null || ExistedName == null)
+            {
+                return false;
+            }
+
+            if ((object)conformity == null || conformity.InputName == null || conformity.ExistedName == null)
+            {
+                return false;
+            }
+
+            return (InputName == conformity.InputName) && (ExistedName == conformity.ExistedName) && (IsConfirmed == conformity.IsConfirmed);
+        }
+
+        public override int GetHashCode()
+        {
+            if (InputName == null || ExistedName == null || TempResult == null)
+            {
+                return 0;
+            }
+
+            int hashCode = InputName.GetHashCode() ^ ExistedName.GetHashCode() ^ IsConfirmed.GetHashCode() ^ TempResult.GetHashCode();
+            
+            return hashCode;
+        }
     }
 }
