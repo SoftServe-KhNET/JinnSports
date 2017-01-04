@@ -20,15 +20,15 @@ namespace JinnSports.BLL.Matcher
         /// </summary>
         /// <param name="inputTeam"></param>
         /// <returns></returns>
-        public Team ResolveNaming(Team inputTeam, out List<Conformity> conformities) //add typisation and locals
+        public List<Conformity> ResolveNaming(Team inputTeam) //add typisation and locals
         {
-            conformities = new List<Conformity>();
-            IEnumerable<Team> teams = this.unit.GetRepository<Team>().Get((t) => t.SportType.Name == inputTeam.SportType.Name);
+            List<Conformity> conformities = new List<Conformity>();
+            IEnumerable<Team> teams = this.unit.GetRepository<Team>().Get(filter: (t) => t.SportType.Name == inputTeam.SportType.Name, includeProperties: "Names,SportType");
 
             Team simpleCheckTeam = this.SimpleCheck(teams, inputTeam.Name);
             if (simpleCheckTeam != null)
             {
-                return simpleCheckTeam;
+                return null;
             }
 
             string preparedInputName = inputTeam.Name.ToUpper().Replace(".", string.Empty).Replace("-", string.Empty).Replace(" ", string.Empty);
@@ -43,13 +43,14 @@ namespace JinnSports.BLL.Matcher
                 matches[0].Names.Add(newName);
                 this.unit.GetRepository<Team>().Update(matches[0]);
                 this.unit.SaveChanges();
-                return matches[0];
+                return null;
             }
             else if (comparingResult < 50)
             {
+                inputTeam.Names.Add(new TeamName { Name = inputTeam.Name });
                 this.unit.GetRepository<Team>().Insert(inputTeam);
                 this.unit.SaveChanges();
-                return inputTeam;
+                return null;
             }
             else
             {
@@ -60,14 +61,14 @@ namespace JinnSports.BLL.Matcher
                     conf.ExistedName = team.Name;
                     conformities.Add(conf);
                 }
-
-                this.unit.SaveChanges();
-                return null;
+                                
+                return conformities;
             }
         }
 
         private Team SimpleCheck(IEnumerable<Team> teams, string inputName)
         {
+            
             foreach (Team team in teams)
             {
                 foreach (TeamName teamName in team.Names)
@@ -128,6 +129,11 @@ namespace JinnSports.BLL.Matcher
 
         private int LiteralComparing(string baseName, string inputName)
         {
+            if (baseName.Contains(inputName) || inputName.Contains(baseName))
+            {
+                return Math.Min(baseName.Length, inputName.Length);
+            }
+
             int comparingResult = 0;
             int reversedComparingResult = 0;
 
