@@ -7,7 +7,7 @@ namespace JinnSports.DAL.Migrations
     {
         public override void Up()
         {
-            CreateTable(
+            this.CreateTable(
                 "dbo.CompetitionEvents",
                 c => new
                     {
@@ -16,7 +16,7 @@ namespace JinnSports.DAL.Migrations
                     })
                 .PrimaryKey(t => t.Id);
             
-            CreateTable(
+            this.CreateTable(
                 "dbo.Results",
                 c => new
                     {
@@ -31,7 +31,7 @@ namespace JinnSports.DAL.Migrations
                 .Index(t => t.CompetitionEvent_Id)
                 .Index(t => t.Team_Id);
             
-            CreateTable(
+            this.CreateTable(
                 "dbo.Teams",
                 c => new
                     {
@@ -43,7 +43,7 @@ namespace JinnSports.DAL.Migrations
                 .ForeignKey("dbo.SportTypes", t => t.SportType_Id)
                 .Index(t => t.SportType_Id);
             
-            CreateTable(
+            this.CreateTable(
                 "dbo.SportTypes",
                 c => new
                     {

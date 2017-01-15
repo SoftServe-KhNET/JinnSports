@@ -27,15 +27,7 @@ namespace JinnSports.BLL.Service
 
         public IEnumerable<ResultDto> GetResults(int teamId, int skip, int take)
         {
-            List<ResultDto> orderedTeamResults = new List<ResultDto>();
-
-            /*
-            Team team = this.dataUnit.GetRepository<Team>().GetById(teamId);
-
-            IEnumerable teamResults = team.Results.OrderByDescending(x => x.SportEvent.Date).ThenByDescending(x => x.SportEvent.Id).Skip(skip).Take(take).ToList();
-
-            
-            */
+            List<ResultDto> orderedTeamResults = new List<ResultDto>();            
 
             IEnumerable<Result> teamResults = this.dataUnit.GetRepository<Result>().Get(
                 filter: res => res.Team.Id == teamId,

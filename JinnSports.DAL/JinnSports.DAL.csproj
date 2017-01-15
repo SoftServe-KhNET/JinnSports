@@ -75,6 +75,10 @@
     <Compile Include="Migrations\201612280118336_TempResultsKeeping.Designer.cs">
       <DependentUpon>201612280118336_TempResultsKeeping.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201701031921416_FixStringTypes.cs" />
+    <Compile Include="Migrations\201701031921416_FixStringTypes.Designer.cs">
+      <DependentUpon>201701031921416_FixStringTypes.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\BaseRepository.cs" />
@@ -109,6 +113,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201612280118336_TempResultsKeeping.resx">
       <DependentUpon>201612280118336_TempResultsKeeping.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201701031921416_FixStringTypes.resx">
+      <DependentUpon>201701031921416_FixStringTypes.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
