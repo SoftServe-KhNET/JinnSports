@@ -4,6 +4,7 @@ using JinnSports.BLL.Dtos;
 using JinnSports.Entities.Entities;
 using System.Linq;
 using JinnSports.BLL.Extentions;
+using JinnSports.Entities.Entities.Identity;
 
 namespace JinnSports.WEB
 {
@@ -76,6 +77,62 @@ namespace JinnSports.WEB
                 config.CreateMap<SportType, SportTypeDto>()
                     .ForMember(
                         e => e.Id,
+                        opt => opt.MapFrom(
+                            s => s.Id))
+                   .ForMember(
+                        e => e.Name,
+                        opt => opt.MapFrom(
+                            s => s.Name));
+
+                config.CreateMap<UserDto, User>()
+                    .ForMember(
+                        e => e.UserId,
+                        opt => opt.MapFrom(
+                            s => s.Id))
+                   .ForMember(
+                        e => e.UserName,
+                        opt => opt.MapFrom(
+                            s => s.UserName))
+                   .ForMember(
+                        e => e.PasswordHash,
+                        opt => opt.MapFrom(
+                            s => s.PasswordHash))
+                   .ForMember(
+                        e => e.SecurityStamp,
+                        opt => opt.MapFrom(
+                            s => s.SecurityStamp));
+
+                config.CreateMap<User, UserDto>()
+                    .ForMember(
+                        e => e.Id,
+                        opt => opt.MapFrom(
+                            s => s.UserId))
+                   .ForMember(
+                        e => e.UserName,
+                        opt => opt.MapFrom(
+                            s => s.UserName))
+                   .ForMember(
+                        e => e.PasswordHash,
+                        opt => opt.MapFrom(
+                            s => s.PasswordHash))
+                   .ForMember(
+                        e => e.SecurityStamp,
+                        opt => opt.MapFrom(
+                            s => s.SecurityStamp));
+
+                config.CreateMap<Role, RoleDto>()
+                    .ForMember(
+                        e => e.Id,
+                        opt => opt.MapFrom(
+                            s => s.RoleId))
+                   .ForMember(
+                        e => e.Name,
+                        opt => opt.MapFrom(
+                            s => s.Name));
+
+                config.CreateMap<RoleDto, Role>()
+                    .ForMember(
+                        e => e.RoleId,
                         opt => opt.MapFrom(
                             s => s.Id))
                    .ForMember(

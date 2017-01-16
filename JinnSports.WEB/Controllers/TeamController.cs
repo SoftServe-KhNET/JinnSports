@@ -10,7 +10,7 @@ namespace JinnSports.WEB.Controllers
 {
     public class TeamController : Controller
     {
-        // GET: Team
+        // GET: Team        
         public ActionResult Index()
         {
             return this.View();

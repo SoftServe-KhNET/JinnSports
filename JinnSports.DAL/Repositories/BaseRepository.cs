@@ -13,9 +13,11 @@ namespace JinnSports.DAL.Repositories
         public BaseRepository(DbContext db)
         {
             this.DbSet = db.Set<T>();
+            this.Context = db;
         }
 
         private DbSet<T> DbSet { get; }
+        private DbContext Context { get; }
 
         public virtual IEnumerable<T> Get(
             Expression<Func<T, bool>> filter = null,
@@ -84,8 +86,8 @@ namespace JinnSports.DAL.Repositories
         }
 
         public virtual void Update(T entityToUpdate)
-        {
-            this.DbSet.Attach(entityToUpdate);
+        {            
+            this.Context.Entry(entityToUpdate).State = System.Data.Entity.EntityState.Modified;            
         }
 
         public virtual void Delete(object id)

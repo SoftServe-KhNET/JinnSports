@@ -10,11 +10,11 @@ namespace JinnSports.DAL.Repositories
         private readonly SportsContext db;
 
         private bool disposed = false;
-
+       
         public EFUnitOfWork(SportsContext context)
         {
             this.db = context;            
-        }
+        }                           
 
         public IRepository<T> GetRepository<T>() where T : class
         {
@@ -37,7 +37,7 @@ namespace JinnSports.DAL.Repositories
             {
                 if (disposing)
                 {
-                    this.db.Dispose();
+                    this.db.Dispose();                    
                 }
                 this.disposed = true;
             }
