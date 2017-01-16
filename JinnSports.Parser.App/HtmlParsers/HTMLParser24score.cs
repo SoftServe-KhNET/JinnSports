@@ -5,10 +5,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
-using JinnSports.DataAccessInterfaces.Interfaces;
 using JinnSports.Parser.App.Exceptions;
 using JinnSports.Parser.App.ProxyService.ProxyConnection;
-using JinnSports.Entities.Entities;
 using log4net;
 using DTO.JSON;
 
@@ -19,7 +17,7 @@ namespace JinnSports.Parser.App.HtmlParsers
         private static readonly ILog Log =
             LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
-        public HTMLParser24score(IUnitOfWork unit)
+        public HTMLParser24score()
         {            
         }
         

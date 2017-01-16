@@ -12,7 +12,7 @@ namespace DTO.JSON
         public string TeamName { get; set; }
 
         public int? Score { get; set; }
-
+        
         public bool IsHome { get; set; }
     }
 }

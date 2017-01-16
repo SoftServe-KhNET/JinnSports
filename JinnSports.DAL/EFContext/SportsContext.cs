@@ -2,6 +2,8 @@ using System.Configuration;
 using System.Data.Entity;
 using JinnSports.Entities.Entities;
 using JinnSports.Entities.Entities.Temp;
+using JinnSports.Entities.Entities.Identity;
+using JinnSports.DAL.Configurations;
 
 namespace JinnSports.DAL.EFContext
 {
@@ -33,6 +35,14 @@ namespace JinnSports.DAL.EFContext
 
         public DbSet<TempSportEvent> TempSportEvents { get; set; }
 
+        public DbSet<User> Users { get; set; }
+
+        public DbSet<Role> Roles { get; set; }
+
+        public DbSet<Claim> Claims { get; set; }
+
+        public DbSet<ExternalLogin> Logins { get; set; }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Result>().HasRequired(p => p.Team).WithMany(n => n.Results).WillCascadeOnDelete(false);
@@ -46,6 +56,11 @@ namespace JinnSports.DAL.EFContext
             modelBuilder.Entity<SportEvent>().HasRequired(p => p.SportType).WithMany(n => n.SportEvents).WillCascadeOnDelete(false);
 
             modelBuilder.Entity<TeamName>().Property(p => p.Name).IsRequired();
+
+            modelBuilder.Configurations.Add(new UserConfiguration());
+            modelBuilder.Configurations.Add(new RoleConfiguration());
+            modelBuilder.Configurations.Add(new ExternalLoginConfiguration());
+            modelBuilder.Configurations.Add(new ClaimConfiguration());
 
             base.OnModelCreating(modelBuilder);
         }

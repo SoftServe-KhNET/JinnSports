@@ -76,14 +76,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\JinnSports.DAL\JinnSports.DAL.csproj">
-      <Project>{be36f33a-801a-4b21-8130-ff952c3a5f97}</Project>
-      <Name>JinnSports.DAL</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\JinnSports.DataAccessInterfaces\JinnSports.DataAccessInterfaces.csproj">
-      <Project>{07107e13-6ddf-47af-90bc-fb344b060511}</Project>
-      <Name>JinnSports.DataAccessInterfaces</Name>
-    </ProjectReference>
     <ProjectReference Include="..\JinnSports.Parser.App\JinnSports.Parser.App.csproj">
       <Project>{c5f8de8e-bea1-4a55-a0b4-1190eee9d017}</Project>
       <Name>JinnSports.Parser.App</Name>

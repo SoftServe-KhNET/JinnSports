@@ -89,96 +89,94 @@ namespace JinnSports.BLL.Service
         }
 
         public bool SaveSportEvents(ICollection<SportEventDTO> eventDTOs)
-        {
-            Log.Info("Writing transferred data...");
-            using (this.dataUnit)
+        {            
+            try
             {
-                try
+                Log.Info("Writing transferred data...");  
+
+                IEnumerable<SportType> sportTypes = this.dataUnit.GetRepository<SportType>().Get();
+                IEnumerable<SportEvent> exustingEvents = this.dataUnit.GetRepository<SportEvent>().Get();
+
+                NamingMatcher matcher = new NamingMatcher(this.dataUnit);
+
+                foreach (SportEventDTO eventDTO in eventDTOs)
                 {
-                    NamingMatcher matcher = new NamingMatcher(this.dataUnit);
+                    SportType sportType = sportTypes.FirstOrDefault(st => st.Name == eventDTO.SportType) 
+                                            ?? new SportType { Name = eventDTO.SportType };
+                    
+                    bool conflictExist = false;
+                    List<Result> results = new List<Result>();
+                    List<TempResult> tempResults = new List<TempResult>();
 
-                    IEnumerable<SportType> sportTypes = this.dataUnit.GetRepository<SportType>().Get();
-                    IEnumerable<SportEvent> existingEvents = this.dataUnit.GetRepository<SportEvent>().Get();
+                    foreach (ResultDTO resultDTO in eventDTO.Results)
+                    {     
+                        Team team = new Team { Name = resultDTO.TeamName, SportType = sportType };
+                        List<Conformity> conformities = matcher.ResolveNaming(team);
 
-                    foreach (SportEventDTO eventDTO in eventDTOs)
-                    {
-                        SportType sportType = sportTypes.FirstOrDefault(st => st.Name == eventDTO.SportType)
-                                                ?? new SportType { Name = eventDTO.SportType };
-
-                        bool isConflictExist = false;
-                        List<Result> results = new List<Result>();
-                        List<TempResult> tempResults = new List<TempResult>();
-
-                        foreach (ResultDTO resultDTO in eventDTO.Results)
+                        if (conformities == null)
                         {
-                            List<Conformity> conformities = new List<Conformity>();
-
-                            Team team = new Team { Name = resultDTO.TeamName, SportType = sportType };
-                            Team resolvedTeam = matcher.ResolveNaming(team, out conformities);
-
-                            if (resolvedTeam != null)
-                            {
-                                Result result = new Result { Team = team, Score = resultDTO.Score ?? -1, IsHome = resultDTO.IsHome };
-                                results.Add(result);
-                            }
-                            else
-                            {
-                                isConflictExist = true;
-
-                                TempResult result = new TempResult { Team = team, Score = resultDTO.Score };
-
-                                foreach (Conformity conformity in conformities)
-                                {
-                                    result.Conformities.Add(conformity);
-                                }
-                                conformities.Clear();
-                                tempResults.Add(result);
-                            }
-                        }
-
-                        if (isConflictExist)
-                        {
-                            TempSportEvent tempSportEvent = new TempSportEvent { SportType = sportType, Date = ConvertAndTrimDate(eventDTO.Date) };
-                            foreach (TempResult tempResult in tempResults)
-                            {
-                                tempSportEvent.TempResults.Add(tempResult);
-                            }
-                            foreach (Result result in results)
-                            {
-                                TempResult tempRes = new TempResult { Team = result.Team, Score = result.Score, IsHome = result.IsHome };
-                                tempSportEvent.TempResults.Add(tempRes);
-                            }
-                            this.dataUnit.GetRepository<TempSportEvent>().Insert(tempSportEvent);
+                            team = this.dataUnit.GetRepository<Team>().Get((x) => x.Names.Contains(new TeamName { Name = team.Name })).FirstOrDefault();
+                            Result result = new Result { Team = team, Score = resultDTO.Score };
+                            results.Add(result);                            
                         }
                         else
                         {
-                            SportEvent sportEvent = new SportEvent { SportType = sportType, Date = ConvertAndTrimDate(eventDTO.Date) };
-                            foreach (Result result in results)
+                            conflictExist = true;
+
+                            TempResult tempResult = new TempResult { Team = team, Score = resultDTO.Score };
+                            
+                            foreach (Conformity conformity in conformities)
                             {
-                                sportEvent.Results.Add(result);
+                                tempResult.Conformities.Add(conformity);
                             }
-                            if (!existingEvents.Contains(sportEvent))
-                            {
-                                this.dataUnit.GetRepository<SportEvent>().Insert(sportEvent);
-                            }
+                            conformities.Clear();
+                            tempResults.Add(tempResult);                            
+                        }                        
+                    }
+
+                    if (conflictExist)
+                    {
+                        TempSportEvent tempSportEvent = new TempSportEvent { SportType = sportType, Date = new DateTime(eventDTO.Date) };
+                        foreach (TempResult tempResult in tempResults)
+                        {
+                            tempSportEvent.TempResults.Add(tempResult);
+                        }
+                        foreach (Result result in results)
+                        {
+                            TempResult tempRes = new TempResult { Team = result.Team, Score = result.Score, IsHome = result.IsHome };
+                            tempSportEvent.TempResults.Add(tempRes);
+                        }
+                        this.dataUnit.GetRepository<TempSportEvent>().Insert(tempSportEvent);
+                    }
+                    else
+                    {
+                        SportEvent sportEvent = new SportEvent { SportType = sportType, Date = new DateTime(eventDTO.Date) };
+                        foreach (Result result in results)
+                        {
+                            sportEvent.Results.Add(result);
+                        }
+                        if (!exustingEvents.Contains(sportEvent))
+                        {
+                            this.dataUnit.GetRepository<SportEvent>().Insert(sportEvent); 
                         }
                     }
-                    this.dataUnit.SaveChanges();
                 }
-                catch (Exception ex)
+                this.dataUnit.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                Log.Error("Exception when trying to save transferred data to DB", ex);
+                return false;
+            }
+            finally
+            {
+                if (this.dataUnit != null)
                 {
-                    Log.Error("Exception when trying to save transferred data to DB", ex);
-                    return false;
+                    this.dataUnit.Dispose();
                 }
             }
             Log.Info("Transferred data sucessfully saved");
             return true;
-        }
-        
-        private DateTime ConvertAndTrimDate(long dateTicks)
-        {
-            DateTime temp = new DateTime(dateTicks);
-            return new DateTime(temp.Year, temp.Month, temp.Day);
-        }         
+        }        
     }
 }

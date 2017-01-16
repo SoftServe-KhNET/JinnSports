@@ -16,7 +16,7 @@ namespace JinnSports.WEB.Controllers
         {
             this.eventService = eventService;
         }
-
+        
         public ActionResult Index()
         {
             IEnumerable<SportTypeDto> sportTypes = this.eventService.GetSportTypes();
