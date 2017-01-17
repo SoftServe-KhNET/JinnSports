@@ -1,13 +1,16 @@
 <stylecopresultscache>
   <version>12</version>
-  <project key="451244203">
+  <project key="-1944001769">
+    <configuration>DEBUG;TRACE</configuration>
+  </project>
+  <project key="-137146631">
     <configuration>DEBUG;TRACE</configuration>
   </project>
   <sourcecode name="SportEventTest.cs" parser="StyleCop.CSharp.CsParser">
     <timestamps>
       <styleCop>2016.11.10 18:44:50.000</styleCop>
-      <settingsFile>2016.12.16 20:52:22.743</settingsFile>
-      <sourceFile>2016.12.27 21:48:49.905</sourceFile>
+      <settingsFile>2017.01.17 21:11:24.956</settingsFile>
+      <sourceFile>2017.01.17 21:11:24.776</sourceFile>
       <parser>2016.11.10 18:44:50.000</parser>
       <StyleCop.CSharp.DocumentationRules>2016.11.10 18:44:50.000</StyleCop.CSharp.DocumentationRules>
       <StyleCop.CSharp.DocumentationRules.FilesHashCode>202844509</StyleCop.CSharp.DocumentationRules.FilesHashCode>
@@ -29,8 +32,8 @@
   <sourcecode name="AssemblyInfo.cs" parser="StyleCop.CSharp.CsParser">
     <timestamps>
       <styleCop>2016.11.10 18:44:50.000</styleCop>
-      <settingsFile>2016.12.16 20:52:22.743</settingsFile>
-      <sourceFile>2016.12.16 20:52:20.592</sourceFile>
+      <settingsFile>2017.01.17 21:11:24.956</settingsFile>
+      <sourceFile>2017.01.17 21:11:24.776</sourceFile>
       <parser>2016.11.10 18:44:50.000</parser>
       <StyleCop.CSharp.DocumentationRules>2016.11.10 18:44:50.000</StyleCop.CSharp.DocumentationRules>
       <StyleCop.CSharp.DocumentationRules.FilesHashCode>202844509</StyleCop.CSharp.DocumentationRules.FilesHashCode>
@@ -52,8 +55,8 @@
   <sourcecode name=".NETFramework,Version=v4.5.2.AssemblyAttributes.cs" parser="StyleCop.CSharp.CsParser">
     <timestamps>
       <styleCop>2016.11.10 18:44:50.000</styleCop>
-      <settingsFile>2016.12.16 20:52:22.743</settingsFile>
-      <sourceFile>2016.11.17 15:57:34.167</sourceFile>
+      <settingsFile>2017.01.17 21:11:24.956</settingsFile>
+      <sourceFile>2016.11.10 08:49:25.562</sourceFile>
       <parser>2016.11.10 18:44:50.000</parser>
       <StyleCop.CSharp.DocumentationRules>2016.11.10 18:44:50.000</StyleCop.CSharp.DocumentationRules>
       <StyleCop.CSharp.DocumentationRules.FilesHashCode>202844509</StyleCop.CSharp.DocumentationRules.FilesHashCode>

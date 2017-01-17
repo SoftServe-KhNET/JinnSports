@@ -1,5 +1,8 @@
-C:\Users\Ivan\Documents\GitHub\JinnSports\DTO\bin\Debug\DTO.dll
-C:\Users\Ivan\Documents\GitHub\JinnSports\DTO\bin\Debug\DTO.pdb
-C:\Users\Ivan\Documents\GitHub\JinnSports\DTO\obj\Debug\DTO.dll
-C:\Users\Ivan\Documents\GitHub\JinnSports\DTO\obj\Debug\DTO.pdb
-C:\Users\Ivan\Documents\GitHub\JinnSports\DTO\obj\Debug\DTO.csprojResolveAssemblyReference.cache
+H:\C#\Experimental\SS\developing\DTO\bin\Debug\DTO.dll
+H:\C#\Experimental\SS\developing\DTO\bin\Debug\DTO.pdb
+H:\C#\Experimental\SS\developing\DTO\obj\Debug\DTO.dll
+H:\C#\Experimental\SS\developing\DTO\obj\Debug\DTO.pdb
+H:\C#\Experimental\SS\master\DTO\bin\Debug\DTO.dll
+H:\C#\Experimental\SS\master\DTO\bin\Debug\DTO.pdb
+H:\C#\Experimental\SS\master\DTO\obj\Debug\DTO.dll
+H:\C#\Experimental\SS\master\DTO\obj\Debug\DTO.pdb

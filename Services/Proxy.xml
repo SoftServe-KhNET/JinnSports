@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfProxyServer xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <ProxyServer Status="Unstable" Priority="0">
+    <Ip>124.47.7.45</Ip>
+    <LastUsed>2016-12-06T19:12:28.588864+02:00</LastUsed>
+  </ProxyServer>
+  <ProxyServer Status="Unstable" Priority="1">
+    <Ip>60.250.81.118</Ip>
+    <LastUsed>2016-12-06T19:09:18.5959971+02:00</LastUsed>
+  </ProxyServer>
+  <ProxyServer Status="Unstable" Priority="0">
+    <Ip>94.181.34.64</Ip>
+    <LastUsed>2016-12-06T19:15:08.1127343+02:00</LastUsed>
+  </ProxyServer>
+  <ProxyServer Status="Stable" Priority="0">
+    <Ip>177.184.8.123</Ip>
+    <LastUsed>2016-12-06T19:15:44.6840494+02:00</LastUsed>
+  </ProxyServer>
+</ArrayOfProxyServer>

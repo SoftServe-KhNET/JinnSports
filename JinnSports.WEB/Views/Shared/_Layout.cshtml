@@ -1,0 +1,38 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/MainStyles")
+    @RenderSection("styles", false)
+</head>
+    <body class="layout-top-nav skin-blue">
+        <div class="wrapper">
+            <header class="main-header">
+                @Html.Partial("_HeaderPartial")
+            </header>
+            <div class="content-wrapper">
+                <div class="container">
+                    <!-- Content Header (Page header) -->
+                    <section class="content-header">
+                        <h1>
+                            @ViewBag.Header
+                        </h1>
+                    </section>
+                    
+                    <section class="content">
+                        @RenderBody()
+                    </section>
+                </div>
+            </div>
+            <footer class="main-footer">
+                @Html.Partial("_FooterPartial")
+            </footer>
+        </div>
+    </body>
+    @Scripts.Render("~/Scripts/jquery")
+    @Scripts.Render("~/Scripts/AdminLTE")
+    @RenderSection("scripts", false)
+</html>
