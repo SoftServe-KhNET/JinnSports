@@ -44,7 +44,7 @@ namespace JinnSports.BLL.Service
             return count;
         }
 
-        public IEnumerable<ResultDto> GetSportEvents(int sportTypeId, int skip, int take)
+        public IEnumerable<ResultDto> GetSportEvents(int sportTypeId, int time, int skip, int take)
         {
             IList<ResultDto> results = new List<ResultDto>();
 
@@ -67,6 +67,10 @@ namespace JinnSports.BLL.Service
                     orderBy: s => s.OrderByDescending(x => x.Date).ThenByDescending(x => x.Id),
                     skip: skip,
                     take: take);
+            }
+            if (time != 0)
+            {
+                sportEvents = sportEvents.Where(m => Math.Sign(DateTime.Compare(m.Date, DateTime.Now)) == time).Select(m => m);
             }
             foreach (SportEvent sportEvent in sportEvents)
             {
@@ -113,7 +117,7 @@ namespace JinnSports.BLL.Service
                         foreach (ResultDTO resultDTO in eventDTO.Results)
                         {
                             Team team = new Team { Name = resultDTO.TeamName, SportType = sportType };
-                            List<Conformity> conformities = matcher.ResolveNaming(team);                            
+                            List<Conformity> conformities = matcher.ResolveNaming(team);
 
                             if (conformities == null)
                             {
@@ -181,4 +185,4 @@ namespace JinnSports.BLL.Service
             return new DateTime(temp.Year, temp.Month, temp.Day);
         }
     }
-    }
+}

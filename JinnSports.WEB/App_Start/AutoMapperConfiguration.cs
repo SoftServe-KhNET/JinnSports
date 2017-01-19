@@ -4,7 +4,7 @@ using JinnSports.BLL.Dtos;
 using JinnSports.Entities.Entities;
 using System.Linq;
 using JinnSports.BLL.Extentions;
-using JinnSports.BLL.Dtos.SportType
+using JinnSports.BLL.Dtos.SportType;
 using JinnSports.Entities.Entities.Identity;
 
 namespace JinnSports.WEB

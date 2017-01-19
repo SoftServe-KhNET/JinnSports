@@ -42,7 +42,7 @@ namespace JinnSports.BLL.Service
             return count;
         }
 
-        public SportTypeSelectDto GetSportTypes(int sportTypeId)
+        public SportTypeSelectDto GetSportTypes(int sportTypeId, int time)
         {
             IList<ResultDto> results = new List<ResultDto>();
             IList<SportTypeListDto> sportTypeListDtos = new List<SportTypeListDto>();
@@ -56,6 +56,11 @@ namespace JinnSports.BLL.Service
                 selectedName = sportType.Name;
 
                 sportEvents = sportType.SportEvents;
+
+                if (time != 0)
+                {
+                    sportEvents = sportEvents.Where(m => Math.Sign(DateTime.Compare(m.Date, DateTime.Now))==time).Select(m => m).ToList();
+                }
 
                 if (sportEvents.Count() > 0)
                 {
@@ -84,6 +89,11 @@ namespace JinnSports.BLL.Service
                 {
                     sportEvents = sportType.SportEvents;
 
+                    if (time != 0)
+                    {
+                        sportEvents = sportEvents.Where(m => Math.Sign(DateTime.Compare(m.Date, DateTime.Now)) == time).Select(m => m).ToList();
+                    }
+
                     if (sportEvents.Count() > 0)
                     {
                         foreach (SportEvent sportEvent in sportEvents)
@@ -108,7 +118,7 @@ namespace JinnSports.BLL.Service
             SportTypeSelectDto sportTypeModel = new SportTypeSelectDto()
             {
                 SelectedId = sportTypeId,
-                SelectedName = selectedName, 
+                SelectedName = selectedName,
                 SportTypes = GetAllSportTypes(),
                 SportTypeResults = sportTypeListDtos
             };
