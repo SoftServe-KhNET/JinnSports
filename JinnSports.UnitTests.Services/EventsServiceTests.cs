@@ -37,7 +37,7 @@ namespace JinnSports.UnitTests.Services
 
             // Other transactions can't update and insert data
             this.databaseTransaction = this.databaseSportsContext
-                .Database.BeginTransaction(IsolationLevel.Serializable);
+                .Database.BeginTransaction(IsolationLevel.ReadUncommitted);
 
             // Clear tables
             this.databaseSportsContext.TeamNames.RemoveRange(

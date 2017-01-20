@@ -14,12 +14,12 @@ namespace JinnSports.Entities.Entities.Identity
         {
             get
             {
-                return user;
+                return this.user;
             }
             set
             {
-                user = value;
-                UserId = value.UserId;
+                this.user = value;
+                this.UserId = value.UserId;
             }
         }        
     }

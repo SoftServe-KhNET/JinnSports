@@ -21,7 +21,7 @@ namespace JinnSports.Entities.Entities
 
         public bool Equals(Conformity conformity)
         {
-            if (InputName == null || ExistedName == null)
+            if (this.InputName == null || this.ExistedName == null)
             {
                 return false;
             }
@@ -31,17 +31,22 @@ namespace JinnSports.Entities.Entities
                 return false;
             }
 
-            return (InputName == conformity.InputName) && (ExistedName == conformity.ExistedName) && (IsConfirmed == conformity.IsConfirmed);
+            return (this.InputName == conformity.InputName) && 
+                (this.ExistedName == conformity.ExistedName) && 
+                (this.IsConfirmed == conformity.IsConfirmed);
         }
 
         public override int GetHashCode()
         {
-            if (InputName == null || ExistedName == null || TempResult == null)
+            if (this.InputName == null || this.ExistedName == null || this.TempResult == null)
             {
                 return 0;
             }
 
-            int hashCode = InputName.GetHashCode() ^ ExistedName.GetHashCode() ^ IsConfirmed.GetHashCode() ^ TempResult.GetHashCode();
+            int hashCode = this.InputName.GetHashCode() ^ 
+                this.ExistedName.GetHashCode() ^ 
+                this.IsConfirmed.GetHashCode() ^ 
+                this.TempResult.GetHashCode();
             
             return hashCode;
         }

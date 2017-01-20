@@ -14,26 +14,26 @@ namespace Services
     {
         public JinnSportsServiceInstaller()
         {
-            InitializeComponent();
-            ServiceInstaller HTMLServiceInstaller = new ServiceInstaller();
-            ServiceProcessInstaller HTMLProcessInstaller = new ServiceProcessInstaller();
+            this.InitializeComponent();
+            ServiceInstaller htmlServiceInstaller = new ServiceInstaller();
+            ServiceProcessInstaller htmlProcessInstaller = new ServiceProcessInstaller();
 
-            HTMLProcessInstaller.Account = ServiceAccount.LocalSystem;
-            HTMLServiceInstaller.StartType = ServiceStartMode.Manual;
-            HTMLServiceInstaller.ServiceName = "HTMLService";
-            HTMLServiceInstaller.DisplayName = "HTMLService";
-            Installers.Add(HTMLProcessInstaller);
-            Installers.Add(HTMLServiceInstaller);
+            htmlProcessInstaller.Account = ServiceAccount.LocalSystem;
+            htmlServiceInstaller.StartType = ServiceStartMode.Manual;
+            htmlServiceInstaller.ServiceName = "HTMLService";
+            htmlServiceInstaller.DisplayName = "HTMLService";
+            Installers.Add(htmlProcessInstaller);
+            Installers.Add(htmlServiceInstaller);
 
-            ServiceInstaller JSONServiceInstaller = new ServiceInstaller();
-            ServiceProcessInstaller JSONProcessInstaller = new ServiceProcessInstaller();
+            ServiceInstaller jsonServiceInstaller = new ServiceInstaller();
+            ServiceProcessInstaller jsonProcessInstaller = new ServiceProcessInstaller();
 
-            JSONProcessInstaller.Account = ServiceAccount.LocalSystem;
-            JSONServiceInstaller.StartType = ServiceStartMode.Manual;
-            JSONServiceInstaller.ServiceName = "JSONService";
-            JSONServiceInstaller.DisplayName = "JSONService";
-            Installers.Add(JSONProcessInstaller);
-            Installers.Add(JSONServiceInstaller);
+            jsonProcessInstaller.Account = ServiceAccount.LocalSystem;
+            jsonServiceInstaller.StartType = ServiceStartMode.Manual;
+            jsonServiceInstaller.ServiceName = "JSONService";
+            jsonServiceInstaller.DisplayName = "JSONService";
+            Installers.Add(jsonProcessInstaller);
+            Installers.Add(jsonServiceInstaller);
         }
     }
 }

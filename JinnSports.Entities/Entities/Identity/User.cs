@@ -16,27 +16,27 @@ namespace JinnSports.Entities.Entities.Identity
         
         public virtual ICollection<Claim> Claims
         {
-            get { return claims ?? (claims = new List<Claim>()); }
-            set { claims = value; }
+            get { return this.claims ?? (this.claims = new List<Claim>()); }
+            set { this.claims = value; }
         }
 
         public virtual ICollection<ExternalLogin> Logins
         {
             get
             {
-                return externalLogins ??
-                    (externalLogins = new List<ExternalLogin>());
+                return this.externalLogins ??
+                    (this.externalLogins = new List<ExternalLogin>());
             }
             set
             {
-                externalLogins = value;
+                this.externalLogins = value;
             }
         }
 
         public virtual ICollection<Role> Roles
         {
-            get { return roles ?? (roles = new List<Role>()); }
-            set { roles = value; }
+            get { return this.roles ?? (this.roles = new List<Role>()); }
+            set { this.roles = value; }
         }        
     }
 }

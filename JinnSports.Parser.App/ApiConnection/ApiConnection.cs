@@ -33,7 +33,7 @@ namespace JinnSports.Parser
                 {
                     Log.Info("Starting Data transfer");
 
-                    GetConnectionSettings();
+                    this.GetConnectionSettings();
 
                     client.BaseAddress = new Uri(this.baseUrl);
                     client.Timeout = new TimeSpan(0, 0, this.timeoutSec);
@@ -66,7 +66,7 @@ namespace JinnSports.Parser
             settings.Load("ApiConnection.xml");
             this.baseUrl = settings.DocumentElement.SelectSingleNode("url").InnerText;
             this.controllerUrn = settings.DocumentElement.SelectSingleNode("name").InnerText;
-            this.timeoutSec = Int32.Parse(settings.DocumentElement.SelectSingleNode("timeout").InnerText ?? "60");
+            this.timeoutSec = int.Parse(settings.DocumentElement.SelectSingleNode("timeout").InnerText ?? "60");
         }
     }
 }

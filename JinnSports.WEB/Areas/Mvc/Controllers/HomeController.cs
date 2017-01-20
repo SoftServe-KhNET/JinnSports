@@ -11,7 +11,7 @@ namespace JinnSports.WEB.Areas.Mvc.Controllers
         // GET: Mvc/Home
         public ActionResult Index()
         {
-            return View();
+            return this.View();
         }
     }
 }

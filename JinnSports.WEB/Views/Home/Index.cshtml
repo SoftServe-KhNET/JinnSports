@@ -1,5 +1,42 @@
-﻿@{
+﻿@model List<JinnSports.BLL.Dtos.NewsDto>
+@{
     Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.Title = "JinnSports Main";
     ViewBag.Header = "Main page";
 }
+
+<div class="col-md-9">
+    
+</div>
+<div class="col-md-3">
+    <div class="box">
+        <div class="box-header with-border">
+            <h3 class="box-title">
+                News
+            </h3>
+        </div>
+        
+        <div class="box-body">
+            @if (Model == null || Model.Count == 0)
+            {
+                <p>No news...</p>
+            }
+            else
+            {
+                foreach (var item in Model)
+                {
+                    <a href="@item.Link">
+                        <p>
+                            @item.Title
+                        </p>
+                    </a>
+                    <p>
+                        @item.Description
+                        <span class="time pull-right"><i class="fa fa-clock-o"></i>@item.Time</span>
+                    </p>
+                    <hr/>
+                }
+            }
+        </div>
+    </div>
+</div>

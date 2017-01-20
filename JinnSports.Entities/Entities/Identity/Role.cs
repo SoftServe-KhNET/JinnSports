@@ -12,8 +12,8 @@ namespace JinnSports.Entities.Entities.Identity
         
         public ICollection<User> Users
         {
-            get { return users ?? (users = new List<User>()); }
-            set { users = value; }
+            get { return this.users ?? (this.users = new List<User>()); }
+            set { this.users = value; }
         }        
     }
 }

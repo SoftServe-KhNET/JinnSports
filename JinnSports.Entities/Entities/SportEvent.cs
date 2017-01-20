@@ -16,7 +16,7 @@ namespace JinnSports.Entities.Entities
 
         public override bool Equals(object obj)
         {
-            if (Date == null || SportType == null || SportType.Name == null || Results == null)
+            if (this.Date == null || this.SportType == null || this.SportType.Name == null || this.Results == null)
             {
                 return false;
             }
@@ -32,12 +32,12 @@ namespace JinnSports.Entities.Entities
                 return false;
             }
 
-            return (Date == sportEvent.Date) && (SportType.Name == sportEvent.SportType.Name) && CheckResults(sportEvent.Results);
+            return (this.Date == sportEvent.Date) && (SportType.Name == sportEvent.SportType.Name) && this.CheckResults(sportEvent.Results);
         }
 
         public bool Equals(SportEvent sportEvent)
         {
-            if (Date == null || SportType == null || SportType.Name == null || Results == null)
+            if (this.Date == null || this.SportType == null || this.SportType.Name == null || this.Results == null)
             {
                 return false;
             }
@@ -47,18 +47,18 @@ namespace JinnSports.Entities.Entities
                 return false;
             }
 
-            return (Date == sportEvent.Date) && (SportType.Name == sportEvent.SportType.Name) && CheckResults(sportEvent.Results);
+            return (this.Date == sportEvent.Date) && (SportType.Name == sportEvent.SportType.Name) && this.CheckResults(sportEvent.Results);
         }
 
         public override int GetHashCode()
         {
-            if (Date == null || SportType == null || SportType.Name == null)
+            if (this.Date == null || this.SportType == null || SportType.Name == null)
             {
                 return 0;
             }
 
-            int hashCode = Date.GetHashCode() ^ SportType.Name.GetHashCode();
-            List<string> teamNames = Results.Select(r => r.Team.Name).ToList();
+            int hashCode = this.Date.GetHashCode() ^ SportType.Name.GetHashCode();
+            List<string> teamNames = this.Results.Select(r => r.Team.Name).ToList();
 
             foreach (string teamName in teamNames)
             {
@@ -75,12 +75,12 @@ namespace JinnSports.Entities.Entities
 
         private bool CheckResults(ICollection<Result> foreignResults)
         {
-            if (HasNullResults(Results) || HasNullResults(foreignResults))
+            if (this.HasNullResults(this.Results) || this.HasNullResults(foreignResults))
             {
                 return false;
             }
 
-            List<string> thisTeamNames = Results.Select(r => r.Team.Name).ToList();
+            List<string> thisTeamNames = this.Results.Select(r => r.Team.Name).ToList();
             List<string> foreignTeamNames = foreignResults.Select(r => r.Team.Name).ToList();
 
             if (thisTeamNames.Count != foreignTeamNames.Count)

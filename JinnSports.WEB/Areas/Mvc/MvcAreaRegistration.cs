@@ -17,14 +17,12 @@ namespace JinnSports.WEB.Areas.Mvc
             context.MapRoute(
                 "Mvc_Default",
                 "Mvc/{controller}/{action}",
-                new { action = "Index", id = UrlParameter.Optional }
-            );
+                new { action = "Index", id = UrlParameter.Optional });
+
             context.MapRoute(
                "Mvc_Select",
                "Mvc/{controller}/{action}/{id}",
-               new { action = "SportTypeSelect", id = UrlParameter.Optional }
-           );
-            
+               new { action = "SportTypeSelect", id = UrlParameter.Optional });
         }
     }
 }

@@ -28,11 +28,11 @@ namespace JinnSports.WEB.Areas.Mvc.Controllers
 
             if (sportTypeModel != null)
             {
-                return View(sportTypeModel);
+                return this.View(sportTypeModel);
             }
             else
             {
-                return View();
+                return this.View();
             }
         }
 
@@ -45,7 +45,7 @@ namespace JinnSports.WEB.Areas.Mvc.Controllers
             string requestedTime = Request["timeSelector"];
             int timeId = !string.IsNullOrEmpty(requestedTime) ? Convert.ToInt32(requestedTime) : 1;
 
-            return RedirectToAction("Index", new { id = sportTypeId, time = timeId - 1 });
+            return this.RedirectToAction("Index", new { id = sportTypeId, time = timeId - 1 });
         }
     }
 }

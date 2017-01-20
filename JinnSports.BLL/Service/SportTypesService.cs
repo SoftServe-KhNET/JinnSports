@@ -118,8 +118,8 @@ namespace JinnSports.BLL.Service
             SportTypeSelectDto sportTypeModel = new SportTypeSelectDto()
             {
                 SelectedId = sportTypeId,
-                SelectedName = selectedName,
-                SportTypes = GetAllSportTypes(),
+                SelectedName = selectedName, 
+                SportTypes = this.GetAllSportTypes(),
                 SportTypeResults = sportTypeListDtos
             };
             return sportTypeModel;

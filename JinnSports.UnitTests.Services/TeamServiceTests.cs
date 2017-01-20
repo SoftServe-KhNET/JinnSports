@@ -43,7 +43,7 @@ namespace JinnSports.UnitTests.Services
             this.databaseSportsContext = new SportsContext("SportsContext");
 
             this.databaseTransaction = this.databaseSportsContext
-                .Database.BeginTransaction(System.Data.IsolationLevel.Serializable);
+                .Database.BeginTransaction(System.Data.IsolationLevel.ReadUncommitted);
 
             // Clear tables
             this.databaseSportsContext.TeamNames.RemoveRange(
