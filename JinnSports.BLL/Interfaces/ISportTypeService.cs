@@ -12,7 +12,7 @@ namespace JinnSports.BLL.Interfaces
     {
         int Count(int sportTypeId);
 
-        SportTypeSelectDto GetSportTypes(int sportTypeId);
+        SportTypeSelectDto GetSportTypes(int sportTypeId, int time);
 
         IEnumerable<SportTypeDto> GetAllSportTypes();
     }

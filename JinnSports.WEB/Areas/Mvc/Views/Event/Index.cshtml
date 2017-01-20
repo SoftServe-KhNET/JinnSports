@@ -11,8 +11,8 @@
 <asp:content>
     @using (Html.BeginForm("PostIndex", "Event", FormMethod.Post))
     {
-        <input class="btn btn-primary" type="submit" name="Select" />
-        <asp:div class="col-lg-10">
+        <asp:div>
+            <label for="timeSelector">Select Sport Type</label>
             <select class="form-control" id="sportTypeSelector" name="sportTypeSelector">
                 <option value="0">All</option>
                 @foreach (SportTypeDto sportType in Model.SportTypes)
@@ -20,7 +20,17 @@
                     <option value=@sportType.Id.ToString()>@sportType.Name</option>
                 }
             </select>
-    </asp:div> 
+
+            <p class="divider"></p>
+
+            <label for="timeSelector">Select Time</label>
+            <select class="form-control" id="timeSelector" name="timeSelector">
+                <option value=1>All</option>
+                <option value=0>Past</option>
+                <option value=2>Future</option>
+            </select>
+            <input class="btn btn-primary" type="submit" name="Select" />
+        </asp:div>
     }
     <asp:div>
         <h2 style="text-align:center">@Model.SelectedName</h2>
