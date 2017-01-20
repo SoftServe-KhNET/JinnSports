@@ -1,0 +1,32 @@
+﻿<nav class="navbar navbar-static-top">
+    <div class="container">
+        <div class="navbar-header">
+            <a href="/" class="navbar-brand"><b>Jinn</b>Sports</a>
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
+                <i class="fa fa-bars"></i>
+            </button>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
+                        Application Type <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li role="presentation">@Html.ActionLink("MVC Application", "Index", "Home")</li>
+                        <li role="presentation" class="divider"></li>
+                        <li role="presentation">@Html.ActionLink("WebAPI Application", "Index", "Home", new { area = "" }, null)</li>
+                    </ul>
+                </li>
+                <li>
+                    @Html.ActionLink("Команды", "Index", "Team")
+                </li>
+                <li>
+                    @Html.ActionLink("Результаты матчей", "Index", "Event")
+                </li>
+            </ul>
+        </div><!-- /.navbar-collapse -->
+    </div>
+</nav>

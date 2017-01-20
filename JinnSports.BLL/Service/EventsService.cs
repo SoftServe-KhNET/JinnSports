@@ -11,6 +11,7 @@ using DTO.JSON;
 using System;
 using log4net;
 using JinnSports.Entities.Entities.Temp;
+using JinnSports.BLL.Dtos.SportType;
 
 namespace JinnSports.BLL.Service
 {

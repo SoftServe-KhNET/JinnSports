@@ -1,0 +1,28 @@
+﻿@using JinnSports.BLL.Dtos
+@model IEnumerable<TeamDto>
+
+@{
+    ViewBag.Title = "Teams";
+    Layout = "~/Areas/Mvc/Views/Shared/_Layout.cshtml";
+}
+
+<asp:Content ID="Teams" ContentPlaceHolderID="TeamContent" runat="server">
+    <h2 style="text-align:center">Teams</h2>
+    <table id="teams" class="table table-hover table-striped"
+           cellspacing="0" style="border-collapse:collapse;">
+        <thead style="background: #6495ED; font-size : 16px;">
+            <tr>
+                <th scope="col">Team</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (TeamDto team in Model)
+            {
+                <tr>
+                    <td scope = "col" > @Html.ActionLink(team.Name, "Details", "Team", new { id = team.Id }, null) </td>
+                </tr >
+            }
+        </tbody>
+    </table>
+</asp:Content>
+

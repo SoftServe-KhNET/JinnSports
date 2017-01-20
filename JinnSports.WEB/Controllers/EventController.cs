@@ -1,4 +1,5 @@
 ﻿using JinnSports.BLL.Dtos;
+using JinnSports.BLL.Dtos.SportType;
 using JinnSports.BLL.Interfaces;
 using JinnSports.BLL.Service;
 using System;

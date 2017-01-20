@@ -12,13 +12,13 @@ using JinnSports.Parser.App.JsonParsers;
 
 namespace Services
 {
-    partial class JSONService : ServiceBase
+    public partial class JSONService : ServiceBase
     {
-        Thread jsonThread;
+        private Thread jsonThread;
 
         public JSONService()
         {
-            InitializeComponent();
+            this.InitializeComponent();
             this.CanStop = true;
             this.CanPauseAndContinue = true;
         }
@@ -26,13 +26,13 @@ namespace Services
         protected override void OnStart(string[] args)
         {
             JsonParser jp = new JsonParser();
-            jsonThread = new Thread(() => jp.StartParser());
-            jsonThread.Start();
+            this.jsonThread = new Thread(() => jp.StartParser());
+            this.jsonThread.Start();
         }
 
         protected override void OnStop()
         {
-            jsonThread.Abort();
+            this.jsonThread.Abort();
         }
     }
 }

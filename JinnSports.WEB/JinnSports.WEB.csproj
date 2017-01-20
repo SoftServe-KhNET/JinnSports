@@ -411,6 +411,15 @@
     <Content Include="Content\DataTables\css\mixins.scss" />
     <Content Include="Content\DataTables\css\common.scss" />
     <Content Include="Areas\Admin\Views\web.config" />
+    <Content Include="Areas\Mvc\Views\web.config" />
+    <Content Include="Areas\Mvc\Views\Event\Index.cshtml" />
+    <Content Include="Areas\Mvc\Views\Team\Index.cshtml" />
+    <Content Include="Areas\Mvc\Views\Team\Details.cshtml" />
+    <Content Include="Areas\Mvc\Views\Home\Home.cshtml" />
+    <Content Include="Areas\Mvc\Views\Shared\_FooterPartial.cshtml" />
+    <Content Include="Areas\Mvc\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Mvc\Views\Shared\_ResultPartial.cshtml" />
+    <Content Include="Areas\Mvc\Views\Shared\_HeaderPartial.cshtml" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
     <Content Include="Scripts\AdminLTE\app.js" />
     <Content Include="Scripts\AdminLTE\app.min.js" />
@@ -512,6 +521,10 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Mvc\Controllers\EventController.cs" />
+    <Compile Include="Areas\Mvc\Controllers\HomeController.cs" />
+    <Compile Include="Areas\Mvc\Controllers\TeamController.cs" />
+    <Compile Include="Areas\Mvc\MvcAreaRegistration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\Api\EventController.cs" />
     <Compile Include="Controllers\Api\TeamController.cs" />
@@ -567,6 +580,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Models\" />
     <Folder Include="Areas\Admin\Views\Shared\" />
+    <Folder Include="Areas\Mvc\Controllers\Models\" />
     <Folder Include="Filters\" />
   </ItemGroup>
   <ItemGroup>

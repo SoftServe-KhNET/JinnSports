@@ -1,0 +1,34 @@
+﻿@using JinnSports.BLL.Dtos
+@model TeamResultsDto
+
+@{
+    ViewBag.Title = "Team Details";
+    Layout = "~/Areas/Mvc/Views/Shared/_Layout.cshtml";
+}
+
+<asp:Content ID="TeamResults" ContentPlaceHolderID="TeamResultsContent" runat="server">
+    <h2 style="text-align:center">@Model.Team.Name</h2>
+    <table id="teamResults" class="table table-hover table-striped"
+           cellspacing="0" style="border-collapse:collapse;">
+        <thead style="background: #6495ED; font-size : 16px;">
+            <tr>
+                <th scope="col">First Team</th>
+                <th scope="col">Score</th>
+                <th scope="col">Second Team</th>
+                <th scope="col">Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (ResultDto result in Model.Results)
+            {
+                <tr class="cursor-pointer">
+                    <td> @Html.DisplayFor(res => result.TeamNames.ToArray()[0]) </td>
+                    <td> @Html.DisplayFor(res => result.Score) </td>
+                    <td> @Html.DisplayFor(res => result.TeamNames.ToArray()[1]) </td>
+                    <td> @Html.DisplayFor(res => result.Date) </td>
+                </tr>
+            }
+        </tbody>
+</table>
+</asp:Content>
+

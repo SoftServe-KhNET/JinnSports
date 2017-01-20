@@ -1,16 +1,16 @@
-﻿using JinnSports.BLL.Matcher;
-using JinnSports.DAL.EFContext;
-using JinnSports.DAL.Repositories;
-using JinnSports.DataAccessInterfaces.Interfaces;
-using JinnSports.Entities.Entities;
-using NUnit.Framework;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
+using JinnSports.BLL.Matcher;
+using JinnSports.DataAccessInterfaces.Interfaces;
+using JinnSports.DAL.EFContext;
+using JinnSports.DAL.Repositories;
+using JinnSports.Entities.Entities;
+using NUnit.Framework;
 
-namespace JinnSports.UnitTests.Services
+namespace JinnSports.UnitTests.BLL
 {
     [TestFixture]
     public class NamingMatcherTests
@@ -28,7 +28,7 @@ namespace JinnSports.UnitTests.Services
 
             // Other transactions can't update and insert data
             this.databaseTransaction = this.databaseSportsContext
-                .Database.BeginTransaction(IsolationLevel.Serializable);
+                .Database.BeginTransaction(IsolationLevel.ReadUncommitted);
 
             // Clear tables
             this.databaseSportsContext.TeamNames.RemoveRange(
@@ -167,7 +167,5 @@ namespace JinnSports.UnitTests.Services
             this.databaseTransaction.Rollback();
             this.databaseTransaction.Dispose();
         }
-
-
     }
 }

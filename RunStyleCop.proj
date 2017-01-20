@@ -19,8 +19,7 @@
                       ForceFullAnalysis="true"
                       TreatErrorsAsWarnings="true"
                       OutputFile="StyleCopReport.xml"
-                      CacheResults="true"
-                      OverrideSettingsFile="$(teamcity_build_checkoutDir)\Settings.StyleCop" />
+                      CacheResults="true" />
 	<PropertyGroup>
     		<TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     		<CodeAnalysisTreatWarningsAsErrors>true</CodeAnalysisTreatWarningsAsErrors>

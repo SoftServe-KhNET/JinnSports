@@ -30,5 +30,6 @@ namespace JinnSports.BLL.Dtos
         public string Date { get; set; }
         public IEnumerable<string> TeamNames { get; set; }
         public IEnumerable<int> TeamIds { get; set; }
+
     }
 }

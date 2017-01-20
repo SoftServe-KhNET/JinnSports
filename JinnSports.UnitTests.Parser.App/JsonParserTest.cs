@@ -10,18 +10,18 @@ namespace JinnSports.UnitTests.Parser.App
     [TestFixture]
     public class JsonParserTest
     {
-        JsonParser jsonParser;
+        private JsonParser jsonParser;
 
         public JsonParserTest()
         {
-            jsonParser = new JsonParser();
+            this.jsonParser = new JsonParser();
         }
 
         [Test]
         public void CheckReturnRuJsonString()
         {
             Regex pattern = new Regex("^{.+}$");
-            string jsonString = jsonParser.GetJsonFromUrl();
+            string jsonString = this.jsonParser.GetJsonFromUrl();
 
             Assert.True(pattern.IsMatch(jsonString));
         }
@@ -30,7 +30,7 @@ namespace JinnSports.UnitTests.Parser.App
         public void CheckReturnEnJsonString()
         {
             Regex pattern = new Regex("^{[^А-Яа-я]+}$");
-            string jsonString = jsonParser.GetJsonFromUrl(jsonParser.SiteUri, Locale.EN);
+            string jsonString = this.jsonParser.GetJsonFromUrl(this.jsonParser.SiteUri, Locale.EN);
 
             Assert.True(pattern.IsMatch(jsonString));
         }
@@ -38,13 +38,13 @@ namespace JinnSports.UnitTests.Parser.App
         [Test]
         public void CheckDeserializeJson()
         {
-            Assert.NotNull(jsonParser.DeserializeJson(jsonParser.GetJsonFromUrl()));
+            Assert.NotNull(this.jsonParser.DeserializeJson(this.jsonParser.GetJsonFromUrl()));
         }
 
         [Test]
         public void CheckReturnSportEvents()
         {
-            List<SportEventDTO> eventList = jsonParser.GetSportEventsList(jsonParser.DeserializeJson(jsonParser.GetJsonFromUrl()));
+            List<SportEventDTO> eventList = this.jsonParser.GetSportEventsList(this.jsonParser.DeserializeJson(this.jsonParser.GetJsonFromUrl()));
 
             Assert.True(eventList.Count > 0);
         }
