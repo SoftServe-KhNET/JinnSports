@@ -1,4 +1,5 @@
-﻿using System.Web.Http;
+﻿using JinnSports.BLL.Service;
+using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
@@ -15,6 +16,7 @@ namespace JinnSports.WEB
             AutoMapperConfiguration.Configure();
             AutofacConfig.Configure();
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+            ParserService.Initialize();
         }
     }
 }
