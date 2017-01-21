@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Xml.Serialization;
 using JinnSports.Parser.App.ProxyService.ProxyInterfaces;
+using JinnSports.Parser.App.ProxyService.ProxyEnums;
 
 namespace JinnSports.Parser.App.ProxyService.ProxyEntities
 {
@@ -8,10 +9,12 @@ namespace JinnSports.Parser.App.ProxyService.ProxyEntities
     public class ProxyServer : BaseProxyServer, IProxyServer
     {
         [XmlAttribute]
-        public string Status { get; set; }
+        public ProxyStatus Status { get; set; }
         [XmlAttribute]
         public int Priority { get; set; }
         [XmlElement]
         public DateTime LastUsed { get; set; }
+        [XmlElement]
+        public bool IsBusy { get; set; }
     }
 }

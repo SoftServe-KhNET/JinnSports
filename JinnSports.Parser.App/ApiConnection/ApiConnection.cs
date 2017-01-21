@@ -4,12 +4,13 @@ using log4net;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Xml;
 
-namespace JinnSports.Parser
+namespace JinnSports.Parser.App
 {
     public class ApiConnection
     {
@@ -63,7 +64,7 @@ namespace JinnSports.Parser
         private void GetConnectionSettings()
         {
             XmlDocument settings = new XmlDocument();
-            settings.Load("ApiConnection.xml");
+            settings.Load(ConfigurationManager.AppSettings.Get("appData") + "/ApiConnection.xml");
             this.baseUrl = settings.DocumentElement.SelectSingleNode("url").InnerText;
             this.controllerUrn = settings.DocumentElement.SelectSingleNode("name").InnerText;
             this.timeoutSec = int.Parse(settings.DocumentElement.SelectSingleNode("timeout").InnerText ?? "60");
