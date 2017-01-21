@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfProxyServer xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <ProxyServer Status="PS_Stable" Priority="0">
+    <Ip>124.47.7.45</Ip>
+    <LastUsed>2017-01-16T19:56:56.1892997+02:00</LastUsed>
+    <IsBusy>false</IsBusy>
+  </ProxyServer>
+    <ProxyServer Status="PS_Stable" Priority="0">
+    <Ip>177.184.8.123</Ip>
+    <LastUsed>2017-01-16T19:56:49.0472592+02:00</LastUsed>
+    <IsBusy>false</IsBusy>
+  </ProxyServer>
+  </ArrayOfProxyServer>

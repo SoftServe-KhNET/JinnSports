@@ -3,12 +3,15 @@ using log4net;
 using Newtonsoft.Json;
 using JinnSports.Parser.App.Exceptions;
 using JinnSports.Parser.App.JsonParsers.JsonEntities;
-using JinnSports.Parser.App.ProxyService.ProxyConnection;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
+using JinnSports.Parser.App.ProxyService.ProxyConnections;
+using JinnSports.Parser.App.ProxyService.ProxyTerminal;
+using JinnSports.Parser.App.ProxyService.ProxyInterfaces;
+using JinnSports.Parser.App;
 
 namespace JinnSports.Parser.App.JsonParsers
 {
@@ -22,12 +25,16 @@ namespace JinnSports.Parser.App.JsonParsers
         private static readonly ILog Log =
             LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
+        private IProxyTerminal proxyTerminal;
+
         public JsonParser() : this(new Uri("http://results.fbwebdn.com/results.json.php"))
         {
+            proxyTerminal = new ProxyTerminal();
         }
 
         public JsonParser(Uri uri)
         {
+            proxyTerminal = new ProxyTerminal();
             this.SiteUri = uri;
         }
 
@@ -59,21 +66,15 @@ namespace JinnSports.Parser.App.JsonParsers
         public string GetJsonFromUrl(Uri uri, Locale locale = Locale.RU)
         {
             string result = string.Empty;
-            ProxyConnection pc = new ProxyConnection();
-            HttpWebResponse resp;
+            HttpWebResponse response;
             Stream stream = null;
 
             string url = string.Format("{0}?locale={1}", uri.ToString(), locale == Locale.EN ? "en" : "ru");
 
             try
             {
-                resp = pc.MakeProxyRequest(uri.ToString(), 0);
-                if (resp == null)
-                {
-                    HttpWebRequest req = (HttpWebRequest)WebRequest.Create(url);
-                    resp = (HttpWebResponse)req.GetResponse();
-                }
-                stream = resp.GetResponseStream();
+                response = this.proxyTerminal.GetProxyResponse(uri);
+                stream = response.GetResponseStream();
             }
             catch (Exception ex)
             {
@@ -87,7 +88,7 @@ namespace JinnSports.Parser.App.JsonParsers
                     result += sr.ReadLine();
                 }
             }
-            resp.Close();
+            //resp.Close();
 
             return result;
         }
@@ -110,7 +111,7 @@ namespace JinnSports.Parser.App.JsonParsers
 
         public void SendEvents(List<SportEventDTO> eventsList)
         {
-            ApiConnection apiConnection = new ApiConnection();
+            ApiConnection apiConnection = new ApiConnection(/*ApiConnectionStrings.URL, ApiConnectionStrings.Controller*/);
             try
             {
                 apiConnection.SendEvents(eventsList);

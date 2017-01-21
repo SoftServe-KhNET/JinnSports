@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ApiConnectionPath> 
-  <url>http://localhost:29579/Admin</url>
+  <url>https://localhost:44300</url>
   <name>api/SportEvents</name>
   <timeout>60</timeout>
 </ApiConnectionPath> 

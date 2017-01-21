@@ -6,9 +6,12 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using JinnSports.Parser.App.Exceptions;
-using JinnSports.Parser.App.ProxyService.ProxyConnection;
+using JinnSports.Parser.App.ProxyService.ProxyConnections;
 using log4net;
 using DTO.JSON;
+using JinnSports.Parser.App.ProxyService.ProxyTerminal;
+using JinnSports.Parser.App.ProxyService.ProxyInterfaces;
+using JinnSports.DataAccessInterfaces.Interfaces;
 
 namespace JinnSports.Parser.App.HtmlParsers
 {
@@ -17,10 +20,12 @@ namespace JinnSports.Parser.App.HtmlParsers
         private static readonly ILog Log =
             LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
+        private IProxyTerminal proxyTerminal;
+
         public HTMLParser24score()
-        {            
+        {
+            proxyTerminal = new ProxyTerminal();
         }
-        
         public uint DaysCount { get; set; }
 
         public void Parse(uint daysCount = 1)
@@ -28,12 +33,12 @@ namespace JinnSports.Parser.App.HtmlParsers
             Log.Info("Html parser was started");
             try
             {
-                ApiConnection api = new ApiConnection();
+                ApiConnection api = new ApiConnection(/*ApiConnectionStrings.URL, ApiConnectionStrings.Controller*/);
 
                 Uri footballUrl = new Uri("https://24score.com/?date=");
-                Uri basketballUrl = new Uri("https://24score.com/basketball/?date=");
-                Uri hokkeyUrl = new Uri("https://24score.com/ice_hockey/?date=");
-                List<Uri> selectedUris = new List<Uri> { footballUrl, basketballUrl, hokkeyUrl };
+                //Uri basketballUrl = new Uri("https://24score.com/basketball/?date=");
+                //Uri hokkeyUrl = new Uri("https://24score.com/ice_hockey/?date=");
+                List<Uri> selectedUris = new List<Uri> { footballUrl/*, basketballUrl, hokkeyUrl*/ };
                 
                 foreach (Uri baseUrl in selectedUris)                
                 {
@@ -82,27 +87,24 @@ namespace JinnSports.Parser.App.HtmlParsers
         private string GetHtml(string url)
         {
             ProxyConnection pc = new ProxyConnection();
-            HttpWebResponse resp;
+            HttpWebResponse response;
 
             WebRequest reqGet = WebRequest.Create(url);
             reqGet.Headers.Set(HttpRequestHeader.ContentEncoding, "1251");
 
             try
             {
-                resp = pc.MakeProxyRequest(url, 0);
-                if (resp == null)
-                {
-                    resp = (HttpWebResponse)reqGet.GetResponse();
-                }
+                response = this.proxyTerminal.GetProxyResponse(new Uri(url));
             }
             catch (Exception ex)
             {
                 throw new WebResponseException(ex.Message, ex.InnerException);
             }
 
-            string html = new StreamReader(resp.GetResponseStream()).ReadToEnd();
+            string html = new StreamReader(response.GetResponseStream()).ReadToEnd();
 
             return html;
+            //return "";
         }
 
         private List<SportEventDTO> ParseHtml(string html, string currentSport, long date)
