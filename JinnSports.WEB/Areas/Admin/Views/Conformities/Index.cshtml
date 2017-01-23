@@ -1,0 +1,16 @@
+﻿@model List<string>
+@{
+    ViewBag.Title = "ConformitiesForm";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Names matching menu</h2>
+
+<h4>List of incoming names:</h4>
+@foreach (string inputName in Model)
+{
+    <br>@Html.ActionLink(inputName, "Edit", "Conformities", new { inputName = inputName.Replace(" ", "_")}, null)
+}
+   
+
+

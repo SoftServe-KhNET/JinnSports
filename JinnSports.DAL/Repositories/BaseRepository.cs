@@ -98,8 +98,7 @@ namespace JinnSports.DAL.Repositories
 
         public virtual void Delete(T entityToDelete)
         {
-
-            this.DbSet.Remove(entityToDelete);
+            this.Context.Entry(entityToDelete).State = System.Data.Entity.EntityState.Deleted;
         }
     }
 }
