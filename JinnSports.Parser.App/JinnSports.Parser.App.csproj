@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{C5F8DE8E-BEA1-4A55-A0B4-1190EEE9D017}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>JinnSports.Parser.App</RootNamespace>
     <AssemblyName>JinnSports.Parser.App</AssemblyName>
@@ -34,6 +34,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="AngleSharp, Version=0.9.8.1, Culture=neutral, PublicKeyToken=e83494dcdc6d31ea, processorArchitecture=MSIL">
       <HintPath>..\packages\AngleSharp.0.9.8.1\lib\net45\AngleSharp.dll</HintPath>
@@ -43,8 +46,8 @@
       <HintPath>..\packages\HtmlAgilityPack.1.4.9.5\lib\Net45\HtmlAgilityPack.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="log4net, Version=1.2.15.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
-      <HintPath>..\packages\log4net.2.0.5\lib\net45-full\log4net.dll</HintPath>
+    <Reference Include="log4net, Version=2.0.7.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.7\lib\net45-full\log4net.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
@@ -55,6 +58,7 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -63,22 +67,30 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ApiConnectionStrings.cs" />
     <Compile Include="ApiConnection\ApiConnection.cs" />
+    <Compile Include="Configuration\Parser\ParserSettings.cs" />
+    <Compile Include="Configuration\Parser\ParserInstanceCollection.cs" />
+    <Compile Include="Configuration\Parser\ParserInstanceElement.cs" />
+    <Compile Include="Configuration\Parser\ParserSection.cs" />
+    <Compile Include="Configuration\Proxy\ProxySettings.cs" />
+    <Compile Include="Configuration\Proxy\ProxyInstanceCollection.cs" />
+    <Compile Include="Configuration\Proxy\ProxyInstanceElement.cs" />
+    <Compile Include="Configuration\Proxy\ProxySection.cs" />
     <Compile Include="Exceptions\GetDataException.cs" />
     <Compile Include="Exceptions\JsonDeserializeException.cs" />
     <Compile Include="Exceptions\ParseException.cs" />
     <Compile Include="Exceptions\SaveDataException.cs" />
     <Compile Include="Exceptions\WebResponseException.cs" />
     <Compile Include="HtmlParsers\HTMLParser24score.cs" />
-    <Compile Include="Configuration.cs" />
     <Compile Include="Interfaces\IWebConnection.cs" />
-    <Compile Include="MyConfigInstanceCollection.cs" />
-    <Compile Include="MyConfigInstanceElement.cs" />
-    <Compile Include="MyConfigSection.cs" />
-    <Compile Include="ProxyService\ProxyConnection\ProxyConnection.cs" />
+    <Compile Include="ProxyService\ProxyConnections\ProxyConnection.cs" />
     <Compile Include="ProxyService\ProxyEntities\BaseProxyServer.cs" />
     <Compile Include="ProxyService\ProxyEntities\HtmlProxyServerCollection.cs" />
+    <Compile Include="ProxyService\ProxyEnums\ProxyStatus.cs" />
+    <Compile Include="ProxyService\ProxyInterfaces\IProxyAsync.cs" />
     <Compile Include="ProxyService\ProxyInterfaces\IHtmlProxyServer.cs" />
+    <Compile Include="ProxyService\ProxyInterfaces\IProxyConnection.cs" />
     <Compile Include="ProxyService\ProxyInterfaces\IProxyRepository.cs" />
     <Compile Include="ProxyService\ProxyInterfaces\IProxyServer.cs" />
     <Compile Include="JsonParsers\JsonEntities\Event.cs" />
@@ -91,8 +103,11 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ProxyService\ProxyEntities\HtmlProxyServer.cs" />
     <Compile Include="ProxyService\ProxyEntities\ProxyServer.cs" />
+    <Compile Include="ProxyService\ProxyInterfaces\IProxyTerminal.cs" />
     <Compile Include="ProxyService\ProxyParser\ProxyParser.cs" />
     <Compile Include="ProxyService\ProxyRepository\ProxyRepository.cs" />
+    <Compile Include="ProxyService\ProxyTerminal\ProxyAsync.cs" />
+    <Compile Include="ProxyService\ProxyTerminal\ProxyTerminal.cs" />
     <Compile Include="WebConnection\WebConnection.cs" />
     <Compile Include="WebConnection\WebProxyConnection.cs" />
   </ItemGroup>
@@ -107,9 +122,12 @@
       <Project>{40f1bd33-b3c8-4268-8243-59230825ef9b}</Project>
       <Name>DTO</Name>
     </ProjectReference>
+    <ProjectReference Include="..\JinnSports.DataAccessInterfaces\JinnSports.DataAccessInterfaces.csproj">
+      <Project>{07107E13-6DDF-47AF-90BC-FB344B060511}</Project>
+      <Name>JinnSports.DataAccessInterfaces</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="ApiConnection\ApiConnection.xml" />
     <Content Include="StyleCopReport.xml" />
   </ItemGroup>
   <ItemGroup />
@@ -122,7 +140,10 @@
     <Error Condition="!Exists('..\packages\StyleCop.MSBuild.4.7.55.0\build\StyleCop.MSBuild.Targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\StyleCop.MSBuild.4.7.55.0\build\StyleCop.MSBuild.Targets'))" />
   </Target>
   <PropertyGroup>
-     <PostBuildEvent>copy $(ProjectDir)\ApiConnection\ApiConnection.xml $(ProjectDir)$(OutDir)</PostBuildEvent>
+    <PostBuildEvent>if not exist "C:\ProgramData\JinnSports\" mkdir "C:\ProgramData\JinnSports\"
+xcopy /Y "$(ProjectDir)Proxy.xml" "C:\ProgramData\JinnSports\"</PostBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

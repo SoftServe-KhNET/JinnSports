@@ -18,13 +18,13 @@ namespace JinnSports.WEB.Areas.Mvc.Controllers
         {
             this.sportTypeService = sportTypeService;
         }
-   
+
         // GET: Mvc/Event
-        public ActionResult Index(int id = 0)
+        public ActionResult Index(int id = 0, int time = 0)
         {
             int recordsTotal = this.sportTypeService.Count(id);
 
-            SportTypeSelectDto sportTypeModel = this.sportTypeService.GetSportTypes(id);
+            SportTypeSelectDto sportTypeModel = this.sportTypeService.GetSportTypes(id, time);
 
             if (sportTypeModel != null)
             {
@@ -42,7 +42,10 @@ namespace JinnSports.WEB.Areas.Mvc.Controllers
             string requestedId = Request["sportTypeSelector"];
             int sportTypeId = !string.IsNullOrEmpty(requestedId) ? Convert.ToInt32(requestedId) : 0;
 
-            return this.RedirectToAction("Index", new { id = sportTypeId });
+            string requestedTime = Request["timeSelector"];
+            int timeId = !string.IsNullOrEmpty(requestedTime) ? Convert.ToInt32(requestedTime) : 1;
+
+            return this.RedirectToAction("Index", new { id = sportTypeId, time = timeId - 1 });
         }
     }
 }

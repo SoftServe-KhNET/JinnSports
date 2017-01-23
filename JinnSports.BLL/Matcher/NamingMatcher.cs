@@ -16,14 +16,15 @@ namespace JinnSports.BLL.Matcher
         }
 
         /// <summary>
-        /// Returns Team with given name in case this is exist in DB or it is brand new Team. In other cases adds naming conflicts to Conformities collection.
+        /// Returns List<Conformity> with >50% conformities to given name.
         /// </summary>
         /// <param name="inputTeam"></param>
         /// <returns></returns>
-        public List<Conformity> ResolveNaming(Team inputTeam) //add typisation and locals
+        public List<Conformity> ResolveNaming(Team inputTeam) //TODO add typisation and locals.
         {
             List<Conformity> conformities = new List<Conformity>();
-            IEnumerable<Team> teams = this.unit.GetRepository<Team>().Get(filter: (t) => t.SportType.Name == inputTeam.SportType.Name, includeProperties: "Names,SportType");
+            IEnumerable<Team> teams = this.unit.GetRepository<Team>()
+                .Get(filter: (t) => t.SportType.Name == inputTeam.SportType.Name, includeProperties: "Names,SportType");
 
             Team simpleCheckTeam = this.SimpleCheck(teams, inputTeam.Name);
             if (simpleCheckTeam != null)
@@ -31,16 +32,17 @@ namespace JinnSports.BLL.Matcher
                 return null;
             }
 
-            string preparedInputName = inputTeam.Name.ToUpper().Replace(".", string.Empty).Replace("-", string.Empty).Replace(" ", string.Empty);
+            string preparedInputName = this.PrepareString(inputTeam.Name);
             List<Team> matches = new List<Team>();
 
             double comparingResult = this.Compairing(teams, preparedInputName, out matches);
 
             if (comparingResult == 100 && matches.Count == 1)
-            {
-                TeamName newName = new TeamName();
-                newName.Name = inputTeam.Name;
-                matches[0].Names.Add(newName);
+            {                
+                foreach (TeamName name in inputTeam.Names)
+                {
+                    matches[0].Names.Add(name); 
+                }
                 this.unit.GetRepository<Team>().Update(matches[0]);
                 this.unit.SaveChanges();
                 return null;
@@ -64,6 +66,11 @@ namespace JinnSports.BLL.Matcher
                                 
                 return conformities;
             }
+        }
+
+        private string PrepareString(string name)
+        {
+            return name.ToUpper().Replace(".", string.Empty).Replace("-", string.Empty).Replace(" ", string.Empty);
         }
 
         private Team SimpleCheck(IEnumerable<Team> teams, string inputName)

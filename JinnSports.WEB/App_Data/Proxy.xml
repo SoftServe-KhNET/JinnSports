@@ -1,0 +1,318 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfProxyServer xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <ProxyServer Status="PS_Unstable" Priority="1">
+    <Ip>109.198.126.112</Ip>
+    <LastUsed>2017-01-24T01:47:46.5198457+02:00</LastUsed>
+    <IsBusy>false</IsBusy>
+  </ProxyServer>
+  <ProxyServer Status="PS_New" Priority="0">
+    <Ip>213.111.123.68</Ip>
+    <LastUsed>2017-01-24T00:47:06.5425241+02:00</LastUsed>
+    <IsBusy>false</IsBusy>
+  </ProxyServer>
+  <ProxyServer Status="PS_Bad" Priority="1">
+    <Ip>41.79.60.202</Ip>
+    <LastUsed>2017-01-24T00:47:06.5425241+02:00</LastUsed>
+    <IsBusy>false</IsBusy>
+  </ProxyServer>
+  <ProxyServer Status="PS_New" Priority="0">
+    <Ip>187.44.1.54</Ip>
+    <LastUsed>2017-01-24T00:47:06.5425241+02:00</LastUsed>
+    <IsBusy>false</IsBusy>
+  </ProxyServer>
+  <ProxyServer Status="PS_New" Priority="0">
+    <Ip>37.186.201.151</Ip>
+    <LastUsed>2017-01-24T00:47:06.5425241+02:00</LastUsed>
+    <IsBusy>false</IsBusy>
+  </ProxyServer>
+  <ProxyServer Status="PS_Unstable" Priority="1">
+    <Ip>221.237.154.57</Ip>
+    <LastUsed>2017-01-24T01:48:02.4116752+02:00</LastUsed>
+    <IsBusy>false</IsBusy>
+  </ProxyServer>
+  <ProxyServer Status="PS_Unstable" Priority="1">
+    <Ip>193.179.1.114</Ip>
+    <LastUsed>2017-01-24T01:47:49.8123127+02:00</LastUsed>
+    <IsBusy>false</IsBusy>
+  </ProxyServer>
+  <ProxyServer Status="PS_New" Priority="0">
+    <Ip>193.227.49.83</Ip>
+    <LastUsed>2017-01-24T00:47:06.5425241+02:00</LastUsed>
+    <IsBusy>false</IsBusy>
+  </ProxyServer>
+  <ProxyServer Status="PS_Unstable" Priority="1">
+    <Ip>176.31.96.198</Ip>
+    <LastUsed>2017-01-24T01:47:46.4743374+02:00</LastUsed>
+    <IsBusy>false</IsBusy>
+  </ProxyServer>
+  <ProxyServer Status="PS_New" Priority="0">
+    <Ip>188.113.138.238</Ip>
+    <LastUsed>2017-01-24T00:47:06.5425241+02:00</LastUsed>
+    <IsBusy>false</IsBusy>
+  </ProxyServer>
+  <ProxyServer Status="PS_Unstable" Priority="1">
+    <Ip>137.135.166.225</Ip>
+    <LastUsed>2017-01-24T01:47:36.6645312+02:00</LastUsed>
+    <IsBusy>false</IsBusy>
+  </ProxyServer>
+  <ProxyServer Status="PS_New" Priority="0">
+    <Ip>168.63.20.19</Ip>
+    <LastUsed>2017-01-24T00:47:06.5425241+02:00</LastUsed>
+    <IsBusy>false</IsBusy>
+  </ProxyServer>
+  <ProxyServer Status="PS_New" Priority="0">
+    <Ip>123.30.238.16</Ip>
+    <LastUsed>2017-01-24T00:47:06.5425241+02:00</LastUsed>
+    <IsBusy>false</IsBusy>
+  </ProxyServer>
+  <ProxyServer Status="PS_Unstable" Priority="1">
+    <Ip>31.186.83.155</Ip>
+    <LastUsed>2017-01-24T01:47:37.5930306+02:00</LastUsed>
+    <IsBusy>false</IsBusy>
+  </ProxyServer>
+  <ProxyServer Status="PS_Unstable" Priority="1">
+    <Ip>72.52.96.31</Ip>
+    <LastUsed>2017-01-24T01:47:44.3098228+02:00</LastUsed>
+    <IsBusy>false</IsBusy>
+  </ProxyServer>
+  <ProxyServer Status="PS_Unstable" Priority="1">
+    <Ip>125.99.120.186</Ip>
+    <LastUsed>2017-01-24T01:47:28.60767+02:00</LastUsed>
+    <IsBusy>false</IsBusy>
+  </ProxyServer>
+  <ProxyServer Status="PS_New" Priority="0">
+    <Ip>203.130.192.179</Ip>
+    <LastUsed>2017-01-24T00:47:06.5425241+02:00</LastUsed>
+    <IsBusy>true</IsBusy>
+  </ProxyServer>
+  <ProxyServer Status="PS_Unstable" Priority="1">
+    <Ip>178.151.69.119</Ip>
+    <LastUsed>2017-01-24T01:47:24.5931344+02:00</LastUsed>
+    <IsBusy>false</IsBusy>
+  </ProxyServer>
+  <ProxyServer Status="PS_Unstable" Priority="1">
+    <Ip>200.56.200.38</Ip>
+    <LastUsed>2017-01-24T01:47:36.7830317+02:00</LastUsed>
+    <IsBusy>false</IsBusy>
+  </ProxyServer>
+  <ProxyServer Status="PS_New" Priority="0">
+    <Ip>61.91.54.42</Ip>
+    <LastUsed>2017-01-24T00:47:06.5425241+02:00</LastUsed>
+    <IsBusy>false</IsBusy>
+  </ProxyServer>
+  <ProxyServer Status="PS_Unstable" Priority="1">
+    <Ip>119.252.172.13</Ip>
+    <LastUsed>2017-01-24T01:48:05.5761339+02:00</LastUsed>
+    <IsBusy>false</IsBusy>
+  </ProxyServer>
+  <ProxyServer Status="PS_Bad" Priority="1">
+    <Ip>125.253.32.158</Ip>
+    <LastUsed>2017-01-24T00:47:06.5425241+02:00</LastUsed>
+    <IsBusy>false</IsBusy>
+  </ProxyServer>
+  <ProxyServer Status="PS_Unstable" Priority="1">
+    <Ip>41.220.28.138</Ip>
+    <LastUsed>2017-01-24T01:47:40.484031+02:00</LastUsed>
+    <IsBusy>false</IsBusy>
+  </ProxyServer>
+  <ProxyServer Status="PS_Unstable" Priority="1">
+    <Ip>46.16.226.10</Ip>
+    <LastUsed>2017-01-24T01:47:54.9640491+02:00</LastUsed>
+    <IsBusy>false</IsBusy>
+  </ProxyServer>
+  <ProxyServer Status="PS_Unstable" Priority="1">
+    <Ip>178.215.111.70</Ip>
+    <LastUsed>2017-01-24T01:47:49.1407376+02:00</LastUsed>
+    <IsBusy>false</IsBusy>
+  </ProxyServer>
+  <ProxyServer Status="PS_Unstable" Priority="1">
+    <Ip>202.59.163.129</Ip>
+    <LastUsed>2017-01-24T01:48:04.005163+02:00</LastUsed>
+    <IsBusy>false</IsBusy>
+  </ProxyServer>
+  <ProxyServer Status="PS_Unstable" Priority="1">
+    <Ip>118.97.191.205</Ip>
+    <LastUsed>2017-01-24T01:47:49.6948129+02:00</LastUsed>
+    <IsBusy>false</IsBusy>
+  </ProxyServer>
+  <ProxyServer Status="PS_Unstable" Priority="1">
+    <Ip>84.22.35.37</Ip>
+    <LastUsed>2017-01-24T01:47:33.2509426+02:00</LastUsed>
+    <IsBusy>false</IsBusy>
+  </ProxyServer>
+  <ProxyServer Status="PS_Unstable" Priority="1">
+    <Ip>63.150.152.151</Ip>
+    <LastUsed>2017-01-24T01:47:59.5679991+02:00</LastUsed>
+    <IsBusy>false</IsBusy>
+  </ProxyServer>
+  <ProxyServer Status="PS_Unstable" Priority="1">
+    <Ip>182.160.102.146</Ip>
+    <LastUsed>2017-01-24T01:47:41.8828491+02:00</LastUsed>
+    <IsBusy>false</IsBusy>
+  </ProxyServer>
+  <ProxyServer Status="PS_Unstable" Priority="1">
+    <Ip>188.168.26.0</Ip>
+    <LastUsed>2017-01-24T01:47:36.4820308+02:00</LastUsed>
+    <IsBusy>false</IsBusy>
+  </ProxyServer>
+  <ProxyServer Status="PS_Unstable" Priority="1">
+    <Ip>190.121.158.114</Ip>
+    <LastUsed>2017-01-24T01:48:00.8184998+02:00</LastUsed>
+    <IsBusy>false</IsBusy>
+  </ProxyServer>
+  <ProxyServer Status="PS_Unstable" Priority="1">
+    <Ip>94.23.205.32</Ip>
+    <LastUsed>2017-01-24T01:47:31.0184796+02:00</LastUsed>
+    <IsBusy>false</IsBusy>
+  </ProxyServer>
+  <ProxyServer Status="PS_Unstable" Priority="1">
+    <Ip>216.56.3.179</Ip>
+    <LastUsed>2017-01-24T01:47:46.0348238+02:00</LastUsed>
+    <IsBusy>false</IsBusy>
+  </ProxyServer>
+  <ProxyServer Status="PS_Bad" Priority="1">
+    <Ip>219.150.242.54</Ip>
+    <LastUsed>2017-01-24T00:47:06.5425241+02:00</LastUsed>
+    <IsBusy>false</IsBusy>
+  </ProxyServer>
+  <ProxyServer Status="PS_Unstable" Priority="1">
+    <Ip>94.181.34.64</Ip>
+    <LastUsed>2017-01-24T01:47:37.2960307+02:00</LastUsed>
+    <IsBusy>false</IsBusy>
+  </ProxyServer>
+  <ProxyServer Status="PS_Unstable" Priority="1">
+    <Ip>177.55.253.68</Ip>
+    <LastUsed>2017-01-24T01:47:40.8025307+02:00</LastUsed>
+    <IsBusy>false</IsBusy>
+  </ProxyServer>
+  <ProxyServer Status="PS_Unstable" Priority="1">
+    <Ip>168.63.24.174</Ip>
+    <LastUsed>2017-01-24T01:47:25.5696829+02:00</LastUsed>
+    <IsBusy>false</IsBusy>
+  </ProxyServer>
+  <ProxyServer Status="PS_Unstable" Priority="1">
+    <Ip>195.138.86.112</Ip>
+    <LastUsed>2017-01-24T01:47:53.0663827+02:00</LastUsed>
+    <IsBusy>false</IsBusy>
+  </ProxyServer>
+  <ProxyServer Status="PS_Stable" Priority="0">
+    <Ip>124.47.7.45</Ip>
+    <LastUsed>2017-01-24T01:47:51.6348237+02:00</LastUsed>
+    <IsBusy>false</IsBusy>
+  </ProxyServer>
+  <ProxyServer Status="PS_Unstable" Priority="1">
+    <Ip>93.63.142.144</Ip>
+    <LastUsed>2017-01-24T01:47:50.4293143+02:00</LastUsed>
+    <IsBusy>false</IsBusy>
+  </ProxyServer>
+  <ProxyServer Status="PS_Unstable" Priority="1">
+    <Ip>180.211.179.50</Ip>
+    <LastUsed>2017-01-24T01:47:38.9480316+02:00</LastUsed>
+    <IsBusy>false</IsBusy>
+  </ProxyServer>
+  <ProxyServer Status="PS_New" Priority="0">
+    <Ip>177.184.8.123</Ip>
+    <LastUsed>2017-01-24T00:47:06.5425241+02:00</LastUsed>
+    <IsBusy>false</IsBusy>
+  </ProxyServer>
+  <ProxyServer Status="PS_Unstable" Priority="1">
+    <Ip>200.29.191.149</Ip>
+    <LastUsed>2017-01-24T01:47:34.5451771+02:00</LastUsed>
+    <IsBusy>false</IsBusy>
+  </ProxyServer>
+  <ProxyServer Status="PS_Unstable" Priority="1">
+    <Ip>207.5.112.114</Ip>
+    <LastUsed>2017-01-24T01:47:27.2080063+02:00</LastUsed>
+    <IsBusy>false</IsBusy>
+  </ProxyServer>
+  <ProxyServer Status="PS_Unstable" Priority="1">
+    <Ip>190.214.48.125</Ip>
+    <LastUsed>2017-01-24T01:47:40.0320311+02:00</LastUsed>
+    <IsBusy>false</IsBusy>
+  </ProxyServer>
+  <ProxyServer Status="PS_New" Priority="0">
+    <Ip>200.192.214.138</Ip>
+    <LastUsed>2017-01-24T00:47:06.5425241+02:00</LastUsed>
+    <IsBusy>false</IsBusy>
+  </ProxyServer>
+  <ProxyServer Status="PS_Bad" Priority="1">
+    <Ip>190.29.22.247</Ip>
+    <LastUsed>2017-01-24T00:47:06.5425241+02:00</LastUsed>
+    <IsBusy>false</IsBusy>
+  </ProxyServer>
+  <ProxyServer Status="PS_Unstable" Priority="1">
+    <Ip>190.38.18.211</Ip>
+    <LastUsed>2017-01-24T01:47:33.5650125+02:00</LastUsed>
+    <IsBusy>false</IsBusy>
+  </ProxyServer>
+  <ProxyServer Status="PS_Unstable" Priority="1">
+    <Ip>46.218.85.101</Ip>
+    <LastUsed>2017-01-24T01:47:26.6507921+02:00</LastUsed>
+    <IsBusy>false</IsBusy>
+  </ProxyServer>
+  <ProxyServer Status="PS_New" Priority="0">
+    <Ip>78.187.73.210</Ip>
+    <LastUsed>2017-01-24T00:47:06.5425241+02:00</LastUsed>
+    <IsBusy>true</IsBusy>
+  </ProxyServer>
+  <ProxyServer Status="PS_New" Priority="0">
+    <Ip>50.30.152.130</Ip>
+    <LastUsed>2017-01-24T00:47:06.5425241+02:00</LastUsed>
+    <IsBusy>false</IsBusy>
+  </ProxyServer>
+  <ProxyServer Status="PS_Unstable" Priority="1">
+    <Ip>60.250.81.118</Ip>
+    <LastUsed>2017-01-24T01:47:34.2511073+02:00</LastUsed>
+    <IsBusy>false</IsBusy>
+  </ProxyServer>
+  <ProxyServer Status="PS_Unstable" Priority="1">
+    <Ip>66.162.122.25</Ip>
+    <LastUsed>2017-01-24T01:47:39.2515321+02:00</LastUsed>
+    <IsBusy>false</IsBusy>
+  </ProxyServer>
+  <ProxyServer Status="PS_Unstable" Priority="1">
+    <Ip>87.244.181.185</Ip>
+    <LastUsed>2017-01-24T01:47:22.219415+02:00</LastUsed>
+    <IsBusy>false</IsBusy>
+  </ProxyServer>
+  <ProxyServer Status="PS_Unstable" Priority="1">
+    <Ip>138.201.63.123</Ip>
+    <LastUsed>2017-01-24T01:47:40.8545346+02:00</LastUsed>
+    <IsBusy>false</IsBusy>
+  </ProxyServer>
+  <ProxyServer Status="PS_Bad" Priority="1">
+    <Ip>193.84.184.25</Ip>
+    <LastUsed>2017-01-24T00:47:06.5425241+02:00</LastUsed>
+    <IsBusy>false</IsBusy>
+  </ProxyServer>
+  <ProxyServer Status="PS_New" Priority="0">
+    <Ip>190.211.129.92</Ip>
+    <LastUsed>2017-01-24T00:47:06.5425241+02:00</LastUsed>
+    <IsBusy>false</IsBusy>
+  </ProxyServer>
+  <ProxyServer Status="PS_Unstable" Priority="1">
+    <Ip>200.195.141.178</Ip>
+    <LastUsed>2017-01-24T01:47:34.7622258+02:00</LastUsed>
+    <IsBusy>false</IsBusy>
+  </ProxyServer>
+  <ProxyServer Status="PS_Unstable" Priority="1">
+    <Ip>114.6.34.194</Ip>
+    <LastUsed>2017-01-24T01:47:52.5405815+02:00</LastUsed>
+    <IsBusy>false</IsBusy>
+  </ProxyServer>
+  <ProxyServer Status="PS_Unstable" Priority="1">
+    <Ip>177.43.72.251</Ip>
+    <LastUsed>2017-01-24T01:47:40.603031+02:00</LastUsed>
+    <IsBusy>false</IsBusy>
+  </ProxyServer>
+  <ProxyServer Status="PS_Unstable" Priority="1">
+    <Ip>46.225.239.178</Ip>
+    <LastUsed>2017-01-24T01:47:54.653935+02:00</LastUsed>
+    <IsBusy>false</IsBusy>
+  </ProxyServer>
+  <ProxyServer Status="PS_Unstable" Priority="1">
+    <Ip>202.148.4.26</Ip>
+    <LastUsed>2017-01-24T01:47:44.5363234+02:00</LastUsed>
+    <IsBusy>false</IsBusy>
+  </ProxyServer>
+</ArrayOfProxyServer>

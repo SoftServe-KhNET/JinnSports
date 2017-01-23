@@ -17,7 +17,7 @@ namespace JinnSports.BLL.Extentions
 
         public override string ToString()
         {
-            return this.eventDate.ToString("hh:mm:ss.FF , dd MMMM, yyyy");
+            return this.eventDate.ToLocalTime().ToString("HH:mm:ss.FF , dd MMMM, yyyy");
         }
     }
 }

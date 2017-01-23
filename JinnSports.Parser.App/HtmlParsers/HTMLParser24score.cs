@@ -6,9 +6,14 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using JinnSports.Parser.App.Exceptions;
-using JinnSports.Parser.App.ProxyService.ProxyConnection;
+using JinnSports.Parser.App.ProxyService.ProxyConnections;
 using log4net;
 using DTO.JSON;
+using JinnSports.Parser.App.ProxyService.ProxyTerminal;
+using JinnSports.Parser.App.ProxyService.ProxyInterfaces;
+using JinnSports.DataAccessInterfaces.Interfaces;
+using System.Threading.Tasks;
+using System.Diagnostics;
 
 namespace JinnSports.Parser.App.HtmlParsers
 {
@@ -17,10 +22,13 @@ namespace JinnSports.Parser.App.HtmlParsers
         private static readonly ILog Log =
             LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
+        private IProxyTerminal proxyTerminal;
+
         public HTMLParser24score()
-        {            
+        {
+            proxyTerminal = new ProxyTerminal();
         }
-        
+
         public uint DaysCount { get; set; }
 
         public void Parse(uint daysCount = 1)
@@ -28,12 +36,12 @@ namespace JinnSports.Parser.App.HtmlParsers
             Log.Info("Html parser was started");
             try
             {
-                ApiConnection api = new ApiConnection();
+                ApiConnection api = new ApiConnection(/*ApiConnectionStrings.URL, ApiConnectionStrings.Controller*/);
 
                 Uri footballUrl = new Uri("https://24score.com/?date=");
-                Uri basketballUrl = new Uri("https://24score.com/basketball/?date=");
-                Uri hokkeyUrl = new Uri("https://24score.com/ice_hockey/?date=");
-                List<Uri> selectedUris = new List<Uri> { footballUrl, basketballUrl, hokkeyUrl };
+                //Uri basketballUrl = new Uri("https://24score.com/basketball/?date=");
+                //Uri hokkeyUrl = new Uri("https://24score.com/ice_hockey/?date=");
+                List<Uri> selectedUris = new List<Uri> { footballUrl/*, basketballUrl, hokkeyUrl*/ };
                 
                 foreach (Uri baseUrl in selectedUris)                
                 {
@@ -60,7 +68,6 @@ namespace JinnSports.Parser.App.HtmlParsers
                         string url = baseUrl.ToString() + dateTime.Date.ToString("yyyy-MM-dd");
                         string html = this.GetHtml(url);
                         List<SportEventDTO> events = this.ParseHtml(html, currentSport, date);
-
                         try
                         {
                             api.SendEvents(events);
@@ -81,28 +88,23 @@ namespace JinnSports.Parser.App.HtmlParsers
 
         private string GetHtml(string url)
         {
-            ProxyConnection pc = new ProxyConnection();
-            HttpWebResponse resp;
-
-            WebRequest reqGet = WebRequest.Create(url);
-            reqGet.Headers.Set(HttpRequestHeader.ContentEncoding, "1251");
-
-            try
+            HttpWebResponse response;
+            while (true)
             {
-                resp = pc.MakeProxyRequest(url, 0);
-                if (resp == null)
+                //HttpWebRequest request = (HttpWebRequest)WebRequest.Create(new Uri(url));
+                //request.Headers.Set(HttpRequestHeader.ContentEncoding, "1251");
+                //response = request.GetResponse() as HttpWebResponse;
+                response = this.proxyTerminal.GetProxyResponse(new Uri(url));
+                try
                 {
-                    resp = (HttpWebResponse)reqGet.GetResponse();
+                    string html = new StreamReader(response.GetResponseStream()).ReadToEnd();
+                    return html;
+                }
+                catch (Exception ex)
+                {
+                    Log.Error(ex);
                 }
             }
-            catch (Exception ex)
-            {
-                throw new WebResponseException(ex.Message, ex.InnerException);
-            }
-
-            string html = new StreamReader(resp.GetResponseStream()).ReadToEnd();
-
-            return html;
         }
 
         private List<SportEventDTO> ParseHtml(string html, string currentSport, long date)

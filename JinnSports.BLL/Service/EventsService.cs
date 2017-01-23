@@ -1,8 +1,7 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using JinnSports.BLL.Dtos;
 using JinnSports.BLL.Interfaces;
 using JinnSports.BLL.Matcher;
-using JinnSports.DAL.Repositories;
 using JinnSports.DataAccessInterfaces.Interfaces;
 using JinnSports.Entities.Entities;
 using System.Linq;
@@ -22,51 +21,95 @@ namespace JinnSports.BLL.Service
         private static readonly ILog Log = LogManager.GetLogger(typeof(EventsService));
 
         private readonly IUnitOfWork dataUnit;
+        
+        private readonly PredictoionSender predictionSender;
 
         public EventsService(IUnitOfWork unitOfWork)
         {
             this.dataUnit = unitOfWork;
+            this.predictionSender = new PredictoionSender(dataUnit);
         }
 
-        public int Count(int sportTypeId)
+        public int Count(int sportTypeId, int time)
         {
             int count;
             if (sportTypeId != 0)
             {
-                count = this.dataUnit.GetRepository<SportEvent>()
-                .Count(m => m.SportType.Id == sportTypeId);
+                IEnumerable<SportEvent> sportEvents = this.dataUnit.GetRepository<SportEvent>().Get(filter: m => m.SportType.Id == sportTypeId);
+                if (time != 0)
+                {
+                    count = sportEvents.Count(m => Math.Sign(DateTime.Compare(m.Date, DateTime.UtcNow)) == time);
+                }
+                else
+                {
+                    count = sportEvents.Count();
+                }
             }
             else
             {
-                count = this.dataUnit.GetRepository<SportEvent>()
-                .Count();
+                IEnumerable<SportEvent> sportEvents = this.dataUnit.GetRepository<SportEvent>().Get();
+                if (time != 0)
+                {
+
+                    count = sportEvents.Count(m => Math.Sign(DateTime.Compare(m.Date, DateTime.UtcNow)) == time);
+                }
+                else
+                {
+                    count = sportEvents.Count();
+                }
             }
             return count;
         }
 
-        public IEnumerable<ResultDto> GetSportEvents(int sportTypeId, int skip, int take)
+        public IEnumerable<ResultDto> GetSportEvents(int sportTypeId, int time, int skip, int take)
         {
             IList<ResultDto> results = new List<ResultDto>();
 
             IEnumerable<SportEvent> sportEvents;
             if (sportTypeId != 0)
             {
-                sportEvents =
-                    this.dataUnit.GetRepository<SportEvent>().Get(
-                    filter: m => m.SportType.Id == sportTypeId,
-                    includeProperties: "Results,SportType,Results.Team",
-                    orderBy: s => s.OrderByDescending(x => x.Date).ThenByDescending(x => x.Id),
-                    skip: skip,
-                    take: take);
+                if (time != 0)
+                {
+                    sportEvents =
+                        this.dataUnit.GetRepository<SportEvent>().Get(
+                        filter: m => m.SportType.Id == sportTypeId && DateTime.Compare(m.Date, DateTime.UtcNow) == time,
+                        includeProperties: "Results,SportType,Results.Team",
+                        orderBy: s => time == 1 ? s.OrderBy(x => x.Date).ThenByDescending(x => x.Id) : s.OrderByDescending(x => x.Date).ThenByDescending(x => x.Id),
+                        skip: skip,
+                        take: take);
+                }
+                else
+                {
+                    sportEvents =
+                        this.dataUnit.GetRepository<SportEvent>().Get(
+                        filter: m => m.SportType.Id == sportTypeId,
+                        includeProperties: "Results,SportType,Results.Team",
+                        orderBy: s => s.OrderByDescending(x => x.Date).ThenByDescending(x => x.Id),
+                        skip: skip,
+                        take: take);
+                }
             }
             else
             {
-                sportEvents =
-                    this.dataUnit.GetRepository<SportEvent>().Get(
-                    includeProperties: "Results,SportType,Results.Team",
-                    orderBy: s => s.OrderByDescending(x => x.Date).ThenByDescending(x => x.Id),
-                    skip: skip,
-                    take: take);
+                if (time != 0)
+                {
+                    sportEvents =
+                        this.dataUnit.GetRepository<SportEvent>().Get(
+                        filter: m => DateTime.Compare(m.Date, DateTime.UtcNow) == time,
+                        includeProperties: "Results,SportType,Results.Team",
+                        orderBy: s => time == 1 ? s.OrderBy(x => x.Date).ThenByDescending(x => x.Id) : s.OrderByDescending(x => x.Date).ThenByDescending(x => x.Id),
+                        skip: skip,
+                        take: take);
+                }
+                else
+                {
+                    sportEvents =
+                        this.dataUnit.GetRepository<SportEvent>().Get(
+                        includeProperties: "Results,SportType,Results.Team",
+                        orderBy: s => s.OrderByDescending(x => x.Date).ThenByDescending(x => x.Id),
+                        skip: skip,
+                        take: take);
+                }
             }
             foreach (SportEvent sportEvent in sportEvents)
             {
@@ -89,96 +132,118 @@ namespace JinnSports.BLL.Service
             return sportTypeDto;
         }
 
+        public MainPageDto GetMainPageInfo()
+        {
+            INewsService newsService = new NewsService();
+            var news = newsService.GetLastNews();
+
+            IEnumerable<ResultDto> upcomingEvents = this.GetSportEvents(0, 1, 0, 0);
+
+            return new MainPageDto() { News = news, UpcomingEvents = upcomingEvents };
+        }
+
         public bool SaveSportEvents(ICollection<SportEventDTO> eventDTOs)
         {
             Log.Info("Writing transferred data...");
-            using (this.dataUnit)
+            try
             {
-                try
+                NamingMatcher matcher = new NamingMatcher(this.dataUnit);
+
+                IEnumerable<SportType> sportTypes = this.dataUnit.GetRepository<SportType>().Get();
+
+                foreach (SportEventDTO eventDTO in eventDTOs)
                 {
-                    NamingMatcher matcher = new NamingMatcher(this.dataUnit);
+                    SportType sportType = sportTypes.FirstOrDefault(st => st.Name == eventDTO.SportType)
+                                            ?? new SportType { Name = eventDTO.SportType };
 
-                    IEnumerable<SportType> sportTypes = this.dataUnit.GetRepository<SportType>().Get();
-                    IEnumerable<SportEvent> existingEvents = this.dataUnit.GetRepository<SportEvent>().Get();
+                    SportEvent sportEvent = new SportEvent
+                    { SportType = sportType, Date = this.ConvertAndTrimDate(eventDTO.Date), Results = new List<Result>() };
+                    TempSportEvent tempEvent = new TempSportEvent()
+                    { SportType = sportType, Date = this.ConvertAndTrimDate(eventDTO.Date), TempResults = new List<TempResult>() };
 
-                    foreach (SportEventDTO eventDTO in eventDTOs)
+                    foreach (ResultDTO resultDTO in eventDTO.Results)
                     {
-                        SportType sportType = sportTypes.FirstOrDefault(st => st.Name == eventDTO.SportType)
-                                                ?? new SportType { Name = eventDTO.SportType };
-
-                        bool conflictExist = false;
-                        List<Result> results = new List<Result>();
-                        List<TempResult> tempResults = new List<TempResult>();
-
-                        foreach (ResultDTO resultDTO in eventDTO.Results)
+                        Team team = new Team
                         {
-                            Team team = new Team { Name = resultDTO.TeamName, SportType = sportType };
-                            List<Conformity> conformities = matcher.ResolveNaming(team);                            
+                            Name = resultDTO.TeamName,
+                            SportType = sportType,
+                            Names = new List<TeamName> { new TeamName { Name = resultDTO.TeamName } }
+                        };
 
-                            if (conformities == null)
-                            {
-                                team = this.dataUnit.GetRepository<Team>().Get((x) => x.Names.Contains(new TeamName { Name = team.Name })).FirstOrDefault();
-                                Result result = new Result { Team = team, Score = resultDTO.Score ?? -1, IsHome = resultDTO.IsHome };
-                                results.Add(result);
-                            }
-                            else
-                            {
-                                conflictExist = true;
+                        List<Conformity> conformities = matcher.ResolveNaming(team);
 
-                                TempResult result = new TempResult { Team = team, Score = resultDTO.Score };
-
-                                foreach (Conformity conformity in conformities)
-                                {
-                                    result.Conformities.Add(conformity);
-                                }
-                                conformities.Clear();
-                                tempResults.Add(result);
-                            }
-                        }
-
-                        if (conflictExist)
+                        if (conformities == null)
                         {
-                            TempSportEvent tempSportEvent = new TempSportEvent { SportType = sportType, Date = this.ConvertAndTrimDate(eventDTO.Date) };
-                            foreach (TempResult tempResult in tempResults)
-                            {
-                                tempSportEvent.TempResults.Add(tempResult);
-                            }
-                            foreach (Result result in results)
-                            {
-                                TempResult tempRes = new TempResult { Team = result.Team, Score = result.Score, IsHome = result.IsHome };
-                                tempSportEvent.TempResults.Add(tempRes);
-                            }
-                            this.dataUnit.GetRepository<TempSportEvent>().Insert(tempSportEvent);
+                            team = this.dataUnit.GetRepository<TeamName>()
+                            .Get((x) => x.Name == team.Name).Select(x => x.Team).FirstOrDefault();
+
+                            Result result = new Result { Team = team, Score = resultDTO.Score ?? -1, IsHome = resultDTO.IsHome };
+                            sportEvent.Results.Add(result);
                         }
                         else
                         {
-                            SportEvent sportEvent = new SportEvent { SportType = sportType, Date = this.ConvertAndTrimDate(eventDTO.Date) };
-                            foreach (Result result in results)
+                            TempResult result = new TempResult
                             {
-                                sportEvent.Results.Add(result);
-                            }
-                            if (!existingEvents.Contains(sportEvent))
+                                Score = resultDTO.Score ?? -1,
+                                Conformities = new List<Conformity>(),
+                                IsHome = resultDTO.IsHome
+                            };
+
+                            if (team.Names.FirstOrDefault().Id != 0)
                             {
-                                this.dataUnit.GetRepository<SportEvent>().Insert(sportEvent);
+                                result.Team = team;
                             }
+
+                            foreach (Conformity conformity in conformities)
+                            {
+                                result.Conformities.Add(conformity);
+                            }
+                            conformities.Clear();
+                            tempEvent.TempResults.Add(result);
                         }
                     }
-                    this.dataUnit.SaveChanges();
+
+                    this.Save(tempEvent, sportEvent);
                 }
-                catch (Exception ex)
-                {
-                    Log.Error("Exception when trying to save transferred data to DB", ex);
-                    return false;
-                }
+                this.dataUnit.SaveChanges();
+                
+                // TODO: resolve injection
+                predictionSender.SendPredictionRequest(); // Check new events and send request to Predictor
+            }
+            catch (Exception ex)
+            {
+                Log.Error("Exception when trying to save transferred data to DB", ex);
+                return false;
             }
             Log.Info("Transferred data sucessfully saved");
             return true;
         }
 
+        private void Save(TempSportEvent tempEvent, SportEvent sportEvent)
+        {
+            if (tempEvent.TempResults.Count() != 0)
+            {
+                foreach (Result result in sportEvent.Results)
+                {
+                    TempResult tempRes = new TempResult { Team = result.Team, Score = result.Score, IsHome = result.IsHome };
+                    tempEvent.TempResults.Add(tempRes);
+                }
+                this.dataUnit.GetRepository<TempSportEvent>().Insert(tempEvent);
+            }
+            else
+            {
+                IEnumerable<SportEvent> existingEvent = this.dataUnit.GetRepository<SportEvent>().Get();
+                if (!existingEvent.Contains(sportEvent))
+                {
+                    this.dataUnit.GetRepository<SportEvent>().Insert(sportEvent);
+                }
+            }
+        }
+
         private DateTime ConvertAndTrimDate(long dateTicks)
         {
             DateTime temp = new DateTime(dateTicks);
-            return new DateTime(temp.Year, temp.Month, temp.Day);
+            return new DateTime(temp.Year, temp.Month, temp.Day, temp.Hour, temp.Minute, temp.Second);
         }
     }
-    }
+}

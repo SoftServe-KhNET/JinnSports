@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Data.Entity;
 using System.Linq;
+using System.Transactions;
 using JinnSports.BLL.Matcher;
 using JinnSports.DataAccessInterfaces.Interfaces;
 using JinnSports.DAL.EFContext;
@@ -17,18 +17,14 @@ namespace JinnSports.UnitTests.BLL
     {
         private SportsContext databaseSportsContext;
 
-        private DbContextTransaction databaseTransaction;
+        private TransactionScope databaseTransaction;
 
         [OneTimeSetUp]
-        public void Init()
+        public void OneTimeInit()
         {
             this.databaseSportsContext = new SportsContext("SportsContext");
 
-            IUnitOfWork unit = new EFUnitOfWork(this.databaseSportsContext);            
-
-            // Other transactions can't update and insert data
-            this.databaseTransaction = this.databaseSportsContext
-                .Database.BeginTransaction(IsolationLevel.ReadUncommitted);
+            IUnitOfWork unit = new EFUnitOfWork(this.databaseSportsContext);
 
             // Clear tables
             this.databaseSportsContext.TeamNames.RemoveRange(
@@ -97,6 +93,27 @@ namespace JinnSports.UnitTests.BLL
             unit.SaveChanges();            
         }
 
+        [SetUp]
+        public void Init()
+        {
+            this.databaseTransaction = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions
+            {
+                IsolationLevel = IsolationLevel.Serializable
+            });
+        }
+
+        [TearDown]
+        public void Clean()
+        {
+            this.databaseTransaction.Dispose();
+        }
+
+        [OneTimeTearDown]
+        public void OneTimeClean()
+        {
+            this.databaseSportsContext.Dispose();
+        }
+
         [Test]
         public void ResolveNamingPositiveTest()
         {
@@ -105,15 +122,15 @@ namespace JinnSports.UnitTests.BLL
             SportType football = new SportType { Name = "Football" };
             SportType sport = unit.GetRepository<SportType>().Get(x => x.Name.ToUpper() == football.Name.ToUpper()).FirstOrDefault();           
 
-            Team positiveTeam = new Team { Name = "Краснодар ФК", SportType = sport, Names = new List<TeamName>() };  
+            Team positiveTeam = new Team
+            { Name = "Краснодар ФК", SportType = sport, Names = new List<TeamName> { new TeamName { Name = "Краснодар ФК" } } };  
 
             NamingMatcher matcher = new NamingMatcher(unit);
 
             List<Conformity> positiveConformities = matcher.ResolveNaming(positiveTeam);
-
             Assert.IsNull(positiveConformities);
-            TeamName name = new TeamName { Name = positiveTeam.Name };
-            Team team = unit.GetRepository<Team>().Get((x) => x.Names.Select(n => n.Name).Contains(name.Name)).FirstOrDefault();                  
+           
+            Team team = unit.GetRepository<Team>().Get((x) => x.Names.Select(n => n.Name).Contains(positiveTeam.Name)).FirstOrDefault();                  
             Assert.IsTrue(team.Names.Select(t => t.Name).Contains("Краснодар"));
             Assert.IsTrue(team.Names.Select(t => t.Name).Contains("Краснодар ФК"));
         }
@@ -131,10 +148,9 @@ namespace JinnSports.UnitTests.BLL
             NamingMatcher matcher = new NamingMatcher(unit);
 
             List<Conformity> negativeConformities = matcher.ResolveNaming(negativeTeam);
-
-            Assert.IsNull(negativeConformities);
-            TeamName name = new TeamName { Name = negativeTeam.Name };
-            Team team = team = unit.GetRepository<Team>().Get((x) => x.Names.Select(n => n.Name).Contains(name.Name)).FirstOrDefault();
+            Assert.IsNull(negativeConformities);   
+                     
+            Team team = unit.GetRepository<Team>().Get((x) => x.Names.Select(n => n.Name).Contains(negativeTeam.Name)).FirstOrDefault();
             Assert.AreEqual(team, negativeTeam);
         }
 
@@ -158,14 +174,6 @@ namespace JinnSports.UnitTests.BLL
 
             Assert.AreEqual(expConf.InputName, newConf.InputName);
             Assert.AreEqual(expConf.ExistedName, newConf.ExistedName);
-        }
-
-        [OneTimeTearDown]
-        public void Clean()
-        {
-            // Pend changes
-            this.databaseTransaction.Rollback();
-            this.databaseTransaction.Dispose();
         }
     }
 }

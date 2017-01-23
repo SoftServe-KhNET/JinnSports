@@ -5,10 +5,9 @@ using NUnit.Framework;
 using System.Collections.Generic;
 using JinnSports.BLL.Dtos;
 using JinnSports.DAL.Repositories;
-using JinnSports.DataAccessInterfaces.Interfaces;
 using System.Linq;
 using System.Collections;
-using System.Data.Entity;
+using System.Transactions;
 using JinnSports.BLL.Extentions;
 using AutoMapper;
 using JinnSports.DAL.EFContext;
@@ -23,7 +22,7 @@ namespace JinnSports.UnitTests.Services
 
         private SportsContext databaseSportsContext;
 
-        private DbContextTransaction databaseTransaction;
+        private TransactionScope databaseTransaction;
 
         private List<SportType> sportTypes;
         private List<Team> teams;
@@ -34,13 +33,9 @@ namespace JinnSports.UnitTests.Services
         private List<Result> testResults;
 
         [OneTimeSetUp]
-        public void Init()
+        public void OneTimeInit()
         {
             this.databaseSportsContext = new SportsContext("SportsContext");
-
-            // Other transactions can't update and insert data
-            this.databaseTransaction = this.databaseSportsContext
-                .Database.BeginTransaction(System.Data.IsolationLevel.ReadUncommitted);
 
             // Clear tables
             this.databaseSportsContext.TeamNames.RemoveRange(
@@ -120,15 +115,7 @@ namespace JinnSports.UnitTests.Services
             this.teamDetailsService = new TeamDetailsService(
                 new EFUnitOfWork(this.databaseSportsContext));
         }
-
-        [OneTimeTearDown]
-        public void Clean()
-        {
-            this.databaseTransaction.Rollback();
-            this.databaseTransaction.Dispose();
-        }
-
-
+        
         [SetUp]
         public void InitTestEntities()
         {
@@ -165,7 +152,7 @@ namespace JinnSports.UnitTests.Services
                 Id = 4,
                 Name = "Snooker"
             };
-                       
+
             // ---- Init teams ----
 
             // Football teams
@@ -501,7 +488,7 @@ namespace JinnSports.UnitTests.Services
                 {
                     phoenixSuns.Name,
                     chicagoBulls.Name
-                }            
+                }
             };
             ResultDto chicagoBulls_vs_Suns_Result_Dto = new ResultDto()
             {
@@ -515,10 +502,9 @@ namespace JinnSports.UnitTests.Services
                 },
                 TeamNames = new List<string>()
                 {
-                    
                     chicagoBulls.Name,
                     phoenixSuns.Name
-                } 
+                }
             };
             ResultDto suns_vs_LA_Result_Dto = new ResultDto()
             {
@@ -591,6 +577,23 @@ namespace JinnSports.UnitTests.Services
                 ph_vs_LA,
                 la_vs_Ph
             };
+
+            this.databaseTransaction = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions
+            {
+                IsolationLevel = IsolationLevel.Serializable
+            });
+        }
+
+        [TearDown]
+        public void Clean()
+        {
+            this.databaseTransaction.Dispose();
+        }
+
+        [OneTimeTearDown]
+        public void OneTimeClean()
+        {
+            this.databaseSportsContext.Dispose();
         }
 
         [Test]
@@ -606,7 +609,7 @@ namespace JinnSports.UnitTests.Services
         {
             int count = this.teamDetailsService.Count(teamId);
 
-            Assert.AreEqual(result, count); 
+            Assert.AreEqual(result, count);
         }
 
         [Test]
@@ -629,7 +632,7 @@ namespace JinnSports.UnitTests.Services
         public void CheckResultToResultDtoMapping()
         {
             ResultDtoComparer dtoComparer = new ResultDtoComparer();
-          
+
             List<ResultDto> resultsDto = this.resultsDto;
             List<ResultDto> mappedDto = new List<ResultDto>();
             List<Result> testResults = this.testResults;
@@ -638,7 +641,7 @@ namespace JinnSports.UnitTests.Services
             {
                 mappedDto.Add(Mapper.Map<Result, ResultDto>(result));
             }
-                 
+
             CollectionAssert.AreEqual(resultsDto, mappedDto, dtoComparer);
         }
 
@@ -678,17 +681,21 @@ namespace JinnSports.UnitTests.Services
 
             public int Compare(ResultDto ldto, ResultDto rdto)
             {
-                if (ldto.Date == null || string.IsNullOrEmpty(ldto.Score) || ldto.Id < 1 || ldto.TeamIds.ElementAt(0) < 1 || ldto.TeamIds.ElementAt(1) < 1 ||
-                string.IsNullOrEmpty(ldto.TeamNames.ElementAt(0)) || string.IsNullOrEmpty(ldto.TeamNames.ElementAt(1)))
+                if (ldto.Date == null || string.IsNullOrEmpty(ldto.Score) || ldto.Id < 1 ||
+                    ldto.TeamIds.ElementAt(0) < 1 || ldto.TeamIds.ElementAt(1) < 1 ||
+                    string.IsNullOrEmpty(ldto.TeamNames.ElementAt(0)) ||
+                    string.IsNullOrEmpty(ldto.TeamNames.ElementAt(1)))
                 {
                     return -1;
                 }
                 return ldto.Date.CompareTo(rdto.Date) & ldto.Score.CompareTo(rdto.Score) &
-                    ldto.Id.CompareTo(rdto.Id) & ldto.TeamIds.ElementAt(0).CompareTo(rdto.TeamIds.ElementAt(0)) &
-                    ldto.TeamIds.ElementAt(1).CompareTo(rdto.TeamIds.ElementAt(1)) & ldto.TeamNames.ElementAt(0).CompareTo(rdto.TeamNames.ElementAt(0)) &
-                    ldto.TeamNames.ElementAt(1).CompareTo(rdto.TeamNames.ElementAt(1));
+                       ldto.Id.CompareTo(rdto.Id) & ldto.TeamIds.ElementAt(0).CompareTo(rdto.TeamIds.ElementAt(0)) &
+                       ldto.TeamIds.ElementAt(1).CompareTo(rdto.TeamIds.ElementAt(1)) &
+                       ldto.TeamNames.ElementAt(0).CompareTo(rdto.TeamNames.ElementAt(0)) &
+                       ldto.TeamNames.ElementAt(1).CompareTo(rdto.TeamNames.ElementAt(1));
             }
         }
+
         public class TeamDtoComparer : IComparer, IComparer<TeamDto>
         {
             public int Compare(object x, object y)
@@ -709,7 +716,7 @@ namespace JinnSports.UnitTests.Services
                     return -1;
                 }
                 return ldto.Name.CompareTo(rdto.Name) &
-                    ldto.Id.CompareTo(rdto.Id);
+                       ldto.Id.CompareTo(rdto.Id);
             }
         }
     }

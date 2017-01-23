@@ -6,9 +6,6 @@ namespace JinnSports.WEB
     {
         public static void RegisterBundles(BundleCollection bundles)
         {
-            bundles.Add(new ScriptBundle("~/bundles/jquery")
-                .Include("~/Scripts/jquery-3.1.1.js"));
-
             bundles.Add(new StyleBundle("~/Content/MainStyles")
                 .Include("~/Content/bootstrap.css")
                 .Include("~/Content/AdminLTE/AdminLTE.css")
@@ -23,7 +20,7 @@ namespace JinnSports.WEB
             bundles.Add(new ScriptBundle("~/Scripts/jquery-ui")
                 .Include("~/Scripts/jquery-ui-{version}.js"));
 
-            bundles.Add(new ScriptBundle("~/Scripts/AdminLTE")
+            bundles.Add(new ScriptBundle("~/Scripts/AdminLTETemplate")
                 .Include("~/Scripts/bootstrap.js")
                 .Include("~/Scripts/AdminLTE/app.js"));
 

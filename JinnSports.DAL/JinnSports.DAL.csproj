@@ -100,6 +100,14 @@
     <Compile Include="Migrations\201701110319244_AdminUser.Designer.cs">
       <DependentUpon>201701110319244_AdminUser.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201701200602470_DeletedNullableScores.cs" />
+    <Compile Include="Migrations\201701200602470_DeletedNullableScores.Designer.cs">
+      <DependentUpon>201701200602470_DeletedNullableScores.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201701231823068_Predictor.cs" />
+    <Compile Include="Migrations\201701231823068_Predictor.Designer.cs">
+      <DependentUpon>201701231823068_Predictor.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\BaseRepository.cs" />
@@ -143,6 +151,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201701110319244_AdminUser.resx">
       <DependentUpon>201701110319244_AdminUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201701200602470_DeletedNullableScores.resx">
+      <DependentUpon>201701200602470_DeletedNullableScores.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201701231823068_Predictor.resx">
+      <DependentUpon>201701231823068_Predictor.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup />

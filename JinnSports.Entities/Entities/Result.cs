@@ -8,7 +8,7 @@
 
         public virtual SportEvent SportEvent { get; set; }
 
-        public int? Score { get; set; }
+        public int Score { get; set; }
 
         public bool IsHome { get; set; }
 

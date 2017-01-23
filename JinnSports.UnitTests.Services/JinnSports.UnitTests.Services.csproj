@@ -55,6 +55,7 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Transactions" />
   </ItemGroup>
   <Choose>
     <When Condition="('$(VisualStudioVersion)' == '10.0' or '$(VisualStudioVersion)' == '') and '$(TargetFrameworkVersion)' == 'v3.5'">
@@ -75,6 +76,10 @@
     <Compile Include="TeamServiceTests.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DTO\DTO.csproj">
+      <Project>{40f1bd33-b3c8-4268-8243-59230825ef9b}</Project>
+      <Name>DTO</Name>
+    </ProjectReference>
     <ProjectReference Include="..\JinnSports.BLL\JinnSports.BLL.csproj">
       <Project>{629f73e6-eace-4dcf-ab1b-1488d3a9bfc9}</Project>
       <Name>JinnSports.BLL</Name>

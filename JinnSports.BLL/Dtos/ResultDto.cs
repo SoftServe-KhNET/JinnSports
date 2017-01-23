@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using JinnSports.BLL.Extentions;
+using JinnSports.BLL.Dtos.SportType;
 
 namespace JinnSports.BLL.Dtos
 {
@@ -26,9 +27,15 @@ namespace JinnSports.BLL.Dtos
         }
 
         public int Id { get; set; }
+
         public string Score { get; set; }
+
+        public SportTypeDto SportType { get; set; }
+
         public string Date { get; set; }
+
         public IEnumerable<string> TeamNames { get; set; }
+
         public IEnumerable<int> TeamIds { get; set; }
 
     }

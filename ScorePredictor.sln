@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PredictorDTO", "PredictorDTO\PredictorDTO.csproj", "{96B1BC81-F95F-49C6-9B2F-44E2D00460CF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PredictorApplication", "PredictorApplication\PredictorApplication.csproj", "{5C717ECE-3F99-49F5-BBEC-4EBD6108DD92}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{96B1BC81-F95F-49C6-9B2F-44E2D00460CF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{96B1BC81-F95F-49C6-9B2F-44E2D00460CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{96B1BC81-F95F-49C6-9B2F-44E2D00460CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{96B1BC81-F95F-49C6-9B2F-44E2D00460CF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5C717ECE-3F99-49F5-BBEC-4EBD6108DD92}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5C717ECE-3F99-49F5-BBEC-4EBD6108DD92}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5C717ECE-3F99-49F5-BBEC-4EBD6108DD92}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5C717ECE-3F99-49F5-BBEC-4EBD6108DD92}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

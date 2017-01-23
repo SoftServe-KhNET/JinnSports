@@ -18,7 +18,7 @@ namespace JinnSports.WEB.ApiControllers
         }
 
         [HttpGet]
-        public IHttpActionResult LoadEvents(int sportTypeId)
+        public IHttpActionResult LoadEvents(int sportTypeId, int time)
         {
             var a = sportTypeId;
 
@@ -29,10 +29,10 @@ namespace JinnSports.WEB.ApiControllers
             int pageSize = length != null ? Convert.ToInt32(length) : 0;
             int skip = start != null ? Convert.ToInt32(start) : 0;
 
-            int recordsTotal = this.eventService.Count(sportTypeId);
+            int recordsTotal = this.eventService.Count(sportTypeId, time);
 
             IEnumerable<ResultDto> results = this.eventService
-                .GetSportEvents(sportTypeId, skip, pageSize);
+                .GetSportEvents(sportTypeId, time, skip, pageSize);
 
             return this.Ok(new
             {

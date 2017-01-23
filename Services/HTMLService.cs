@@ -1,4 +1,5 @@
-﻿using JinnSports.Parser.App.HtmlParsers;
+﻿using JinnSports.DataAccessInterfaces.Interfaces;
+using JinnSports.Parser.App.HtmlParsers;
 using System.ServiceProcess;
 using System.Threading;
 

@@ -16,7 +16,7 @@ namespace JinnSports.Entities.Entities.Temp
 
         public ICollection<Conformity> Conformities { get; set; }
 
-        public int? Score { get; set; }
+        public int Score { get; set; }
 
         public bool IsHome { get; set; }
     }

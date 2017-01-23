@@ -1,0 +1,20 @@
+﻿@{
+    ViewBag.Title = "Parser";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<asp:content>
+    <h2 style="text-align:center">Parser Service</h2>
+    @using (Html.BeginForm("RunParser", "Parser", FormMethod.Post))
+    {
+        <asp:div>
+            <input class="btn btn-primary" type="submit" value="Update Data" name="UpdateData" />
+        </asp:div>
+    }
+    <p class="divider"></p>
+    @using (Html.BeginForm("UpdateProxy", "Parser", FormMethod.Post))
+    {
+        <asp:div>
+            <input class="btn btn-primary" type="submit" value="Update Proxy" name="UpdateProxy" />
+        </asp:div>
+    }
+</asp:content>    

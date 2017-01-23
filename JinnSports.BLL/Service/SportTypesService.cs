@@ -42,7 +42,7 @@ namespace JinnSports.BLL.Service
             return count;
         }
 
-        public SportTypeSelectDto GetSportTypes(int sportTypeId)
+        public SportTypeSelectDto GetSportTypes(int sportTypeId, int time)
         {
             IList<ResultDto> results = new List<ResultDto>();
             IList<SportTypeListDto> sportTypeListDtos = new List<SportTypeListDto>();
@@ -55,7 +55,23 @@ namespace JinnSports.BLL.Service
 
                 selectedName = sportType.Name;
 
-                sportEvents = sportType.SportEvents;
+                sportEvents = sportType.SportEvents.OrderByDescending(x => x.Date)
+                                    .ThenByDescending(x => x.Id)
+                                    .ToList();
+
+                if (time != 0)
+                {
+                    sportEvents = sportEvents.Where(m => Math.Sign(DateTime.Compare(m.Date, DateTime.UtcNow)) == time)
+                                    .Select(m => m).OrderByDescending(x => x.Date)
+                                    .ThenByDescending(x => x.Id)
+                                    .ToList();
+                    if (time == 1)
+                    {
+                        sportEvents = sportEvents.OrderBy(x => x.Date)
+                                .ThenByDescending(x => x.Id)
+                                .ToList();
+                    }
+                }
 
                 if (sportEvents.Count() > 0)
                 {
@@ -82,7 +98,23 @@ namespace JinnSports.BLL.Service
 
                 foreach (SportType sportType in sportTypes)
                 {
-                    sportEvents = sportType.SportEvents;
+                    sportEvents = sportType.SportEvents.OrderByDescending(x => x.Date)
+                                    .ThenByDescending(x => x.Id)
+                                    .ToList(); ;
+
+                    if (time != 0)
+                    {
+                        sportEvents = sportEvents.Where(m => Math.Sign(DateTime.Compare(m.Date, DateTime.UtcNow)) == time)
+                                    .Select(m => m).OrderByDescending(x => x.Date)
+                                    .ThenByDescending(x => x.Id)
+                                    .ToList();
+                        if(time == 1)
+                        {
+                            sportEvents = sportEvents.OrderBy(x => x.Date)
+                                    .ThenByDescending(x => x.Id)
+                                    .ToList();
+                        }
+                    }
 
                     if (sportEvents.Count() > 0)
                     {
@@ -108,7 +140,7 @@ namespace JinnSports.BLL.Service
             SportTypeSelectDto sportTypeModel = new SportTypeSelectDto()
             {
                 SelectedId = sportTypeId,
-                SelectedName = selectedName, 
+                SelectedName = selectedName,
                 SportTypes = this.GetAllSportTypes(),
                 SportTypeResults = sportTypeListDtos
             };

@@ -29,6 +29,8 @@ namespace JinnSports.DAL.EFContext
 
         public DbSet<TeamName> TeamNames { get; set; }
 
+        public DbSet<EventPrediction> EventPredictions { get; set; }
+
         public DbSet<Conformity> Conformities { get; set; }
 
         public DbSet<TempResult> TempResults { get; set; }

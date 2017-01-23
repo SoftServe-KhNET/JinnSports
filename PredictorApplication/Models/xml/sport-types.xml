@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sport-types>
+  <max-score type="football">5</max-score>
+  <max-score type="hockey">10</max-score>
+  <max-score type="basketball">150</max-score>
+</sport-types>

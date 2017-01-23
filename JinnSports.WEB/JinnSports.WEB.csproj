@@ -179,6 +179,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\ApiConnection.xml" />
     <Content Include="Content\AdminLTE\AdminLTE.css" />
     <Content Include="Content\AdminLTE\AdminLTE.min.css" />
     <Content Include="Content\AdminLTE\skins\skin-black-light.css" />
@@ -420,6 +421,7 @@
     <Content Include="Areas\Mvc\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\Mvc\Views\Shared\_ResultPartial.cshtml" />
     <Content Include="Areas\Mvc\Views\Shared\_HeaderPartial.cshtml" />
+    <Content Include="Areas\Admin\Views\Parser\Index.cshtml" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
     <Content Include="Scripts\AdminLTE\app.js" />
     <Content Include="Scripts\AdminLTE\app.min.js" />
@@ -521,6 +523,8 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\ParserController.cs" />
+    <Compile Include="Areas\Admin\Controllers\PredictionsController.cs" />
     <Compile Include="Areas\Mvc\Controllers\EventController.cs" />
     <Compile Include="Areas\Mvc\Controllers\HomeController.cs" />
     <Compile Include="Areas\Mvc\Controllers\TeamController.cs" />
@@ -549,7 +553,9 @@
     <Content Include="Views\Team\Index.cshtml" />
     <Content Include="Views\Shared\_ResultPartial.cshtml" />
     <Content Include="Views\Event\Index.cshtml" />
-    <None Include="Properties\PublishProfiles\My.pubxml" />
+    <None Include="Properties\PublishProfiles\My.pubxml">
+      <SubType>Designer</SubType>
+    </None>
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Scripts\jquery-3.1.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.1.1.min.map" />
@@ -569,6 +575,7 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Shared\_Admin.cshtml" />
+    <Content Include="Views\Shared\_UpcomingEvents.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -577,7 +584,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Models\" />
     <Folder Include="Areas\Admin\Views\Shared\" />
     <Folder Include="Areas\Mvc\Controllers\Models\" />
@@ -585,7 +591,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DTO\DTO.csproj">
-      <Project>{40F1BD33-B3C8-4268-8243-59230825EF9B}</Project>
+      <Project>{40f1bd33-b3c8-4268-8243-59230825ef9b}</Project>
       <Name>DTO</Name>
     </ProjectReference>
     <ProjectReference Include="..\JinnSports.BLL\JinnSports.BLL.csproj">
@@ -603,6 +609,10 @@
     <ProjectReference Include="..\JinnSports.Entities\JinnSports.Entities.csproj">
       <Project>{fe881c95-44b6-4c3b-8d18-906f050d3cbb}</Project>
       <Name>JinnSports.Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PredictorDTO\PredictorDTO.csproj">
+      <Project>{96B1BC81-F95F-49C6-9B2F-44E2D00460CF}</Project>
+      <Name>PredictorDTO</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

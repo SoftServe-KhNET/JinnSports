@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Entities\Conformity.cs" />
+    <Compile Include="Entities\EventPrediction.cs" />
     <Compile Include="Entities\Identity\Claim.cs" />
     <Compile Include="Entities\Identity\ExternalLogin.cs" />
     <Compile Include="Entities\Identity\Role.cs" />

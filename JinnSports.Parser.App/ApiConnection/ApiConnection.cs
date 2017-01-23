@@ -4,12 +4,17 @@ using log4net;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
+using System.Threading.Tasks;
+using System.Web;
+using System.Web.Hosting;
 using System.Xml;
 
-namespace JinnSports.Parser
+namespace JinnSports.Parser.App
 {
     public class ApiConnection
     {
@@ -25,7 +30,7 @@ namespace JinnSports.Parser
         /// </summary>
         /// <param name="events"></param>
         /// <exception cref="SaveDataException"></exception>
-        public async void SendEvents(ICollection<SportEventDTO> events)
+        public void SendEvents(ICollection<SportEventDTO> events)
         {
             using (HttpClient client = new HttpClient())
             {
@@ -43,7 +48,20 @@ namespace JinnSports.Parser
                     string json = JsonConvert.SerializeObject(events, Newtonsoft.Json.Formatting.Indented);
                     StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
 
-                    HttpResponseMessage response = await client.PostAsync(this.controllerUrn, content);
+                    //ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
+
+                    Task<HttpResponseMessage> postResponseTask = client.PostAsync(this.controllerUrn, content);
+
+                    postResponseTask.ContinueWith(t =>
+                    {
+                        if (t.IsFaulted)
+                        {
+                            Log.Info("Error occured during Data transfer");
+                        }
+                    });
+
+                    HttpResponseMessage response = postResponseTask.Result as HttpResponseMessage;
+
                     if (response.IsSuccessStatusCode)
                     {
                         Log.Info("Data sucsessfully transfered");
@@ -63,7 +81,7 @@ namespace JinnSports.Parser
         private void GetConnectionSettings()
         {
             XmlDocument settings = new XmlDocument();
-            settings.Load("ApiConnection.xml");
+            settings.Load(HostingEnvironment.MapPath("~/App_Data/") + "ApiConnection.xml");
             this.baseUrl = settings.DocumentElement.SelectSingleNode("url").InnerText;
             this.controllerUrn = settings.DocumentElement.SelectSingleNode("name").InnerText;
             this.timeoutSec = int.Parse(settings.DocumentElement.SelectSingleNode("timeout").InnerText ?? "60");

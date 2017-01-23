@@ -6,11 +6,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using JinnSports.DAL.EFContext;
 using JinnSports.DAL.Repositories;
-using System.Data.Entity;
+using System.Transactions;
 using JinnSports.Entities.Entities;
 using JinnSports.WEB;
 using AutoMapper;
@@ -24,7 +22,7 @@ namespace JinnSports.UnitTests.Services
 
         private SportsContext databaseSportsContext;
 
-        private DbContextTransaction databaseTransaction;
+        private TransactionScope databaseTransaction;
 
         /// <summary>
         /// TeamDto comparer for comparing collections
@@ -35,15 +33,12 @@ namespace JinnSports.UnitTests.Services
         /// Init test data
         /// </summary>
         [OneTimeSetUp]
-        public void Init()
+        public void OneTimeInit()
         { 
             this.comparer = new TeamDtoComparer();
             AutoMapperConfiguration.Configure();
 
             this.databaseSportsContext = new SportsContext("SportsContext");
-
-            this.databaseTransaction = this.databaseSportsContext
-                .Database.BeginTransaction(System.Data.IsolationLevel.ReadUncommitted);
 
             // Clear tables
             this.databaseSportsContext.TeamNames.RemoveRange(
@@ -84,11 +79,25 @@ namespace JinnSports.UnitTests.Services
             this.teamService = new TeamService(new EFUnitOfWork(this.databaseSportsContext));
         }
 
-        [OneTimeTearDown]
+        [SetUp]
+        public void Init()
+        {
+            this.databaseTransaction = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions
+            {
+                IsolationLevel = IsolationLevel.Serializable
+            });
+        }
+
+        [TearDown]
         public void Clean()
         {
-            this.databaseTransaction.Rollback();
             this.databaseTransaction.Dispose();
+        }
+
+        [OneTimeTearDown]
+        public void OneTimeClean()
+        {
+            this.databaseSportsContext.Dispose();
         }
 
         /// <summary>
