@@ -425,9 +425,6 @@
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
     <Content Include="Scripts\AdminLTE\app.js" />
     <Content Include="Scripts\AdminLTE\app.min.js" />
-    <Content Include="Scripts\AdminLTE\demo.js" />
-    <Content Include="Scripts\AdminLTE\pages\dashboard.js" />
-    <Content Include="Scripts\AdminLTE\pages\dashboard2.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\DataTables\autoFill.bootstrap.js" />
