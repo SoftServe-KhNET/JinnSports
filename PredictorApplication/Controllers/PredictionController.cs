@@ -15,31 +15,31 @@ namespace PredictorApplication.Controllers
 
         public IHttpActionResult GetStatus()
         {
-            monitor = PredictorMonitor.GetInstance();
+            this.monitor = PredictorMonitor.GetInstance();
 
-            if (!monitor.IsAwailable)
+            if (!this.monitor.IsAvailable)
             {
-                return ResponseMessage(Request.CreateResponse(HttpStatusCode.ServiceUnavailable));
+                return this.ResponseMessage(this.Request.CreateResponse(HttpStatusCode.ServiceUnavailable));
             }
 
-            return Ok();
+            return this.Ok();
         }
 
         public IHttpActionResult Post([FromBody] PackageDTO package)
         {
-            monitor = PredictorMonitor.GetInstance();
+            this.monitor = PredictorMonitor.GetInstance();
 
-            if (!monitor.IsAwailable)
+            if (!this.monitor.IsAvailable)
             {
-                return ResponseMessage(Request.CreateResponse(HttpStatusCode.ServiceUnavailable));
+                return this.ResponseMessage(this.Request.CreateResponse(HttpStatusCode.ServiceUnavailable));
             }
 
-            monitor.CallBackURL = package.CallBackURL;
-            monitor.CallBackController = package.CallBackController;
-            monitor.CallBackTimeout = package.CallBackTimeout;
-            monitor.RunPredictionTask(package.IncomigEvents);
+            this.monitor.CallBackURL = package.CallBackURL;
+            this.monitor.CallBackController = package.CallBackController;
+            this.monitor.CallBackTimeout = package.CallBackTimeout;
+            this.monitor.RunPredictionTask(package.IncomigEvents);
 
-            return Ok();
+            return this.Ok();
         }
     }
 }

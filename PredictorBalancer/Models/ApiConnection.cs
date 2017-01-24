@@ -1,6 +1,5 @@
 ﻿using log4net;
 using Newtonsoft.Json;
-using PredictorApplication.Models;
 using PredictorDTO;
 using System;
 using System.Collections.Generic;
@@ -11,17 +10,24 @@ using System.Text;
 using System.Web;
 using System.Xml;
 
-namespace PredictorApplication.Models
+namespace PredictorBalancer.Models
 {
-    public class ApiConnection
+    public class ApiConnection<T> where T : class
     {
-        private static readonly ILog Log = LogManager.GetLogger(typeof(ApiConnection));
+        private static readonly ILog Log = LogManager.GetLogger(typeof(ApiConnection<T>));
 
         private string baseUrl;
         private string controllerUrn;
         private int timeoutSec;
 
-        public async void SendPredictions(IEnumerable<PredictionDTO> predictions)
+        public ApiConnection(string baseUrl, string controllerUrn, int timeoutSec)
+        {
+            this.baseUrl = baseUrl;
+            this.controllerUrn = controllerUrn;
+            this.timeoutSec = timeoutSec;
+        }
+
+        public async void Send(T content)
         {
             using (HttpClient client = new HttpClient())
             {
@@ -29,17 +35,15 @@ namespace PredictorApplication.Models
                 {
                     Log.Info("Starting Data transfer");
 
-                    this.GetConnectionSettings();
-
                     client.BaseAddress = new Uri(this.baseUrl);
                     client.Timeout = new TimeSpan(0, 0, this.timeoutSec);
                     client.DefaultRequestHeaders.Accept.Clear();
                     client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-                    string json = JsonConvert.SerializeObject(predictions, Newtonsoft.Json.Formatting.Indented);
-                    StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
+                    string json = JsonConvert.SerializeObject(content, Newtonsoft.Json.Formatting.Indented);
+                    StringContent jsonContent = new StringContent(json, Encoding.UTF8, "application/json");
 
-                    HttpResponseMessage response = await client.PostAsync(this.controllerUrn, content);
+                    HttpResponseMessage response = await client.PostAsync(this.controllerUrn, jsonContent);
                     if (response.IsSuccessStatusCode)   
                     {
                         Log.Info("Data sucsessfully transfered");
@@ -51,16 +55,9 @@ namespace PredictorApplication.Models
                 }
                 catch (Exception ex)
                 {
-                    Log.Error("Exception occured while trying to send Predictions", ex);
+                    Log.Error("Exception occured while trying to send content", ex);
                 }
             }
-        }
-
-        private void GetConnectionSettings()
-        {
-            this.baseUrl = PredictorMonitor.GetInstance().CallBackURL;
-            this.controllerUrn = PredictorMonitor.GetInstance().CallBackController;
-            this.timeoutSec = PredictorMonitor.GetInstance().CallBackTimeout;
         }
     }
 }

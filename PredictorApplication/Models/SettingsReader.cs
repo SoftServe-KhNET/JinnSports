@@ -23,7 +23,7 @@ namespace PredictorApplication.Models.Settings
                     XmlNode attr = xNode.Attributes.GetNamedItem("type");
                     if ((attr != null) && (attr.Value == type))
                     {
-                        Int32.TryParse(xNode.SelectSingleNode("max-score").InnerText, out maxScore);
+                        int.TryParse(xNode.SelectSingleNode("max-score").InnerText, out maxScore);
                     }
                 }
             }

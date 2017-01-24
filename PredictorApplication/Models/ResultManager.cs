@@ -15,23 +15,23 @@ namespace PredictorApplication.Models
 
         public void AddPrediction(Prediction prediction)
         {
-            lock (lockMe)
+            lock (this.lockMe)
             {
-                if (predictions == null)
+                if (this.predictions == null)
                 {
-                    predictions = new List<PredictionDTO>();
+                    this.predictions = new List<PredictionDTO>();
                 }
 
                 PredictionDTO predictionDTO = Mapper.Map<Prediction, PredictionDTO>(prediction);
-                predictions.Add(predictionDTO);
+                this.predictions.Add(predictionDTO);
             }
         }
 
         public void SendPredictions()
         {
             ApiConnection sender = new ApiConnection();
-            sender.SendPredictions(predictions);
-            NotifyChangeStatus();
+            sender.SendPredictions(this.predictions);
+            this.NotifyChangeStatus();
         }
     }
 }

@@ -25,19 +25,19 @@ namespace PredictorApplication.Models
 
         public void RunPrediction()
         {
-            Task predictionTask = new Task(RunParallelPrediction);
+            Task predictionTask = new Task(this.RunParallelPrediction);
             predictionTask.Start();
         }
 
         private void RunParallelPrediction()
         {
-            if (IncomingEvents == null)
+            if (this.IncomingEvents == null)
             {
                 return;
             }
 
-            Parallel.ForEach(IncomingEvents, PredictEvent);
-            NotifySender();
+            Parallel.ForEach(this.IncomingEvents, this.PredictEvent);
+            this.NotifySender();
         }
 
         private void PredictEvent(IncomingEvent incomingEvent)
@@ -47,7 +47,7 @@ namespace PredictorApplication.Models
                 TeamData homeTeam = null;
                 TeamData awayTeam = null;
 
-                Prediction prediction = CreatePrediction(incomingEvent);
+                Prediction prediction = this.CreatePrediction(incomingEvent);
 
                 int maxScore = new SettingsReader().ReadMaxScore(incomingEvent.SportType);
 
@@ -70,7 +70,7 @@ namespace PredictorApplication.Models
                 prediction.DrawProbability = predictor.DrawProbability;
                 prediction.AwayWinProbability = predictor.AwayWinProbability;
 
-                AddNewPrediction(prediction);
+                this.AddNewPrediction(prediction);
             }
             catch (Exception ex)
             {
