@@ -13,8 +13,6 @@ using JinnSports.WEB;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
 using System.Linq;
 using System.Transactions;
 using static JinnSports.UnitTests.Services.TeamDetailsServiceTests;
@@ -191,10 +189,12 @@ namespace JinnSports.UnitTests.Services
         [SetUp]
         public void Init()
         {
-            this.databaseTransaction = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions
-            {
-                IsolationLevel = IsolationLevel.Serializable
-            });
+            this.databaseTransaction = new TransactionScope(
+                TransactionScopeOption.Required,
+                new TransactionOptions
+                {
+                    IsolationLevel = IsolationLevel.Serializable
+                });
         }
 
         [TearDown]
@@ -399,12 +399,12 @@ namespace JinnSports.UnitTests.Services
             Assert.IsNotNull(savedResult2);
 
             SportEvent savedEvent1 = unit.GetRepository<Result>()
-                .Get(filter: (r => r.SportEvent.Id == savedResult1.SportEvent.Id))
+                .Get(filter: r => r.SportEvent.Id == savedResult1.SportEvent.Id)
                 .Select(r => r.SportEvent).FirstOrDefault();
             Assert.IsTrue(savedEvent1.Results.Contains(savedResult2));
 
             SportEvent savedEvent2 = unit.GetRepository<Result>()
-                .Get(filter: (r => r.SportEvent.Id == savedResult3.SportEvent.Id))
+                .Get(filter: r => r.SportEvent.Id == savedResult3.SportEvent.Id)
                 .Select(r => r.SportEvent).FirstOrDefault();
             Assert.IsTrue(savedEvent2.Results.Contains(savedResult4));
 
@@ -447,7 +447,7 @@ namespace JinnSports.UnitTests.Services
             Assert.IsNotNull(savedResult2);
 
             SportEvent savedEvent1 = unit.GetRepository<Result>()
-                .Get(filter: (r => r.SportEvent.Id == savedResult1.SportEvent.Id))
+                .Get(filter: r => r.SportEvent.Id == savedResult1.SportEvent.Id)
                 .Select(r => r.SportEvent).FirstOrDefault();
             Assert.IsTrue(savedEvent1.Results.Contains(savedResult2));
 

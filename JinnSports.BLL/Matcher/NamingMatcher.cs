@@ -48,8 +48,7 @@ namespace JinnSports.BLL.Matcher
                 return null;
             }
             else if (comparingResult < 50)
-            {
-                inputTeam.Names.Add(new TeamName { Name = inputTeam.Name });
+            {                
                 this.unit.GetRepository<Team>().Insert(inputTeam);
                 this.unit.SaveChanges();
                 return null;

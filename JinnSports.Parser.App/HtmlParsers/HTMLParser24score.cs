@@ -26,7 +26,7 @@ namespace JinnSports.Parser.App.HtmlParsers
 
         public HTMLParser24score()
         {
-            proxyTerminal = new ProxyTerminal();
+            this.proxyTerminal = new ProxyTerminal();
         }
 
         public uint DaysCount { get; set; }
@@ -129,8 +129,8 @@ namespace JinnSports.Parser.App.HtmlParsers
                     int score1;
                     int score2;
 
-                    ResultDTO result1 = new ResultDTO { TeamName = teamName1 };
-                    ResultDTO result2 = new ResultDTO { TeamName = teamName2 };
+                    ResultDTO result1 = new ResultDTO { TeamName = teamName1, IsHome = true };
+                    ResultDTO result2 = new ResultDTO { TeamName = teamName2, IsHome = false };
 
                     if (score.Contains(":"))
                     {

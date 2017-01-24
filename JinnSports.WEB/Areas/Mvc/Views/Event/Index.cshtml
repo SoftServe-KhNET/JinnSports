@@ -1,23 +1,31 @@
 ﻿@using System.Collections.Generic;
+@using JinnSports.WEB.Areas.Mvc.Models
 @using JinnSports.BLL.Dtos;
 @using JinnSports.BLL.Dtos.SportType;
 
-@model SportTypeSelectDto
+@model SportEventViewModel
 
 @{
     ViewBag.Title = "View";
     Layout = "~/Areas/Mvc/Views/Shared/_Layout.cshtml";
 }
-<asp:content>
+
     @using (Html.BeginForm("PostIndex", "Event", FormMethod.Post))
     {
-        <asp:div>
-            <label for="timeSelector">Select Sport Type</label>
+        <div>
+            <label for="sportTypeSelector">Select Sport Type</label>
             <select class="form-control" id="sportTypeSelector" name="sportTypeSelector">
                 <option value="0">All</option>
-                @foreach (SportTypeDto sportType in Model.SportTypes)
+                @foreach (SportTypeDto sportType in Model.SportTypeSelectDto.SportTypes)
                 {
-                    <option value=@sportType.Id.ToString()>@sportType.Name</option>
+                    if (sportType.Id == Model.SportTypeSelectDto.SelectedId)
+                    {
+                        <option selected value=@sportType.Id.ToString()>@sportType.Name</option>
+                    }
+                    else
+                    {
+                        <option value=@sportType.Id.ToString()>@sportType.Name</option>
+                    }
                 }
             </select>
 
@@ -30,10 +38,10 @@
                 <option value=2>Future</option>
             </select>
             <input class="btn btn-primary" type="submit" name="Select" />
-        </asp:div>
+        </div>
     }
-    <asp:div>
-        <h2 style="text-align:center">@Model.SelectedName</h2>
+    <div>
+        <h2 style="text-align:center">@Model.SportTypeSelectDto.SelectedName</h2>
 
         <table id="events" class="table table-hover table-striped"
                cellspacing="0" style="border-collapse:collapse;">
@@ -46,11 +54,11 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (SportTypeListDto sportType in Model.SportTypeResults)
+                @foreach (SportTypeListDto sportType in Model.SportTypeSelectDto.SportTypeResults)
             {
-                if (Model.SelectedId == 0)
+                if (Model.SportTypeSelectDto.SelectedId == 0)
                 {
-                        <tr scope="colspan" class="cursor-pointer" style="background-color: #fc0">
+                        <tr scope="colspan" class="cursor-pointer" style="background-color: #c2d5fa">
                             <td style="color :#000000; text-align: center; font-size : 14px;" colspan="4">
                                 @Html.DisplayFor(sport => sportType.SportType.Name)
                             </td>
@@ -69,5 +77,5 @@
                 }
             </tbody>
         </table>
-    </asp:div>
-</asp:content>
+    </div>
+    @Html.Partial("_EventPaginationPartial", Model)

@@ -27,7 +27,7 @@ namespace JinnSports.BLL.Service
         public EventsService(IUnitOfWork unitOfWork)
         {
             this.dataUnit = unitOfWork;
-            this.predictionSender = new PredictoionSender(dataUnit);
+            this.predictionSender = new PredictoionSender(this.dataUnit);
         }
 
         public int Count(int sportTypeId, int time)
@@ -38,7 +38,7 @@ namespace JinnSports.BLL.Service
                 IEnumerable<SportEvent> sportEvents = this.dataUnit.GetRepository<SportEvent>().Get(filter: m => m.SportType.Id == sportTypeId);
                 if (time != 0)
                 {
-                    count = sportEvents.Count(m => Math.Sign(DateTime.Compare(m.Date, DateTime.UtcNow)) == time);
+                    count = sportEvents.Count(m => DateTime.Compare(m.Date, DateTime.UtcNow) == time);
                 }
                 else
                 {
@@ -51,7 +51,7 @@ namespace JinnSports.BLL.Service
                 if (time != 0)
                 {
 
-                    count = sportEvents.Count(m => Math.Sign(DateTime.Compare(m.Date, DateTime.UtcNow)) == time);
+                    count = sportEvents.Count(m => DateTime.Compare(m.Date, DateTime.UtcNow) == time);
                 }
                 else
                 {
@@ -176,7 +176,7 @@ namespace JinnSports.BLL.Service
                         {
                             team = this.dataUnit.GetRepository<TeamName>()
                             .Get((x) => x.Name == team.Name).Select(x => x.Team).FirstOrDefault();
-
+                            
                             Result result = new Result { Team = team, Score = resultDTO.Score ?? -1, IsHome = resultDTO.IsHome };
                             sportEvent.Results.Add(result);
                         }
@@ -206,9 +206,9 @@ namespace JinnSports.BLL.Service
                     this.Save(tempEvent, sportEvent);
                 }
                 this.dataUnit.SaveChanges();
-                
+
                 // TODO: resolve injection
-                predictionSender.SendPredictionRequest(); // Check new events and send request to Predictor
+                this.predictionSender.SendPredictionRequest(); // Check new events and send request to Predictor
             }
             catch (Exception ex)
             {

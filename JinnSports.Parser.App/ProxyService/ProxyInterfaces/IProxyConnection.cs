@@ -18,5 +18,7 @@ namespace JinnSports.Parser.App.ProxyService.ProxyInterfaces
         bool CanPing(string address);
 
         HttpWebResponse GetProxyResponse(Uri url, int timeout, CancellationToken token, bool asyncResponse);
+
+        void UpdateElimination();
     }
 }

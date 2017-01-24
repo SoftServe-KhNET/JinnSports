@@ -6,6 +6,7 @@ using DTO.JSON;
 
 namespace JinnSports.WEB.Areas.Admin.Controllers
 {
+    [Authorize(Roles = "admin")]
     public class SportEventsController : ApiController
     {
         private readonly IEventService eventService;
@@ -15,6 +16,7 @@ namespace JinnSports.WEB.Areas.Admin.Controllers
             this.eventService = eventService;
         }
 
+        [AllowAnonymous]
         public IHttpActionResult PostEvents(List<SportEventDTO> events)
         {
             if (this.eventService.SaveSportEvents(events))

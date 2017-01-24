@@ -7,7 +7,7 @@ namespace JinnSports.Parser.App.Configuration.Parser
         public static int GetInterval()
         {
             var config = ConfigurationManager.GetSection("ParserSettings") as ParserSection;
-            return config.Instances[ConfigurationManager.AppSettings.Get("currentProxyProfile")].Interval;
+            return config.Instances[ConfigurationManager.AppSettings.Get("currentParserProfile")].Interval;
         }
     }
 }

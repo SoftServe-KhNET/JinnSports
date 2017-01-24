@@ -12,19 +12,19 @@ namespace ScorePredictor
         private readonly double averageWeight = 0.0065;
 
         private double attackRate;
-        private double defenceRate;
+        private double defenseRate;
 
         public TeamData(IEnumerable<TeamEvent> teamEvents, bool isHome = false)
         {
             if (isHome)
             {
-                CalcRates(teamEvents);
-                Rating = attackRate * defenceRate * CalcHomeEffect(teamEvents);
+                this.CalcRates(teamEvents);
+                this.Rating = this.attackRate * this.defenseRate * this.CalcHomeEffect(teamEvents);
             }
             else
             {
-                CalcRates(teamEvents);
-                Rating = attackRate * defenceRate;
+                this.CalcRates(teamEvents);
+                this.Rating = this.attackRate * this.defenseRate;
             }
         }
 
@@ -33,9 +33,9 @@ namespace ScorePredictor
         private double CalcHomeEffect(IEnumerable<TeamEvent> teamEvents)
         {
             int homeAttackScores = 0;
-            int homeDefenceScores = 0;
+            int homedefenseScores = 0;
             int awayAttackScores = 0;
-            int awayDefenceScores = 0;
+            int awaydefenseScores = 0;
             int homeGames = 0;
             int awayGames = 0;
 
@@ -44,23 +44,23 @@ namespace ScorePredictor
                 if (teamEvent.IsHomeGame)
                 {
                     homeAttackScores += teamEvent.AttackScore;
-                    homeDefenceScores += teamEvent.DefenceScore;
+                    homedefenseScores += teamEvent.DefenseScore;
                     homeGames++;
                 }
                 else
                 {
                     awayAttackScores += teamEvent.AttackScore;
-                    awayDefenceScores += teamEvent.DefenceScore;
+                    awaydefenseScores += teamEvent.DefenseScore;
                     awayGames++;
                 }
             }
 
             float homeAttack = homeAttackScores / homeGames;
             float awayAttack = awayAttackScores / awayGames;
-            float homeDefence = homeDefenceScores / homeGames;
-            float awayDefence = awayDefenceScores / awayGames;
+            float homedefense = homedefenseScores / homeGames;
+            float awaydefense = awaydefenseScores / awayGames;
 
-            return ((homeAttack / awayAttack) + (homeDefence / awayDefence)) / 2;
+            return ((homeAttack / awayAttack) + (homedefense / awaydefense)) / 2;
         }
 
         private void CalcRates(IEnumerable<TeamEvent> teamEvents)
@@ -71,14 +71,14 @@ namespace ScorePredictor
 
             foreach (TeamEvent teamEvent in teamEvents)
             {
-                weight = Math.Exp(-averageWeight * new TimeSpan(currentDate - teamEvent.Date.Ticks).TotalDays);
+                weight = Math.Exp(-this.averageWeight * new TimeSpan(currentDate - teamEvent.Date.Ticks).TotalDays);
                 weightSum += weight;
-                attackRate += teamEvent.AttackScore * weight;
-                defenceRate += teamEvent.DefenceScore * weight;
+                this.attackRate += teamEvent.AttackScore * weight;
+                this.defenseRate += teamEvent.DefenseScore * weight;
             }
 
-            attackRate /= weightSum;
-            defenceRate /= weightSum;
+            this.attackRate /= weightSum;
+            this.defenseRate /= weightSum;
         }
     }
 }

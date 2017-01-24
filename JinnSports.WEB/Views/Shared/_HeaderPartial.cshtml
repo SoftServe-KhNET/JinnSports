@@ -21,15 +21,15 @@
                     </ul>
                 </li>
                 <li>
-                    @Html.ActionLink("Команды", "Index", "Team")
+                    @Html.ActionLink("Команды", "Index", "Team", new { area = "" }, null)
                 </li>
                 <li>
-                    @Html.ActionLink("Результаты матчей", "Index", "Event")
+                    @Html.ActionLink("Результаты матчей", "Index", "Event", new { area = "" }, null)
                 </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li>
-                    @Html.Partial("_LoginPartial")
+                    @Html.Partial("_LoginPartial", new { area = "" }, null)
                 </li>
             </ul>
         </div><!-- /.navbar-collapse -->

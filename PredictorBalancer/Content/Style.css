@@ -1,0 +1,19 @@
+﻿.available {
+    background-color: chartreuse;
+}
+
+.notavailable {
+    background-color: crimson;
+}
+
+.busy {
+    background-color: orange;
+}
+
+.predictor{
+    float: left;
+    width: 250px;
+    margin: 5px;
+    padding: 5px 10px;
+    text-align: center;
+}

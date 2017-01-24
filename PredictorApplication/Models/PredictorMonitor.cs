@@ -18,11 +18,11 @@ namespace PredictorApplication.Models
 
         private PredictorMonitor()
         {
-            IsAwailable = true;
-            ConfigureAutoMapper();
+            this.IsAvailable = true;
+            this.ConfigureAutoMapper();
         }
 
-        public bool IsAwailable { get; private set; }
+        public bool IsAvailable { get; private set; }
         public string CallBackURL { get; set; }
         public string CallBackController { get; set; }
         public int CallBackTimeout { get; set; }
@@ -41,29 +41,29 @@ namespace PredictorApplication.Models
         {
             try
             {
-                IsAwailable = false;
+                this.IsAvailable = false;
                 IEnumerable<IncomingEvent> incomingEvents = Mapper.Map<IEnumerable<IncomingEventDTO>, IEnumerable<IncomingEvent>>(incomingEventsDTO);
-                taskManager = new TaskManager();
-                resultManger = new ResultManager();
+                this.taskManager = new TaskManager();
+                this.resultManger = new ResultManager();
 
-                resultManger.NotifyChangeStatus += ChangeStatus;
-                taskManager.AddNewPrediction += resultManger.AddPrediction;
-                taskManager.NotifySender += resultManger.SendPredictions;
+                this.resultManger.NotifyChangeStatus += this.ChangeStatus;
+                this.taskManager.AddNewPrediction += this.resultManger.AddPrediction;
+                this.taskManager.NotifySender += this.resultManger.SendPredictions;
 
-                taskManager.IncomingEvents = incomingEvents;
-                taskManager.RunPrediction();
+                this.taskManager.IncomingEvents = incomingEvents;
+                this.taskManager.RunPrediction();
             }
             catch (Exception ex)
             {
                 // TODO: notify about failure
-                IsAwailable = true;
+                this.IsAvailable = true;
                 Log.Error("Exception while trying to RunPrediction", ex);
             }
         }
 
         private void ChangeStatus()
         {
-            IsAwailable = true;
+            this.IsAvailable = true;
         }
 
         private void ConfigureAutoMapper()
@@ -76,9 +76,9 @@ namespace PredictorApplication.Models
                         opt => opt.MapFrom(
                             s => s.AttackScore))
                    .ForMember(
-                        e => e.DefenceScore,
+                        e => e.DefenseScore,
                         opt => opt.MapFrom(
-                            s => s.DefenceScore))
+                            s => s.DefenseScore))
                     .ForMember(
                         e => e.IsHomeGame,
                         opt => opt.MapFrom(

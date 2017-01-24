@@ -1,0 +1,72 @@
+﻿@model JinnSports.WEB.Areas.Mvc.Models.TeamDetailsViewModel
+@if (Model.PageInfo.EndPage > 1)
+{
+    <ul class="pagination">
+        @if (Model.PageInfo.CurrentPage > 1)
+        {
+            <li>
+                @Html.ActionLink("1", Model.ActionName, Model.ControllerName,
+                    new { page = 1, id = Model.TeamResultDto.Team.Id }, null)
+            </li>
+            <li>
+                @Html.ActionLink("<", Model.ActionName, Model.ControllerName,
+                    new { page = Model.PageInfo.CurrentPage - 1, id = Model.TeamResultDto.Team.Id }, null)
+            </li>
+        }
+        else
+        {
+            <li class="disabled">
+                <a>1</a>
+            </li>
+            <li class="disabled">
+                <a>&lt;</a>
+            </li>
+        }
+
+        @for (int page = Model.PageInfo.StartPage; page < Model.PageInfo.CurrentPage; page++)
+        {
+            <li>
+                @Html.ActionLink(page.ToString(), Model.ActionName,
+                    Model.ControllerName, new { page = page, id = Model.TeamResultDto.Team.Id }, null)
+            </li>
+        }
+
+        <li class="active">
+            @Html.ActionLink(Model.PageInfo.CurrentPage.ToString(), Model.ActionName,
+                    Model.ControllerName, new { page = Model.PageInfo.CurrentPage, id = Model.TeamResultDto.Team.Id
+                    }, null)
+        </li>
+
+        @for (int page = Model.PageInfo.CurrentPage + 1; page <= Model.PageInfo.EndPage; page++)
+        {
+            <li>
+                @Html.ActionLink(page.ToString(), Model.ActionName,
+                    Model.ControllerName, new { page = page, id = Model.TeamResultDto.Team.Id }, null)
+            </li>
+        }
+
+        @if (Model.PageInfo.CurrentPage < Model.PageInfo.EndPage)
+        {
+            <li>
+                @Html.ActionLink(
+                    ">", Model.ActionName, Model.ControllerName,
+                    new { page = Model.PageInfo.CurrentPage + 1, id = Model.TeamResultDto.Team.Id
+                    }, null)
+            </li>
+            <li>
+                @Html.ActionLink(
+                    Model.PageInfo.TotalPages.ToString(), Model.ActionName, Model.ControllerName,
+                    new { page = Model.PageInfo.TotalPages, id = Model.TeamResultDto.Team.Id }, null)
+            </li>
+        }
+        else
+        {
+            <li class="disabled">
+                <a>&gt;</a>
+            </li>
+            <li class="disabled">
+                <a>@Model.PageInfo.TotalPages</a>
+            </li>
+        }
+    </ul>
+}

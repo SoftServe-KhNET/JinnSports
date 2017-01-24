@@ -2,11 +2,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Net;
 using System.Diagnostics;
-using JinnSports.Parser.App.ProxyService.ProxyConnections;
 using System.Threading;
 using JinnSports.Parser.App.Configuration.Proxy;
 
@@ -41,20 +39,23 @@ namespace JinnSports.Parser.App.ProxyService.ProxyTerminal
             //Creating tasks while CancelationToken is not cancelled
             while (!this.cancelTokenSrc.Token.IsCancellationRequested)
             {
-                Trace.WriteLine(String.Format("New task created"));
+                Trace.WriteLine(string.Format("New task created"));
 
                 Thread.Sleep(this.asyncinterval * 1000);
 
-                tasks.Add(Task<HttpWebResponse>.Factory.StartNew(() =>
-                {
-                    var result = this.pc.GetProxyResponse(url, this.timeout, cancelTokenSrc.Token, asyncResponse);
-                    if (result != null)
-                    {
-                        cancelTokenSrc.Cancel();
-                    }
-                    return result;
-                }
-                , this.cancelTokenSrc.Token));
+                tasks.Add(
+                    Task<HttpWebResponse>.Factory.StartNew(
+                        () => 
+                        {
+                            var result = this.pc.GetProxyResponse(url, this.timeout, cancelTokenSrc.Token, asyncResponse);
+                            if (result != null)
+                            {
+                                cancelTokenSrc.Cancel();
+                            }
+
+                            return result;
+                        }, 
+                        this.cancelTokenSrc.Token));
             }
 
             //Waiting for finishing all running tasks except Canceled

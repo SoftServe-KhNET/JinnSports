@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Hosting;
+using System.Xml;
 
 namespace JinnSports.BLL.Service
 {
@@ -24,35 +26,42 @@ namespace JinnSports.BLL.Service
 
         public void SendPredictionRequest()
         {
-            sendRequest = new Task(CreateRequest);
-            sendRequest.Start();
+            this.sendRequest = new Task(this.CreateRequest);
+            this.sendRequest.Start();
         }
 
         private void CreateRequest()
         {
-            CheckForNewEvents();
-            if (incomingEvents.Count > 0)
+            this.CheckForNewEvents();
+            if (this.incomingEvents.Count > 0)
             {
                 PackageDTO package = new PackageDTO();
-                package.IncomigEvents = incomingEvents;
+                package.IncomigEvents = this.incomingEvents;
 
                 // TODO: get connection parameters from settings
-                package.CallBackURL = "";
-                package.CallBackController = "api/Predictions";
-                package.CallBackTimeout = 60;
+                this.GetConnectionSettings(package);
 
                 ApiConnection connection = new ApiConnection();
                 connection.SendPackage(package);
             }
         }
 
+        private void GetConnectionSettings(PackageDTO package)
+        {
+            XmlDocument settings = new XmlDocument();
+            settings.Load(HostingEnvironment.MapPath("~/App_Data/") + "PredictionsConnection.xml");
+            package.CallBackURL = settings.DocumentElement.SelectSingleNode("url").InnerText;
+            package.CallBackController = settings.DocumentElement.SelectSingleNode("name").InnerText;
+            package.CallBackTimeout = int.Parse(settings.DocumentElement.SelectSingleNode("timeout").InnerText ?? "60");
+        }
+
         private void CheckForNewEvents()
         {
-            using (dataUnit)
+            using (this.dataUnit)
             {
                 DateTime currentDate = DateTime.Today;
-                IEnumerable<SportEvent> events = dataUnit.GetRepository<SportEvent>().Get(e => e.Date >= currentDate);
-                IEnumerable<EventPrediction> eventPredictions = dataUnit.GetRepository<EventPrediction>().Get();
+                IEnumerable<SportEvent> events = this.dataUnit.GetRepository<SportEvent>().Get(e => e.Date >= currentDate);
+                IEnumerable<EventPrediction> eventPredictions = this.dataUnit.GetRepository<EventPrediction>().Get();
 
                 foreach (SportEvent sportEvent in events)
                 {
@@ -63,7 +72,7 @@ namespace JinnSports.BLL.Service
                         {
                             continue;
                         }
-                        AddIncomingEvent(sportEvent);
+                        this.AddIncomingEvent(sportEvent);
                     }
                 }
             }   
@@ -71,9 +80,9 @@ namespace JinnSports.BLL.Service
 
         private void AddIncomingEvent(SportEvent sportEvent)
         {
-            if (incomingEvents == null)
+            if (this.incomingEvents == null)
             {
-                incomingEvents = new List<IncomingEventDTO>();
+                this.incomingEvents = new List<IncomingEventDTO>();
             }
 
             IncomingEventDTO incomingEvent = new IncomingEventDTO();
@@ -85,10 +94,10 @@ namespace JinnSports.BLL.Service
                 TeamInfoDTO teamInfo = new TeamInfoDTO();
                 teamInfo.IsHomeGame = result.IsHome;
                 teamInfo.TeamId = result.Team.Id;
-                teamInfo.TeamEvents = GetTeamEvents(result.Team.Results, result.Team.Id);
+                teamInfo.TeamEvents = this.GetTeamEvents(result.Team.Results, result.Team.Id);
             }
 
-            incomingEvents.Add(incomingEvent);
+            this.incomingEvents.Add(incomingEvent);
         }
 
         private IEnumerable<TeamEventDTO> GetTeamEvents(IEnumerable<Result> results, int teamId)
@@ -109,7 +118,7 @@ namespace JinnSports.BLL.Service
                     }
                     else
                     {
-                        teamEvent.DefenceScore = item.Score;
+                        teamEvent.DefenseScore = item.Score;
                     }  
                 }
 

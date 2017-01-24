@@ -1,0 +1,54 @@
+﻿@using PredictorBalancer.ViewModels
+@model IEnumerable<PredictorViewModel>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+
+@foreach (var item in Model) {
+    string style;
+    if (item.CurrentStatus == PredictorViewModel.Status.Available)
+    {
+        style = "available";
+    }
+    else if (item.CurrentStatus == PredictorViewModel.Status.Busy)
+    {
+        style = "busy";
+    }
+    else
+    {
+        style = "notavailable";
+    }
+
+    <div>
+        <div class="predictor @style">
+            <h3>@item.Id</h3>
+            <p>@item.CurrentStatus</p>
+            <p>
+                @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+            </p>
+            <hr />
+        </div>
+    </div>
+}
+
+<div style="clear:both"></div>
+<hr />
+
+<div>
+    <h3>Add new Predictor</h3>
+    @using (Html.BeginForm("Add", "Home", FormMethod.Post))
+    {
+        <label for="baseUrl">Base URL</label>
+        <input type="url" name="baseUrl" placeholder="http://predictor.com"/>
+        <label for="controllerUrn">Controller URN</label>
+        <input type="text" name="controllerUrn" placeholder="api/Predictor"/>
+        <label for="timeoutSec">Timeout (Sec)</label>
+        <input type="text" name="timeoutSec" placeholder="time in seconds"/>
+        <input type="submit" value="Add Predictor">
+    }
+</div>
+

@@ -29,17 +29,17 @@ namespace PredictorApplication.Models
                 {
                     Log.Info("Starting Data transfer");
 
-                    GetConnectionSettings();
+                    this.GetConnectionSettings();
 
-                    client.BaseAddress = new Uri(baseUrl);
-                    client.Timeout = new TimeSpan(0, 0, timeoutSec);
+                    client.BaseAddress = new Uri(this.baseUrl);
+                    client.Timeout = new TimeSpan(0, 0, this.timeoutSec);
                     client.DefaultRequestHeaders.Accept.Clear();
                     client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
                     string json = JsonConvert.SerializeObject(predictions, Newtonsoft.Json.Formatting.Indented);
                     StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
 
-                    HttpResponseMessage response = await client.PostAsync(controllerUrn, content);
+                    HttpResponseMessage response = await client.PostAsync(this.controllerUrn, content);
                     if (response.IsSuccessStatusCode)   
                     {
                         Log.Info("Data sucsessfully transfered");
@@ -58,9 +58,9 @@ namespace PredictorApplication.Models
 
         private void GetConnectionSettings()
         {
-            baseUrl = PredictorMonitor.GetInstance().CallBackURL;
-            controllerUrn = PredictorMonitor.GetInstance().CallBackController;
-            timeoutSec = PredictorMonitor.GetInstance().CallBackTimeout;
+            this.baseUrl = PredictorMonitor.GetInstance().CallBackURL;
+            this.controllerUrn = PredictorMonitor.GetInstance().CallBackController;
+            this.timeoutSec = PredictorMonitor.GetInstance().CallBackTimeout;
         }
     }
 }

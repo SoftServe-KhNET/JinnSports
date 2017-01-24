@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ApiConnectionPath>
+  <url>https://localhost:44300</url>
+  <name>api/Predictions</name>
+  <timeout>400</timeout>
+</ApiConnectionPath>

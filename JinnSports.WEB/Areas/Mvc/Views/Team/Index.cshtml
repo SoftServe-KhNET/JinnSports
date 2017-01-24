@@ -1,12 +1,13 @@
-﻿@using JinnSports.BLL.Dtos
-@model IEnumerable<TeamDto>
+﻿@using JinnSports.WEB.Areas.Mvc.Models
+@using JinnSports.BLL.Dtos
+@model TeamViewModel
 
 @{
     ViewBag.Title = "Teams";
     Layout = "~/Areas/Mvc/Views/Shared/_Layout.cshtml";
 }
 
-<asp:Content ID="Teams" ContentPlaceHolderID="TeamContent" runat="server">
+
     <h2 style="text-align:center">Teams</h2>
     <table id="teams" class="table table-hover table-striped"
            cellspacing="0" style="border-collapse:collapse;">
@@ -16,7 +17,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (TeamDto team in Model)
+            @foreach (TeamDto team in Model.TeamDtos)
             {
                 <tr>
                     <td scope = "col" > @Html.ActionLink(team.Name, "Details", "Team", new { id = team.Id }, null) </td>
@@ -24,5 +25,6 @@
             }
         </tbody>
     </table>
-</asp:Content>
+    @Html.Partial("_TeamPaginationPartial", Model)
+
 

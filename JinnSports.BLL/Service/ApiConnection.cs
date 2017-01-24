@@ -8,6 +8,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Hosting;
 using System.Xml;
 
 namespace JinnSports.BLL.Service
@@ -58,7 +59,7 @@ namespace JinnSports.BLL.Service
         private void GetConnectionSettings()
         {
             XmlDocument settings = new XmlDocument();
-            settings.Load("predictor-connection.xml");
+            settings.Load(HostingEnvironment.MapPath("~/App_Data/") + "PredictorConnection.xml");
             this.baseUrl = settings.DocumentElement.SelectSingleNode("url").InnerText;
             this.controllerUrn = settings.DocumentElement.SelectSingleNode("name").InnerText;
             this.timeoutSec = int.Parse(settings.DocumentElement.SelectSingleNode("timeout").InnerText ?? "60");

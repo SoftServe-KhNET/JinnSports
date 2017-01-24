@@ -10,9 +10,9 @@ namespace JinnSports.BLL.Interfaces
 {
     public interface ISportTypeService
     {
-        int Count(int sportTypeId);
+        int Count(int sportTypeId, int time);
 
-        SportTypeSelectDto GetSportTypes(int sportTypeId, int time);
+        SportTypeSelectDto GetSportTypes(int sportTypeId, int time, int skip, int take);
 
         IEnumerable<SportTypeDto> GetAllSportTypes();
     }

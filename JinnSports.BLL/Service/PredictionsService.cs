@@ -1,11 +1,8 @@
 ﻿using JinnSports.DataAccessInterfaces.Interfaces;
 using JinnSports.Entities.Entities;
 using PredictorDTO;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace JinnSports.BLL.Service
 {
@@ -20,10 +17,10 @@ namespace JinnSports.BLL.Service
 
         public void SavePredictions(IEnumerable<PredictionDTO> predictions)
         {
-            using (dataUnit)
+            using (this.dataUnit)
             {
-                IEnumerable<Team> teams = dataUnit.GetRepository<Team>().Get();
-                IEnumerable<SportEvent> sportEvents = dataUnit.GetRepository<SportEvent>().Get();
+                IEnumerable<Team> teams = this.dataUnit.GetRepository<Team>().Get();
+                IEnumerable<SportEvent> sportEvents = this.dataUnit.GetRepository<SportEvent>().Get();
 
                 // TODO: Exception handling
                 foreach (PredictionDTO predictionDTO in predictions)
@@ -38,10 +35,10 @@ namespace JinnSports.BLL.Service
                     prediction.AwayWinProbability = predictionDTO.AwayWinProbability;
                     prediction.DrawProbability = predictionDTO.DrawProbability;
 
-                    dataUnit.GetRepository<EventPrediction>().Insert(prediction);
+                    this.dataUnit.GetRepository<EventPrediction>().Insert(prediction);
                 }
 
-                dataUnit.SaveChanges();
+                this.dataUnit.SaveChanges();
             }
         }
 

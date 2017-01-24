@@ -135,9 +135,13 @@
     <Compile Include="Models\Predictor.cs" />
     <Compile Include="Models\PredictorMonitor.cs" />
     <Compile Include="Models\ResultManager.cs" />
-    <Compile Include="Models\SettingsReader.cs" />
+    <Compile Include="Models\SettingsReader.cs">
+      <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
+    </Compile>
     <Compile Include="Models\TaskManager.cs" />
-    <Compile Include="Models\TeamData.cs" />
+    <Compile Include="Models\TeamData.cs">
+      <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

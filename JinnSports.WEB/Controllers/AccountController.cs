@@ -1,13 +1,8 @@
 ﻿using JinnSports.BLL.Dtos;
-using JinnSports.BLL.Identity;
 using JinnSports.BLL.Interfaces;
-using JinnSports.BLL.Service;
-using JinnSports.DAL.EFContext;
-using JinnSports.DAL.Repositories;
 using JinnSports.WEB.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
-using System;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -30,9 +25,9 @@ namespace JinnSports.WEB.Controllers
 
         private readonly IUserService userService;
 
-        public AccountController()
+        public AccountController(IUserService userService)
         {
-            this.userService = new UserService();
+            this.userService = userService;
         }
 
         private IAuthenticationManager AuthenticationManager
@@ -42,8 +37,7 @@ namespace JinnSports.WEB.Controllers
                 return HttpContext.GetOwinContext().Authentication;
             }
         }
-
-        //
+        
         // GET: /Account/Login
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
@@ -76,16 +70,14 @@ namespace JinnSports.WEB.Controllers
             // If we got this far, something failed, redisplay form
             return this.View(model);
         }
-
-        //
+        
         // GET: /Account/Register
         [AllowAnonymous]
         public ActionResult Register()
         {
             return this.View();
         }
-
-        //
+        
         // POST: /Account/Register
         [HttpPost]
         [AllowAnonymous]
@@ -110,8 +102,7 @@ namespace JinnSports.WEB.Controllers
             // If we got this far, something failed, redisplay form
             return this.View(model);
         }
-
-        //
+       
         // POST: /Account/Disassociate
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -129,8 +120,7 @@ namespace JinnSports.WEB.Controllers
             }
             return this.RedirectToAction("Manage", new { Message = message });
         }
-
-        //
+        
         // GET: /Account/Manage
         public ActionResult Manage(ManageMessageId? message)
         {
@@ -140,12 +130,11 @@ namespace JinnSports.WEB.Controllers
                 : message == ManageMessageId.RemoveLoginSuccess ? "The external login was removed."
                 : message == ManageMessageId.Error ? "An error has occurred."
                 : string.Empty;
-            ViewBag.HasLocalPassword = this.userService.HasPassword(User);
+            ViewBag.HasLocalPassword = this.userService.HasPassword(this.User);
             ViewBag.ReturnUrl = Url.Action("Manage");
             return this.View();
         }
-
-        //
+        
         // POST: /Account/Manage
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -195,8 +184,7 @@ namespace JinnSports.WEB.Controllers
             // If we got this far, something failed, redisplay form
             return this.View(model);
         }
-
-        //
+        
         // POST: /Account/ExternalLogin
         [HttpPost]
         [AllowAnonymous]
@@ -206,8 +194,7 @@ namespace JinnSports.WEB.Controllers
             // Request a redirect to the external login provider
             return new ChallengeResult(provider, Url.Action("ExternalLoginCallback", "Account", new { ReturnUrl = returnUrl }));
         }
-
-        //
+        
         // GET: /Account/ExternalLoginCallback
         [AllowAnonymous]
         public async Task<ActionResult> ExternalLoginCallback(string returnUrl)
@@ -233,8 +220,7 @@ namespace JinnSports.WEB.Controllers
                 return this.View("ExternalLoginConfirmation", new ExternalLoginConfirmationViewModel { UserName = loginInfo.DefaultUserName });
             }
         }
-
-        //
+        
         // POST: /Account/LinkLogin
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -243,8 +229,7 @@ namespace JinnSports.WEB.Controllers
             // Request a redirect to the external login provider to link a login for the current user
             return new ChallengeResult(provider, Url.Action("LinkLoginCallback", "Account"), User.Identity.GetUserId());
         }
-
-        //
+        
         // GET: /Account/LinkLoginCallback
         public async Task<ActionResult> LinkLoginCallback()
         {
@@ -260,8 +245,7 @@ namespace JinnSports.WEB.Controllers
             }
             return this.RedirectToAction("Manage", new { Message = ManageMessageId.Error });
         }
-
-        //
+        
         // POST: /Account/ExternalLoginConfirmation
         [HttpPost]
         [AllowAnonymous]
@@ -298,8 +282,7 @@ namespace JinnSports.WEB.Controllers
             ViewBag.ReturnUrl = returnUrl;
             return this.View(model);
         }
-
-        //
+        
         // POST: /Account/LogOff
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -308,8 +291,7 @@ namespace JinnSports.WEB.Controllers
             this.AuthenticationManager.SignOut();
             return this.RedirectToAction("Index", "Home");
         }
-
-        //
+        
         // GET: /Account/ExternalLoginFailure
         [AllowAnonymous]
         public ActionResult ExternalLoginFailure()
@@ -321,7 +303,7 @@ namespace JinnSports.WEB.Controllers
         public ActionResult RemoveAccountList()
         {
             var linkedAccounts = this.userService.GetLogins(this.userService.GetGuid(User.Identity.GetUserId()));
-            ViewBag.ShowRemoveButton = this.userService.HasPassword(User) || linkedAccounts.Count > 1;
+            ViewBag.ShowRemoveButton = this.userService.HasPassword(this.User) || linkedAccounts.Count > 1;
             return (ActionResult)PartialView("_RemoveAccountPartial", linkedAccounts);
         }
 

@@ -10,6 +10,7 @@ using JinnSports.BLL.Service;
 
 namespace JinnSports.WEB.Areas.Admin.Controllers
 {
+    [Authorize(Roles = "admin")]
     public class PredictionsController : ApiController
     {
         private readonly PredictionsService predictionsService;
@@ -19,9 +20,10 @@ namespace JinnSports.WEB.Areas.Admin.Controllers
             this.predictionsService = predictionsService;
         }
 
+        [AllowAnonymous]
         public void PostPredictions(IEnumerable<PredictionDTO> predictions)
         {
-            predictionsService.SavePredictions(predictions);
+            this.predictionsService.SavePredictions(predictions);
         }
     }
 }

@@ -1,8 +1,7 @@
 ﻿using JinnSports.BLL.Dtos;
 using JinnSports.BLL.Identity;
 using JinnSports.BLL.Interfaces;
-using JinnSports.DAL.EFContext;
-using JinnSports.DAL.Repositories;
+using JinnSports.DataAccessInterfaces.Interfaces;
 using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
@@ -16,9 +15,9 @@ namespace JinnSports.BLL.Service
     {
         private readonly UserManager<UserDto, Guid> userManager;
 
-        public UserService()
+        public UserService(IUnitOfWork unit)
         {
-            this.userManager = new UserManager<UserDto, Guid>(new UserStore(new EFUnitOfWork(new SportsContext("SportsContext"))));
+            this.userManager = new UserManager<UserDto, Guid>(new UserStore(unit));
         }
 
         public Task<UserDto> FindAsync(string userName, string password)

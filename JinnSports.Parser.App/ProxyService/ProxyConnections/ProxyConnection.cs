@@ -7,7 +7,6 @@ using System.Net.NetworkInformation;
 using System.Net;
 using System.Diagnostics;
 using JinnSports.Parser.App.ProxyService.ProxyInterfaces;
-using JinnSports.Parser.App.Exceptions;
 using System.Threading;
 using JinnSports.Parser.App.ProxyService.ProxyEnums;
 using System.Threading.Tasks;
@@ -16,8 +15,13 @@ namespace JinnSports.Parser.App.ProxyService.ProxyConnections
 {
     public class ProxyConnection : IProxyConnection
     {
-        private static object connectionLocker = new Object();
+        private static object connectionLocker = new object();
         private ProxyRepository<ProxyServer> xmlWriter;
+
+        public ProxyConnection()
+        {
+            this.xmlWriter = new ProxyRepository<ProxyServer>();
+        }
 
         public void UpdateElimination()
         {
@@ -41,16 +45,11 @@ namespace JinnSports.Parser.App.ProxyService.ProxyConnections
             }
         }
 
-        public ProxyConnection()
-        {
-            this.xmlWriter = new ProxyRepository<ProxyServer>();
-        }
-
         public void SetStatus(string ip, ConnectionStatus status)
         {
             lock (connectionLocker)
             {
-                List<ProxyServer> proxyCollection = xmlWriter.GetAll();
+                List<ProxyServer> proxyCollection = this.xmlWriter.GetAll();
                 ProxyServer proxy = proxyCollection.Where(x => x.Ip == ip).FirstOrDefault();
                 try
                 {
@@ -138,7 +137,7 @@ namespace JinnSports.Parser.App.ProxyService.ProxyConnections
                 {
                     throw ex;
                 }
-                xmlWriter.Modify(proxy);
+                this.xmlWriter.Modify(proxy);
             }
         }
 
@@ -146,21 +145,21 @@ namespace JinnSports.Parser.App.ProxyService.ProxyConnections
         {
             lock (connectionLocker)
             {
-                List<ProxyServer> proxyCollection = xmlWriter.GetAll();
-                List<ProxyServer> usableProxies = proxyCollection.Where(x => x.Priority == 0 && xmlWriter.IsAvaliable(x)).ToList();
+                List<ProxyServer> proxyCollection = this.xmlWriter.GetAll();
+                List<ProxyServer> usableProxies = proxyCollection.Where(x => x.Priority == 0 && this.xmlWriter.IsAvaliable(x)).ToList();
                 if (usableProxies.Count == 0)
                 {
-                    usableProxies = proxyCollection.Where(x => x.Priority == 1 && xmlWriter.IsAvaliable(x)).ToList();
+                    usableProxies = proxyCollection.Where(x => x.Priority == 1 && this.xmlWriter.IsAvaliable(x)).ToList();
                     if (usableProxies.Count == 0)
                     {
-                        usableProxies = proxyCollection.Where(x => x.Priority == 2 && xmlWriter.IsAvaliable(x)).ToList();
+                        usableProxies = proxyCollection.Where(x => x.Priority == 2 && this.xmlWriter.IsAvaliable(x)).ToList();
                     }
                 }
                 try
                 {
                     ProxyServer proxyServer = usableProxies.ElementAt(new Random().Next(0, usableProxies.Count));
                     proxyServer.IsBusy = true;
-                    xmlWriter.Modify(proxyServer);
+                    this.xmlWriter.Modify(proxyServer);
                     return proxyServer.Ip;
                 }
                 catch (Exception e)
@@ -185,7 +184,7 @@ namespace JinnSports.Parser.App.ProxyService.ProxyConnections
 
                 return reply.Status == IPStatus.Success;
             }
-            catch (PingException e)
+            catch (PingException)
             {
                 return false;
             }
@@ -235,11 +234,11 @@ namespace JinnSports.Parser.App.ProxyService.ProxyConnections
 
                         if (async)
                         {
-                            response = RunAsyncProxyConnection(request, timeout, proxy);
+                            response = this.RunAsyncProxyConnection(request, timeout, proxy);
                         }
                         else
                         {
-                            response = RunProxyConnection(request, timeout, proxy);
+                            response = this.RunProxyConnection(request, timeout, proxy);
                         }
 
                         //PostRequest CancellationToken checking, if Cancel - SetStatus (PostResponseTerminated)
@@ -261,7 +260,7 @@ namespace JinnSports.Parser.App.ProxyService.ProxyConnections
                             this.SetStatus(proxy, ConnectionStatus.CS_Disconnected);
                         }
                     }
-                    catch(Exception e)
+                    catch (Exception e)
                     {
                         Trace.WriteLine(e.Message);
                         //Connection Exception, SetStatus (Disconnected)
@@ -286,7 +285,8 @@ namespace JinnSports.Parser.App.ProxyService.ProxyConnections
 
             if (!task.Wait(timeout * 1000))
             {
-                throw new WebException("No response was received during the time-out period specified.",
+                throw new WebException(
+                    "No response was received during the time-out period specified.",
                     WebExceptionStatus.Timeout);
             }
 
@@ -310,11 +310,10 @@ namespace JinnSports.Parser.App.ProxyService.ProxyConnections
                 HttpWebResponse response = request.GetResponse() as HttpWebResponse;
                 return response;
             }
-            catch(WebException e)
+            catch (WebException e)
             {
                 throw new WebException(e.Message);
             }
         }
     }
 }
-

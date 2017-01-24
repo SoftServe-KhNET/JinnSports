@@ -90,6 +90,7 @@ namespace JinnSports.Parser.App.ProxyService.ProxyParser
                 string result = string.Empty;
                 req = (HttpWebRequest)WebRequest.Create(url + "?page=" + page++);
                 req.Headers.Set(HttpRequestHeader.ContentEncoding, "utf-8");
+                //TODO try
                 resp = (HttpWebResponse)req.GetResponse();
                 result = new StreamReader(resp.GetResponseStream()).ReadToEnd();
                 HtmlDocument doc = new HtmlDocument();

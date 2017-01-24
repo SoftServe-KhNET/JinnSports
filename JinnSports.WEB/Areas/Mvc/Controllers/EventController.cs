@@ -2,6 +2,7 @@
 using JinnSports.BLL.Dtos.SportType;
 using JinnSports.BLL.Interfaces;
 using JinnSports.BLL.Service;
+using JinnSports.WEB.Areas.Mvc.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +13,8 @@ namespace JinnSports.WEB.Areas.Mvc.Controllers
 {
     public class EventController : Controller
     {
+        private const int PAGESIZE = 10;
+
         private readonly ISportTypeService sportTypeService;
 
         public EventController(ISportTypeService sportTypeService)
@@ -20,15 +23,32 @@ namespace JinnSports.WEB.Areas.Mvc.Controllers
         }
 
         // GET: Mvc/Event
-        public ActionResult Index(int id = 0, int time = 0)
+        public ActionResult Index(int page = 1, int id = 0, int time = 0)
         {
-            int recordsTotal = this.sportTypeService.Count(id);
+            int recordsTotal = this.sportTypeService.Count(id, time);
 
-            SportTypeSelectDto sportTypeModel = this.sportTypeService.GetSportTypes(id, time);
+            if (page < 1)
+            {
+                page = 1;
+            }
+
+            PageInfo pageInfo = new PageInfo(recordsTotal, page, PAGESIZE);
+            SportTypeSelectDto sportTypeModel = this.sportTypeService.GetSportTypes(
+                id, 
+                time,
+                (page - 1) * PAGESIZE, 
+                PAGESIZE);
+
 
             if (sportTypeModel != null)
             {
-                return this.View(sportTypeModel);
+                return this.View(new SportEventViewModel()
+                {
+                     PageInfo = pageInfo,
+                     SportTypeSelectDto = sportTypeModel,
+                     ActionName = "Index",
+                     ControllerName = "Event"
+                });
             }
             else
             {
@@ -37,15 +57,18 @@ namespace JinnSports.WEB.Areas.Mvc.Controllers
         }
 
         [HttpPost]
-        public ActionResult PostIndex()
+        public ActionResult PostIndex(string sportTypeSelector, string timeSelector)
         {
-            string requestedId = Request["sportTypeSelector"];
-            int sportTypeId = !string.IsNullOrEmpty(requestedId) ? Convert.ToInt32(requestedId) : 0;
+            int sportTypeId = 
+                !string.IsNullOrEmpty(sportTypeSelector) ? Convert.ToInt32(sportTypeSelector) : 0;
+            
+            int timeId = 
+                !string.IsNullOrEmpty(timeSelector) ? Convert.ToInt32(timeSelector) : 1;
 
-            string requestedTime = Request["timeSelector"];
-            int timeId = !string.IsNullOrEmpty(requestedTime) ? Convert.ToInt32(requestedTime) : 1;
+            int recordsTotal = this.sportTypeService.Count(sportTypeId, timeId - 1);
 
-            return this.RedirectToAction("Index", new { id = sportTypeId, time = timeId - 1 });
+            return this.RedirectToAction(
+                "Index", new { id = sportTypeId, page = 1, time = timeId - 1 });
         }
     }
 }
