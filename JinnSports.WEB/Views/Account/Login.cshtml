@@ -2,57 +2,79 @@
 
 @{
     ViewBag.Title = "Log in";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = null;
 }
-<h2>@ViewBag.Title.</h2>
-<div class="row">
-    <div class="col-md-8">
-        <section id="loginForm">
-            @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/MainStyles")
+</head>
+<body class="hold-transition login-page">
+    <div class="login-box">
+        <div class="login-logo">
+            <a href="@Url.Action("Index", "Home")"><b>Jinn</b>Sports</a>
+        </div>
+        <!-- /.login-logo -->
+        <div class="login-box-body">
+            <p class="login-box-msg">Sign in to start your session</p>
+
+            @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { role = "form" }))
             {
                 @Html.AntiForgeryToken()
-                <h4>Use a local account to log in.</h4>
-                <hr />
-                @Html.ValidationSummary(true)
-                <div class="form-group">
-                    @Html.LabelFor(m => m.UserName, new { @class = "col-md-2 control-label" })
-                    <div class="col-md-10">
-                        @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(m => m.UserName)
-                    </div>
+                @Html.ValidationSummary()
+                <div class="form-group has-feedback">
+                    @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", placeholder = "UserName" })
+                    <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+                    @Html.ValidationMessageFor(m => m.UserName)
                 </div>
-                <div class="form-group">
-                    @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
-                    <div class="col-md-10">
-                        @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(m => m.Password)
-                    </div>
+                <div class="form-group has-feedback">
+                    @Html.PasswordFor(m => m.Password, new { @class = "form-control", placeholder = "Password" })
+                    <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                    @Html.ValidationMessageFor(m => m.Password)
                 </div>
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <div class="checkbox">
-                            @Html.CheckBoxFor(m => m.RememberMe)
-                            @Html.LabelFor(m => m.RememberMe)
+                <div class="row">
+                    <div class="col-xs-8">
+                        <div class="checkbox icheck">
+                            <label>
+                                @Html.CheckBoxFor(m => m.RememberMe) Remember Me
+                            </label>
                         </div>
                     </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" value="Log in" class="btn btn-default" />
+                    <!-- /.col -->
+                    <div class="col-xs-4">
+                        <button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>
                     </div>
+                    <!-- /.col -->
                 </div>
-                <p>
-                    @Html.ActionLink("Register", "Register") if you don't have a local account.
-                </p>
             }
-        </section>
+
+            <div class="social-auth-links text-center">
+                <p>- OR -</p>
+                @Html.Partial("_ExternalLoginsListPartial", new { Action = "ExternalLogin", ReturnUrl = ViewBag.ReturnUrl })
+            </div>
+            <!-- /.social-auth-links -->
+
+            @Html.ActionLink("Register a new membership", "Register")
+        </div>
+        <!-- /.login-box-body -->
     </div>
-    <div class="col-md-4">
-        <section id="socialLoginForm">
-            @Html.Partial("_ExternalLoginsListPartial", new { Action = "ExternalLogin", ReturnUrl = ViewBag.ReturnUrl })
-        </section>
-    </div>
-</div>
-@section Scripts {
+    <!-- /.login-box -->
+    @Scripts.Render("~/Scripts/jquery")
     @Scripts.Render("~/bundles/jqueryval")
-}
+    @Scripts.Render("~/Scripts/AdminLTETemplate")
+    @Scripts.Render("~/Scripts/iCheck")
+    <script>
+        $(function () {
+            $('input').iCheck({
+                checkboxClass: 'icheckbox_square-blue',
+                radioClass: 'iradio_square-blue',
+                increaseArea: '20%' // optional
+            });
+        });
+    </script>
+</body>
+</html>

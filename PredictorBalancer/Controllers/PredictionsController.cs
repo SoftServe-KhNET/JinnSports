@@ -9,16 +9,14 @@ using System.Web.Http;
 
 namespace PredictorBalancer.Controllers
 {
-    public class BalancerController : ApiController
+    public class PredictionsController : ApiController
     {
         private BalancerMonitor instance;
 
-        public void PostPackage([FromBody]PackageDTO package)
+        public void PostPredictions([FromBody]IEnumerable<PredictionDTO> predictions)
         {
             this.instance = BalancerMonitor.GetInstance();
-            // TODO: get app url
-            //this.instance.SendIncomingEvents(package, RequestContext.VirtualPathRoot);
-            this.instance.SendIncomingEvents(package, $"http://localhost:7611");
+            this.instance.SendPredictions(predictions);
         }
     }
 }

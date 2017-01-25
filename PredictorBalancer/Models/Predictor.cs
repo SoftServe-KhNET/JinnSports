@@ -41,7 +41,9 @@ namespace PredictorBalancer.Models
         {
             ApiConnection<PackageDTO> connection = 
                 new ApiConnection<PackageDTO>(this.baseUrl, this.controllerUrn, this.timeoutSec);
-            connection.Send(package);
+            Task send = new Task(() => { connection.Send(package); });
+            send.Start();
+            //connection.Send(package);
         }
 
         public async void UpdateStatus()

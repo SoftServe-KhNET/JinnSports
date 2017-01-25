@@ -4,6 +4,7 @@ using ScorePredictor;
 using ScorePredictor.EventData;
 using System;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace PredictorApplication.Models
@@ -76,6 +77,8 @@ namespace PredictorApplication.Models
             {
                 Log.Error("Exception while trying to PredictEvent", ex);
             }
+            //TODO: remove test sleep
+            Thread.Sleep(5000);
             
         }
 

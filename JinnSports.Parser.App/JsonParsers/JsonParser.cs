@@ -218,8 +218,8 @@ namespace JinnSports.Parser.App.JsonParsers
                     teams[i] = teams[i].Trim(' ');
                 }
 
-                resultList.Add(new ResultDTO() { TeamName = teams[0] });
-                resultList.Add(new ResultDTO() { TeamName = teams[1] });
+                resultList.Add(new ResultDTO() { TeamName = teams[0], IsHome = true });
+                resultList.Add(new ResultDTO() { TeamName = teams[1], IsHome = false });
 
                 return true;
             }

@@ -54,7 +54,7 @@ namespace JinnSports.BLL.Service
             IEnumerable<Conformity> conformities = new List<Conformity>();
             try
             {
-                conformities = this.dataUnit.GetRepository<Conformity>().Get(x => x.InputName == inputName);
+                conformities = this.dataUnit.GetRepository<Conformity>().Get(x => x.InputName == inputName).GroupBy(x => x.ExistedName).Select(x => x.First());
             }
             catch (Exception e)
             {

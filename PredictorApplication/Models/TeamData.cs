@@ -36,8 +36,8 @@ namespace ScorePredictor
             int homedefenseScores = 0;
             int awayAttackScores = 0;
             int awaydefenseScores = 0;
-            int homeGames = 0;
-            int awayGames = 0;
+            int homeGames = 1;
+            int awayGames = 1;
 
             foreach (TeamEvent teamEvent in teamEvents)
             {
@@ -55,10 +55,14 @@ namespace ScorePredictor
                 }
             }
 
-            float homeAttack = homeAttackScores / homeGames;
-            float awayAttack = awayAttackScores / awayGames;
-            float homedefense = homedefenseScores / homeGames;
-            float awaydefense = awaydefenseScores / awayGames;
+            double homeAttack = homeAttackScores / homeGames;
+            double awayAttack = awayAttackScores / awayGames;
+            double homedefense = homedefenseScores / homeGames;
+            double awaydefense = awaydefenseScores / awayGames;
+
+            // TODO: resolve division by zero
+            awayAttack = awayAttack == 0 ? 0.1 : awayAttack;
+            awaydefense = awaydefense == 0 ? 0.1 : awaydefense;
 
             return ((homeAttack / awayAttack) + (homedefense / awaydefense)) / 2;
         }

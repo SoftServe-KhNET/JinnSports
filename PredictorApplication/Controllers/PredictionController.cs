@@ -2,6 +2,7 @@
 using PredictorDTO;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -19,6 +20,7 @@ namespace PredictorApplication.Controllers
 
             if (this.monitor.IsAvailable)
             {
+                Trace.WriteLine("Status OK");
                 return this.Ok();
             }
             return this.ResponseMessage(this.Request.CreateResponse(HttpStatusCode.ServiceUnavailable));
