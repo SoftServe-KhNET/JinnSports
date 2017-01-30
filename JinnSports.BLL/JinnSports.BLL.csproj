@@ -86,6 +86,9 @@
     <Compile Include="Dtos\Validators\ConformityViewModelValidator.cs" />
     <Compile Include="Exceptions\TeamNotFoundException.cs" />
     <Compile Include="Extentions\EventDate.cs" />
+    <Compile Include="Filters\SportEventFilter.cs" />
+    <Compile Include="Filters\TeamDetailsFilter.cs" />
+    <Compile Include="Filters\TeamFilter.cs" />
     <Compile Include="Identity\RoleStore.cs" />
     <Compile Include="Identity\UserStore.cs" />
     <Compile Include="Interfaces\IChartService.cs" />

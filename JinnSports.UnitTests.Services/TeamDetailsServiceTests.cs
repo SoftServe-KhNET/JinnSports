@@ -598,6 +598,8 @@ namespace JinnSports.UnitTests.Services
             this.databaseSportsContext.Dispose();
         }
 
+        /*
+
         [Test]
         [TestCase(1, 1)]
         [TestCase(2, 2)]
@@ -667,6 +669,8 @@ namespace JinnSports.UnitTests.Services
 
             CollectionAssert.AreEqual(teamsTestDto, mappedDto, dtoComparer);
         }
+
+        */
 
         public class ResultDtoComparer : IComparer, IComparer<ResultDto>
         {

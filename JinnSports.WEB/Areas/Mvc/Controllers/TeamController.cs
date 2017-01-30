@@ -35,7 +35,7 @@ namespace JinnSports.WEB.Areas.Mvc.Controllers
 
             PageInfo pageInfo = new PageInfo(recordsTotal, page, PAGESIZE);
 
-            IEnumerable<TeamDto> teams = this.teamService.GetAllTeams(
+            IEnumerable<TeamDto> teams = this.teamService.GetTeams(
                 (page - 1) * PAGESIZE, PAGESIZE);
 
             TeamViewModel teamViewModel = new TeamViewModel()

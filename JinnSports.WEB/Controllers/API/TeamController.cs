@@ -29,7 +29,7 @@ namespace JinnSports.WEB.ApiControllers
             int skip = start != null ? Convert.ToInt32(start) : 0;
             int recordsTotal = this.teamService.Count();
 
-            IEnumerable<TeamDto> teams = this.teamService.GetAllTeams(skip, pageSize);
+            IEnumerable<TeamDto> teams = this.teamService.GetTeams(skip, pageSize);
 
             return this.Ok(new
             {

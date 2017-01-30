@@ -79,7 +79,11 @@ namespace JinnSports.WEB
                    .ForMember(
                         e => e.Name,
                         opt => opt.MapFrom(
-                            s => s.Name));
+                            s => s.Name))
+                   .ForMember(
+                        e => e.SportType,
+                        opt => opt.MapFrom(
+                            s => s.SportType.Name));
 
                 config.CreateMap<SportType, SportTypeDto>()
                     .ForMember(

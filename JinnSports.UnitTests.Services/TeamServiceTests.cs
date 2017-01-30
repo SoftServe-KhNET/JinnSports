@@ -102,6 +102,8 @@ namespace JinnSports.UnitTests.Services
             this.databaseSportsContext.Dispose();
         }
 
+        /*
+
         /// <summary>
         /// Check team counts
         /// </summary>
@@ -134,7 +136,7 @@ namespace JinnSports.UnitTests.Services
             } 
             Assert.Greater(expectedTeams.Count, 0);
 
-            List<TeamDto> actualTeams = this.teamService.GetAllTeams(skip, take).ToList();
+            List<TeamDto> actualTeams = this.teamService.GetTeams(skip, take).ToList();
 
             CollectionAssert.AreEqual(expectedTeams, actualTeams, this.comparer);
         }
@@ -151,7 +153,7 @@ namespace JinnSports.UnitTests.Services
                 .Count();
             Assert.AreEqual(expectedCount, 0);
 
-            List<TeamDto> actualTeams = this.teamService.GetAllTeams(skip, take).ToList();
+            List<TeamDto> actualTeams = this.teamService.GetTeams(skip, take).ToList();
 
             Assert.AreEqual(0, actualTeams.Count);
         }
@@ -192,7 +194,7 @@ namespace JinnSports.UnitTests.Services
 
             Assert.IsNull(actualTeam);
         }
-
+        */
 
         /// <summary>
         /// Comparer for comparing TeamDto collections 

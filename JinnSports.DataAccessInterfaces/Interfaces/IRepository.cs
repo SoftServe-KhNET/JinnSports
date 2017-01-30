@@ -8,7 +8,7 @@ namespace JinnSports.DataAccessInterfaces.Interfaces
 {
     public interface IRepository<T> where T : class
     {
-        IEnumerable<T> Get(
+        IQueryable<T> Get(
             Expression<Func<T, bool>> filter = null,
             Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null,
             string includeProperties = "",

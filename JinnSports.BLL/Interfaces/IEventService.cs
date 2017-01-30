@@ -2,6 +2,7 @@
 using JinnSports.BLL.Dtos;
 using DTO.JSON;
 using JinnSports.BLL.Dtos.SportType;
+using JinnSports.BLL.Filters;
 
 namespace JinnSports.BLL.Interfaces
 {
@@ -9,10 +10,9 @@ namespace JinnSports.BLL.Interfaces
     {
         /// <summary>
         /// Counts events for sport type
-        /// </summary>
-        /// <param name="sportId">Sport type ID</param>
+        /// </summary>        
         /// <returns></returns>                        
-        int Count(int sportId, int time);
+        int Count(SportEventFilter filter);
         
         /// <summary>
         /// Get events for sport type
@@ -22,7 +22,7 @@ namespace JinnSports.BLL.Interfaces
         /// <param name="skip"></param>
         /// <param name="take"></param>
         /// <returns></returns>
-        IEnumerable<ResultDto> GetSportEvents(int sportId, int time, int skip, int take);
+        IEnumerable<ResultDto> GetSportEvents(SportEventFilter filter);
 
         MainPageDto GetMainPageInfo();
 

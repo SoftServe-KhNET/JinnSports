@@ -2,6 +2,7 @@
 using JinnSports.Entities.Entities;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace JinnSports.BLL.Matcher
@@ -24,7 +25,8 @@ namespace JinnSports.BLL.Matcher
         {
             List<Conformity> conformities = new List<Conformity>();
             IEnumerable<Team> teams = this.unit.GetRepository<Team>()
-                .Get(filter: (t) => t.SportType.Name == inputTeam.SportType.Name, includeProperties: "Names,SportType");
+                .Get(filter: (t) => t.SportType.Name == inputTeam.SportType.Name, includeProperties: "Names,SportType")
+                .ToList();
 
             Team simpleCheckTeam = this.SimpleCheck(teams, inputTeam.Name);
             if (simpleCheckTeam != null)

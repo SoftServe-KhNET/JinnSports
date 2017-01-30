@@ -19,7 +19,7 @@ namespace JinnSports.DAL.Repositories
         private DbSet<T> DbSet { get; }
         private DbContext Context { get; }
 
-        public virtual IEnumerable<T> Get(
+        public virtual IQueryable<T> Get(
             Expression<Func<T, bool>> filter = null,
             Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null,
             string includeProperties = "",
@@ -50,7 +50,7 @@ namespace JinnSports.DAL.Repositories
                 query = query.Take(take);
             }
 
-            return query.ToList();
+            return query;
         }
 
         public virtual T GetById(object id)

@@ -1,13 +1,14 @@
 ﻿using System.Collections.Generic;
 using JinnSports.BLL.Dtos;
+using JinnSports.BLL.Filters;
 
 namespace JinnSports.BLL.Interfaces
 {
     public interface ITeamService
     {
-        int Count();
+        int Count(TeamFilter filter);
 
-        IEnumerable<TeamDto> GetAllTeams(int skip, int take);
+        IEnumerable<TeamDto> GetTeams(TeamFilter filter);
 
         TeamDto GetTeamById(int teamId);
     }

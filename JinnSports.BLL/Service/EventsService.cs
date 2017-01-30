@@ -11,6 +11,8 @@ using System;
 using log4net;
 using JinnSports.Entities.Entities.Temp;
 using JinnSports.BLL.Dtos.SportType;
+using JinnSports.BLL.Filters;
+using System.ComponentModel;
 
 namespace JinnSports.BLL.Service
 {
@@ -30,87 +32,127 @@ namespace JinnSports.BLL.Service
             this.predictionSender = new PredictoionSender(this.dataUnit);
         }
 
-        public int Count(int sportTypeId, int time)
+        private void FilterEvents(IQueryable<SportEvent> events, SportEventFilter filter)
         {
-            int count;
-            if (sportTypeId != 0)
+            if (filter.SportTypeId > 0)
             {
-                IEnumerable<SportEvent> sportEvents = this.dataUnit.GetRepository<SportEvent>().Get(filter: m => m.SportType.Id == sportTypeId);
-                if (time != 0)
+                events.Where(e => e.SportType.Id == filter.SportTypeId);
+            }
+
+            if (filter.DateFrom.Ticks > 0)
+            {
+                events.Where(e => e.Date >= filter.DateFrom);
+            }
+
+            if (filter.DateTo.Ticks > 0)
+            {
+                events.Where(e => e.Date <= filter.DateTo);
+            }
+
+            if (!string.IsNullOrEmpty(filter.TeamName))
+            {
+                events.Where(e => e.Results.Any(
+                    r => r.Team.Name == filter.TeamName ||
+                        r.Team.Names.Any(n => n.Name == filter.TeamName)));
+            }
+        }
+
+        private void OrderEvents(IQueryable<SportEvent> events, SportEventFilter filter)
+        {
+            if (!string.IsNullOrEmpty(filter.SortedField))
+            {
+                switch (filter.SortedField)
                 {
-                    count = sportEvents.Count(m => DateTime.Compare(m.Date, DateTime.UtcNow) == time);
-                }
-                else
-                {
-                    count = sportEvents.Count();
+                    case "FirstTeam":
+                        if (filter.SortDirection == ListSortDirection.Ascending)
+                        {
+                            events.OrderBy(
+                                e => e.Results.ElementAt(0).Team.Name)
+                                .ThenBy(e => e.Results.ElementAt(0).Id)
+                                .ThenBy(e => e.Date);
+                        }
+                        else
+                        {
+                            events.OrderByDescending(
+                                e => e.Results.ElementAt(0).Team.Name)
+                                .ThenBy(e => e.Results.ElementAt(0).Id)
+                                .ThenBy(e => e.Date);
+                        }
+                        break;
+
+                    case "SecondTeam":
+                        if (filter.SortDirection == ListSortDirection.Ascending)
+                        {
+                            events.OrderBy(
+                                e => e.Results.ElementAt(1).Team.Name)
+                                .ThenBy(e => e.Results.ElementAt(1).Id)
+                                .ThenBy(e => e.Date);
+                        }
+                        else
+                        {
+                            events.OrderByDescending(
+                                e => e.Results.ElementAt(1).Team.Name)
+                                .ThenBy(e => e.Results.ElementAt(1).Id)
+                                .ThenBy(e => e.Date);
+                        }
+                        break;
+
+                    case "Date":
+                        if (filter.SortDirection == ListSortDirection.Ascending)
+                        {
+                            events.OrderBy(e => e.Date).ThenBy(e => e.Id);
+                        }
+                        else
+                        {
+                            events.OrderByDescending(e => e.Date).ThenBy(e => e.Id);
+                        }
+                        break;
+
+                    default:
+                        events.OrderBy(e => e.Date).ThenBy(e => e.Id);
+                        break;
                 }
             }
             else
             {
-                IEnumerable<SportEvent> sportEvents = this.dataUnit.GetRepository<SportEvent>().Get();
-                if (time != 0)
-                {
-
-                    count = sportEvents.Count(m => DateTime.Compare(m.Date, DateTime.UtcNow) == time);
-                }
-                else
-                {
-                    count = sportEvents.Count();
-                }
+                events.OrderBy(e => e.Date).ThenBy(e => e.Id);
             }
+        }
+
+        public int Count(SportEventFilter filter)
+        {
+            int count;
+            IQueryable<SportEvent> events = this.dataUnit.GetRepository<SportEvent>().Get();
+
+            if (filter != null)
+            {
+                this.FilterEvents(events, filter);
+            }
+
+            count = events.Count();
+
             return count;
         }
 
-        public IEnumerable<ResultDto> GetSportEvents(int sportTypeId, int time, int skip, int take)
+        public IEnumerable<ResultDto> GetSportEvents(SportEventFilter filter)
         {
             IList<ResultDto> results = new List<ResultDto>();
+            IQueryable<SportEvent> sportEvents = 
+                this.dataUnit.GetRepository<SportEvent>().Get(
+                    includeProperties: "Results,SportType,Results.Team");
 
-            IEnumerable<SportEvent> sportEvents;
-            if (sportTypeId != 0)
+            if (filter != null)
             {
-                if (time != 0)
+                this.FilterEvents(sportEvents, filter);
+                this.OrderEvents(sportEvents, filter);                
+
+                if (filter.Page > 0 && filter.PageSize > 0)
                 {
-                    sportEvents =
-                        this.dataUnit.GetRepository<SportEvent>().Get(
-                        filter: m => m.SportType.Id == sportTypeId && DateTime.Compare(m.Date, DateTime.UtcNow) == time,
-                        includeProperties: "Results,SportType,Results.Team",
-                        orderBy: s => time == 1 ? s.OrderBy(x => x.Date).ThenByDescending(x => x.Id) : s.OrderByDescending(x => x.Date).ThenByDescending(x => x.Id),
-                        skip: skip,
-                        take: take);
-                }
-                else
-                {
-                    sportEvents =
-                        this.dataUnit.GetRepository<SportEvent>().Get(
-                        filter: m => m.SportType.Id == sportTypeId,
-                        includeProperties: "Results,SportType,Results.Team",
-                        orderBy: s => s.OrderByDescending(x => x.Date).ThenByDescending(x => x.Id),
-                        skip: skip,
-                        take: take);
+                    sportEvents.Skip((filter.Page - 1) * filter.PageSize);
+                    sportEvents.Take(filter.PageSize);
                 }
             }
-            else
-            {
-                if (time != 0)
-                {
-                    sportEvents =
-                        this.dataUnit.GetRepository<SportEvent>().Get(
-                        filter: m => DateTime.Compare(m.Date, DateTime.UtcNow) == time,
-                        includeProperties: "Results,SportType,Results.Team",
-                        orderBy: s => time == 1 ? s.OrderBy(x => x.Date).ThenByDescending(x => x.Id) : s.OrderByDescending(x => x.Date).ThenByDescending(x => x.Id),
-                        skip: skip,
-                        take: take);
-                }
-                else
-                {
-                    sportEvents =
-                        this.dataUnit.GetRepository<SportEvent>().Get(
-                        includeProperties: "Results,SportType,Results.Team",
-                        orderBy: s => s.OrderByDescending(x => x.Date).ThenByDescending(x => x.Id),
-                        skip: skip,
-                        take: take);
-                }
-            }
+            
             foreach (SportEvent sportEvent in sportEvents)
             {
                 results.Add(Mapper.Map<SportEvent, ResultDto>(sportEvent));
@@ -137,7 +179,13 @@ namespace JinnSports.BLL.Service
             INewsService newsService = new NewsService();
             var news = newsService.GetLastNews();
 
-            IEnumerable<ResultDto> upcomingEvents = this.GetSportEvents(0, 1, 0, 0);
+            SportEventFilter filter = new SportEventFilter()
+            {
+                DateFrom = DateTime.UtcNow,
+                DateTo = new DateTime()
+            };
+
+            IEnumerable<ResultDto> upcomingEvents = this.GetSportEvents(filter);
 
             return new MainPageDto() { News = news, UpcomingEvents = upcomingEvents };
         }

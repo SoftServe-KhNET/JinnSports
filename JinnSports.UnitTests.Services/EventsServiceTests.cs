@@ -209,6 +209,7 @@ namespace JinnSports.UnitTests.Services
             this.databaseSportsContext.Dispose();
         }
 
+        /*
         [Test]
         [TestCase(1, 0)]
         [TestCase(2, 0)]
@@ -225,6 +226,7 @@ namespace JinnSports.UnitTests.Services
             Assert.AreEqual(expectedCount, actualCount);
         }
 
+        
         [TestCase(-1, 0)]
         [TestCase(4, 0)]
         [TestCase(9999, 0)]
@@ -353,6 +355,7 @@ namespace JinnSports.UnitTests.Services
 
             CollectionAssert.AreEqual(expectedResultDtos, actualResultDtos, this.comparer);
         }
+        */
 
         [Test]
         public void ExistedTeamsSportEventsSaving()

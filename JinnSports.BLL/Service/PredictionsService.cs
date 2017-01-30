@@ -19,8 +19,8 @@ namespace JinnSports.BLL.Service
         {
             using (this.dataUnit)
             {
-                IEnumerable<Team> teams = this.dataUnit.GetRepository<Team>().Get();
-                IEnumerable<SportEvent> sportEvents = this.dataUnit.GetRepository<SportEvent>().Get();
+                IEnumerable<Team> teams = this.dataUnit.GetRepository<Team>().Get().ToList();
+                IEnumerable<SportEvent> sportEvents = this.dataUnit.GetRepository<SportEvent>().Get().ToList();
 
                 // TODO: Exception handling
                 foreach (PredictionDTO predictionDTO in predictions)
