@@ -12,6 +12,7 @@ using JinnSports.Parser.App.ProxyService.ProxyConnections;
 using JinnSports.Parser.App.ProxyService.ProxyTerminal;
 using JinnSports.Parser.App.ProxyService.ProxyInterfaces;
 using JinnSports.Parser.App;
+using JinnSports.Parser.App.WebConnection;
 
 namespace JinnSports.Parser.App.JsonParsers
 {
@@ -52,9 +53,10 @@ namespace JinnSports.Parser.App.JsonParsers
             {
                 while (true)
                 {
+                    string proxy = string.Empty;
                     try
                     {
-                        string result = this.GetJsonFromUrl(this.SiteUri);
+                        string result = this.GetJsonFromUrl(this.SiteUri, out proxy);
                         JsonResult jsonResults = this.DeserializeJson(result);
                         List<SportEventDTO> sportEventsList = this.GetSportEventsList(jsonResults);
                         this.SendEvents(sportEventsList);
@@ -62,6 +64,7 @@ namespace JinnSports.Parser.App.JsonParsers
                     }
                     catch (Exception ex)
                     {
+                        proxyTerminal.MakeProxyUnavaliable(proxy);
                         Log.Error(ex);
                     }
                 }
@@ -75,29 +78,24 @@ namespace JinnSports.Parser.App.JsonParsers
 
         public string GetJsonFromUrl()
         {
-            return this.GetJsonFromUrl(this.SiteUri);
+            string proxy = string.Empty;
+            return this.GetJsonFromUrl(this.SiteUri, out proxy);
         }
 
-        public string GetJsonFromUrl(Uri uri, Locale locale = Locale.RU)
+        public string GetJsonFromUrl(Uri uri, out string proxy, Locale locale = Locale.RU)
         {
             string result = string.Empty;
-            HttpWebResponse response;
+            ProxyHttpWebResponse response;
 
             string url = string.Format("{0}?locale={1}", uri.ToString(), locale == Locale.EN ? "en" : "ru");
 
-            try
-            {
-                //HttpWebRequest request = (HttpWebRequest)WebRequest.Create(new Uri(url));
-                //request.Headers.Set(HttpRequestHeader.ContentEncoding, "1251");
-                //response = request.GetResponse() as HttpWebResponse;
-                response = this.proxyTerminal.GetProxyResponse(new Uri(url));
-                result = new StreamReader(response.GetResponseStream()).ReadToEnd();
-                return result;
-            }
-            catch (Exception ex)
-            {
-                throw new WebResponseException(ex.Message, ex.InnerException);
-            }
+             //HttpWebRequest request = (HttpWebRequest)WebRequest.Create(new Uri(url));
+             //request.Headers.Set(HttpRequestHeader.ContentEncoding, "1251");
+             //response = request.GetResponse() as HttpWebResponse;
+             response = this.proxyTerminal.GetProxyResponse(new Uri(url));
+             result = new StreamReader(response.Response.GetResponseStream()).ReadToEnd();
+             proxy = response.Proxy;
+             return result;
         }
 
         public JsonResult DeserializeJson(string jsonStr)

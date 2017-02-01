@@ -208,7 +208,7 @@ namespace JinnSports.BLL.Service
                 this.dataUnit.SaveChanges();
 
                 // TODO: resolve injection
-                this.predictionSender.SendPredictionRequest(); // Check new events and send request to Predictor
+                //this.predictionSender.SendPredictionRequest(); // Check new events and send request to Predictor
             }
             catch (Exception ex)
             {

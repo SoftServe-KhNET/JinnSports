@@ -83,6 +83,7 @@
     <Compile Include="Exceptions\SaveDataException.cs" />
     <Compile Include="Exceptions\WebResponseException.cs" />
     <Compile Include="HtmlParsers\HTMLParser24score.cs" />
+    <Compile Include="Interfaces\IProxyHttpWebResponse.cs" />
     <Compile Include="Interfaces\IWebConnection.cs" />
     <Compile Include="ProxyService\ProxyConnections\ProxyConnection.cs" />
     <Compile Include="ProxyService\ProxyEntities\BaseProxyServer.cs" />
@@ -108,6 +109,7 @@
     <Compile Include="ProxyService\ProxyRepository\ProxyRepository.cs" />
     <Compile Include="ProxyService\ProxyTerminal\ProxyAsync.cs" />
     <Compile Include="ProxyService\ProxyTerminal\ProxyTerminal.cs" />
+    <Compile Include="WebConnection\ProxyHttpWebResponse.cs" />
     <Compile Include="WebConnection\WebConnection.cs" />
     <Compile Include="WebConnection\WebProxyConnection.cs" />
   </ItemGroup>

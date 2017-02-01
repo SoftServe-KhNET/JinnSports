@@ -11,6 +11,7 @@ using JinnSports.Parser.App.Exceptions;
 using System.Threading;
 using JinnSports.Parser.App.ProxyService.ProxyEnums;
 using System.Threading.Tasks;
+using JinnSports.Parser.App.WebConnection;
 
 namespace JinnSports.Parser.App.ProxyService.ProxyConnections
 {
@@ -197,10 +198,11 @@ namespace JinnSports.Parser.App.ProxyService.ProxyConnections
         /// <param name="uri"></param>
         /// <param name="token"></param>
         /// <returns></returns>
-        public HttpWebResponse GetProxyResponse(Uri url, int timeout, CancellationToken token, bool async)
+        public ProxyHttpWebResponse GetProxyResponse(Uri url, int timeout, CancellationToken token, bool async)
         {
             HttpWebResponse response;
             HttpWebRequest request;
+            ProxyHttpWebResponse proxyResponse = new ProxyHttpWebResponse();
             // Get proxy from xml file, string "proxy" contains the result
             string proxy = this.GetProxy();
 
@@ -229,7 +231,7 @@ namespace JinnSports.Parser.App.ProxyService.ProxyConnections
                         //PreRequest CancellationToken checking, if Cancel - SetStatus (PreResponseTerminated)
                         if (token.IsCancellationRequested)
                         {
-                            this.SetStatus(proxy, ConnectionStatus.CS_PostResponseTerminated);
+                            this.SetStatus(proxy, ConnectionStatus.CS_PreResponseTerminated);
                             return null;
                         }
 
@@ -253,7 +255,9 @@ namespace JinnSports.Parser.App.ProxyService.ProxyConnections
                             //Valid Ip founded, SetStatus (Connected)
                             Debug.WriteLine("Good IP : " + proxy);
                             this.SetStatus(proxy, ConnectionStatus.CS_Connected);
-                            return response;
+                            proxyResponse.Proxy = proxy;
+                            proxyResponse.Response = response;
+                            return proxyResponse;
                         }
                         else
                         {
@@ -305,15 +309,9 @@ namespace JinnSports.Parser.App.ProxyService.ProxyConnections
         private HttpWebResponse RunProxyConnection(HttpWebRequest request, int timeout, string proxy)
         {
             request.Timeout = timeout * 1000;
-            try
-            {
-                HttpWebResponse response = request.GetResponse() as HttpWebResponse;
-                return response;
-            }
-            catch(WebException e)
-            {
-                throw new WebException(e.Message);
-            }
+            HttpWebResponse response = request.GetResponse() as HttpWebResponse;
+
+            return response;
         }
     }
 }

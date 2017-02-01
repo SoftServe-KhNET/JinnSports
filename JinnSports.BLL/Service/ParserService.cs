@@ -22,7 +22,7 @@ namespace JinnSports.BLL.Service
 
             while (!cancellationToken.IsCancellationRequested)
             {
-                await UpdateProxy();
+               // await UpdateProxy();
                 await Run();
                 await Task.Delay(timeInterval * 1000, cancellationToken);
             }
@@ -45,7 +45,7 @@ namespace JinnSports.BLL.Service
                 htmlParser.Parse();
             }));
 
-            await Task.WhenAll(tasks.ToArray());
+            await Task.WhenAll(tasks);
         }
 
         public static async Task UpdateProxy()

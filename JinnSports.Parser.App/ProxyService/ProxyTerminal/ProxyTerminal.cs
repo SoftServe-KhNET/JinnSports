@@ -3,6 +3,7 @@ using System;
 using System.Net;
 using JinnSports.Parser.App.ProxyService.ProxyConnections;
 using JinnSports.Parser.App.ProxyService.ProxyEnums;
+using JinnSports.Parser.App.WebConnection;
 
 namespace JinnSports.Parser.App.ProxyService.ProxyTerminal
 {
@@ -21,7 +22,7 @@ namespace JinnSports.Parser.App.ProxyService.ProxyTerminal
             pc.SetStatus(proxy, ConnectionStatus.CS_СonnectedWrongly);
         }
 
-        public HttpWebResponse GetProxyResponse(Uri url)
+        public ProxyHttpWebResponse GetProxyResponse(Uri url)
         {
             this.proxyAsync = new ProxyAsync(this.pc, url);
             return proxyAsync.GetProxyAsync();

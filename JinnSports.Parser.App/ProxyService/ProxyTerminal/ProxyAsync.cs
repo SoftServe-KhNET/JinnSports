@@ -9,6 +9,7 @@ using System.Diagnostics;
 using JinnSports.Parser.App.ProxyService.ProxyConnections;
 using System.Threading;
 using JinnSports.Parser.App.Configuration.Proxy;
+using JinnSports.Parser.App.WebConnection;
 
 namespace JinnSports.Parser.App.ProxyService.ProxyTerminal
 {
@@ -29,23 +30,23 @@ namespace JinnSports.Parser.App.ProxyService.ProxyTerminal
             this.url = url;
         }
 
-        public HttpWebResponse GetProxyAsync()
+        public ProxyHttpWebResponse GetProxyAsync()
         {
             return this.GetProxyAsync(false);
         }
 
-        public HttpWebResponse GetProxyAsync(bool asyncResponse)
+        public ProxyHttpWebResponse GetProxyAsync(bool asyncResponse)
         {
-            IList<Task<HttpWebResponse>> tasks = new List<Task<HttpWebResponse>>();
+            IList<Task<ProxyHttpWebResponse>> tasks = new List<Task<ProxyHttpWebResponse>>();
 
             //Creating tasks while CancelationToken is not cancelled
             while (!this.cancelTokenSrc.Token.IsCancellationRequested)
             {
                 Trace.WriteLine(String.Format("New task created"));
 
-                Thread.Sleep(this.asyncinterval * 1000);
+                Task.Delay(this.asyncinterval * 1000).Wait();
 
-                tasks.Add(Task<HttpWebResponse>.Factory.StartNew(() =>
+                tasks.Add(Task<ProxyHttpWebResponse>.Factory.StartNew(() =>
                 {
                     var result = this.pc.GetProxyResponse(url, this.timeout, cancelTokenSrc.Token, asyncResponse);
                     if (result != null)
@@ -63,12 +64,12 @@ namespace JinnSports.Parser.App.ProxyService.ProxyTerminal
             Task.WaitAll(tasks.ToArray());
 
             //Checking for Status = RanToCompletion
-            foreach (Task<HttpWebResponse> task in tasks)
+            foreach (Task<ProxyHttpWebResponse> task in tasks)
             {
                 if (task.Result != null)
                 {
                     //returning valid IP, if found, can be only one for this function
-                    return task.Result as HttpWebResponse;
+                    return task.Result as ProxyHttpWebResponse;
                 }
             }
             return null;
