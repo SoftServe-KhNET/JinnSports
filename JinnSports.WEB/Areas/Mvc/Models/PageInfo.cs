@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace JinnSports.WEB.Areas.Mvc.Models
 {
@@ -54,5 +55,13 @@ namespace JinnSports.WEB.Areas.Mvc.Models
         public int EndPage { get; private set; }
 
         public int PageSize { get; private set; }
+
+
+        public static SelectList PageSizes { get; private set; }
+        
+        static PageInfo()
+        {
+            PageSizes = new SelectList(new int[] { 10, 20, 50, 100 });
+        } 
     }
 }

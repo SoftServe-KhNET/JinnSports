@@ -32,32 +32,32 @@ namespace JinnSports.BLL.Service
             this.predictionSender = new PredictoionSender(this.dataUnit);
         }
 
-        private void FilterEvents(IQueryable<SportEvent> events, SportEventFilter filter)
+        private void FilterEvents(ref IQueryable<SportEvent> events, SportEventFilter filter)
         {
             if (filter.SportTypeId > 0)
             {
-                events.Where(e => e.SportType.Id == filter.SportTypeId);
+                events = events.Where(e => e.SportType.Id == filter.SportTypeId);
             }
 
             if (filter.DateFrom.Ticks > 0)
             {
-                events.Where(e => e.Date >= filter.DateFrom);
+                events = events.Where(e => e.Date >= filter.DateFrom);
             }
 
             if (filter.DateTo.Ticks > 0)
             {
-                events.Where(e => e.Date <= filter.DateTo);
+                events = events.Where(e => e.Date <= filter.DateTo);
             }
 
             if (!string.IsNullOrEmpty(filter.TeamName))
             {
-                events.Where(e => e.Results.Any(
+                events = events.Where(e => e.Results.Any(
                     r => r.Team.Name == filter.TeamName ||
                         r.Team.Names.Any(n => n.Name == filter.TeamName)));
             }
         }
 
-        private void OrderEvents(IQueryable<SportEvent> events, SportEventFilter filter)
+        private void OrderEvents(ref IQueryable<SportEvent> events, SportEventFilter filter)
         {
             if (!string.IsNullOrEmpty(filter.SortedField))
             {
@@ -66,14 +66,14 @@ namespace JinnSports.BLL.Service
                     case "FirstTeam":
                         if (filter.SortDirection == ListSortDirection.Ascending)
                         {
-                            events.OrderBy(
+                            events = events.OrderBy(
                                 e => e.Results.ElementAt(0).Team.Name)
                                 .ThenBy(e => e.Results.ElementAt(0).Id)
                                 .ThenBy(e => e.Date);
                         }
                         else
                         {
-                            events.OrderByDescending(
+                            events = events.OrderByDescending(
                                 e => e.Results.ElementAt(0).Team.Name)
                                 .ThenBy(e => e.Results.ElementAt(0).Id)
                                 .ThenBy(e => e.Date);
@@ -83,14 +83,14 @@ namespace JinnSports.BLL.Service
                     case "SecondTeam":
                         if (filter.SortDirection == ListSortDirection.Ascending)
                         {
-                            events.OrderBy(
+                            events = events.OrderBy(
                                 e => e.Results.ElementAt(1).Team.Name)
                                 .ThenBy(e => e.Results.ElementAt(1).Id)
                                 .ThenBy(e => e.Date);
                         }
                         else
                         {
-                            events.OrderByDescending(
+                            events = events.OrderByDescending(
                                 e => e.Results.ElementAt(1).Team.Name)
                                 .ThenBy(e => e.Results.ElementAt(1).Id)
                                 .ThenBy(e => e.Date);
@@ -100,22 +100,22 @@ namespace JinnSports.BLL.Service
                     case "Date":
                         if (filter.SortDirection == ListSortDirection.Ascending)
                         {
-                            events.OrderBy(e => e.Date).ThenBy(e => e.Id);
+                            events = events.OrderBy(e => e.Date).ThenBy(e => e.Id);
                         }
                         else
                         {
-                            events.OrderByDescending(e => e.Date).ThenBy(e => e.Id);
+                            events = events.OrderByDescending(e => e.Date).ThenBy(e => e.Id);
                         }
                         break;
 
                     default:
-                        events.OrderBy(e => e.Date).ThenBy(e => e.Id);
+                        events = events.OrderBy(e => e.Date).ThenBy(e => e.Id);
                         break;
                 }
             }
             else
             {
-                events.OrderBy(e => e.Date).ThenBy(e => e.Id);
+                events = events.OrderBy(e => e.Date).ThenBy(e => e.Id);
             }
         }
 
@@ -126,7 +126,7 @@ namespace JinnSports.BLL.Service
 
             if (filter != null)
             {
-                this.FilterEvents(events, filter);
+                this.FilterEvents(ref events, filter);
             }
 
             count = events.Count();
@@ -143,14 +143,20 @@ namespace JinnSports.BLL.Service
 
             if (filter != null)
             {
-                this.FilterEvents(sportEvents, filter);
-                this.OrderEvents(sportEvents, filter);                
+                this.FilterEvents(ref sportEvents, filter);
+                this.OrderEvents(ref sportEvents, filter);                
 
-                if (filter.Page > 0 && filter.PageSize > 0)
+                if (filter.Page < 1)
                 {
-                    sportEvents.Skip((filter.Page - 1) * filter.PageSize);
-                    sportEvents.Take(filter.PageSize);
+                    filter.Page = 1;
                 }
+                if (filter.PageSize < 1)
+                {
+                    filter.PageSize = 10;
+                }
+                
+                sportEvents = sportEvents.Skip((filter.Page - 1) * filter.PageSize);
+                sportEvents = sportEvents.Take(filter.PageSize);
             }
             
             foreach (SportEvent sportEvent in sportEvents)

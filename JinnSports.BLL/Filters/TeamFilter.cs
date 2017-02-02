@@ -11,12 +11,12 @@ namespace JinnSports.BLL.Filters
     {
         public string TeamName { get; set; }
 
-        public ListSortDirection SortDirection { get; set; }
+        public ListSortDirection SortDirection { get; set; } = ListSortDirection.Ascending;
 
-        public string SortedField { get; set; }
+        public string SortedField { get; set; } = "TeamName";
 
-        public int Page { get; set; }
+        public int Page { get; set; } = 1;
 
-        public int PageSize { get; set; }
+        public int PageSize { get; set; } = 10;
     }
 }

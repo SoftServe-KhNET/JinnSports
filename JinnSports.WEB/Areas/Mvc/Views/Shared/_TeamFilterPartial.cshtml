@@ -1,0 +1,11 @@
+﻿@using JinnSports.WEB.Areas.Mvc.Models
+@model JinnSports.BLL.Filters.TeamFilter
+@using (Html.BeginForm("FilterTeam", "Team"))
+{
+    @Html.Label("Количество элементов на странице:")
+    @Html.DropDownList("PageSize", PageInfo.PageSizes, Model.PageSize)
+    <p class="divider"></p>
+    @Html.Label("Имя команды:")
+    @Html.EditorFor(m => m.TeamName)
+    <input class="btn btn-primary" type="submit" name="Select" value="Отправить"/>
+}

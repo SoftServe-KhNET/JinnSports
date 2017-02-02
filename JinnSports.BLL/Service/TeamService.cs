@@ -19,17 +19,17 @@ namespace JinnSports.BLL.Service
             this.dataUnit = unitOfWork;
         }
 
-        private void FilterTeams(IQueryable<Team> teams, TeamFilter filter)
+        private void FilterTeams(ref IQueryable<Team> teams, TeamFilter filter)
         {
             if (!string.IsNullOrEmpty(filter.TeamName))
             {
-                teams.Where(
+                teams = teams.Where(
                     t => t.Name == filter.TeamName ||
                     t.Names.Any(n => n.Name == filter.TeamName));
             }
         }
 
-        private void OrderTeams(IQueryable<Team> teams, TeamFilter filter)
+        private void OrderTeams(ref IQueryable<Team> teams, TeamFilter filter)
         {
             if (!string.IsNullOrEmpty(filter.SortedField))
             {
@@ -38,13 +38,13 @@ namespace JinnSports.BLL.Service
                     case "SportType":
                         if (filter.SortDirection == ListSortDirection.Ascending)
                         {
-                            teams.OrderBy(t => t.SportType.Name)
+                            teams = teams.OrderBy(t => t.SportType.Name)
                                 .ThenBy(t => t.Name)
                                 .ThenBy(t => t.Id);
                         }
                         else
                         {
-                            teams.OrderByDescending(t => t.SportType.Name)
+                            teams = teams.OrderByDescending(t => t.SportType.Name)
                                 .ThenBy(t => t.Name)
                                 .ThenBy(t => t.Id);
                         }
@@ -53,29 +53,29 @@ namespace JinnSports.BLL.Service
                     case "TeamName":
                         if (filter.SortDirection == ListSortDirection.Ascending)
                         {
-                            teams.OrderBy(t => t.Name).ThenBy(t => t.Id);
+                            teams = teams.OrderBy(t => t.Name).ThenBy(t => t.Id);
                         }
                         else
                         {
-                            teams.OrderByDescending(t => t.Name).ThenBy(t => t.Id);
+                            teams = teams.OrderByDescending(t => t.Name).ThenBy(t => t.Id);
                         }
                         break;
 
                     default:
-                        teams.OrderBy(t => t.Name).ThenBy(t => t.Id);
+                        teams = teams.OrderBy(t => t.Name).ThenBy(t => t.Id);
                         break;
                 }
             }
             else
             {
-                teams.OrderBy(t => t.Name).ThenBy(t => t.Id);
+                teams = teams.OrderBy(t => t.Name).ThenBy(t => t.Id);
             }
         }
 
         public int Count(TeamFilter filter)
         {
             IQueryable<Team> teams = this.dataUnit.GetRepository<Team>().Get();
-            this.FilterTeams(teams, filter);           
+            this.FilterTeams(ref teams, filter);           
 
             return teams.Count();
         }
@@ -86,14 +86,21 @@ namespace JinnSports.BLL.Service
             IQueryable<Team> teams = 
                 this.dataUnit.GetRepository<Team>().Get(includeProperties:"SportType");
 
-            this.FilterTeams(teams, filter);
-            this.OrderTeams(teams, filter);
+            this.FilterTeams(ref teams, filter);
+            this.OrderTeams(ref teams, filter);
 
-            if (filter.Page > 0 && filter.PageSize > 0)
+            if (filter.Page < 1)
             {
-                teams.Skip((filter.Page - 1) * filter.PageSize);
-                teams.Take(filter.PageSize);
+                filter.Page = 1;
             }
+
+            if (filter.PageSize < 1)
+            {
+                filter.PageSize = 10;
+            }
+                        
+            teams = teams.Skip((filter.Page - 1) * filter.PageSize);
+            teams = teams.Take(filter.PageSize);
 
             foreach (Team team in teams)
             {

@@ -1,26 +1,82 @@
 ﻿@using JinnSports.WEB.Areas.Mvc.Models
 @using JinnSports.BLL.Dtos
+@using System.ComponentModel
 @model TeamViewModel
 
 @{
     ViewBag.Title = "Teams";
     Layout = "~/Areas/Mvc/Views/Shared/_Layout.cshtml";
 }
+    @Html.Partial("_TeamFilterPartial", Model.Filter)
 
-
-    <h2 style="text-align:center">Teams</h2>
+    <h2 style="text-align:center">Команды</h2>
     <table id="teams" class="table table-hover table-striped"
            cellspacing="0" style="border-collapse:collapse;">
         <thead style="background: #6495ED; font-size : 16px;">
             <tr>
-                <th scope="col">Team</th>
+                @* Column header "TeamName"*@
+                @if (string.IsNullOrEmpty(Model.Filter.SortedField) || Model.Filter.SortedField != "TeamName")
+                {
+                    <th scope="col">
+                    @Html.ActionLink("Команда", Model.ActionName, Model.ControllerName, new
+                    {
+                        Page = Model.Filter.Page,
+                        PageSize = Model.Filter.PageSize,
+                        TeamName = Model.Filter.TeamName,
+                        SortedField = "TeamName",
+                        SortDirection = ListSortDirection.Ascending
+                    }, null)
+                    </th>
+                }
+                else
+                {
+                    <th scope="col">
+                    @Html.ActionLink("Команда", Model.ActionName, Model.ControllerName, new
+                    {
+                       Page = Model.Filter.Page,
+                       PageSize = Model.Filter.PageSize,
+                       TeamName = Model.Filter.TeamName,
+                       SortedField = "TeamName",
+                       SortDirection = Model.Filter.SortDirection == ListSortDirection.Ascending ? ListSortDirection.Descending : ListSortDirection.Ascending
+                    }, null)
+                    </th>
+                }
+                
+                @* Column header "SportType"*@
+                @if (string.IsNullOrEmpty(Model.Filter.SortedField) || Model.Filter.SortedField != "SportType")
+                {
+                    <th scope="col">
+                    @Html.ActionLink("Вид спорта", Model.ActionName, Model.ControllerName, new
+                    {
+                        Page = Model.Filter.Page,
+                        PageSize = Model.Filter.PageSize,
+                        TeamName = Model.Filter.TeamName,
+                        SortedField = "SportType",
+                        SortDirection = ListSortDirection.Ascending
+                    }, null)
+                    </th>
+                }
+                else
+                {
+                    <th scope="col">
+                    @Html.ActionLink("Вид спорта", Model.ActionName, Model.ControllerName, new
+                    {
+                       Page = Model.Filter.Page,
+                       PageSize = Model.Filter.PageSize,
+                       TeamName = Model.Filter.TeamName,
+                       SortedField = "SportType",
+                       SortDirection = Model.Filter.SortDirection == ListSortDirection.Ascending ? ListSortDirection.Descending : ListSortDirection.Ascending
+                    }, null)
+                    </th>
+                }
             </tr>
         </thead>
         <tbody>
             @foreach (TeamDto team in Model.TeamDtos)
             {
                 <tr>
-                    <td scope = "col" > @Html.ActionLink(team.Name, "Details", "Team", new { id = team.Id }, null) </td>
+                    <td scope = "col">@Html.ActionLink(team.Name, "Details", "Team", new { id = team.Id }, null)</td>
+                    <td scope="col">@team.SportType</td>
                 </tr >
             }
         </tbody>
