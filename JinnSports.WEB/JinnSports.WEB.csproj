@@ -182,6 +182,7 @@
     <Content Include="App_Data\PredictionsConnection.xml" />
     <Content Include="App_Data\PredictorConnection.xml" />
     <Content Include="App_Data\ApiConnection.xml" />
+    <Content Include="Areas\Jinn\Views\Shared\_teams.html" />
     <Content Include="Content\AdminLTE\AdminLTE.css" />
     <Content Include="Content\AdminLTE\AdminLTE.min.css" />
     <Content Include="Content\AdminLTE\skins\skin-black-light.css" />
@@ -359,6 +360,11 @@
     <Content Include="Content\DataTables\images\sort_desc.png" />
     <Content Include="Content\DataTables\images\sort_desc_disabled.png" />
     <Content Include="Content\DataTables\swf\flashExport.swf" />
+    <Content Include="Content\Jinn\select.css" />
+    <Content Include="Content\Jinn\pagination.css" />
+    <Content Include="Content\Jinn\style.css" />
+    <Content Include="Content\Jinn\table.css" />
+    <Content Include="Content\Site.css" />
     <Content Include="Content\themes\base\accordion.css" />
     <Content Include="Content\themes\base\all.css" />
     <Content Include="Content\themes\base\autocomplete.css" />
@@ -429,6 +435,12 @@
     <Content Include="Areas\Admin\Views\Conformities\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Conformities\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Parser\Index.cshtml" />
+    <Content Include="Areas\Jinn\Views\web.config" />
+    <Content Include="Areas\Jinn\Views\Teams\Index.cshtml" />
+    <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\jquery-1.10.2.js" />
+    <Content Include="Scripts\jquery-1.10.2.min.js" />
+    <Content Include="Scripts\jquery-1.10.2.min.map" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
     <Content Include="Scripts\AdminLTE\app.js" />
     <Content Include="Scripts\AdminLTE\app.min.js" />
@@ -511,12 +523,20 @@
     <Content Include="Scripts\DataTables\responsive.jqueryui.min.js" />
     <Content Include="Scripts\DataTables\responsive.semanticui.js" />
     <Content Include="Scripts\DataTables\responsive.semanticui.min.js" />
+    <Content Include="Scripts\Jinn\app\app-instance.js" />
+    <Content Include="Scripts\Jinn\app\event-dispatcher.js" />
+    <Content Include="Scripts\Jinn\app\router.js" />
+    <Content Include="Scripts\Jinn\components\teams\teams-init.js" />
+    <Content Include="Scripts\Jinn\components\teams\teams-model.js" />
+    <Content Include="Scripts\Jinn\components\teams\teams-view.js" />
+    <Content Include="Scripts\Jinn\init.js" />
     <Content Include="Scripts\jquery-3.1.1.js" />
     <Content Include="Scripts\jquery-3.1.1.min.js" />
     <Content Include="Scripts\jquery-3.1.1.slim.js" />
     <Content Include="Scripts\jquery-3.1.1.slim.min.js" />
     <Content Include="Scripts\jquery-ui-1.12.1.js" />
     <Content Include="Scripts\jquery-ui-1.12.1.min.js" />
+    <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Views\web.config" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -532,6 +552,8 @@
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\ParserController.cs" />
     <Compile Include="Areas\Admin\Controllers\PredictionsController.cs" />
+    <Compile Include="Areas\Jinn\Controllers\TeamsController.cs" />
+    <Compile Include="Areas\Jinn\JinnAreaRegistration.cs" />
     <Compile Include="Areas\Mvc\Controllers\EventController.cs" />
     <Compile Include="Areas\Mvc\Controllers\HomeController.cs" />
     <Compile Include="Areas\Mvc\Controllers\TeamController.cs" />
