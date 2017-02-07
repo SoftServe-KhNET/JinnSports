@@ -1,19 +1,20 @@
 'use strict';
 var httpRequest = null;
 
-var TeamsModel = function() {
-     this.teams = [];
+var TeamsModel = function () {
+    this.teams = [];
 };
 
 TeamsModel.prototype = {
 
-    getTeams: function() {
+    getTeams: function () {
+        alert('get teams');
         return this.teams;
     },
 
     setTeams: function (teams) {
         this.teams = this.parseData(teams);
-        console.log(this.teams);
+        alert(this.teams);
     },
 
     //updateData: function() {
@@ -35,7 +36,8 @@ TeamsModel.prototype = {
     //    //parse
     //},
 
-    updateData: function(draw, start, length) {
+    updateData: function (draw, start, length) {
+        alert('updateData');
         var proto = this;
         sendRequestToServer();
         function sendRequestToServer() {
@@ -47,6 +49,7 @@ TeamsModel.prototype = {
             if (httpRequest.readyState == 4) {
                 if (httpRequest.status == 200) {
                     proto.setTeams(httpRequest.responseText);
+                    alert('good response');
                 }
             }
         }
@@ -57,6 +60,7 @@ TeamsModel.prototype = {
     },
 
     parseData: function (jsonString) {
+        console.log(JSON.parse(jsonString).data);
         return JSON.parse(jsonString).data;
     },
 

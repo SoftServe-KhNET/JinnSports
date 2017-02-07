@@ -1,6 +1,7 @@
 'use strict';
 
-var TeamsView = function(model) {
+var TeamsView = function (model) {
+    alert('Init TeamsView entrance');
     this.teams = [];
     this.model = model;
     this.current_page = 1;
@@ -10,7 +11,7 @@ var TeamsView = function(model) {
 
 TeamsView.prototype = {
 
-    init: function() {
+    init: function () {
         this.model.updateData(this.records_per_page, this.records_per_page * (this.current_page - 1), this.records_per_page);
         this.createChildren();
     },
@@ -23,13 +24,16 @@ TeamsView.prototype = {
     },
 
     show: function () {
+        alert('show');
         this.buildTable();
         this.buildPagingNavBar();
         this.buildSelector();
-        //this.changePage(1);
+        alert('before changePage 1')
+        this.changePage(1);
     },
     
-    buildSelector: function() {
+    buildSelector: function () {
+        alert('buildSelector');
         var selectContainer = document.getElementsByClassName('js-select-container')[0];
         var selector = document.createElement('select');
         selector.setAttribute('class', 'select-style');
@@ -55,20 +59,18 @@ TeamsView.prototype = {
         selectContainer.appendChild(selector);
     },
    
-    buildTable: function() {
+    buildTable: function () {
+        alert('buildTable');
         var tableContainer = document.getElementsByClassName('js-table-container')[0];
         var tbl = document.createElement('table');
 
         //tbl.setAttribute('class', 'table');
         var tbdy = document.createElement('tbody');
         this.teams = this.model.getTeams();
-        console.log(this.teams);
-        alert(1);
 
         tbl.style.width = '100%';
         tbl.setAttribute('border', '1');
         tbl.setAttribute('id', 'teamsTable');
-        console.log(this.teams.length);
 
         for (var i = 0; i < this.teams.length; i++) {
             //var team = this.teams;
@@ -90,14 +92,15 @@ TeamsView.prototype = {
     tableContainer.appendChild(tbl);
 },
 
- rebuildTable: function() {
-        var table = document.getElementById ("teamsTable");
-        table.remove();
-        this.buildTable();
+    rebuildTable: function () {
+     var table = document.getElementById("teamsTable");
+     table.remove();
+     this.buildTable();
  },
 
 buildPagingNavBar: function()
 {
+    alert('buildSNavBar');
     var proto = this;
     var pagingContainer = document.getElementsByClassName('js-paging-container')[0];
 
@@ -178,6 +181,7 @@ buildPagingNavBar: function()
 
     changePage: function(page)
     {
+        alert('changePage');
         // Validate page
         if (page < 1) page = 1;
         if (page > this.numPages()) page = this.numPages();
@@ -207,6 +211,7 @@ buildPagingNavBar: function()
 
         if (selected_index > 0) {
             var selected_option_value = document.getElementById('tableSelector').options[selected_index].value;
+            this.records_per_page = selected_option_value;
         }
         else {
             alert('non selected');

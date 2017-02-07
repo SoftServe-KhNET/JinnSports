@@ -3,5 +3,9 @@
     ViewBag.Title = "Teams";
 }
 
+@Scripts.Render("~/bundles/jquery");
+@Scripts.Render("~/bundles/app");
+@Styles.Render("~/Content/css");
+
 @Html.Raw(File.ReadAllText(Server.MapPath("~/Areas/Jinn/Views/Shared/_teams.html")));
 
