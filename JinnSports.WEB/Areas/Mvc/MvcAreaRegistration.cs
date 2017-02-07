@@ -17,8 +17,8 @@ namespace JinnSports.WEB.Areas.Mvc
             
             context.MapRoute(
                 name: "Mvc_Results",
-                url: "Mvc/Results/{id}",
-                defaults: new { action = "Index", controller = "Event", id = UrlParameter.Optional },
+                url: "Mvc/Results",
+                defaults: new { action = "Index", controller = "Event" },
                 namespaces: new[] { "JinnSports.WEB.Areas.Mvc.Controllers" });
 
             context.MapRoute(
@@ -29,8 +29,8 @@ namespace JinnSports.WEB.Areas.Mvc
 
             context.MapRoute(
                 name: "Mvc_TeamDetails",
-                url: "Mvc/TeamDetails/{id}",
-                defaults: new { controller = "Team", action = "Details", id = UrlParameter.Optional },
+                url: "Mvc/TeamDetails",
+                defaults: new { controller = "Team", action = "Details" },
                 namespaces: new[] { "JinnSports.WEB.Areas.Mvc.Controllers" });
             
             context.MapRoute(

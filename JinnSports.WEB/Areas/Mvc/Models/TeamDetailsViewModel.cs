@@ -1,4 +1,5 @@
 ﻿using JinnSports.BLL.Dtos;
+using JinnSports.BLL.Filters;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,5 +16,7 @@ namespace JinnSports.WEB.Areas.Mvc.Models
         public string ActionName { get; set; }
 
         public string ControllerName { get; set; }
+
+        public TeamDetailsFilter Filter { get; set; }
     }
 }

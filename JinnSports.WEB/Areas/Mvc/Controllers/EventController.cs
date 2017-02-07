@@ -1,5 +1,6 @@
 ﻿using JinnSports.BLL.Dtos;
 using JinnSports.BLL.Dtos.SportType;
+using JinnSports.BLL.Filters;
 using JinnSports.BLL.Interfaces;
 using JinnSports.BLL.Service;
 using JinnSports.WEB.Areas.Mvc.Models;
@@ -13,49 +14,40 @@ namespace JinnSports.WEB.Areas.Mvc.Controllers
 {
     public class EventController : Controller
     {
-        private const int PAGESIZE = 10;
+        private readonly IEventService eventsService;
 
-        private readonly ISportTypeService sportTypeService;
-
-        public EventController(ISportTypeService sportTypeService)
+        public EventController(IEventService eventsService)
         {
-            this.sportTypeService = sportTypeService;
+            this.eventsService = eventsService;
+        }
+
+        private SportEventViewModel GetSportEvents(SportEventFilter filter)
+        {
+            IEnumerable<SportTypeDto> sportTypes = this.eventsService.GetSportTypes();
+            int recordsTotal = this.eventsService.Count(filter);
+            IEnumerable<ResultDto> results = this.eventsService.GetSportEvents(filter);
+            PageInfo pageInfo = new PageInfo(recordsTotal, filter.Page, filter.PageSize);
+
+            SportEventViewModel viewModel = new SportEventViewModel()
+            {
+                PageInfo = pageInfo,
+                Filter = filter,
+                Results = results,
+                SportTypes = sportTypes
+            };
+            return viewModel;
         }
 
         // GET: Mvc/Event
-        public ActionResult Index(int page = 1, int id = 0, int time = 0)
+        public ActionResult Index(SportEventFilter filter)
         {
-            int recordsTotal = this.sportTypeService.Count(id, time);
-
-            if (page < 1)
-            {
-                page = 1;
-            }
-
-            PageInfo pageInfo = new PageInfo(recordsTotal, page, PAGESIZE);
-            SportTypeSelectDto sportTypeModel = this.sportTypeService.GetSportTypes(
-                id, 
-                time,
-                (page - 1) * PAGESIZE, 
-                PAGESIZE);
-
-
-            if (sportTypeModel != null)
-            {
-                return this.View(new SportEventViewModel()
-                {
-                     PageInfo = pageInfo,
-                     SportTypeSelectDto = sportTypeModel,
-                     ActionName = "Index",
-                     ControllerName = "Event"
-                });
-            }
-            else
-            {
-                return this.View();
-            }
+            SportEventViewModel viewModel = this.GetSportEvents(filter);
+            viewModel.ActionName = "Index";
+            viewModel.ControllerName = "Event";
+            return this.View(viewModel);
         }
 
+        /*
         [HttpPost]
         public ActionResult PostIndex(string sportTypeSelector, string timeSelector)
         {
@@ -65,10 +57,10 @@ namespace JinnSports.WEB.Areas.Mvc.Controllers
             int timeId = 
                 !string.IsNullOrEmpty(timeSelector) ? Convert.ToInt32(timeSelector) : 1;
 
-            int recordsTotal = this.sportTypeService.Count(sportTypeId, timeId - 1);
+            int recordsTotal = this.eventsService.Count(sportTypeId, timeId - 1);
 
             return this.RedirectToAction(
                 "Index", new { id = sportTypeId, page = 1, time = timeId - 1 });
-        }
+        }*/
     }
 }

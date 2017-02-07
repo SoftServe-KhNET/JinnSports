@@ -1,0 +1,38 @@
+﻿@using JinnSports.BLL.Filters
+@using JinnSports.BLL.Dtos.SportType
+@using JinnSports.WEB.Areas.Mvc.Models
+@model JinnSports.WEB.Areas.Mvc.Models.SportEventViewModel
+
+@using (Html.BeginForm("Index", "Event", FormMethod.Get))
+{
+    <label for="SportTypeId">Вид спорта</label>
+    <select class="form-control" id="Filter_SportTypeId" name="Filter.SportTypeId">
+        <option value="0">Все</option>
+        @foreach (SportTypeDto sportType in Model.SportTypes)
+        {
+            if (sportType.Id == Model.Filter.SportTypeId)
+            {
+                <option selected value=@sportType.Id.ToString()>@sportType.Name</option>
+            }
+            else
+            {
+                <option value=@sportType.Id.ToString()>@sportType.Name</option>
+            }
+        }
+    </select>
+    <p class="divider"></p>
+    @Html.Label("Количество элементов на странице: ")
+    @Html.DropDownListFor(m => m.Filter.PageSize, PageInfo.PageSizes, Model.Filter.PageSize)
+    <p class="divider"></p>
+    @Html.Label("Поиск по команде: ")
+    @Html.EditorFor(m => m.Filter.TeamName)
+    <p class="divider"></p>
+    @Html.Label("Начало периода: ")
+    @Html.EditorFor(m => m.Filter.DateFrom)
+    <p class="divider"></p>
+    @Html.Label("Конец периода: ")
+    @Html.EditorFor(m => m.Filter.DateTo)
+    <p class="divider"></p>
+    <input class="btn btn-primary" type="submit" value="Отправить" />
+    <p class="divider"></p>
+}

@@ -1,4 +1,5 @@
-﻿@model JinnSports.WEB.Areas.Mvc.Models.TeamDetailsViewModel
+﻿@using JinnSports.BLL.Filters
+@model JinnSports.WEB.Areas.Mvc.Models.TeamDetailsViewModel
 @if (Model.PageInfo.EndPage > 1)
 {
     <ul class="pagination">
@@ -6,11 +7,32 @@
         {
             <li>
                 @Html.ActionLink("1", Model.ActionName, Model.ControllerName,
-                    new { page = 1, id = Model.TeamResultDto.Team.Id }, null)
+                    new TeamDetailsFilter()
+                    {
+                        Page = 1,
+                        PageSize = Model.Filter.PageSize,
+                        TeamId = Model.Filter.TeamId,
+                        OpponentTeamName = Model.Filter.OpponentTeamName,
+                        SortedField = Model.Filter.SortedField,
+                        SortDirection = Model.Filter.SortDirection,
+                        DateFrom = Model.Filter.DateFrom,
+                        DateTo = Model.Filter.DateTo
+                    },
+                    null)
             </li>
             <li>
                 @Html.ActionLink("<", Model.ActionName, Model.ControllerName,
-                    new { page = Model.PageInfo.CurrentPage - 1, id = Model.TeamResultDto.Team.Id }, null)
+                    new TeamDetailsFilter()
+                    {
+                        Page = Model.PageInfo.CurrentPage - 1,
+                        PageSize = Model.Filter.PageSize,
+                        TeamId = Model.Filter.TeamId,
+                        OpponentTeamName = Model.Filter.OpponentTeamName,
+                        SortedField = Model.Filter.SortedField,
+                        SortDirection = Model.Filter.SortDirection,
+                        DateFrom = Model.Filter.DateFrom,
+                        DateTo = Model.Filter.DateTo
+                    }, null)
             </li>
         }
         else
@@ -27,13 +49,32 @@
         {
             <li>
                 @Html.ActionLink(page.ToString(), Model.ActionName,
-                    Model.ControllerName, new { page = page, id = Model.TeamResultDto.Team.Id }, null)
+                    Model.ControllerName, new TeamDetailsFilter()
+                    {
+                        Page = page,
+                        PageSize = Model.Filter.PageSize,
+                        TeamId = Model.Filter.TeamId,
+                        OpponentTeamName = Model.Filter.OpponentTeamName,
+                        SortedField = Model.Filter.SortedField,
+                        SortDirection = Model.Filter.SortDirection,
+                        DateFrom = Model.Filter.DateFrom,
+                        DateTo = Model.Filter.DateTo
+                    }, null)
             </li>
         }
 
         <li class="active">
             @Html.ActionLink(Model.PageInfo.CurrentPage.ToString(), Model.ActionName,
-                    Model.ControllerName, new { page = Model.PageInfo.CurrentPage, id = Model.TeamResultDto.Team.Id
+                    Model.ControllerName, new TeamDetailsFilter()
+                    {
+                        Page = Model.PageInfo.CurrentPage,
+                        PageSize = Model.Filter.PageSize,
+                        TeamId = Model.Filter.TeamId,
+                        OpponentTeamName = Model.Filter.OpponentTeamName,
+                        SortedField = Model.Filter.SortedField,
+                        SortDirection = Model.Filter.SortDirection,
+                        DateFrom = Model.Filter.DateFrom,
+                        DateTo = Model.Filter.DateTo
                     }, null)
         </li>
 
@@ -41,7 +82,17 @@
         {
             <li>
                 @Html.ActionLink(page.ToString(), Model.ActionName,
-                    Model.ControllerName, new { page = page, id = Model.TeamResultDto.Team.Id }, null)
+                    Model.ControllerName, new TeamDetailsFilter()
+                    {
+                        Page = page,
+                        PageSize = Model.Filter.PageSize,
+                        TeamId = Model.Filter.TeamId,
+                        OpponentTeamName = Model.Filter.OpponentTeamName,
+                        SortedField = Model.Filter.SortedField,
+                        SortDirection = Model.Filter.SortDirection,
+                        DateFrom = Model.Filter.DateFrom,
+                        DateTo = Model.Filter.DateTo
+                    }, null)
             </li>
         }
 
@@ -50,13 +101,32 @@
             <li>
                 @Html.ActionLink(
                     ">", Model.ActionName, Model.ControllerName,
-                    new { page = Model.PageInfo.CurrentPage + 1, id = Model.TeamResultDto.Team.Id
+                    new TeamDetailsFilter()
+                    {
+                        Page = Model.PageInfo.CurrentPage + 1,
+                        PageSize = Model.Filter.PageSize,
+                        TeamId = Model.Filter.TeamId,
+                        OpponentTeamName = Model.Filter.OpponentTeamName,
+                        SortedField = Model.Filter.SortedField,
+                        SortDirection = Model.Filter.SortDirection,
+                        DateFrom = Model.Filter.DateFrom,
+                        DateTo = Model.Filter.DateTo
                     }, null)
             </li>
             <li>
                 @Html.ActionLink(
                     Model.PageInfo.TotalPages.ToString(), Model.ActionName, Model.ControllerName,
-                    new { page = Model.PageInfo.TotalPages, id = Model.TeamResultDto.Team.Id }, null)
+                    new TeamDetailsFilter()
+                    {
+                        Page = Model.PageInfo.TotalPages,
+                        PageSize = Model.Filter.PageSize,
+                        TeamId = Model.Filter.TeamId,
+                        OpponentTeamName = Model.Filter.OpponentTeamName,
+                        SortedField = Model.Filter.SortedField,
+                        SortDirection = Model.Filter.SortDirection,
+                        DateFrom = Model.Filter.DateFrom,
+                        DateTo = Model.Filter.DateTo
+                    }, null)
             </li>
         }
         else

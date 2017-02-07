@@ -48,40 +48,6 @@ namespace JinnSports.BLL.Service
             {
                 switch (filter.SortedField)
                 {
-                    case "FirstTeam":
-                        if (filter.SortDirection == ListSortDirection.Ascending)
-                        {
-                            teamEvents = teamEvents.OrderBy(
-                                e => e.Results.ElementAt(0).Team.Name)
-                                .ThenBy(e => e.Results.ElementAt(0).Id)
-                                .ThenBy(e => e.Date);
-                        }
-                        else
-                        {
-                            teamEvents = teamEvents.OrderByDescending(
-                                e => e.Results.ElementAt(0).Team.Name)
-                                .ThenBy(e => e.Results.ElementAt(0).Id)
-                                .ThenBy(e => e.Date);
-                        }
-                        break;
-
-                    case "SecondTeam":
-                        if (filter.SortDirection == ListSortDirection.Ascending)
-                        {
-                            teamEvents = teamEvents.OrderBy(
-                                e => e.Results.ElementAt(1).Team.Name)
-                                .ThenBy(e => e.Results.ElementAt(1).Id)
-                                .ThenBy(e => e.Date);
-                        }
-                        else
-                        {
-                            teamEvents = teamEvents.OrderByDescending(
-                                e => e.Results.ElementAt(1).Team.Name)
-                                .ThenBy(e => e.Results.ElementAt(1).Id)
-                                .ThenBy(e => e.Date);
-                        }
-                        break;
-
                     case "Date":
                         if (filter.SortDirection == ListSortDirection.Ascending)
                         {
@@ -119,7 +85,7 @@ namespace JinnSports.BLL.Service
             List<ResultDto> results = new List<ResultDto>();            
 
             IQueryable<SportEvent> teamEvents = this.dataUnit.GetRepository<SportEvent>().Get(
-                includeProperties: "Team,SportEvent,SportEvent.Results,SportEvent.Results.Team");
+                includeProperties: "SportType,Results,Results.Team");
 
             this.FilterTeamEvents(ref teamEvents, filter);
             this.OrderTeamEvents(ref teamEvents, filter);

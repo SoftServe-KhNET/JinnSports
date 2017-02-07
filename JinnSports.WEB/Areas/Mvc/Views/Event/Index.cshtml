@@ -1,6 +1,8 @@
 ﻿@using System.Collections.Generic;
 @using JinnSports.WEB.Areas.Mvc.Models
 @using JinnSports.BLL.Dtos;
+@using JinnSports.BLL.Filters;
+@using System.ComponentModel;
 @using JinnSports.BLL.Dtos.SportType;
 
 @model SportEventViewModel
@@ -10,72 +12,58 @@
     Layout = "~/Areas/Mvc/Views/Shared/_Layout.cshtml";
 }
 
-    @using (Html.BeginForm("PostIndex", "Event", FormMethod.Post))
-    {
-        <div>
-            <label for="sportTypeSelector">Select Sport Type</label>
-            <select class="form-control" id="sportTypeSelector" name="sportTypeSelector">
-                <option value="0">All</option>
-                @foreach (SportTypeDto sportType in Model.SportTypeSelectDto.SportTypes)
-                {
-                    if (sportType.Id == Model.SportTypeSelectDto.SelectedId)
-                    {
-                        <option selected value=@sportType.Id.ToString()>@sportType.Name</option>
-                    }
-                    else
-                    {
-                        <option value=@sportType.Id.ToString()>@sportType.Name</option>
-                    }
-                }
-            </select>
+@Html.Partial("_EventFilterPartial", Model)
 
-            <p class="divider"></p>
+<table id="sportEvents" class="table table-hover table-striped"
+       cellspacing="0" style="border-collapse:collapse;">
+    <thead style="background: #6495ED; font-size : 16px;">
+        <tr>
+            <th scope="col">Команда</th>
+            <th scope="col">Счёт</th>
+            <th scope="col">Команда</th>
+            <th scope="col">
+                @Html.ActionLink("Дата", Model.ActionName, Model.ControllerName, new SportEventFilter()
+               {
+                   Page = Model.Filter.Page,
+                   PageSize = Model.Filter.PageSize,
+                   TeamName = Model.Filter.TeamName,
+                   SportTypeId = Model.Filter.SportTypeId,
+                   SortedField = "Date",
+                   SortDirection = Model.Filter.SortDirection == ListSortDirection.Ascending ? ListSortDirection.Descending : ListSortDirection.Ascending,
+                   DateFrom = Model.Filter.DateFrom,
+                   DateTo = Model.Filter.DateTo
+               }, new { style = "color:#000000" })
+            </th>
+            <th scope="col">
+                @Html.ActionLink("Вид спорта", Model.ActionName, Model.ControllerName, new SportEventFilter()
+               {
+                   Page = Model.Filter.Page,
+                   PageSize = Model.Filter.PageSize,
+                   TeamName = Model.Filter.TeamName,
+                   SportTypeId = Model.Filter.SportTypeId,
+                   SortedField = "SportType",
+                   SortDirection = Model.Filter.SortDirection == ListSortDirection.Ascending ? ListSortDirection.Descending : ListSortDirection.Ascending,
+                   DateFrom = Model.Filter.DateFrom,
+                   DateTo = Model.Filter.DateTo
+               }, new { style = "color:#000000" })
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (ResultDto result in Model.Results)
+        {
+            <tr class="cursor-pointer">
+                <td> @Html.DisplayFor(res => result.TeamNames.ToArray()[0]) </td>
+                <td> @Html.DisplayFor(res => result.Score) </td>
+                <td> @Html.DisplayFor(res => result.TeamNames.ToArray()[1]) </td>
+                <td> @Html.DisplayFor(res => result.Date) </td>
+                <td> @Html.DisplayFor(res => result.SportType.Name)</td>
+            </tr>
+        }
+    </tbody>
+</table>
 
-            <label for="timeSelector">Select Time</label>
-            <select class="form-control" id="timeSelector" name="timeSelector">
-                <option value=1>All</option>
-                <option value=0>Past</option>
-                <option value=2>Future</option>
-            </select>
-            <input class="btn btn-primary" type="submit" name="Select" />
-        </div>
-    }
-    <div>
-        <h2 style="text-align:center">@Model.SportTypeSelectDto.SelectedName</h2>
 
-        <table id="events" class="table table-hover table-striped"
-               cellspacing="0" style="border-collapse:collapse;">
-            <thead style="background: #6495ED; font-size : 16px;">
-                <tr>
-                    <th scope="col">First Team</th>
-                    <th scope="col">Score</th>
-                    <th scope="col">Second Team</th>
-                    <th scope="col">Date</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (SportTypeListDto sportType in Model.SportTypeSelectDto.SportTypeResults)
-            {
-                if (Model.SportTypeSelectDto.SelectedId == 0)
-                {
-                        <tr scope="colspan" class="cursor-pointer" style="background-color: #c2d5fa">
-                            <td style="color :#000000; text-align: center; font-size : 14px;" colspan="4">
-                                @Html.DisplayFor(sport => sportType.SportType.Name)
-                            </td>
-                        </tr>
-                    }
 
-                    foreach (ResultDto result in sportType.Results)
-                    {
-                        <tr class="cursor-pointer">
-                            <td> @Html.DisplayFor(res => result.TeamNames.ToArray()[0]) </td>
-                            <td> @Html.DisplayFor(res => result.Score) </td>
-                            <td> @Html.DisplayFor(res => result.TeamNames.ToArray()[1]) </td>
-                            <td> @Html.DisplayFor(res => result.Date) </td>
-                        </tr>
-                    }
-                }
-            </tbody>
-        </table>
-    </div>
-    @Html.Partial("_EventPaginationPartial", Model)
+@Html.Partial("_EventPaginationPartial", Model)
+

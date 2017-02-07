@@ -63,40 +63,6 @@ namespace JinnSports.BLL.Service
             {
                 switch (filter.SortedField)
                 {
-                    case "FirstTeam":
-                        if (filter.SortDirection == ListSortDirection.Ascending)
-                        {
-                            events = events.OrderBy(
-                                e => e.Results.ElementAt(0).Team.Name)
-                                .ThenBy(e => e.Results.ElementAt(0).Id)
-                                .ThenBy(e => e.Date);
-                        }
-                        else
-                        {
-                            events = events.OrderByDescending(
-                                e => e.Results.ElementAt(0).Team.Name)
-                                .ThenBy(e => e.Results.ElementAt(0).Id)
-                                .ThenBy(e => e.Date);
-                        }
-                        break;
-
-                    case "SecondTeam":
-                        if (filter.SortDirection == ListSortDirection.Ascending)
-                        {
-                            events = events.OrderBy(
-                                e => e.Results.ElementAt(1).Team.Name)
-                                .ThenBy(e => e.Results.ElementAt(1).Id)
-                                .ThenBy(e => e.Date);
-                        }
-                        else
-                        {
-                            events = events.OrderByDescending(
-                                e => e.Results.ElementAt(1).Team.Name)
-                                .ThenBy(e => e.Results.ElementAt(1).Id)
-                                .ThenBy(e => e.Date);
-                        }
-                        break;
-
                     case "Date":
                         if (filter.SortDirection == ListSortDirection.Ascending)
                         {
@@ -105,6 +71,17 @@ namespace JinnSports.BLL.Service
                         else
                         {
                             events = events.OrderByDescending(e => e.Date).ThenBy(e => e.Id);
+                        }
+                        break;
+
+                    case "SportType":
+                        if (filter.SortDirection == ListSortDirection.Ascending)
+                        {
+                            events = events.OrderBy(e => e.SportType.Id).ThenBy(e => e.Id);
+                        }
+                        else
+                        {
+                            events = events.OrderByDescending(e => e.SportType.Id).ThenBy(e => e.Id);
                         }
                         break;
 
@@ -187,8 +164,7 @@ namespace JinnSports.BLL.Service
 
             SportEventFilter filter = new SportEventFilter()
             {
-                DateFrom = DateTime.UtcNow,
-                DateTo = new DateTime()
+                DateFrom = DateTime.UtcNow
             };
 
             IEnumerable<ResultDto> upcomingEvents = this.GetSportEvents(filter);

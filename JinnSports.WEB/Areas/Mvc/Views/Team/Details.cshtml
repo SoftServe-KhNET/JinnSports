@@ -1,4 +1,6 @@
 ﻿@using JinnSports.BLL.Dtos
+@using JinnSports.BLL.Filters
+@using System.ComponentModel
 @model JinnSports.WEB.Areas.Mvc.Models.TeamDetailsViewModel
 
 @{
@@ -8,14 +10,29 @@
 
 
     <h2 style="text-align:center">@Model.TeamResultDto.Team.Name</h2>
+    @Html.Partial("_TeamDetailsFilterPartial", Model.Filter)
     <table id="teamResults" class="table table-hover table-striped"
            cellspacing="0" style="border-collapse:collapse;">
         <thead style="background: #6495ED; font-size : 16px;">
             <tr>
-                <th scope="col">First Team</th>
-                <th scope="col">Score</th>
-                <th scope="col">Second Team</th>
-                <th scope="col">Date</th>
+                <th scope="col">
+                    Команда
+                </th>
+                <th scope="col">Счёт</th>
+                <th scope="col">
+                    Команда
+                </th>
+                <th scope="col">
+                    @Html.ActionLink("Дата", Model.ActionName, Model.ControllerName, new TeamDetailsFilter()
+                    {
+                       TeamId = Model.Filter.TeamId,
+                       Page = Model.Filter.Page,
+                       PageSize = Model.Filter.PageSize,
+                       OpponentTeamName = Model.Filter.OpponentTeamName,
+                       SortedField = "Date",
+                       SortDirection = Model.Filter.SortDirection == ListSortDirection.Ascending ? ListSortDirection.Descending : ListSortDirection.Ascending
+                    }, new { style = "color:#000000" })
+                </th>
             </tr>
         </thead>
         <tbody>

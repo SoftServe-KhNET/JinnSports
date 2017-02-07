@@ -1,0 +1,20 @@
+﻿@using JinnSports.WEB.Areas.Mvc.Models
+@model JinnSports.BLL.Filters.TeamDetailsFilter
+
+@using (Html.BeginForm("Details", "Team", FormMethod.Get))
+{
+    @Html.HiddenFor(m => m.TeamId)
+    @Html.Label("Количество элементов на странице: ")
+    @Html.DropDownList("PageSize", PageInfo.PageSizes, Model.PageSize)
+    <p class="divider"></p>
+    @Html.Label("Оппонент команды: ")
+    @Html.EditorFor(m => m.OpponentTeamName)
+    <p class="divider"></p>
+    @Html.Label("Начало периода: ")
+    @Html.EditorFor(m => m.DateFrom)
+    <p class="divider"></p>
+    @Html.Label("Конец периода: ")
+    @Html.EditorFor(m => m.DateTo)
+    <p class="divider"></p>
+    <input class="btn btn-primary" type="submit" value="Отправить" />
+}

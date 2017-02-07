@@ -15,21 +15,8 @@
         <thead style="background: #6495ED; font-size : 16px;">
             <tr>
                 @* Column header "TeamName"*@
-                @if (string.IsNullOrEmpty(Model.Filter.SortedField) || Model.Filter.SortedField != "TeamName")
-                {
-                    <th scope="col">
-                    @Html.ActionLink("Команда", Model.ActionName, Model.ControllerName, new
-                    {
-                        Page = Model.Filter.Page,
-                        PageSize = Model.Filter.PageSize,
-                        TeamName = Model.Filter.TeamName,
-                        SortedField = "TeamName",
-                        SortDirection = ListSortDirection.Ascending
-                    }, null)
-                    </th>
-                }
-                else
-                {
+
+                
                     <th scope="col">
                     @Html.ActionLink("Команда", Model.ActionName, Model.ControllerName, new
                     {
@@ -38,26 +25,12 @@
                        TeamName = Model.Filter.TeamName,
                        SortedField = "TeamName",
                        SortDirection = Model.Filter.SortDirection == ListSortDirection.Ascending ? ListSortDirection.Descending : ListSortDirection.Ascending
-                    }, null)
+                    }, new { style="color:#000000"})
                     </th>
-                }
+                
                 
                 @* Column header "SportType"*@
-                @if (string.IsNullOrEmpty(Model.Filter.SortedField) || Model.Filter.SortedField != "SportType")
-                {
-                    <th scope="col">
-                    @Html.ActionLink("Вид спорта", Model.ActionName, Model.ControllerName, new
-                    {
-                        Page = Model.Filter.Page,
-                        PageSize = Model.Filter.PageSize,
-                        TeamName = Model.Filter.TeamName,
-                        SortedField = "SportType",
-                        SortDirection = ListSortDirection.Ascending
-                    }, null)
-                    </th>
-                }
-                else
-                {
+                
                     <th scope="col">
                     @Html.ActionLink("Вид спорта", Model.ActionName, Model.ControllerName, new
                     {
@@ -66,16 +39,16 @@
                        TeamName = Model.Filter.TeamName,
                        SortedField = "SportType",
                        SortDirection = Model.Filter.SortDirection == ListSortDirection.Ascending ? ListSortDirection.Descending : ListSortDirection.Ascending
-                    }, null)
+                    }, new { style="color:#000000"})
                     </th>
-                }
+                
             </tr>
         </thead>
         <tbody>
             @foreach (TeamDto team in Model.TeamDtos)
             {
                 <tr>
-                    <td scope = "col">@Html.ActionLink(team.Name, "Details", "Team", new { id = team.Id }, null)</td>
+                    <td scope = "col">@Html.ActionLink(team.Name, "Details", "Team", new { TeamId = team.Id }, null)</td>
                     <td scope="col">@team.SportType</td>
                 </tr >
             }

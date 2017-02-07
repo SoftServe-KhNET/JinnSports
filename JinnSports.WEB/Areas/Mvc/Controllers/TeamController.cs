@@ -12,8 +12,6 @@ namespace JinnSports.WEB.Areas.Mvc.Controllers
 {
     public class TeamController : Controller
     {
-        private const int PAGESIZE = 10;
-
         private readonly ITeamService teamService;
 
         private readonly ITeamDetailsService teamDetailsService;
@@ -24,10 +22,9 @@ namespace JinnSports.WEB.Areas.Mvc.Controllers
             this.teamDetailsService = teamDetailsService;
         }
 
-        // GET: Mvc/Team
-        public ActionResult Index(TeamFilter filter)
+        private TeamViewModel GetTeams(TeamFilter filter)
         {
-            int recordsTotal = this.teamService.Count(filter);            
+            int recordsTotal = this.teamService.Count(filter);
 
             IEnumerable<TeamDto> teams = this.teamService.GetTeams(filter);
 
@@ -35,23 +32,62 @@ namespace JinnSports.WEB.Areas.Mvc.Controllers
 
             TeamViewModel teamViewModel = new TeamViewModel()
             {
-                ActionName = "Index",
-                ControllerName = "Team",
                 PageInfo = pageInfo,
                 TeamDtos = teams,
                 Filter = filter
             };
+            return teamViewModel;
+        }
 
-            return this.View(teamViewModel);
+        private TeamDetailsViewModel GetTeamDetails(TeamDetailsFilter filter)
+        {
+            int recordsTotal = this.teamDetailsService.Count(filter);
+            IEnumerable<ResultDto> teamResults = 
+                this.teamDetailsService.GetResults(filter);
+            PageInfo pageInfo = new PageInfo(recordsTotal, filter.Page, filter.PageSize);
+            TeamDto team = this.teamService.GetTeamById(filter.TeamId);
+            TeamResultsDto teamResultsDto = new TeamResultsDto()
+            {
+                Results = teamResults,
+                Team = team
+            };
+
+            TeamDetailsViewModel viewModel = new TeamDetailsViewModel()
+            {
+                TeamResultDto = teamResultsDto,
+                PageInfo = pageInfo,
+                Filter = filter
+            };
+            return viewModel;
+        }
+
+        // GET: Mvc/Team
+        public ActionResult Index(TeamFilter filter)
+        {
+            TeamViewModel viewModel = this.GetTeams(filter);
+            viewModel.ActionName = "Index";
+            viewModel.ControllerName = "Team";
+
+            return this.View("Index", viewModel);
         }
 
         [HttpPost]
         public ActionResult FilterTeam(TeamFilter filter)
         {
             filter.Page = 1;
-            return RedirectToAction("Index", filter);
+            TeamViewModel viewModel = this.GetTeams(filter);
+
+            return this.View("Index", viewModel);
         }
 
+
+        public ActionResult Details(TeamDetailsFilter filter)
+        {
+            TeamDetailsViewModel viewModel = this.GetTeamDetails(filter);
+            viewModel.ActionName = "Details";
+            viewModel.ControllerName = "Team";
+            return this.View(viewModel);
+        }
 
         /*
         public ActionResult Details(int id, int page = 1)

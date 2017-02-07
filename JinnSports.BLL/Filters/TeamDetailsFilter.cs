@@ -11,18 +11,18 @@ namespace JinnSports.BLL.Filters
     {
         public int TeamId { get; set; }
 
-        public DateTime DateFrom { get; set; }
+        public int Page { get; set; } = 1;
 
-        public DateTime DateTo { get; set; }
-
-        public string OpponentTeamName { get; set; }
+        public int PageSize { get; set; } = 10;
 
         public ListSortDirection SortDirection { get; set; }
 
         public string SortedField { get; set; }
 
-        public int Page { get; set; } = 1;
+        public DateTime DateFrom { get; set; }
 
-        public int PageSize { get; set; } = 10;
+        public DateTime DateTo { get; set; }
+
+        public string OpponentTeamName { get; set; }
     }
 }
