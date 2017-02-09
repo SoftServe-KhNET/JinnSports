@@ -1,6 +1,7 @@
-﻿'use sctrict';
+﻿'use strict';
 
 var View = function () {
+    alert('init view constr)');
     this.models = [];
     var argModels = arguments;
     attachModels.call(this, argModels);
@@ -21,6 +22,7 @@ var View = function () {
 View.prototype = {
 
     init: function () {
+        alert('EventInit');
         this.createChildren()
             .setupHandlers()
             .enable();

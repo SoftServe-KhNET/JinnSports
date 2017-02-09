@@ -1,6 +1,8 @@
 'use strict';
 
 function JinnApp() {
+    alert(2);
+
     this.data = {};
     this.models = {};
     this.views = {};
@@ -15,6 +17,7 @@ function JinnApp() {
 };
 
 _.extend(JinnApp.prototype, {
+
     init: function () {
         this._analizeDom()
             ._initializeModels()

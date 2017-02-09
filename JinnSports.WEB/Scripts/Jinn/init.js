@@ -1,28 +1,21 @@
 (function () {
     'use strict';
 
-    var Jinn = null;
+    var jinn = null;
 
     // On page loaded
-    $(function () {
-        // Mapping views to routes
-        var routeMap = {
-            '#': ['view1', 'view2'],
+    document.addEventListener('DOMContentLoaded', function () {
 
-            '#news': ['view3']
-        };
+        jinn = new JinnApp();
 
-        Jinn = new JinnApp('body');
-        _.l(Jinn);
-        var model = new Jinn.Model({ lol: 'Lol' });
-        var model1 = new Jinn.Model({ kek: 'kekdata' });
-        _.extend(model1, {
-            get: function () {
+        var model1 = new tableModel();
+        var view1 = new tableView(model1);
 
-            }
-        });
-        var view = new View(model);
-        _.l(model);
-        _.l(model1);
+        jinn.Model = model1;
+        jinn.View = view1;
+
+        view1.init();
+
+        console.log(jinn);
     });
 })();

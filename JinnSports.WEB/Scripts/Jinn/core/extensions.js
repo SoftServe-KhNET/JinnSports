@@ -24,5 +24,23 @@
 
     _.l = l;
 
+    function extend(obj) {
+        var length = arguments.length;
+        if (length < 2) return obj;
+        var dst = obj;
+        for (var i = 1; i < length; i++) {
+            var arg = arguments[i];
+            for (var key in arg) {
+                if (arg.hasOwnProperty(key)) {
+                    dst[key] = arg[key];
+                }
+            }
+        }
+
+        return dst;
+    }
+
+    _.extend = extend;
+
     global._ = _;
 }(this));
