@@ -1,7 +1,6 @@
 'use strict';
 
 function JinnApp() {
-    alert(2);
 
     this.data = {};
     this.models = {};

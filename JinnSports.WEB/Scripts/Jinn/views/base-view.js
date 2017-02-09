@@ -1,37 +1,33 @@
 ﻿'use strict';
 
-var View = function () {
-    alert('init view constr)');
+var View = function (additionalProps) {
+    var prefix = 'v';
+    this._id = prefix + _.getUniqueId();
+
+    this.events = new EventService();
+
     this.models = [];
     var argModels = arguments;
     attachModels.call(this, argModels);
 
     function attachModels(argModels) {
-        for (var i = 0; i < argModels.length; i++) {
+        for (var i = 1; i < argModels.length; i++) {
             if (argModels[i] instanceof Model) {
                 this.models.push(argModels[i]);
             }
         }
     }
 
-    this.events = new EventService();
+    _.extend(this, additionalProps);
 
     this.init();
 }
 
-View.prototype = {
+_.extend(View.prototype, {
 
     init: function () {
-        alert('EventInit');
-        this.createChildren()
-            .setupHandlers()
+        this.setupHandlers()
             .enable();
-    },
-
-    createChildren: function () {
-        this.$button = $('.button');
-
-        return this;
     },
 
     setupHandlers: function () {
@@ -41,17 +37,36 @@ View.prototype = {
     },
 
     enable: function () {
-        for (var i = 0; i < this.models.length; i++) {
-            this.models[i].events.registerListener(EventService.messages.MODEL_HAS_BEEN_UPDATED,
-                this.modelUpdateHandler,
-                this);
-        }
-        this.$button.click(this.events.sendMessage(EventService.messages.MODEL_UPDATE_REQUEST, null));
+        this._subscribeToModels.apply(this, this.models);
 
         return this;
     },
 
-    render: function () {
-        console.log(this.models[0].get());
-    }
-};
+    addModels: function () {
+        for (var i = 0; i < arguments.length; i++) {
+            if (arguments[i] instanceof Model) {
+                this.models.push(arguments[i]);
+            }
+        }
+        this._subscribeToModels.apply(this, arguments);
+    },
+
+    _subscribeToModels: function () {
+        for (var i = 0; i < arguments.length; i++) {
+            if (arguments[i] instanceof Model) {
+                arguments[i].events.registerListener(
+                    EventService.messages.MODEL_HAS_BEEN_UPDATED,
+                    this.modelUpdateHandler,
+                    this);
+            }
+        }
+    },
+
+    render: function () { },
+
+    remove: function () { },
+
+    show: function () { },
+
+    hide: function () { }
+});

@@ -1,27 +1,32 @@
 'use strict';
 
 function tableView(model) {
-
-    return _.extend(new View(model), {
+    return new View({
 
         render: function () {
-            alert('table rendering');
             var table = document.getElementById("teamsTable");
-            table.remove();
-            this.buildTable();
+
+            if (table)
+            {
+                table.remove();
+                this.buildTable();
+            }
+            else
+            {
+                this.show();
+            }
         },
 
         init: function () {
+            this.setupHandlers()
+                .enable();
             this.models[0].updateData(this.models[0].data.records_per_page, this.models[0].data.records_per_page * (this.models[0].data.current_page - 1), this.models[0].data.records_per_page);
         },
 
         show: function () {
-            alert('show');
             this.buildTable();
             this.buildPagingNavBar();
             this.buildSelector();
-            alert('before changePage 1')
-            this.changePage(1);
         },
 
         buildSelector: function () {
@@ -52,21 +57,23 @@ function tableView(model) {
         },
 
         buildTable: function () {
-            alert('buildTable');
+            alert('build table');
             var tableContainer = document.getElementsByClassName('js-table-container')[0];
             var tbl = document.createElement('table');
 
             //tbl.setAttribute('class', 'table');
             var tbdy = document.createElement('tbody');
             var teams = this.models[0].get('teams');
+
             console.log(teams);
 
             tbl.style.width = '100%';
             tbl.setAttribute('border', '1');
             tbl.setAttribute('id', 'teamsTable');
 
-            for (var i = 0; i < this.teams.length; i++) {
-                //var team = this.teams;
+            for (var i = 0; i < teams.data.length; i++) {
+                var team = teams.data[i];
+
                 console.log(team);
                 var row = document.createElement('tr');
 
@@ -105,7 +112,18 @@ function tableView(model) {
             pagination_li.appendChild(pagination_li_a);
             pagination_ul.appendChild(pagination_li);
 
-            for (var iter = 0; iter < this.numPages() ; iter++) {
+            pagination_li = document.createElement('li');
+            pagination_li_a = document.createElement('a');
+            pagination_li_a.innerHTML = 1;
+            pagination_li_a.id = 1;
+            pagination_li_a.onclick = function () {
+                proto.choosePage(this.id);
+            }
+            pagination_li_a.setAttribute('class', 'active');
+            pagination_li.appendChild(pagination_li_a);
+            pagination_ul.appendChild(pagination_li);
+
+            for (var iter = 1; iter < this.numPages() ; iter++) {
                 pagination_li = document.createElement('li');
                 pagination_li_a = document.createElement('a');
                 pagination_li_a.innerHTML = iter + 1;
@@ -140,19 +158,19 @@ function tableView(model) {
         prevPage: function () {
             if (this.models[0].data.current_page > 1) {
                 this.models[0].data.current_page--;
-                this.changePage(this.model.data.current_page);
+                this.changePage(this.models[0].data.current_page);
             }
         },
 
         nextPage: function () {
             if (this.models[0].data.current_page < this.numPages()) {
                 this.models[0].data.current_page++;
-                this.models[0].data.changePage(this.current_page);
+                this.changePage(this.models[0].data.current_page);
             }
         },
 
         numPages: function () {
-            return Math.ceil(this.teams.length / this.records_per_page);
+            return Math.ceil(this.models[0].get('teams').recordsTotal / this.models[0].data.records_per_page);
         },
 
         changePage: function (page) {
@@ -189,5 +207,5 @@ function tableView(model) {
 
         }
 
-    })
+    }, model)
 };

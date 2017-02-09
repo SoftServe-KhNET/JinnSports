@@ -1,29 +1,29 @@
 ﻿'use strict';
 
-var Model = function (data) {
-    alert('model constr');
-    this.data = data || {};
+var Model = function (additionalProps) {
+    this.data = {};
     var prefix = 'm';
-    this.id = prefix + _.getUniqueId();
+    this._id = prefix + _.getUniqueId();
 
     this.events = new EventService();
+
+    _.extend(this, additionalProps);
+
+    this.init();
 };
 
 _.extend(Model.prototype, {
+    init: function () { },
 
     // Setting new data and notifying about it
     // TODO: ability to set multiple key:value or set as {key:value} object
     set: function (key, value) {
-
         if (arguments.length !== 2 || typeof arguments[0] !== 'string') {
             return this;
         }
         this.data[key] = value;
 
         this.events.sendMessage(EventService.messages.MODEL_HAS_BEEN_UPDATED, key);
-
-        alert('event create');
-
         return this;
     },
 
