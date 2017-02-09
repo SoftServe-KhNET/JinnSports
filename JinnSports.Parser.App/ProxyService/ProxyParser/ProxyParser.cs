@@ -3,7 +3,8 @@ using System.Linq;
 using JinnSports.Parser.App.ProxyService.ProxyRepository;
 using System.Net;
 using System.IO;
-using HtmlAgilityPack;
+using AngleSharp.Dom;
+using AngleSharp.Parser.Html;
 using System.Globalization;
 using System.Collections.Generic;
 using JinnSports.Parser.App.ProxyService.ProxyEntities;
@@ -90,31 +91,31 @@ namespace JinnSports.Parser.App.ProxyService.ProxyParser
                 string result = string.Empty;
                 req = (HttpWebRequest)WebRequest.Create(url + "?page=" + page++);
                 req.Headers.Set(HttpRequestHeader.ContentEncoding, "utf-8");
-                //TODO try
-                resp = (HttpWebResponse)req.GetResponse();
-                result = new StreamReader(resp.GetResponseStream()).ReadToEnd();
-                HtmlDocument doc = new HtmlDocument();
-                doc.LoadHtml(result);
-                HtmlNode doc_proxyArea = doc.DocumentNode.SelectSingleNode("//table/tbody");
+
                 try
                 {
-                    foreach (HtmlNode doc_lineNode in doc_proxyArea.SelectNodes("tr"))
+                    resp = (HttpWebResponse)req.GetResponse();
+                    result = new StreamReader(resp.GetResponseStream()).ReadToEnd();
+                    var parser = new HtmlParser();
+                    var doc = parser.Parse(result);
+                    var doc_proxyArea = doc.QuerySelectorAll("table tbody tr");
+                    foreach (var doc_lineNode in doc_proxyArea)
                     {
-                        HtmlNodeCollection doc_proxyLine = doc_lineNode.SelectNodes("td");
+                        var doc_proxyLine = doc_lineNode.QuerySelectorAll("td");
 
                         //Entities formation
                         HtmlProxyServer proxyEntity = new HtmlProxyServer();
-                        proxyEntity.Type = doc_proxyLine.ElementAt(5).InnerText.Split('\n')[1].Split('\r')[0];
+                        proxyEntity.Type = doc_proxyLine.ElementAt(5).TextContent.Split('\n')[1].Split('\r')[0];
                         if (proxyEntity.Type == "HTTPS")
                         {
-                            proxyEntity.Ip = doc_proxyLine.ElementAt(1).InnerText;
+                            proxyEntity.Ip = doc_proxyLine.ElementAt(1).TextContent;
                             if (proxyEntities.HtmlProxies.Where(x => x.Ip == proxyEntity.Ip).ToList().Count() == 0)
                             {
-                                proxyEntity.Port = doc_proxyLine.ElementAt(2).InnerText;
-                                proxyEntity.Anonymity = doc_proxyLine.ElementAt(4).InnerText;
+                                proxyEntity.Port = doc_proxyLine.ElementAt(2).TextContent;
+                                proxyEntity.Anonymity = doc_proxyLine.ElementAt(4).TextContent;
                                 NumberFormatInfo provider = new NumberFormatInfo();
                                 provider.NumberDecimalSeparator = ".";
-                                proxyEntity.Ping = Convert.ToDouble(doc_proxyLine.ElementAt(6).InnerText, provider);
+                                proxyEntity.Ping = Convert.ToDouble(doc_proxyLine.ElementAt(6).TextContent, provider);
                                 proxyEntities.HtmlProxies.Add(proxyEntity);
                             }
                         }
