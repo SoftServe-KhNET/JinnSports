@@ -12,11 +12,14 @@ using System.Threading;
 using JinnSports.Parser.App.ProxyService.ProxyEnums;
 using System.Threading.Tasks;
 using JinnSports.Parser.App.WebConnection;
+using log4net;
 
 namespace JinnSports.Parser.App.ProxyService.ProxyConnections
 {
     public class ProxyConnection : IProxyConnection
     {
+        private static readonly ILog Log =
+            LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         private static object connectionLocker = new object();
         private ProxyRepository<ProxyServer> xmlWriter;
 
@@ -35,9 +38,9 @@ namespace JinnSports.Parser.App.ProxyService.ProxyConnections
                     }
                     xmlWriter.Modify(eliminatedCollection);
                 }
-                catch (Exception e)
+                catch (Exception ex)
                 {
-                    throw e;
+                    Log.Error(ex);
                 }
             }
         }
@@ -137,7 +140,7 @@ namespace JinnSports.Parser.App.ProxyService.ProxyConnections
                 }
                 catch (Exception ex)
                 {
-                    throw ex;
+                    Log.Error(ex);
                 }
                 xmlWriter.Modify(proxy);
             }
@@ -164,9 +167,9 @@ namespace JinnSports.Parser.App.ProxyService.ProxyConnections
                     xmlWriter.Modify(proxyServer);
                     return proxyServer.Ip;
                 }
-                catch (Exception e)
+                catch (Exception ex)
                 {
-                    Console.WriteLine(e.Message);
+                    Log.Error(ex);
                 }
                 return string.Empty;
             }
