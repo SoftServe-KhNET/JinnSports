@@ -16,6 +16,7 @@ function tableModel() {
 
             function sendRequestToServer() {
                 var params = ["draw=" + draw + "&start=" + start + "&length=" + length];
+                console.log(params);
                 self.sendRequest("/api/Team/LoadTeams", params, getResponseFromServer, "GET");
             }
 
@@ -23,7 +24,6 @@ function tableModel() {
                 if (httpRequest.readyState == 4) {
                     if (httpRequest.status == 200) {
                         self.set('teams', JSON.parse(httpRequest.responseText));
-                        console.log(self.get('teams'));
                     }
                 }
             }
@@ -53,16 +53,17 @@ function tableModel() {
             if (httpMethod != 'GET' && httpMethod != 'POST') {
                 httpMethod = 'GET';
             }
-            var httpParams = (params == null || params == '') ? null : params;
+            var httpParams = params;
+
             var httpUrl = url;
             if (httpMethod == 'GET' && httpParams != null) {
                 httpUrl = httpUrl + "?" + httpParams;
             }
-            alert(httpRequest);
+
             httpRequest.open(httpMethod, httpUrl, true);
             httpRequest.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
             httpRequest.onreadystatechange = callback;
-            httpRequest.send(httpMethod == 'POST' ? httpParams : null);
+            httpRequest.send(httpMethod != 'POST' ? httpParams : null);
         }
     })
 };

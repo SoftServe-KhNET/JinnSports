@@ -519,7 +519,6 @@
     <Content Include="Scripts\DataTables\responsive.jqueryui.min.js" />
     <Content Include="Scripts\DataTables\responsive.semanticui.js" />
     <Content Include="Scripts\DataTables\responsive.semanticui.min.js" />
-    <Content Include="Scripts\Jinn\components\teams\table-init.js" />
     <Content Include="Scripts\Jinn\components\teams\table-model.js" />
     <Content Include="Scripts\Jinn\components\teams\table-view.js" />
     <Content Include="Scripts\Jinn\core\app-instance.js" />

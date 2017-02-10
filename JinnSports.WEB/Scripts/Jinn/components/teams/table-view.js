@@ -5,11 +5,13 @@ function tableView(model) {
 
         render: function () {
             var table = document.getElementById("teamsTable");
-
-            if (table)
+            var pagingNavBar = document.getElementById("pagingNavBar");
+            if (table || pagingNavBar)
             {
                 table.remove();
+                pagingNavBar.remove();
                 this.buildTable();
+                this.buildPagingNavBar();
             }
             else
             {
@@ -20,6 +22,7 @@ function tableView(model) {
         init: function () {
             this.setupHandlers()
                 .enable();
+
             this.models[0].updateData(this.models[0].data.records_per_page, this.models[0].data.records_per_page * (this.models[0].data.current_page - 1), this.models[0].data.records_per_page);
         },
 
@@ -30,7 +33,6 @@ function tableView(model) {
         },
 
         buildSelector: function () {
-            alert('buildSelector');
             var selectContainer = document.getElementsByClassName('js-select-container')[0];
             var selector = document.createElement('select');
             selector.setAttribute('class', 'select-style');
@@ -57,15 +59,12 @@ function tableView(model) {
         },
 
         buildTable: function () {
-            alert('build table');
             var tableContainer = document.getElementsByClassName('js-table-container')[0];
             var tbl = document.createElement('table');
 
             //tbl.setAttribute('class', 'table');
             var tbdy = document.createElement('tbody');
             var teams = this.models[0].get('teams');
-
-            console.log(teams);
 
             tbl.style.width = '100%';
             tbl.setAttribute('border', '1');
@@ -74,7 +73,6 @@ function tableView(model) {
             for (var i = 0; i < teams.data.length; i++) {
                 var team = teams.data[i];
 
-                console.log(team);
                 var row = document.createElement('tr');
 
                 for (var team_prop in team) {
@@ -93,8 +91,7 @@ function tableView(model) {
         },
 
         buildPagingNavBar: function () {
-            alert('buildSNavBar');
-            var proto = this;
+            var self = this;
             var pagingContainer = document.getElementsByClassName('js-paging-container')[0];
 
             var pagination_ul = document.createElement('ul');
@@ -105,31 +102,20 @@ function tableView(model) {
             pagination_li_a.setAttribute('href', '#');
 
             pagination_li_a.onclick = function () {
-                proto.prevPage();
+                self.prevPage();
             }
 
             pagination_li_a.innerHTML = '&laquo';
             pagination_li.appendChild(pagination_li_a);
             pagination_ul.appendChild(pagination_li);
 
-            pagination_li = document.createElement('li');
-            pagination_li_a = document.createElement('a');
-            pagination_li_a.innerHTML = 1;
-            pagination_li_a.id = 1;
-            pagination_li_a.onclick = function () {
-                proto.choosePage(this.id);
-            }
-            pagination_li_a.setAttribute('class', 'active');
-            pagination_li.appendChild(pagination_li_a);
-            pagination_ul.appendChild(pagination_li);
-
-            for (var iter = 1; iter < this.numPages() ; iter++) {
+            for (var iter = 0; iter < this.numPages() ; iter++) {
                 pagination_li = document.createElement('li');
                 pagination_li_a = document.createElement('a');
                 pagination_li_a.innerHTML = iter + 1;
-                pagination_li_a.id = iter + 1;
+                pagination_li_a.id = 'page ' + (iter + 1);
                 pagination_li_a.onclick = function () {
-                    proto.choosePage(this.id);
+                    self.choosePage(this.id.split(' ')[1]);
                 }
                 pagination_li.appendChild(pagination_li_a);
                 pagination_ul.appendChild(pagination_li);
@@ -139,13 +125,16 @@ function tableView(model) {
             pagination_li_a = document.createElement('a');
             pagination_li_a.setAttribute('href', '#');
             pagination_li_a.onclick = function () {
-                proto.nextPage();
+                self.nextPage();
             }
             pagination_li_a.innerHTML = '&raquo';
             pagination_li.appendChild(pagination_li_a);
             pagination_ul.appendChild(pagination_li);
 
             pagingContainer.appendChild(pagination_ul);
+
+            pagination_li_a = document.getElementById('page ' + this.models[0].data.current_page);
+            pagination_li_a.setAttribute('class', 'active');
         },
 
         choosePage: function (page) {
@@ -174,8 +163,8 @@ function tableView(model) {
         },
 
         changePage: function (page) {
-            alert('changePage');
             // Validate page
+            console.log(page);
             if (page < 1) page = 1;
             if (page > this.numPages()) page = this.numPages();
 
@@ -197,9 +186,11 @@ function tableView(model) {
         changeDataCount: function () {
             var selected_index = document.getElementById('tableSelector').selectedIndex;
 
-            if (selected_index > 0) {
+            if (selected_index => 0) {
                 var selected_option_value = document.getElementById('tableSelector').options[selected_index].value;
                 this.models[0].data.records_per_page = selected_option_value;
+                this.models[0].data.current_page = 1;
+                this.changePage(1);
             }
             else {
                 alert('non selected');
