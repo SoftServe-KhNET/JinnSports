@@ -4,6 +4,9 @@ function teamsView(model) {
     this.table = new $j_table(
         {
             $j_tableId: "teamsTable",
+            
+            $j_container: "$j_table-component",
+
             $j_ajax: {
                 url: "/api/Team/LoadTeams"
             },

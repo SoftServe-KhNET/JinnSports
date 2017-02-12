@@ -11,21 +11,19 @@ _.extend($j_selector.prototype, {
     },
 
     build: function () {
-            var selectContainer = document.getElementsByClassName('js-select-container')[0];
+            var selectorContainer = document.getElementsByClassName(this.$j_container)[0];
+            if (!selectorContainer) {
+                if (this.$j_container) {
+                    var selectorContainer = document.createElement('div');
+                    selectorContainer.setAttribute('class', this.$j_container);
+                }
+            }
+            console.log(selectorContainer);
             var selectorLabel = document.createElement('label');
-            console.log(this.$j_data.info);
-            //if (this.$j_data.info)
-            //selectorLabel.innerHTML = this.$j_data.options[option]
+            
             var selector = document.createElement('select');
             selector.setAttribute('class', 'select-style');
             selector.setAttribute('id', this.$j_selectorId);
-            var self = this;
-            console.log(self);
-            selector.onchange = function () {
-                var a = self.$j_events.onclick;
-                console.log(a);
-                //this.$j_events.onclick();
-            }
 
             function addOption(oList, optionName, optionValue) {
                 var oOption = document.createElement("option");
@@ -37,6 +35,22 @@ _.extend($j_selector.prototype, {
             for (var option = 0; option < this.$j_data.options.length; option++) {
                 addOption(selector, this.$j_data.options[option], this.$j_data.options[option]);
             }
-            selectContainer.appendChild(selector);
+
+            if (this.$j_data.info.includes("__$j_Selector__")) {
+                selectorLabel.innerHTML = this.$j_data.info.split("__$j_Selector__")[0];
+                selectorLabel.appendChild(selector);
+                selectorLabel.innerHTML += this.$j_data.info.split("__$j_Selector__")[1];
+            } else {
+                selectorLabel.innerHTML = this.$j_data.info;
+                selectorLabel.appendChild(selector);
+            }
+            if (selectorContainer)
+            {
+                selectorContainer.appendChild(selectorLabel);
+                document.body.appendChild(selectorContainer);
+            } else
+            {
+                document.body.appendChild(selectorLabel);
+            }
     }
 });

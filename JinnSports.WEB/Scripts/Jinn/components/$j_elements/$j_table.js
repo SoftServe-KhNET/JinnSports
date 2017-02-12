@@ -8,7 +8,7 @@ function $j_table(additionalParameters, model) {
 
             render: function () {
                 var table = document.getElementById(this.$j_tableId);
-                var pagingNavBar = document.getElementById("pagingNavBar");
+                var pagingNavBar = document.getElementById(this.$j_tableId + "_pagingNavBar");
                 if (table || pagingNavBar)
                 {
                     table.remove();
@@ -31,11 +31,11 @@ function $j_table(additionalParameters, model) {
 
             show: function () {
                 this.buildTable();
-                this.buildPagingNavBar();
 
                 if (this.$j_settings.selector.options.length > 0) {
                     this.buildSelector();
                 }
+                this.buildPagingNavBar();
             },
 
             buildSelector: function () {
@@ -43,20 +43,39 @@ function $j_table(additionalParameters, model) {
                     var selector = new $j_selector(
                         {
                             $j_selectorId: self.$j_tableId + "Selector",
+                            
+                            $j_container: self.$j_container,
 
                             $j_data: {
                                 info: this.$j_settings.selector.info,
                                 options: this.$j_settings.selector.options
                             },
-                            $j_events: {
-                                onclick: self.changeDataCount()
-                            },
                         });
                     selector.build();
+
+                    selector = document.getElementById(this.$j_tableId + "Selector");
+
+                    selector.onchange = function () {
+                        self.changeDataCount();
+                    }
                 },
 
             buildTable: function () {
-                var tableContainer = document.getElementsByClassName('js-table-container')[0];
+
+                var tableContainer = document.getElementsByClassName(this.$j_container)[0];
+                if (!tableContainer)
+                {
+                    if (this.$j_container) {
+                        var tableContainer = document.createElement('div');
+                        tableContainer.setAttribute('class', this.$j_container);
+                    } else
+                    {
+                        var tableContainer = document.createElement('div');
+                        tableContainer.setAttribute('class', '$j_' + this.$j_tableId);
+                        this.$j_container = '$j_' + this.$j_tableId;
+                    }
+                }
+
                 var tbl = document.createElement('table');
                 var tbdy = document.createElement('tbody');
                 var teams = this.models[this.data.currentModelIndex].get('teams');
@@ -93,15 +112,17 @@ function $j_table(additionalParameters, model) {
                 }
                 tbl.appendChild(tbdy);
                 tableContainer.appendChild(tbl);
+                document.body.appendChild(tableContainer);
             },
 
             buildPagingNavBar: function () {
                 var self = this;
-                var pagingContainer = document.getElementsByClassName('js-paging-container')[0];
+               
+                var pagingContainer = document.getElementsByClassName(this.$j_container)[0];
 
                 var pagination_ul = document.createElement('ul');
                 pagination_ul.setAttribute('class', 'pagination');
-                pagination_ul.setAttribute('id', 'pagingNavBar');
+                pagination_ul.setAttribute('id', this.$j_tableId + "_pagingNavBar");
                 var pagination_li = document.createElement('li');
                 var pagination_li_a = document.createElement('a');
                 pagination_li_a.setAttribute('href', '#');
@@ -288,7 +309,7 @@ function $j_table(additionalParameters, model) {
                 if (page > this.numPages()) page = this.numPages();
 
                 //отрисовка данных по номеру страницы, запрос на сервер отдельная функция
-                var pagingNavBar = document.getElementById('pagingNavBar');
+                var pagingNavBar = document.getElementById(this.$j_tableId + '_pagingNavBar');
                 var pages = pagingNavBar.getElementsByTagName('a');
 
                 for (var i = 0; i < pages.length; i++) {
@@ -303,7 +324,6 @@ function $j_table(additionalParameters, model) {
             },
 
             changeDataCount: function () {
-                alert('change data count');
                 var selected_index = document.getElementById(this.$j_tableId + 'Selector').selectedIndex;
                 console.log(selected_index);
                 if (selected_index => 0) {
