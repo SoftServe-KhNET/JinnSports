@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-var Model = function (additionalProps) {
+function Model(additionalProps) {
     this.data = {};
     var prefix = 'm';
     this._id = prefix + _.getUniqueId();

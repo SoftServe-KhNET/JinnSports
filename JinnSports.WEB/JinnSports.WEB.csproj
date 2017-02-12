@@ -519,8 +519,11 @@
     <Content Include="Scripts\DataTables\responsive.jqueryui.min.js" />
     <Content Include="Scripts\DataTables\responsive.semanticui.js" />
     <Content Include="Scripts\DataTables\responsive.semanticui.min.js" />
-    <Content Include="Scripts\Jinn\components\teams\table-model.js" />
-    <Content Include="Scripts\Jinn\components\teams\table-view.js" />
+    <Content Include="Scripts\Jinn\components\%24j_elements\%24j_selector.js" />
+    <Content Include="Scripts\Jinn\components\table component\table-model.js" />
+    <Content Include="Scripts\Jinn\components\%24j_elements\%24j_table.js" />
+    <Content Include="Scripts\Jinn\components\tables\events.js" />
+    <Content Include="Scripts\Jinn\components\tables\teams.js" />
     <Content Include="Scripts\Jinn\core\app-instance.js" />
     <Content Include="Scripts\Jinn\core\event-dispatcher.js" />
     <Content Include="Scripts\Jinn\core\extensions.js" />

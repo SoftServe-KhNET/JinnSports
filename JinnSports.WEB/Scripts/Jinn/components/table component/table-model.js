@@ -2,22 +2,27 @@
 var httpRequest = null;
 
 function tableModel() {
+
     return new Model({
 
         data: {
             teams: [],
             current_page: 1,
-            records_per_page: 10
+            records_per_page: 10,
         },
 
-        updateData: function (draw, start, length) {
+        updateData: function (connectionString) {
             var self = this;
             sendRequestToServer();
 
             function sendRequestToServer() {
+                var draw = self.data.records_per_page;
+                var start = self.data.records_per_page * (self.data.current_page - 1);
+                var length = self.data.records_per_page;
+
                 var params = ["draw=" + draw + "&start=" + start + "&length=" + length];
-                console.log(params);
-                self.sendRequest("/api/Team/LoadTeams", params, getResponseFromServer, "GET");
+
+                self.sendRequest(connectionString, params, getResponseFromServer, "GET");
             }
 
             function getResponseFromServer() {

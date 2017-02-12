@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-var View = function (additionalProps) {
+function View(additionalProps) {
     var prefix = 'v';
     this._id = prefix + _.getUniqueId();
 

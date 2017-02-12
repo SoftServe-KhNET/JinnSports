@@ -8,14 +8,19 @@
 
         jinn = new JinnApp();
 
-        var model1 = new tableModel();
-        var view1 = new tableView(model1);
+        var teams = new tableModel();
+        //var view1 = new teamsView(teams);
 
-        jinn.Model = model1;
-        jinn.View = view1;
+        //var tview = new tableView(teams);
+        //var tview1 = new teamsView(teams);
+        var eview1 = new eventsView(teams);
 
-        view1.init();
+        jinn.Model = teams;
+        jinn.View = eview1;
 
-        console.log(jinn);
+        //tview1.init();
+
+        //console.log(tview);
+        console.log(eview1);
     });
 })();
