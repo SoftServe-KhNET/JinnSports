@@ -13,12 +13,11 @@ namespace PredictorBalancer.Controllers
     {
         private BalancerMonitor instance;
 
-        public void PostPackage([FromBody]PackageDTO package)
+        public IHttpActionResult PostPackage([FromBody]PackageDTO package)
         {
             this.instance = BalancerMonitor.GetInstance();
-            // TODO: get app url
-            //this.instance.SendIncomingEvents(package, RequestContext.VirtualPathRoot);
-            this.instance.SendIncomingEvents(package, $"http://localhost:7611");
+            this.instance.SendIncomingEvents(package, Request.RequestUri.GetLeftPart(UriPartial.Authority));
+            return this.Ok();
         }
     }
 }

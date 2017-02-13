@@ -8,6 +8,7 @@ using System.Web.Mvc;
 using System.Web.Optimization;
 using PredictorBalancer.App_Start;
 
+[assembly: log4net.Config.XmlConfigurator(Watch = true)]
 namespace PredictorBalancer
 {
     public class WebApiApplication : System.Web.HttpApplication

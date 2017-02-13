@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Hosting;
 using System.Xml;
 
 namespace PredictorApplication.Models.Settings
@@ -11,36 +12,55 @@ namespace PredictorApplication.Models.Settings
     {
         private static readonly ILog Log = LogManager.GetLogger(typeof(SettingsReader));
 
+        private static SettingsReader instance;
+        private static readonly int DEFAULT_SCORE = 5;
+        private readonly object lockMonitor = new object();
+
+        private SettingsReader()
+        {
+
+        }
+
+        public static SettingsReader GetInstance()
+        {
+            if (instance == null)
+            {
+                instance = new SettingsReader();
+            }
+            return instance;
+        }
+
         public int ReadMaxScore(string type)
         {
-            int maxScore = 5;
-            /*
-            try
+            lock (lockMonitor)
             {
-                XmlDocument xDoc = new XmlDocument();
-                //TODO: resolve loading from IIS directory
-                xDoc.Load(@"C:\HomeControlTest\sport-types.xml");
-                XmlElement xNodes = xDoc.DocumentElement;
+                int maxScore = DEFAULT_SCORE;
 
-                foreach (XmlNode xNode in xNodes)
+                try
                 {
-                    if (xNode.Attributes.Count > 0)
+                    XmlDocument xDoc = new XmlDocument();
+                    xDoc.Load(HostingEnvironment.MapPath("~/App_Data/") + "sport-types.xml");
+                    XmlElement xNodes = xDoc.DocumentElement;
+
+                    foreach (XmlNode xNode in xNodes)
                     {
-                        XmlNode attr = xNode.Attributes.GetNamedItem("type");
-                        if ((attr != null) && (attr.Value == type))
+                        if (xNode.Attributes.Count > 0)
                         {
-                            int.TryParse(xNode.SelectSingleNode("max-score").InnerText, out maxScore);
+                            XmlNode attr = xNode.Attributes.GetNamedItem("type");
+                            if ((attr != null) && (attr.Value == type))
+                            {
+                                int.TryParse(xNode.InnerText, out maxScore);
+                            }
                         }
                     }
                 }
-            }
-            catch (Exception ex)
-            {
-                Log.Error("Exception while trying to read SportTypes", ex);
-            }
-            */
+                catch (Exception ex)
+                {
+                    Log.Error("Exception while trying to read SportTypes", ex);
+                }
 
-            return maxScore;
+                return maxScore;
+            }
         }
     }
 }

@@ -50,7 +50,7 @@ namespace PredictorApplication.Models
 
                 Prediction prediction = this.CreatePrediction(incomingEvent);
 
-                int maxScore = new SettingsReader().ReadMaxScore(incomingEvent.SportType);
+                int maxScore = SettingsReader.GetInstance().ReadMaxScore(incomingEvent.SportType);
 
                 foreach (TeamInfo teamInfo in incomingEvent.TeamsInfo)
                 {
@@ -77,8 +77,6 @@ namespace PredictorApplication.Models
             {
                 Log.Error("Exception while trying to PredictEvent", ex);
             }
-            //TODO: remove test sleep
-            Thread.Sleep(5000);
             
         }
 

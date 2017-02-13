@@ -24,7 +24,7 @@ namespace ScorePredictor
             else
             {
                 this.CalcRates(teamEvents);
-                this.Rating = this.attackRate * this.defenseRate;
+                this.Rating = this.attackRate / this.defenseRate;
             }
         }
 
@@ -32,10 +32,10 @@ namespace ScorePredictor
 
         private double CalcHomeEffect(IEnumerable<TeamEvent> teamEvents)
         {
-            int homeAttackScores = 0;
-            int homedefenseScores = 0;
-            int awayAttackScores = 0;
-            int awaydefenseScores = 0;
+            double homeAttackScores = 0;
+            double homedefenseScores = 0;
+            double awayAttackScores = 0;
+            double awaydefenseScores = 0;
             int homeGames = 1;
             int awayGames = 1;
 

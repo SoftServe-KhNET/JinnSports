@@ -1,0 +1,37 @@
+2017-01-26 16:49:53,443 [14] INFO PredictorBalancer.Models.Predictor - Starting Data transfer
+2017-01-26 16:49:55,785 [7] INFO PredictorBalancer.Models.Predictor - Starting Data transfer
+2017-01-26 16:49:57,804 [16] INFO PredictorBalancer.Models.Predictor - Starting Data transfer
+2017-01-26 16:49:59,536 [7] INFO PredictorBalancer.Models.Predictor - Starting Data transfer
+2017-01-26 16:50:01,331 [9] INFO PredictorBalancer.Models.Predictor - Starting Data transfer
+2017-01-26 16:50:02,999 [7] INFO PredictorBalancer.Models.Predictor - Starting Data transfer
+2017-01-26 16:50:04,594 [7] INFO PredictorBalancer.Models.Predictor - Starting Data transfer
+2017-01-26 16:50:06,946 [9] INFO PredictorBalancer.Models.Predictor - Starting Data transfer
+2017-01-26 16:50:10,300 [16] INFO PredictorBalancer.Models.Predictor - Starting Data transfer
+2017-01-26 16:50:12,408 [16] INFO PredictorBalancer.Models.Predictor - Starting Data transfer
+2017-01-26 16:50:13,882 [7] INFO PredictorBalancer.Models.Predictor - Starting Data transfer
+2017-01-26 16:50:15,073 [7] INFO PredictorBalancer.Models.Predictor - Starting Data transfer
+2017-01-26 16:50:16,561 [7] INFO PredictorBalancer.Models.Predictor - Starting Data transfer
+2017-01-26 16:50:17,961 [7] INFO PredictorBalancer.Models.Predictor - Starting Data transfer
+2017-01-26 16:50:19,135 [7] INFO PredictorBalancer.Models.Predictor - Starting Data transfer
+2017-01-26 16:50:19,985 [4] INFO PredictorBalancer.Models.Predictor - Predictor #0 is currently available
+2017-01-26 16:50:20,023 [3] INFO PredictorBalancer.Models.Predictor - Predictor #0 is currently available
+2017-01-26 16:50:20,045 [3] INFO PredictorBalancer.Models.Predictor - Predictor #0 is currently available
+2017-01-26 16:50:20,062 [10] INFO PredictorBalancer.Models.Predictor - Predictor #0 is currently available
+2017-01-26 16:50:20,073 [4] INFO PredictorBalancer.Models.Predictor - Predictor #0 is currently available
+2017-01-26 16:50:20,255 [10] INFO PredictorBalancer.Models.Predictor - Predictor #0 is currently available
+2017-01-26 16:50:20,270 [3] INFO PredictorBalancer.Models.Predictor - Predictor #0 is currently available
+2017-01-26 16:50:20,256 [4] INFO PredictorBalancer.Models.Predictor - Predictor #0 is currently available
+2017-01-26 16:50:20,285 [3] INFO PredictorBalancer.Models.Predictor - Predictor #0 is currently available
+2017-01-26 16:50:20,326 [10] INFO PredictorBalancer.Models.Predictor - Predictor #0 is currently available
+2017-01-26 16:50:20,326 [4] INFO PredictorBalancer.Models.Predictor - Predictor #0 is currently available
+2017-01-26 16:50:20,355 [3] INFO PredictorBalancer.Models.Predictor - Predictor #0 is currently available
+2017-01-26 16:50:20,369 [4] INFO PredictorBalancer.Models.Predictor - Predictor #0 is currently available
+2017-01-26 16:50:20,377 [4] INFO PredictorBalancer.Models.Predictor - Predictor #0 is currently available
+2017-01-26 16:50:20,384 [10] INFO PredictorBalancer.Models.Predictor - Predictor #0 is currently available
+2017-01-26 16:50:35,555 [16] INFO PredictorBalancer.Models.Predictor - Starting Data transfer
+2017-01-26 16:50:45,265 [10] INFO PredictorBalancer.Models.Predictor - Predictor #0 is currently available
+2017-01-26 16:50:57,084 [14] INFO PredictorBalancer.Models.Predictor - Starting Data transfer
+2017-01-26 16:50:57,138 [4] INFO PredictorBalancer.Models.Predictor - Predictor #0 is currently available
+2017-01-26 16:50:57,225 [9] INFO PredictorBalancer.Models.ApiConnection`1[[PredictorDTO.PackageDTO, PredictorDTO, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]] - Starting Data transfer
+2017-01-26 16:50:58,669 [4] INFO PredictorBalancer.Models.ApiConnection`1[[PredictorDTO.PackageDTO, PredictorDTO, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]] - Data sucsessfully transfered
+2017-01-26 16:51:00,308 [14] INFO PredictorBalancer.Models.ApiConnection`1[[System.Collections.Generic.IEnumerable`1[[PredictorDTO.PredictionDTO, PredictorDTO, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]] - Starting Data transfer

@@ -117,9 +117,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\sport-types.xml" />
     <Content Include="Global.asax" />
-    <Content Include="Models\xml\sport-types.xml" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\AutoMapperConfiguration.cs" />
@@ -157,9 +159,7 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="App_Data\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\PredictorDTO\PredictorDTO.csproj">
       <Project>{96B1BC81-F95F-49C6-9B2F-44E2D00460CF}</Project>
@@ -199,7 +199,8 @@
     <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
   </Target>
   <PropertyGroup>
-    <PostBuildEvent>copy $(ProjectDir)\Models\xml\sport-types.xml $(ProjectDir)$(OutDir)</PostBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

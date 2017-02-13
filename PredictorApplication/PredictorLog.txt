@@ -1,0 +1,61 @@
+2017-01-26 16:50:58,939 [13] ERROR PredictorApplication.Models.Settings.SettingsReader - Exception while trying to read SportTypes
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at PredictorApplication.Models.Settings.SettingsReader.ReadMaxScore(String type) in C:\Users\Ivan\Documents\GitHub\JinnSports\PredictorApplication\Models\SettingsReader.cs:line 53
+2017-01-26 16:50:59,393 [14] ERROR PredictorApplication.Models.Settings.SettingsReader - Exception while trying to read SportTypes
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at PredictorApplication.Models.Settings.SettingsReader.ReadMaxScore(String type) in C:\Users\Ivan\Documents\GitHub\JinnSports\PredictorApplication\Models\SettingsReader.cs:line 53
+2017-01-26 16:50:59,748 [9] ERROR PredictorApplication.Models.Settings.SettingsReader - Exception while trying to read SportTypes
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at PredictorApplication.Models.Settings.SettingsReader.ReadMaxScore(String type) in C:\Users\Ivan\Documents\GitHub\JinnSports\PredictorApplication\Models\SettingsReader.cs:line 53
+2017-01-26 16:50:59,812 [9] ERROR PredictorApplication.Models.Settings.SettingsReader - Exception while trying to read SportTypes
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at PredictorApplication.Models.Settings.SettingsReader.ReadMaxScore(String type) in C:\Users\Ivan\Documents\GitHub\JinnSports\PredictorApplication\Models\SettingsReader.cs:line 53
+2017-01-26 16:50:59,843 [13] ERROR PredictorApplication.Models.Settings.SettingsReader - Exception while trying to read SportTypes
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at PredictorApplication.Models.Settings.SettingsReader.ReadMaxScore(String type) in C:\Users\Ivan\Documents\GitHub\JinnSports\PredictorApplication\Models\SettingsReader.cs:line 53
+2017-01-26 16:50:59,864 [14] ERROR PredictorApplication.Models.Settings.SettingsReader - Exception while trying to read SportTypes
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at PredictorApplication.Models.Settings.SettingsReader.ReadMaxScore(String type) in C:\Users\Ivan\Documents\GitHub\JinnSports\PredictorApplication\Models\SettingsReader.cs:line 53
+2017-01-26 16:50:59,883 [9] ERROR PredictorApplication.Models.Settings.SettingsReader - Exception while trying to read SportTypes
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at PredictorApplication.Models.Settings.SettingsReader.ReadMaxScore(String type) in C:\Users\Ivan\Documents\GitHub\JinnSports\PredictorApplication\Models\SettingsReader.cs:line 53
+2017-01-26 16:50:59,913 [13] ERROR PredictorApplication.Models.Settings.SettingsReader - Exception while trying to read SportTypes
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at PredictorApplication.Models.Settings.SettingsReader.ReadMaxScore(String type) in C:\Users\Ivan\Documents\GitHub\JinnSports\PredictorApplication\Models\SettingsReader.cs:line 53
+2017-01-26 16:50:59,931 [14] ERROR PredictorApplication.Models.Settings.SettingsReader - Exception while trying to read SportTypes
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at PredictorApplication.Models.Settings.SettingsReader.ReadMaxScore(String type) in C:\Users\Ivan\Documents\GitHub\JinnSports\PredictorApplication\Models\SettingsReader.cs:line 53
+2017-01-26 16:50:59,948 [9] ERROR PredictorApplication.Models.Settings.SettingsReader - Exception while trying to read SportTypes
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at PredictorApplication.Models.Settings.SettingsReader.ReadMaxScore(String type) in C:\Users\Ivan\Documents\GitHub\JinnSports\PredictorApplication\Models\SettingsReader.cs:line 53
+2017-01-26 16:50:59,982 [13] ERROR PredictorApplication.Models.Settings.SettingsReader - Exception while trying to read SportTypes
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at PredictorApplication.Models.Settings.SettingsReader.ReadMaxScore(String type) in C:\Users\Ivan\Documents\GitHub\JinnSports\PredictorApplication\Models\SettingsReader.cs:line 53
+2017-01-26 16:51:00,024 [14] ERROR PredictorApplication.Models.Settings.SettingsReader - Exception while trying to read SportTypes
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at PredictorApplication.Models.Settings.SettingsReader.ReadMaxScore(String type) in C:\Users\Ivan\Documents\GitHub\JinnSports\PredictorApplication\Models\SettingsReader.cs:line 53
+2017-01-26 16:51:00,042 [9] ERROR PredictorApplication.Models.Settings.SettingsReader - Exception while trying to read SportTypes
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at PredictorApplication.Models.Settings.SettingsReader.ReadMaxScore(String type) in C:\Users\Ivan\Documents\GitHub\JinnSports\PredictorApplication\Models\SettingsReader.cs:line 53
+2017-01-26 16:51:00,066 [13] ERROR PredictorApplication.Models.Settings.SettingsReader - Exception while trying to read SportTypes
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at PredictorApplication.Models.Settings.SettingsReader.ReadMaxScore(String type) in C:\Users\Ivan\Documents\GitHub\JinnSports\PredictorApplication\Models\SettingsReader.cs:line 53
+2017-01-26 16:51:00,084 [14] ERROR PredictorApplication.Models.Settings.SettingsReader - Exception while trying to read SportTypes
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at PredictorApplication.Models.Settings.SettingsReader.ReadMaxScore(String type) in C:\Users\Ivan\Documents\GitHub\JinnSports\PredictorApplication\Models\SettingsReader.cs:line 53
+2017-01-26 16:51:00,102 [9] ERROR PredictorApplication.Models.Settings.SettingsReader - Exception while trying to read SportTypes
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at PredictorApplication.Models.Settings.SettingsReader.ReadMaxScore(String type) in C:\Users\Ivan\Documents\GitHub\JinnSports\PredictorApplication\Models\SettingsReader.cs:line 53
+2017-01-26 16:51:00,128 [13] ERROR PredictorApplication.Models.Settings.SettingsReader - Exception while trying to read SportTypes
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at PredictorApplication.Models.Settings.SettingsReader.ReadMaxScore(String type) in C:\Users\Ivan\Documents\GitHub\JinnSports\PredictorApplication\Models\SettingsReader.cs:line 53
+2017-01-26 16:51:00,146 [14] ERROR PredictorApplication.Models.Settings.SettingsReader - Exception while trying to read SportTypes
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at PredictorApplication.Models.Settings.SettingsReader.ReadMaxScore(String type) in C:\Users\Ivan\Documents\GitHub\JinnSports\PredictorApplication\Models\SettingsReader.cs:line 53
+2017-01-26 16:51:00,163 [9] ERROR PredictorApplication.Models.Settings.SettingsReader - Exception while trying to read SportTypes
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at PredictorApplication.Models.Settings.SettingsReader.ReadMaxScore(String type) in C:\Users\Ivan\Documents\GitHub\JinnSports\PredictorApplication\Models\SettingsReader.cs:line 53
+2017-01-26 16:51:00,186 [13] ERROR PredictorApplication.Models.Settings.SettingsReader - Exception while trying to read SportTypes
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at PredictorApplication.Models.Settings.SettingsReader.ReadMaxScore(String type) in C:\Users\Ivan\Documents\GitHub\JinnSports\PredictorApplication\Models\SettingsReader.cs:line 53
+2017-01-26 16:51:00,190 [13] INFO  PredictorApplication.Models.ApiConnection - Starting Data transfer
