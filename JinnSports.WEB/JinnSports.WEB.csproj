@@ -520,6 +520,13 @@
     <Content Include="Scripts\DataTables\responsive.semanticui.js" />
     <Content Include="Scripts\DataTables\responsive.semanticui.min.js" />
     <Content Include="Scripts\icheck.min.js" />
+    <Content Include="Scripts\Jinn.js\core\app-instance.js" />
+    <Content Include="Scripts\Jinn.js\core\event-dispatcher.js" />
+    <Content Include="Scripts\Jinn.js\core\extensions.js" />
+    <Content Include="Scripts\Jinn.js\core\router.js" />
+    <Content Include="Scripts\Jinn.js\core\template.js" />
+    <Content Include="Scripts\Jinn.js\models\base-model.js" />
+    <Content Include="Scripts\Jinn.js\views\base-view.js" />
     <Content Include="Scripts\jquery-3.1.1.js" />
     <Content Include="Scripts\jquery-3.1.1.min.js" />
     <Content Include="Scripts\jquery-3.1.1.slim.js" />

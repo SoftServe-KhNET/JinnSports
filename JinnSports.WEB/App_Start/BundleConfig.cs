@@ -40,6 +40,11 @@ namespace JinnSports.WEB
 
             bundles.Add(new ScriptBundle("~/Scripts/iCheck", icheckCdnPath)
                 .Include("~/Scripts/icheck.min.js"));
+
+            bundles.Add(new ScriptBundle("~/Scripts/_")
+                .Include("~/Scripts/Jinn.js/core/extensions.js"));
+            bundles.Add(new ScriptBundle("~/Scripts/Jinnjs")
+                .IncludeDirectory("~/Scripts/Jinn.js", "*.js", true));
         }
     }
 }

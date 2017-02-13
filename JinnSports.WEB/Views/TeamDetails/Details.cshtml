@@ -13,11 +13,25 @@
     <div class="box-header with-border">
         <h3 class="box-title">Winrate chart</h3>
         <div class="box-tools pull-right">
-            <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i></button>
+            <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
         </div>
     </div>
     <div class="box-body">
         <div id="chart"></div>
+    </div>
+</div>
+
+<div class="box" id="winrate-block">
+    <div class="box-header with-border">
+        <h3 class="box-title">Winrate chart</h3>
+        <div class="box-tools pull-right">
+            <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+        </div>
+    </div>
+    <div class="box-body" id="chart-wrapper">
+        <canvas id="winrate-canvas">
+            
+        </canvas>
     </div>
 </div>
 
@@ -89,5 +103,83 @@
                 chart.draw(data, options);
             }
         });
+    </script>
+    @Scripts.Render("~/Scripts/_")
+    @Scripts.Render("~/Scripts/Jinnjs")
+    <script>
+        (function() {
+            'use strict';
+
+            var jinn = null;
+
+            // On page loaded
+            document.addEventListener('DOMContentLoaded',
+                function() {
+                    jinn = new JinnApp();
+
+                    var teamDetails = new jinn.Model({
+                        data: {
+                            dataTable: @Html.Raw(JsonConvert.SerializeObject(Model.WinRateDataTable, new JavaScriptDateTimeConverter()))
+                        },
+
+                        updateData: function() {
+                            
+                        }
+                    });
+
+                    var winrateChart = new jinn.View({
+                        init: function () {
+                            this.$block = document.getElementById('winrate-block');
+                            this.$canvas = document.getElementById('winrate-canvas');
+                            var wrapper = document.getElementById('chart-wrapper');
+                            debugger;
+                            this.$canvas.width = wrapper.clientWidth -
+                                parseFloat(window.getComputedStyle(wrapper, null).getPropertyValue('padding-left')) -
+                                parseFloat(window.getComputedStyle(wrapper, null).getPropertyValue('padding-right'));
+                            this.$canvas.height = wrapper.clientHeight -
+                                parseFloat(window.getComputedStyle(wrapper, null).getPropertyValue('padding-top')) -
+                                parseFloat(window.getComputedStyle(wrapper, null).getPropertyValue('padding-bottom'));
+                            this.$ctx = this.$canvas.getContext('2d');
+                            this.$ctx.transform(1, 0, 0, -1, 0, this.$canvas.height);
+
+                            return this;
+                        },
+
+                        render: function () {
+                            this.drawGrid(this.$canvas.width, this.$canvas.height, this.$ctx);
+                            var dataTable = this.models[0].get('dataTable');
+                            this.$ctx.beginPath();
+                            this.$ctx.lineWidth = '2';
+                            this.$ctx.strokeStyle = 'rgba(51, 102, 204, 1)';
+                            var x = 0;
+                            var step = this.$canvas.width / (dataTable.rows.length - 1);
+                            for (var row in dataTable.rows) {
+                                debugger;
+                                var y = this.$canvas.height / 100 * dataTable.rows[row].c[1].v;
+                                this.$ctx.lineTo(x, y);
+                                this.$ctx.fillRect(x - 2, y - 2, 4, 4);
+                                x += step;
+                            }
+                            this.$ctx.stroke();
+                        },
+
+                        drawGrid: function(w, h, ctx) {
+                            debugger;
+                            ctx.lineWidth = '1';
+                            ctx.strokeStyle = 'rgba(204, 204, 204, 0.5)';
+                            var x = 0, y = 0;
+                            for (var i = 0; i < h / 4; i++) {
+                                ctx.moveTo(0, y);
+                                ctx.lineTo(w, y);
+                                y += h / 4;
+                            }
+                            ctx.stroke();
+                        }
+                    }, teamDetails);
+
+                    winrateChart.render();
+                    _.l(teamDetails);
+                });
+        })();
     </script>
 }
