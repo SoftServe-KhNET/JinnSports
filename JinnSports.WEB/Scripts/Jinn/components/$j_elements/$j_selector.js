@@ -3,6 +3,7 @@
 function $j_selector(additionalProps)
 {        
     _.extend(this, additionalProps);
+    this.init();
 };
 
 _.extend($j_selector.prototype, {
@@ -18,7 +19,6 @@ _.extend($j_selector.prototype, {
                     selectorContainer.setAttribute('class', this.$j_container);
                 }
             }
-            console.log(selectorContainer);
             var selectorLabel = document.createElement('label');
             
             var selector = document.createElement('select');
@@ -33,7 +33,13 @@ _.extend($j_selector.prototype, {
             }
 
             for (var option = 0; option < this.$j_data.options.length; option++) {
-                addOption(selector, this.$j_data.options[option], this.$j_data.options[option]);
+                if (this.$j_data.values && this.$j_data.values[option])
+                {
+                    addOption(selector, this.$j_data.options[option], this.$j_data.values[option]);
+                } else
+                {
+                    addOption(selector, this.$j_data.options[option], this.$j_data.options[option]);
+                }
             }
 
             if (this.$j_data.info.includes("__$j_Selector__")) {

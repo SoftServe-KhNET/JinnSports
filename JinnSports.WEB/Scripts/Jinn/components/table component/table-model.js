@@ -19,9 +19,14 @@ function tableModel() {
                 var draw = self.data.records_per_page;
                 var start = self.data.records_per_page * (self.data.current_page - 1);
                 var length = self.data.records_per_page;
-
-                var params = ["draw=" + draw + "&start=" + start + "&length=" + length];
-
+                if (connectionString.includes('?')) {
+                    var params = connectionString.split('?')[1] + ["&draw=" + draw + "&start=" + start + "&length=" + length];
+                    connectionString = connectionString.split('?')[0]
+                }
+                else
+                {
+                    var params = ["draw=" + draw + "&start=" + start + "&length=" + length];
+                }
                 self.sendRequest(connectionString, params, getResponseFromServer, "GET");
             }
 

@@ -6,14 +6,15 @@ function $j_table(additionalParameters, model) {
                 currentModelIndex: 0
             },
 
-            render: function () {
+        render: function () {
                 var table = document.getElementById(this.$j_tableId);
                 var pagingNavBar = document.getElementById(this.$j_tableId + "_pagingNavBar");
+
                 if (table || pagingNavBar)
                 {
                     table.remove();
-                    pagingNavBar.remove();
                     this.buildTable();
+                    pagingNavBar.remove();
                     this.buildPagingNavBar();
                 }
                 else
@@ -21,20 +22,25 @@ function $j_table(additionalParameters, model) {
                     this.show();
                 }
             },
+            update: function()
+            {
+                this.models[this.data.currentModelIndex].updateData(this.$j_ajax.url);
+            },
 
             init: function () {
                 this.setupHandlers()
                     .enable();
 
-                this.models[this.data.currentModelIndex].updateData(this.$j_ajax.url);
+                this.update();
             },
 
             show: function () {
-                this.buildTable();
-
                 if (this.$j_settings.selector.options.length > 0) {
                     this.buildSelector();
                 }
+
+                this.buildTable();
+
                 this.buildPagingNavBar();
             },
 
@@ -51,7 +57,6 @@ function $j_table(additionalParameters, model) {
                                 options: this.$j_settings.selector.options
                             },
                         });
-                    selector.build();
 
                     selector = document.getElementById(this.$j_tableId + "Selector");
 
@@ -61,7 +66,6 @@ function $j_table(additionalParameters, model) {
                 },
 
             buildTable: function () {
-
                 var tableContainer = document.getElementsByClassName(this.$j_container)[0];
                 if (!tableContainer)
                 {
@@ -320,12 +324,11 @@ function $j_table(additionalParameters, model) {
                         pages[i].setAttribute('class', 'active');
                     }
                 }
-                this.models[this.data.currentModelIndex].updateData(this.$j_ajax.url);
+                this.update();
             },
 
             changeDataCount: function () {
                 var selected_index = document.getElementById(this.$j_tableId + 'Selector').selectedIndex;
-                console.log(selected_index);
                 if (selected_index => 0) {
                     var selected_option_value = document.getElementById(this.$j_tableId + 'Selector').options[selected_index].value;
                     this.models[0].data.records_per_page = selected_option_value;
