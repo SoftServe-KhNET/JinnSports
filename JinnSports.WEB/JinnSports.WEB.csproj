@@ -210,6 +210,7 @@
     <Content Include="Content\AdminLTE\skins\skin-yellow.min.css" />
     <Content Include="Content\AdminLTE\skins\_all-skins.css" />
     <Content Include="Content\AdminLTE\skins\_all-skins.min.css" />
+    <Content Include="Content\auth-style.css" />
     <Content Include="Content\blue%402x.png" />
     <Content Include="Content\blue.png" />
     <Content Include="Content\bootstrap-theme.css" />
@@ -525,11 +526,14 @@
     <Content Include="Scripts\Jinn\components\AdminK\1Model.js" />
     <Content Include="Scripts\Jinn\components\AdminK\2View.js" />
     <Content Include="Scripts\Jinn\components\AdminK\3Main.js" />
+    <Content Include="Scripts\Jinn\components\Authorization\auth-model.js" />
+    <Content Include="Scripts\Jinn\components\Authorization\auth-view.js" />
     <Content Include="Scripts\Jinn\core\app-instance.js" />
     <Content Include="Scripts\Jinn\core\event-dispatcher.js" />
     <Content Include="Scripts\Jinn\core\1extensions.js" />
     <Content Include="Scripts\Jinn\core\router.js" />
     <Content Include="Scripts\Jinn\core\templates.js" />
+    <Content Include="Scripts\Jinn\init.js" />
     <Content Include="Scripts\Jinn\xinit\1init.js" />
     <Content Include="Scripts\Jinn\models\base-model.js" />
     <Content Include="Scripts\Jinn\views\base-view.js" />
