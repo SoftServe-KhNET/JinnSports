@@ -1,9 +1,4 @@
-﻿using JinnSports.BLL.Dtos;
-using JinnSports.BLL.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using JinnSports.BLL.Interfaces;
 using System.Web.Mvc;
 using System.Web.UI;
 
@@ -13,7 +8,7 @@ namespace JinnSports.WEB.Areas.Mvc.Controllers
     {
         private readonly INewsService newsService;
 
-        private IEventService eventService;
+        private readonly IEventService eventService;
 
         public HomeController(INewsService newsService, IEventService eventService)
         {

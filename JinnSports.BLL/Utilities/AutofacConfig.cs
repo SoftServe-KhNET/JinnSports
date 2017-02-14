@@ -17,7 +17,7 @@ namespace JinnSports.BLL.Utilities
             // Services config
             builder.RegisterType<EventsService>().As<IEventService>();
             builder.RegisterType<UserService>().As<IUserService>();
-            builder.RegisterType<ConformityService>().As<IConformityService>();
+            builder.RegisterType<AdminService>().As<IAdminService>();
             builder.RegisterType<TeamService>().As<ITeamService>();
             builder.RegisterType<TeamDetailsService>().As<ITeamDetailsService>();
             builder.RegisterType<SportTypeService>().As<ISportTypeService>();

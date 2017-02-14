@@ -47,6 +47,20 @@
     .iradio_square-blue.checked.disabled {
         background-position: -216px 0;
     }
+#adminka .form-group {
+background-color: #7CB5D6;
+border-radius: 10px;
+padding-left: 15px;
+width: 350px;
+}
+#adminka .form-group input {
+border-radius: 5px;
+width: 300px;
+}
+#adminka .form-group select {
+border-radius: 5px;
+width: 300px;
+}
 
 /* Retina support */
 @media only screen and (-webkit-min-device-pixel-ratio: 1.5),

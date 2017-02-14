@@ -6,17 +6,20 @@ namespace JinnSports.BLL.Dtos
 {    
     public class ConformityViewModel
     {
-        public ConformityViewModel(string inputName, List<ConformityDto> conformities)
+        public ConformityViewModel(string inputName, int inputNameId, List<ConformityDto> conformities)
         {
             this.InputName = inputName;
             this.Conformities = conformities;
+            this.InputNameId = inputNameId;
         }
 
         public ConformityViewModel()
         {
         }
         
-        public int ConformityId { get; set; }
+        public int? ConformityId { get; set; }
+
+        public int InputNameId { get; set; }
 
         public string InputName { get; set; }
         

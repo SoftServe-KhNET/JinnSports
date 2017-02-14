@@ -116,17 +116,27 @@ namespace JinnSports.UnitTests.BLL
             IUnitOfWork unit = new EFUnitOfWork(this.databaseSportsContext);
 
             SportType football = new SportType { Name = "Football" };
-            SportType sport = unit.GetRepository<SportType>().Get(x => x.Name.ToUpper() == football.Name.ToUpper()).FirstOrDefault();           
+            SportType sport = unit.GetRepository<SportType>()
+                .Get(x => x.Name.ToUpper() == football.Name.ToUpper())
+                .FirstOrDefault();           
 
             Team positiveTeam = new Team
-            { Name = "Краснодар ФК", SportType = sport, Names = new List<TeamName> { new TeamName { Name = "Краснодар ФК" } } };  
+            {
+                Name = "Краснодар ФК",
+                SportType = sport,
+                Names = new List<TeamName> { new TeamName { Name = "Краснодар ФК" } }
+            };  
 
             NamingMatcher matcher = new NamingMatcher(unit);
 
             List<Conformity> positiveConformities = matcher.ResolveNaming(positiveTeam);
             Assert.IsNull(positiveConformities);
            
-            Team team = unit.GetRepository<Team>().Get((x) => x.Names.Select(n => n.Name).Contains(positiveTeam.Name)).FirstOrDefault();                  
+            Team team = unit.GetRepository<Team>()
+                .Get((x) => x.Names.Select(n => n.Name)
+                .Contains(positiveTeam.Name))
+                .FirstOrDefault();      
+                        
             Assert.IsTrue(team.Names.Select(t => t.Name).Contains("Краснодар"));
             Assert.IsTrue(team.Names.Select(t => t.Name).Contains("Краснодар ФК"));
         }
@@ -137,17 +147,27 @@ namespace JinnSports.UnitTests.BLL
             IUnitOfWork unit = new EFUnitOfWork(this.databaseSportsContext);
 
             SportType football = new SportType { Name = "Football" };
-            SportType sport = unit.GetRepository<SportType>().Get(x => x.Name.ToUpper() == football.Name.ToUpper()).FirstOrDefault();
+            SportType sport = unit.GetRepository<SportType>()
+                .Get(x => x.Name.ToUpper() == football.Name.ToUpper())
+                .FirstOrDefault();
 
-            Team negativeTeam = new Team { Name = "Металлист", SportType = sport, Names = new List<TeamName>() };
+            Team negativeTeam = new Team
+            {
+                Name = "Металлист",
+                SportType = sport,
+                Names = new List<TeamName>()
+            };
 
             NamingMatcher matcher = new NamingMatcher(unit);
 
             List<Conformity> negativeConformities = matcher.ResolveNaming(negativeTeam);
-            Assert.IsNull(negativeConformities);   
-                     
-            Team team = unit.GetRepository<Team>().Get((x) => x.Names.Select(n => n.Name).Contains(negativeTeam.Name)).FirstOrDefault();
-            Assert.AreEqual(team, negativeTeam);
+            Assert.IsNull(negativeConformities);
+
+            Team team = unit.GetRepository<Team>()
+                .Get((x) => x.Id == negativeTeam.Id)
+                .FirstOrDefault();
+
+            Assert.AreEqual(negativeTeam, team);
         }
 
         [Test]
@@ -156,11 +176,21 @@ namespace JinnSports.UnitTests.BLL
             IUnitOfWork unit = new EFUnitOfWork(this.databaseSportsContext);
 
             SportType football = new SportType { Name = "Football" };
-            SportType sport = unit.GetRepository<SportType>().Get(x => x.Name.ToUpper() == football.Name.ToUpper()).FirstOrDefault();
+            SportType sport = unit.GetRepository<SportType>()
+                .Get(x => x.Name.ToUpper() == football.Name.ToUpper())
+                .FirstOrDefault();
 
-            Conformity expConf = new Conformity { InputName = "Ст. Этьен", ExistedName = "Сент-Этьен", IsConfirmed = false };
+            Conformity expConf = new Conformity
+            {
+                InputName = "Ст. Этьен",
+                ExistedName = "Сент-Этьен"
+            };
 
-            Team neutralTeam = new Team { Name = "Ст. Этьен", SportType = sport };
+            Team neutralTeam = new Team
+            {
+                Name = "Ст. Этьен",
+                SportType = sport
+            };
 
             NamingMatcher matcher = new NamingMatcher(unit);
 

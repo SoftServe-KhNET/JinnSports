@@ -73,7 +73,7 @@ namespace PredictorBalancer.Models
                     count++;
                 }
 
-                Notifier.SendEmail($"New task with {predictors.Count()} awailable predictors at {DateTime.Now.ToString()}");
+                Notifier.SendEmail($"New task with {predictors.Count()} awailable predictors at {DateTime.Now.ToString()}. Processing {package.IncomigEvents.Count()} Entries.");
             }
             catch (Exception ex)
             {
@@ -82,15 +82,12 @@ namespace PredictorBalancer.Models
             
         }
 
-        // TODO: resolve async
         public async Task UpdateStatus()
         {
             List<Task> tasks = new List<Task>();
 
             foreach (Predictor predictor in this.Predictors.GetAll())
             {
-                //Task task = new Task(predictor.UpdateStatus);
-                // task.Start();
                 tasks.Add(Task.Factory.StartNew(predictor.UpdateStatus));
             }
             await Task.WhenAll(tasks);

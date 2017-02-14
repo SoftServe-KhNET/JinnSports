@@ -68,10 +68,13 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Dtos\AdminApiViewModel.cs" />
     <Compile Include="Dtos\Charts\GoogleVisualizationDataTable.cs" />
     <Compile Include="Dtos\Charts\WinRateChartDto.cs" />
+    <Compile Include="Dtos\ConformityApiViewModel.cs" />
     <Compile Include="Dtos\ConformityDto.cs" />
     <Compile Include="Dtos\ConformityViewModel.cs" />
+    <Compile Include="Dtos\EventPredictionDto.cs" />
     <Compile Include="Dtos\MainPageDto.cs" />
     <Compile Include="Dtos\NewsDto.cs" />
     <Compile Include="Dtos\ResultDto.cs" />
@@ -89,7 +92,7 @@
     <Compile Include="Identity\RoleStore.cs" />
     <Compile Include="Identity\UserStore.cs" />
     <Compile Include="Interfaces\IChartService.cs" />
-    <Compile Include="Interfaces\IConformityService.cs" />
+    <Compile Include="Interfaces\IAdminService.cs" />
     <Compile Include="Interfaces\IEventService.cs" />
     <Compile Include="Interfaces\INewsService.cs" />
     <Compile Include="Interfaces\IPredictionsService.cs" />
@@ -104,7 +107,7 @@
     <Compile Include="RssParser\RssParser.cs" />
     <Compile Include="Service\ApiConnection.cs" />
     <Compile Include="Service\ChartService.cs" />
-    <Compile Include="Service\ConformityService.cs" />
+    <Compile Include="Service\AdminService.cs" />
     <Compile Include="Service\EventsService.cs" />
     <Compile Include="Service\NewsService.cs" />
     <Compile Include="Service\ParserService.cs" />

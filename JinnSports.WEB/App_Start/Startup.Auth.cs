@@ -17,7 +17,7 @@ namespace JinnSports.WEB
                 AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,
                 LoginPath = new PathString("/Account/Login"),
                 CookieHttpOnly = true,
-                ExpireTimeSpan = TimeSpan.FromMinutes(1),
+                ExpireTimeSpan = TimeSpan.FromMinutes(50),
                 SlidingExpiration = true                
             });
 

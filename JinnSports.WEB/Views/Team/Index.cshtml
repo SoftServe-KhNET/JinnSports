@@ -1,4 +1,5 @@
 ﻿@{
+    ViewBag.Title = "Список команд";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -8,13 +9,13 @@
 
 <div class="box">
     <div class="box-header">
-        <h3 class="box-title">Teams</h3>
+        <h3 class="box-title">Команды</h3>
     </div>
     <div class="box-body">
         <table id="teamTable" class="table table-bordered table-striped">
             <thead>
                 <tr>
-                    <th>Team</th>
+                    <th>Команда</th>
                 </tr>
             </thead>
         </table>
@@ -25,6 +26,7 @@
     <script>
     $(document).ready(function () {
         $("#teamTable").DataTable({
+            "ordering": false,
             "processing": false,
             "serverSide": true,
             "filter": false,
@@ -43,7 +45,10 @@
                         }
 
                     }
-            ]
+            ],
+            "language": {
+                url: '/Content/DataTables/russian.json'
+            }
         });
     });
     </script>

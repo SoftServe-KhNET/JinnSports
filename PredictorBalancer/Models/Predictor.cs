@@ -15,9 +15,14 @@ namespace PredictorBalancer.Models
     {
         private static readonly ILog Log = LogManager.GetLogger(typeof(Predictor));
 
-        private string baseUrl;
-        private string controllerUrn;
-        private int timeoutSec;
+        public string baseUrl;
+        public string controllerUrn;
+        public int timeoutSec;
+
+        public Predictor()
+        {
+            
+        }
 
         public Predictor(string baseUrl, string controllerUrn, int timeoutSec)
         {

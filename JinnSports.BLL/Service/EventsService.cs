@@ -207,8 +207,7 @@ namespace JinnSports.BLL.Service
                 }
                 this.dataUnit.SaveChanges();
 
-                // TODO: resolve injection
-                this.predictionSender.SendPredictionRequest(); // Check new events and send request to Predictor
+                this.predictionSender.SendPredictionRequest();
             }
             catch (Exception ex)
             {
@@ -217,6 +216,11 @@ namespace JinnSports.BLL.Service
             }
             Log.Info("Transferred data sucessfully saved");
             return true;
+        }
+
+        public void RunPredictions()
+        {
+            this.predictionSender.SendPredictionRequest();
         }
 
         private void Save(TempSportEvent tempEvent, SportEvent sportEvent)

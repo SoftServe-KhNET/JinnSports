@@ -3,6 +3,7 @@ using System.Web.Http;
 using System.Net.Http;
 using JinnSports.BLL.Interfaces;
 using DTO.JSON;
+using System.Web.Configuration;
 
 namespace JinnSports.WEB.Areas.Admin.Controllers
 {
@@ -17,8 +18,17 @@ namespace JinnSports.WEB.Areas.Admin.Controllers
         }
 
         [AllowAnonymous]
-        public IHttpActionResult PostEvents(List<SportEventDTO> events)
+        [HttpPost]
+        public IHttpActionResult CreateEvents(List<SportEventDTO> events)
         {
+            IEnumerable<string> values = new List<string>();
+            bool serviceCode = Request.Headers.TryGetValues(WebConfigurationManager.AppSettings["ApiKey"], out values);
+
+            if (!serviceCode)
+            {
+                return this.BadRequest();
+            }
+
             if (this.eventService.SaveSportEvents(events))
             {
                 return this.Ok();
@@ -26,7 +36,7 @@ namespace JinnSports.WEB.Areas.Admin.Controllers
             else
             {
                 return this.BadRequest();
-            } 
+            }
         }
     }
 }

@@ -29,5 +29,7 @@ namespace JinnSports.BLL.Interfaces
         bool SaveSportEvents(ICollection<SportEventDTO> eventDTOs);
 
         IEnumerable<SportTypeDto> GetSportTypes();
+
+        void RunPredictions();
     }
 }

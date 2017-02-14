@@ -3,6 +3,7 @@ using JinnSports.Entities.Entities;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace JinnSports.BLL.Matcher
 {
@@ -69,7 +70,10 @@ namespace JinnSports.BLL.Matcher
 
         private string PrepareString(string name)
         {
-            return name.ToUpper().Replace(".", string.Empty).Replace("-", string.Empty).Replace(" ", string.Empty);
+            return name.ToUpper()
+                .Replace(".", string.Empty)
+                .Replace("-", string.Empty)
+                .Replace(" ", string.Empty);
         }
 
         private Team SimpleCheck(IEnumerable<Team> teams, string inputName)
@@ -98,7 +102,7 @@ namespace JinnSports.BLL.Matcher
             {
                 foreach (TeamName teamName in team.Names)
                 {
-                    string preparedBaseName = teamName.Name.ToUpper().Replace("-", string.Empty).Replace(".", string.Empty).Replace(" ", string.Empty);
+                    string preparedBaseName = this.PrepareString(teamName.Name);
                     double numberOfSuitableLetters = this.LiteralComparing(preparedBaseName, inputName);
 
                     if (numberOfSuitableLetters == 0)
@@ -134,12 +138,7 @@ namespace JinnSports.BLL.Matcher
         }
 
         private int LiteralComparing(string baseName, string inputName)
-        {
-            if (baseName.Contains(inputName) || inputName.Contains(baseName))
-            {
-                return Math.Min(baseName.Length, inputName.Length);
-            }
-
+        {        
             int comparingResult = 0;
             int reversedComparingResult = 0;
 
@@ -149,7 +148,11 @@ namespace JinnSports.BLL.Matcher
             {
                 comparer.Append(inputName[i]);
 
-                if (!baseName.Contains(comparer.ToString()))
+                string regexStr = string.Format(@"^{0}(\w*)", comparer.ToString());
+                Regex regex = new Regex(regexStr);
+                MatchCollection matches = regex.Matches(baseName);
+
+                if (matches.Count == 0)
                 {
                     comparer.Remove(comparer.Length - 1, 1);
                     break;
@@ -163,9 +166,13 @@ namespace JinnSports.BLL.Matcher
             {
                 comparer.Insert(0, inputName[i]);
 
-                if (!baseName.Contains(comparer.ToString()))
+                string regexStr = string.Format(@"{0}$(\w*)", comparer.ToString());
+                Regex regex = new Regex(regexStr);
+                MatchCollection matches = regex.Matches(baseName);
+
+                if (matches.Count == 0)
                 {
-                    comparer.Remove(0, 1);
+                    comparer.Remove(comparer.Length - 1, 1);
                     break;
                 }
             }

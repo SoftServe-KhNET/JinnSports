@@ -10,7 +10,7 @@ using AutoMapper;
 
 namespace JinnSports.BLL.Identity
 {
-    public class UserStore : IUserLoginStore<UserDto, Guid>, IUserClaimStore<UserDto, Guid>, IUserRoleStore<UserDto, Guid>, IUserPasswordStore<UserDto, Guid>, IUserSecurityStampStore<UserDto, Guid>, IUserStore<UserDto, Guid>, IDisposable
+    public class UserStore : IUserLoginStore<UserDto, Guid>, IUserRoleStore<UserDto, Guid>, IUserPasswordStore<UserDto, Guid>, IUserSecurityStampStore<UserDto, Guid>, IUserStore<UserDto, Guid>, IDisposable
     {
         private readonly IUnitOfWork unitOfWork;
 
@@ -83,78 +83,7 @@ namespace JinnSports.BLL.Identity
         {
             // Dispose does nothing since we want Unity to manage the lifecycle of our Unit of Work
         }
-        #endregion
-
-        #region IUserClaimStore<IdentityUser, Guid> Members
-        public Task AddClaimAsync(UserDto user, System.Security.Claims.Claim claim)
-        {
-            if (user == null)
-            {
-                throw new ArgumentNullException("user");
-            }
-            if (claim == null)
-            {
-                throw new ArgumentNullException("claim");
-            }                
-
-            User u = this.unitOfWork.GetRepository<User>().Get(us => us.UserId == user.Id).FirstOrDefault();
-            if (u == null)
-            {
-                throw new ArgumentException("IdentityUser does not correspond to a User entity.", "user");
-            }                
-
-            var c = new Claim
-            {
-                ClaimType = claim.Type,
-                ClaimValue = claim.Value,
-                User = u
-            };
-            u.Claims.Add(c);
-
-            this.unitOfWork.GetRepository<User>().Update(u);
-            return this.unitOfWork.SaveAsync();
-        }
-
-        public Task<IList<System.Security.Claims.Claim>> GetClaimsAsync(UserDto user)
-        {
-            if (user == null)
-            {
-                throw new ArgumentNullException("user");
-            }                
-
-            User u = this.unitOfWork.GetRepository<User>().Get(us => us.UserId == user.Id).FirstOrDefault();
-            if (u == null)
-            {
-                throw new ArgumentException("IdentityUser does not correspond to a User entity.", "user");
-            }                
-
-            return Task.FromResult<IList<System.Security.Claims.Claim>>(u.Claims.Select(x => new System.Security.Claims.Claim(x.ClaimType, x.ClaimValue)).ToList());
-        }
-
-        public Task RemoveClaimAsync(UserDto user, System.Security.Claims.Claim claim)
-        {
-            if (user == null)
-            {
-                throw new ArgumentNullException("user");
-            }
-            if (claim == null)
-            {
-                throw new ArgumentNullException("claim");
-            }                
-
-            User u = this.unitOfWork.GetRepository<User>().Get(us => us.UserId == user.Id).FirstOrDefault();
-            if (u == null)
-            {
-                throw new ArgumentException("IdentityUser does not correspond to a User entity.", "user");
-            }                
-
-            Claim c = u.Claims.FirstOrDefault(x => x.ClaimType == claim.Type && x.ClaimValue == claim.Value);
-            u.Claims.Remove(c);
-
-            this.unitOfWork.GetRepository<User>().Update(u);
-            return this.unitOfWork.SaveAsync();
-        }
-        #endregion
+        #endregion       
 
         #region IUserLoginStore<IdentityUser, Guid> Members
         public Task AddLoginAsync(UserDto user, UserLoginInfo login)

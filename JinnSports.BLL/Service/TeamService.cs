@@ -28,7 +28,7 @@ namespace JinnSports.BLL.Service
             IList<TeamDto> teamDtoList = new List<TeamDto>();
             
             IEnumerable<Team> teams = this.dataUnit.GetRepository<Team>().Get(
-                orderBy: s => s.OrderBy(x => x.Id), 
+                orderBy: s => s.OrderBy(x => x.Name).ThenBy(x => x.Id), 
                 skip: skip, 
                 take: take);
             

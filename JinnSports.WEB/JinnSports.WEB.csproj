@@ -361,6 +361,7 @@
     <Content Include="Content\DataTables\images\sort_desc.png" />
     <Content Include="Content\DataTables\images\sort_desc_disabled.png" />
     <Content Include="Content\DataTables\swf\flashExport.swf" />
+    <Content Include="Content\favicon.ico" />
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\font-awesome.min.css" />
     <Content Include="Content\style.css" />
@@ -424,7 +425,7 @@
     <Content Include="Areas\Mvc\Views\Event\Index.cshtml" />
     <Content Include="Areas\Mvc\Views\Team\Index.cshtml" />
     <Content Include="Areas\Mvc\Views\Team\Details.cshtml" />
-    <Content Include="Areas\Mvc\Views\Home\Home.cshtml" />
+    <Content Include="Areas\Mvc\Views\Home\Index.cshtml" />
     <Content Include="Areas\Mvc\Views\Shared\_FooterPartial.cshtml" />
     <Content Include="Areas\Mvc\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\Mvc\Views\Shared\_ResultPartial.cshtml" />
@@ -440,6 +441,7 @@
     <Content Include="fonts\fontawesome-webfont.woff" />
     <Content Include="fonts\fontawesome-webfont.woff2" />
     <Content Include="fonts\FontAwesome.otf" />
+    <Content Include="Content\DataTables\russian.json" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
     <Content Include="Scripts\AdminLTE\app.js" />
     <Content Include="Scripts\AdminLTE\app.min.js" />
@@ -520,6 +522,17 @@
     <Content Include="Scripts\DataTables\responsive.semanticui.js" />
     <Content Include="Scripts\DataTables\responsive.semanticui.min.js" />
     <Content Include="Scripts\icheck.min.js" />
+    <Content Include="Scripts\Jinn\components\AdminK\1Model.js" />
+    <Content Include="Scripts\Jinn\components\AdminK\2View.js" />
+    <Content Include="Scripts\Jinn\components\AdminK\3Main.js" />
+    <Content Include="Scripts\Jinn\core\app-instance.js" />
+    <Content Include="Scripts\Jinn\core\event-dispatcher.js" />
+    <Content Include="Scripts\Jinn\core\1extensions.js" />
+    <Content Include="Scripts\Jinn\core\router.js" />
+    <Content Include="Scripts\Jinn\core\templates.js" />
+    <Content Include="Scripts\Jinn\xinit\1init.js" />
+    <Content Include="Scripts\Jinn\models\base-model.js" />
+    <Content Include="Scripts\Jinn\views\base-view.js" />
     <Content Include="Scripts\jquery-3.1.1.js" />
     <Content Include="Scripts\jquery-3.1.1.min.js" />
     <Content Include="Scripts\jquery-3.1.1.slim.js" />
@@ -527,6 +540,9 @@
     <Content Include="Scripts\jquery-ui-1.12.1.js" />
     <Content Include="Scripts\jquery-ui-1.12.1.min.js" />
     <Content Include="Scripts\loader.js" />
+    <Content Include="Scripts\MyScripts\3Main.js" />
+    <Content Include="Scripts\MyScripts\1Model.js" />
+    <Content Include="Scripts\MyScripts\2View.js" />
     <Content Include="Views\web.config" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -540,6 +556,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\ConformityController.cs" />
     <Compile Include="Areas\Admin\Controllers\ParserController.cs" />
     <Compile Include="Areas\Admin\Controllers\PredictionsController.cs" />
     <Compile Include="Areas\Mvc\Controllers\EventController.cs" />
@@ -556,10 +573,13 @@
     <Compile Include="Controllers\Api\TeamDetailsController.cs" />
     <Compile Include="Areas\Admin\Controllers\SportEventsController.cs" />
     <Compile Include="Areas\Admin\Controllers\ConformitiesController.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
+    <Compile Include="Controllers\EventPredictionController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\TeamController.cs" />
     <Compile Include="Controllers\EventController.cs" />
     <Compile Include="Controllers\TeamDetailsController.cs" />
+    <Compile Include="Filters\ValidateCustomAntiForgeryTokenAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -598,6 +618,10 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Shared\_Admin.cshtml" />
     <Content Include="Views\Shared\_UpcomingEvents.cshtml" />
+    <Content Include="Views\Error\NotFound.cshtml" />
+    <Content Include="Views\Error\InternalServerError.cshtml" />
+    <Content Include="Views\Error\Forbidden.cshtml" />
+    <Content Include="Views\EventPrediction\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -608,7 +632,6 @@
   <ItemGroup>
     <Folder Include="Areas\Admin\Models\" />
     <Folder Include="Areas\Admin\Views\Shared\" />
-    <Folder Include="Filters\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DTO\DTO.csproj">

@@ -16,7 +16,8 @@ namespace JinnSports.WEB
                 .Include("~/Content/AdminLTE/AdminLTE.css")
                 .Include("~/Content/AdminLTE/skins/skin-blue.css")
                 .Include("~/Content/font-awesome.css")
-                .Include("~/Content/style.css"));
+                .Include("~/Content/themes/base/all.css")
+                .Include("~/Content/style.css")); 
 
             bundles.Add(new StyleBundle("~/Content/DataTableStyles")
                 .Include("~/Content/DataTables/css/dataTables.bootstrap.css"));
@@ -40,6 +41,9 @@ namespace JinnSports.WEB
 
             bundles.Add(new ScriptBundle("~/Scripts/iCheck", icheckCdnPath)
                 .Include("~/Scripts/icheck.min.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/app").IncludeDirectory(
+                "~/Scripts/Jinn", "*.js", true));
         }
     }
 }

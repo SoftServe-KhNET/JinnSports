@@ -39,9 +39,7 @@ namespace JinnSports.DAL.EFContext
 
         public DbSet<User> Users { get; set; }
 
-        public DbSet<Role> Roles { get; set; }
-
-        public DbSet<Claim> Claims { get; set; }
+        public DbSet<Role> Roles { get; set; }        
 
         public DbSet<ExternalLogin> Logins { get; set; }
 
@@ -61,8 +59,7 @@ namespace JinnSports.DAL.EFContext
 
             modelBuilder.Configurations.Add(new UserConfiguration());
             modelBuilder.Configurations.Add(new RoleConfiguration());
-            modelBuilder.Configurations.Add(new ExternalLoginConfiguration());
-            modelBuilder.Configurations.Add(new ClaimConfiguration());
+            modelBuilder.Configurations.Add(new ExternalLoginConfiguration());            
 
             base.OnModelCreating(modelBuilder);
         }
