@@ -1,0 +1,23 @@
+#component-header ul{
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+	background-color: #35a1cc;
+}
+	
+#component-header li {
+	float: left;
+}
+	
+#component-header li a {
+	display: block;
+	color: white;
+	text-align: center;
+	padding: 14px 16px;
+	text-decoration: none;
+}
+	
+#component-header li a:hover {
+	background-color: #4682B4;
+}

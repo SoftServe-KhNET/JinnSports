@@ -569,6 +569,7 @@
     <Compile Include="Areas\Mvc\MvcAreaRegistration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\Api\EventController.cs" />
+    <Compile Include="Controllers\Api\NewsController.cs" />
     <Compile Include="Controllers\Api\TeamController.cs" />
     <Compile Include="Controllers\Api\TeamDetailsController.cs" />
     <Compile Include="Areas\Admin\Controllers\SportEventsController.cs" />
@@ -632,6 +633,7 @@
   <ItemGroup>
     <Folder Include="Areas\Admin\Models\" />
     <Folder Include="Areas\Admin\Views\Shared\" />
+    <Folder Include="Scripts\Jinn\components\News\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DTO\DTO.csproj">
