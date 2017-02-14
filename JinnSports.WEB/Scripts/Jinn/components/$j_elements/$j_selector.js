@@ -1,17 +1,10 @@
 ﻿'use strict';
 
 function $j_selector(additionalProps)
-{        
-    _.extend(this, additionalProps);
-    this.init();
-};
+{
+    var props = {
 
-_.extend($j_selector.prototype, {
-    init: function () {
-        this.build()
-    },
-
-    build: function () {
+        build: function () {
             var selectorContainer = document.getElementsByClassName(this.$j_container)[0];
             if (!selectorContainer) {
                 if (this.$j_container) {
@@ -20,7 +13,8 @@ _.extend($j_selector.prototype, {
                 }
             }
             var selectorLabel = document.createElement('label');
-            
+            selectorLabel.setAttribute('id', this.$j_selectorId + 'Label');
+
             var selector = document.createElement('select');
             selector.setAttribute('class', 'select-style');
             selector.setAttribute('id', this.$j_selectorId);
@@ -33,11 +27,9 @@ _.extend($j_selector.prototype, {
             }
 
             for (var option = 0; option < this.$j_data.options.length; option++) {
-                if (this.$j_data.values && this.$j_data.values[option])
-                {
+                if (this.$j_data.values && this.$j_data.values[option]) {
                     addOption(selector, this.$j_data.options[option], this.$j_data.values[option]);
-                } else
-                {
+                } else {
                     addOption(selector, this.$j_data.options[option], this.$j_data.options[option]);
                 }
             }
@@ -50,13 +42,27 @@ _.extend($j_selector.prototype, {
                 selectorLabel.innerHTML = this.$j_data.info;
                 selectorLabel.appendChild(selector);
             }
-            if (selectorContainer)
-            {
+            if (selectorContainer) {
                 selectorContainer.appendChild(selectorLabel);
                 document.body.appendChild(selectorContainer);
-            } else
-            {
+            } else {
                 document.body.appendChild(selectorLabel);
             }
+        },
+
+        show: function(){
+            this.build();
+        },
+
+        remove: function()
+        {
+            var selector = document.getElementById(this.$j_selectorId + 'Label');
+            if (selector) {
+                selector.remove();
+            }
+        }
+       
     }
-});
+    _.extend(this, props);
+    _.extend(this, additionalProps);
+};

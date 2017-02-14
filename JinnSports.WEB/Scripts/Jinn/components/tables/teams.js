@@ -1,15 +1,15 @@
 ﻿'use strict';
 
 function teamsView(model) {
-    this.table = new $j_table(
-            {
+    this.table = new $j_table({
                 $j_tableId: "teamsTable",
 
                 $j_container: "$j_table-component",
 
                 $j_ajax: {
-                    url: "/api/Team/LoadTeams"
+                    url: '/api/Team/LoadTeams',
                 },
+
                 $j_settings: {
                     pagination:
                     {
@@ -21,32 +21,43 @@ function teamsView(model) {
                     },
                     selector:
                     {
-                        info: "Show __$j_Selector__ records",
+                        info: "Показать __$j_Selector__ Записей",
                         options: ["10", "20", "30", "40"]
                     }
                 },
-                $j_data: {
-                    headers: ["Number", "Team Name"]
-                }
-            },
-            model);
-}
 
-_.extend(teamsView.prototype,
-    {
+                $j_data: {
+                    headers: ["№", "Team Name"],
+                    records: ["$j_№", "Name"]
+                }
+            }, model);
+
+    var self = this;
+
+    var viewProps = new View({
+
         build: function () {
-            this.table.update();
+            self.table.update();
         },
 
         init: function () {
             this.build();
+            return this;
         },
 
         show: function () {
-            this.table.show();
+            self.table.show();
         },
 
         hide: function () {
-            this.table.hide();
+            self.table.hide();
         },
-    });
+
+        render: function () {
+            self.table.render();
+        }
+    }, model);
+
+    _.extend(viewProps, this);
+    return viewProps;
+};

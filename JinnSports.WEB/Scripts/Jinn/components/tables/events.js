@@ -7,34 +7,32 @@ function eventsView(model) {
 
     this.table = new $j_table({
         $j_tableId: "eventsTable",
-
         $j_container: "$j_table-component",
-
         $j_ajax: {
             url: '/api/Event/LoadEvents?sportTypeId=' + this.sportTypeId + '&time=' + this.time,
             modify: function (id, time) {
                 this.url = '/api/Event/LoadEvents?sportTypeId=' + id + '&time=' + time;
-            },
+            }
         },
-
         $j_settings: {
-
             pagination:
                 {
                     next: "Следующая",
                     prev: "Предыдущая",
                     first: "",
                     last: "",
-                    infoFormat: "Show __$j_START__ to __$j_FINISH__ from __$j_COUNT__",
+                    infoFormat: "Показать с __$j_START__ по __$j_FINISH__ из __$j_COUNT__",
                 },
             selector:
                 {
-                    info: "Show __$j_Selector__ records",
-                    options: ["10", "20", "30", "40"]
+                    info: "Показать __$j_Selector__ записей",
+                    options: ["10", "30", "60", "100"]
                 }
         },
+
         $j_data: {
-            headers: ["Number", "Team Name"]
+            headers: ["№", "Команда 1", "Счет", "Команда 2", "Дата"],
+            records: ["$j_№", "TeamNames.0", "Score", "TeamNames.1", "Date"]
         }
     }, model);
 
@@ -52,7 +50,6 @@ function eventsView(model) {
 
     this.timeSelector = new $j_selector({
         $j_selectorId: "sportTypeSelector",
-
         $j_container: "settingsSelector",
 
         $j_data: {
@@ -61,64 +58,67 @@ function eventsView(model) {
             values: ["-1", "0", "1"]
         },
     });
-}
+    var self = this;
 
-_.extend(eventsView.prototype, {
-    build: function () {
-        var self = this;
+    var viewProps = new View({
+        build: function () {
+            self.sportTypeSelector.show();
+            self.timeSelector.show();
 
-        var sportTypeSelector = document.getElementById(this.sportTypeSelector.$j_selectorId);
-        sportTypeSelector.onchange = function () {
-            self.changeSportType(sportTypeSelector);
-            this.table.$j_ajax.modify(self.sportTypeId, self.time);
-            this.table.update();
+            var selfChild = this;
+            var sportTypeSelector = document.getElementById(self.sportTypeSelector.$j_selectorId);
+            sportTypeSelector.onchange = function () {
+                selfChild.changeSportType(sportTypeSelector);
+                selfChild.table.$j_ajax.modify(selfChild.sportTypeId, selfChild.time);
+                selfChild.table.update();
+            }
+
+            var timeSelector = document.getElementById(self.timeSelector.$j_selectorId);
+            timeSelector.onchange = function () {
+                selfChild.changeTime(timeSelector);
+                selfChild.table.$j_ajax.modify(selfChild.sportTypeId, selfChild.time);
+                selfChild.table.update();
+            }
+        },
+
+        changeSportType: function (sender) {
+            var selected_index = document.getElementById(sender.id).selectedIndex;
+            if (selected_index => 0) {
+                var selected_option_value = document.getElementById(sender.id).options[selected_index].value;
+                this.sportTypeId = selected_option_value;
+            }
+        },
+
+        changeTime: function (sender) {
+            var selected_index = document.getElementById(sender.id).selectedIndex;
+
+            if (selected_index => 0) {
+                var selected_option_value = document.getElementById(sender.id).options[selected_index].value;
+                this.time = selected_option_value;
+            }
+        },
+
+        init: function () {
+            this.build();
+            return this;
+        },
+
+        show: function () {
+            this.build();
+            this.table.show();
+        },
+
+        hide: function () {
+            this.sportTypeSelector.remove();
+            this.timeSelector.remove();
+            this.table.hide();
+        },
+
+        render: function () {
+            this.table.render();
         }
+    }, model);
 
-        var timeSelector = document.getElementById(this.timeSelector.$j_selectorId);
-        timeSelector.onchange = function () {
-            self.changeTime(timeSelector);
-            this.table.$j_ajax.modify(self.sportTypeId, self.time);
-            this.table.update();
-        }
-    },
-
-    changeSportType: function (sender) {
-        var selected_index = document.getElementById(sender.id).selectedIndex;
-        if (selected_index => 0) {
-            var selected_option_value = document.getElementById(sender.id).options[selected_index].value;
-            this.sportTypeId = selected_option_value;
-        }
-        else {
-            alert('non selected');
-        }
-    },
-
-    changeTime: function (sender) {
-        var selected_index = document.getElementById(sender.id).selectedIndex;
-
-        if (selected_index => 0) {
-            var selected_option_value = document.getElementById(sender.id).options[selected_index].value;
-            this.time = selected_option_value;
-        }
-        else {
-            alert('non selected');
-        }
-    },
-
-    init: function () {
-        this.build();
-    },
-
-    show: function () {
-        this.table.show();
-    },
-
-    hide: function () {
-        console.log('hide' + this);
-        this.table.hide();
-    },
-
-    render: function () {
-        alert('render');
-    }
-});
+    _.extend(viewProps, this);
+    return viewProps;
+};

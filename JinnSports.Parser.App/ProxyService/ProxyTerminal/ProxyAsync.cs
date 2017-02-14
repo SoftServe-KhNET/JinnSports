@@ -42,8 +42,6 @@ namespace JinnSports.Parser.App.ProxyService.ProxyTerminal
             //Creating tasks while CancelationToken is not cancelled
             while (!this.cancelTokenSrc.Token.IsCancellationRequested)
             {
-                Trace.WriteLine(String.Format("New task created"));
-
                 Task.Delay(this.asyncinterval * 1000).Wait();
 
                 tasks.Add(Task<ProxyHttpWebResponse>.Factory.StartNew(() =>

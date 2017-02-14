@@ -215,9 +215,6 @@ namespace JinnSports.Parser.App.ProxyService.ProxyConnections
                 proxy = this.GetProxy();
             }
 
-            Trace.WriteLine("************************************");
-            Trace.WriteLine("Current IP : " + proxy);
-            Trace.WriteLine("************************************");
             if (proxy != string.Empty)
             {
                 //pinging block, if server doesn't ping SetStatus (Disconnected)
@@ -256,7 +253,6 @@ namespace JinnSports.Parser.App.ProxyService.ProxyConnections
                         if (response != null)
                         {
                             //Valid Ip founded, SetStatus (Connected)
-                            Debug.WriteLine("Good IP : " + proxy);
                             this.SetStatus(proxy, ConnectionStatus.CS_Connected);
                             proxyResponse.Proxy = proxy;
                             proxyResponse.Response = response;
@@ -270,7 +266,6 @@ namespace JinnSports.Parser.App.ProxyService.ProxyConnections
                     }
                     catch(Exception e)
                     {
-                        Trace.WriteLine(e.Message);
                         //Connection Exception, SetStatus (Disconnected)
                         this.SetStatus(proxy, ConnectionStatus.CS_Disconnected);
                     }

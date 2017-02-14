@@ -182,7 +182,6 @@
     <Content Include="App_Data\PredictionsConnection.xml" />
     <Content Include="App_Data\PredictorConnection.xml" />
     <Content Include="App_Data\ApiConnection.xml" />
-    <Content Include="Areas\Jinn\Views\Shared\_teams.html" />
     <Content Include="Content\AdminLTE\AdminLTE.css" />
     <Content Include="Content\AdminLTE\AdminLTE.min.css" />
     <Content Include="Content\AdminLTE\skins\skin-black-light.css" />
@@ -620,6 +619,7 @@
   <ItemGroup>
     <Folder Include="Areas\Admin\Models\" />
     <Folder Include="Areas\Admin\Views\Shared\" />
+    <Folder Include="Areas\Jinn\Views\Shared\" />
     <Folder Include="Filters\" />
   </ItemGroup>
   <ItemGroup>

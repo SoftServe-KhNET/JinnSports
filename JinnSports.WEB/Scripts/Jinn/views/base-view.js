@@ -1,8 +1,9 @@
 ﻿'use strict';
 
-function View(additionalProps) {
+var View = function (additionalProps) {
     var prefix = 'v';
     this._id = prefix + _.getUniqueId();
+    this._isActive = false;
 
     this.events = new EventService();
 
@@ -11,7 +12,7 @@ function View(additionalProps) {
     attachModels.call(this, argModels);
 
     function attachModels(argModels) {
-        for (var i = 1; i < argModels.length; i++) {
+        for (var i = 0; i < argModels.length; i++) {
             if (argModels[i] instanceof Model) {
                 this.models.push(argModels[i]);
             }
@@ -20,14 +21,19 @@ function View(additionalProps) {
 
     _.extend(this, additionalProps);
 
-    this.init();
+    this._init();
 }
 
 _.extend(View.prototype, {
 
-    init: function () {
-        this.setupHandlers()
+    _init: function () {
+        this.init()
+            .setupHandlers()
             .enable();
+    },
+
+    init: function () {
+        return this;
     },
 
     setupHandlers: function () {

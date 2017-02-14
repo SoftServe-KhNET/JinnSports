@@ -60,11 +60,12 @@ _.extend(JinnApp.prototype, {
         for (var i = 0; i < elements.length; i++) {
             if (elements[i] instanceof View) {
                 self._views[elements[i]._id] = elements[i];
-            } else if (elements[i] instanceof Model) {
-                self._models[elements[i]._id] = elements[i];
             }
-        }
-
+            else
+                if (elements[i] instanceof Model) {
+                    self._models[elements[i]._id] = elements[i];
+                }
+            }
         return this;
     }
 });

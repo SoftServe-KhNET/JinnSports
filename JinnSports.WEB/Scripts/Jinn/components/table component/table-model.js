@@ -4,21 +4,18 @@ var httpRequest = null;
 function tableModel() {
 
     return new Model({
-
         data: {
             teams: [],
-            current_page: 1,
-            records_per_page: 10,
         },
 
-        updateData: function (connectionString) {
+        updateData: function (connectionString, records_per_page, currentPage) {
             var self = this;
             sendRequestToServer();
 
             function sendRequestToServer() {
-                var draw = self.data.records_per_page;
-                var start = self.data.records_per_page * (self.data.current_page - 1);
-                var length = self.data.records_per_page;
+                var draw = records_per_page;
+                var start = records_per_page * (currentPage - 1);
+                var length = records_per_page;
                 if (connectionString.includes('?')) {
                     var params = connectionString.split('?')[1] + ["&draw=" + draw + "&start=" + start + "&length=" + length];
                     connectionString = connectionString.split('?')[0]

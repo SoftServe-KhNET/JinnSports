@@ -9,16 +9,10 @@
         jinn = new JinnApp();
 
         var teams = new tableModel();
-
-
-        //var view1 = new teamsView(teams);
-
-        //var tview = new tableView(teams);
         var tview1 = new teamsView(teams);
         var eview1 = new eventsView(teams);
 
         jinn._addElements(teams, tview1, eview1);
-        alert('start');
         jinn.router = new jinn.Router({
 
             map: {
@@ -29,11 +23,11 @@
 
             index: function () {
                 this.hideAllViews();
-                tview1.show();
             },
 
             teams: function () {
                 this.hideAllViews();
+                tview1.show();
             },
 
             results: function () {
