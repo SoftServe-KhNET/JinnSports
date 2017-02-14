@@ -208,6 +208,7 @@ namespace JinnSports.Parser.App.ProxyService.ProxyConnections
             ProxyHttpWebResponse proxyResponse = new ProxyHttpWebResponse();
             // Get proxy from xml file, string "proxy" contains the result
             string proxy = this.GetProxy();
+            Trace.WriteLine(proxy);
 
             if (proxy == string.Empty)
             {
