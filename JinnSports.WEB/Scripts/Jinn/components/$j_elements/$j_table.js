@@ -2,26 +2,31 @@
 
 function $j_table(additionalParameters, model) {
     var props = {
+        isActive: false,
+
         data: {
                 currentModelIndex: 0
             },
 
         render: function () {
+            console.log(this);
+            alert(this.isActive);
+            if (this.isActive) {
                 var table = document.getElementById(this.$j_tableId);
                 var pagingNavBar = document.getElementById(this.$j_tableId + "_pagingNavBar");
 
-                if (table || pagingNavBar)
-                {
+                if (table || pagingNavBar) {
                     table.remove();
                     this.buildTable();
                     pagingNavBar.remove();
                     this.buildPagingNavBar();
                 }
-                else
-                {
-                    this.show();
+                else {
+                    this.build();
                 }
-            },
+            }
+        },
+
             update: function()
             {
                 this.models[this.data.currentModelIndex].updateData(this.$j_ajax.url);
@@ -34,7 +39,7 @@ function $j_table(additionalParameters, model) {
                 this.update();
             },
 
-            show: function () {
+            build: function () {
                 if (this.$j_settings.selector.options.length > 0) {
                     this.buildSelector();
                 }
@@ -42,6 +47,16 @@ function $j_table(additionalParameters, model) {
                 this.buildTable();
 
                 this.buildPagingNavBar();
+            },
+
+            show: function () {
+                this.isActive = true;
+                this.update();
+            },
+
+            hide: function () {
+                alert('hide' + this);
+                this.isActive = false;
             },
 
             buildSelector: function () {

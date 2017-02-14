@@ -9,18 +9,49 @@
         jinn = new JinnApp();
 
         var teams = new tableModel();
+
+
         //var view1 = new teamsView(teams);
 
         //var tview = new tableView(teams);
-        //var tview1 = new teamsView(teams);
+        var tview1 = new teamsView(teams);
         var eview1 = new eventsView(teams);
 
-        jinn.Model = teams;
-        jinn.View = eview1;
+        jinn._addElements(teams, tview1, eview1);
+        alert('start');
+        jinn.router = new jinn.Router({
 
-        //tview1.init();
+            map: {
+                '': 'index',
+                '#teams': 'teams',
+                '#results': 'results'
+            },
 
-        //console.log(tview);
-        console.log(eview1);
+            index: function () {
+                this.hideAllViews();
+                tview1.show();
+            },
+
+            teams: function () {
+                this.hideAllViews();
+            },
+
+            results: function () {
+                this.hideAllViews();
+                eview1.show();
+            },
+
+            hideAllViews: function () {
+                var views = jinn._views;
+                for (var viewId in views) {
+                    if (views.hasOwnProperty(viewId)) {
+                        views[viewId].hide();
+                    }
+                }
+            }
+
+        });
+
+        jinn._run('#');
     });
 })();
