@@ -6,16 +6,16 @@
 @model SportEventViewModel
 
 @{
-    ViewBag.Title = "View";
+    ViewBag.Title = "Результаты матчей";
     Layout = "~/Areas/Mvc/Views/Shared/_Layout.cshtml";
 }
 
     @using (Html.BeginForm("PostIndex", "Event", FormMethod.Post))
     {
         <div>
-            <label for="sportTypeSelector">Select Sport Type</label>
+            <label for="sportTypeSelector">Выберите тип спорта</label>
             <select class="form-control" id="sportTypeSelector" name="sportTypeSelector">
-                <option value="0">All</option>
+                <option value="0">Все</option>
                 @foreach (SportTypeDto sportType in Model.SportTypeSelectDto.SportTypes)
                 {
                     if (sportType.Id == Model.SportTypeSelectDto.SelectedId)
@@ -31,13 +31,13 @@
 
             <p class="divider"></p>
 
-            <label for="timeSelector">Select Time</label>
+            <label for="timeSelector">Выберите время</label>
             <select class="form-control" id="timeSelector" name="timeSelector">
-                <option value=1>All</option>
-                <option value=0>Past</option>
-                <option value=2>Future</option>
+                <option value=1>Все</option>
+                <option value=0>Прошлое</option>
+                <option value=2>Будущее</option>
             </select>
-            <input class="btn btn-primary" type="submit" name="Select" />
+            <input class="btn btn-primary" type="submit" name="Select" value="Выбрать" />
         </div>
     }
     <div>
@@ -47,10 +47,10 @@
                cellspacing="0" style="border-collapse:collapse;">
             <thead style="background: #6495ED; font-size : 16px;">
                 <tr>
-                    <th scope="col">First Team</th>
-                    <th scope="col">Score</th>
-                    <th scope="col">Second Team</th>
-                    <th scope="col">Date</th>
+                    <th scope="col">Домашняя команда</th>
+                    <th scope="col">Счет</th>
+                    <th scope="col">Гостевая команда</th>
+                    <th scope="col">Дата</th>
                 </tr>
             </thead>
             <tbody>

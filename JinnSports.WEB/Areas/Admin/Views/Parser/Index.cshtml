@@ -2,26 +2,26 @@
     ViewBag.Title = "Parser";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<asp:content>
-    <h2 style="text-align:center">Parser Service</h2>
+<section>
+    <h2 style="text-align:center">Сервис парсинга</h2>
     @using (Html.BeginForm("RunParser", "Parser", FormMethod.Post))
     {
-        <asp:div>
-            <input class="btn btn-primary" type="submit" value="Update Data" name="UpdateData" />
-        </asp:div>
+        <div>
+            <input class="btn btn-primary" type="submit" value="Обновить данные" name="UpdateData" />
+        </div>
     }
     <p class="divider"></p>
     @using (Html.BeginForm("UpdateProxy", "Parser", FormMethod.Post))
     {
-        <asp:div>
-            <input class="btn btn-primary" type="submit" value="Update Proxy" name="UpdateProxy" />
-        </asp:div>
+        <div>
+            <input class="btn btn-primary" type="submit" value="Обновить список прокси" name="UpdateProxy" />
+        </div>
     }
     <p class="divider"></p>
     @using (Html.BeginForm("RunPredictions", "Parser", FormMethod.Post))
     {
-        <asp:div>
-            <input class="btn btn-primary" type="submit" value="Run Predictions" name="RunPredictions" />
-        </asp:div>
+        <div>
+            <input class="btn btn-primary" type="submit" value="Запустить предсказатель" name="RunPredictions" />
+        </div>
     }
-</asp:content>    
+</section>    

@@ -1,13 +1,13 @@
 ﻿@model JinnSports.BLL.Dtos.ConformityViewModel
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = string.Format("Сопоставление для {0}", Model.InputName);
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>@Model.InputName matching</h2>
+<h2>Сопоставление для @Model.InputName</h2>
 
-@Html.Label(String.Format("Chose variant of matching in dropdown menu or write you custom variant in textbox for {0}", Model.InputName))
+@Html.Label(String.Format("Выберите вариант сопоставления в выпадающем меню или введите в поле ввода свой вариант для {0}", Model.InputName))
 
 @using (Html.BeginForm("Save", "Conformities"))
 {
@@ -16,13 +16,12 @@
         @Html.LabelFor(m => m.ExistedName)
         @Html.TextBoxFor(m => m.ExistedName, new { @class = "form-control" })
         @Html.ValidationMessageFor(m => m.ExistedName)
-
     </div>
     <div class="form-group">
         @Html.LabelFor(m => m.ExistedName)
-        @Html.DropDownListFor(m => m.ConformityId, new SelectList(Model.Conformities, "Id", "ExistedName"), "Select name", new { @class = "form-control" })
+        @Html.DropDownListFor(m => m.ConformityId, new SelectList(Model.Conformities, "Id", "ExistedName"), "Выберите имя", new { @class = "form-control" })
         @Html.ValidationMessageFor(m => m.ConformityId)
     </div>
     @Html.HiddenFor(m => m.InputName)
-    <button type="submit" class="btn btn-primary">Save</button>
+    <button type="submit" class="btn btn-primary">Сохранить</button>
 }

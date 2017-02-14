@@ -1,6 +1,7 @@
 ﻿@using JinnSports.BLL.Dtos.SportType
 @model IEnumerable<SportTypeDto>
 @{
+    ViewBag.Title = "Результаты матчей";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -9,34 +10,34 @@
 }
 <!-- select -->
 <div class="select">
-    <label for="selectSportType">Select a SportType</label>
+    <label for="selectSportType">Выберите тип спорта</label>
     <select class="sportType" id="sportType" onchange="selectSport()">
-        <option value=0>All</option>
+        <option value=0>Все</option>
         @foreach (SportTypeDto sportTypeDto in Model)
         {
             <option value=@sportTypeDto.Id>@sportTypeDto.Name</option>
         }
     </select>
 
-    <label for="selectSportType">Select a Time</label>
+    <label for="selectSportType">Выберите время</label>
     <select class="sportTime" id="sportTime" onchange="selectSport()">
-        <option value=1>All</option>
-        <option value=0>Past</option>
-        <option value=2>Future</option>
+        <option value=1>Все</option>
+        <option value=0>Прошлое</option>
+        <option value=2>Будущее</option>
     </select>
 </div>
 <div class="box">
     <div class="box-header">
-        <h3 class="box-title">Results</h3>
+        <h3 class="box-title">Результаты</h3>
     </div>
     <div class="box-body">
         <table id="eventTable" class="table table-bordered table-striped">
             <thead>
                 <tr>
-                    <th>First Team</th>
-                    <th>Score</th>
-                    <th>Second Team</th>
-                    <th>Date</th>
+                    <th>Домашняя команда</th>
+                    <th>Счет</th>
+                    <th>Гостевая команда</th>
+                    <th>Дата</th>
                 </tr>
             </thead>
         </table>
@@ -46,6 +47,7 @@
     <script>
         function loadResults(sportTypeId, time) {
             $("#eventTable").DataTable({
+                "ordering": false,
                 "processing": false,
                 "serverSide": true,
                 "filter": false,
@@ -57,11 +59,14 @@
                     dataSrc: 'data'
                 },
                 "columns": [
-                        { 'data': 'TeamNames.0', 'autoWidth': true },
-                        { 'data': 'Score', 'autoWidth': true },
-                        { 'data': 'TeamNames.1', 'autoWidth': true },
-                        { 'data': 'Date', 'autoWidth': true }
-                ]
+                    { 'data': 'TeamNames.0', 'autoWidth': true },
+                    { 'data': 'Score', 'autoWidth': true },
+                    { 'data': 'TeamNames.1', 'autoWidth': true },
+                    { 'data': 'Date', 'autoWidth': true }
+                ],
+                "language": {
+                    url: '/Content/DataTables/russian.json'
+                }
             });
         };
     </script>

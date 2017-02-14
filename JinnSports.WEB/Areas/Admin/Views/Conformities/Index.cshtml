@@ -1,17 +1,14 @@
 ﻿@using JinnSports.BLL.Dtos
 @model List<ConformityDto>
 @{
-    ViewBag.Title = "ConformitiesForm";
+    ViewBag.Title = "Меню сопоставления названий";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Names matching menu</h2>
+<h2>Меню сопоставления названий</h2>
 
-<h4>List of incoming names:</h4>
+<h4>Список полученных названий:</h4>
 @foreach (ConformityDto input in Model)
 {
     <br>@Html.ActionLink(input.InputName, "Edit", "Conformities", new { id = input.Id }, null)
 }
-   
-
-

@@ -1,7 +1,7 @@
 ﻿@model JinnSports.BLL.Dtos.MainPageDto
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
-    ViewBag.Title = "JinnSports Main";
+    ViewBag.Title = "JinnSports - Главная";
 }
 
 @section styles {
@@ -16,14 +16,14 @@
     <div class="box box-warning">
         <div class="box-header with-border">
             <h3 class="box-title">
-                News
+                Новости
             </h3>
         </div>
         
         <div class="box-body">
-            @if (Model == null || Model.News.Count() == 0)
+            @if (Model == null || !Model.News.Any())
             {
-                <p>No news...</p>
+                <p>Новостей нет...</p>
             }
             else
             {
@@ -49,6 +49,7 @@
     <script>
         function loadResults(sportTypeId, time) {
             $("#eventTable").DataTable({
+                "ordering": false,
                 "processing": false,
                 "serverSide": true,
                 "filter": false,
@@ -79,7 +80,10 @@
                             }
                         },
                         { 'data': 'Date', 'autoWidth': true }
-                ]
+                ],
+                "language": {
+                    url: '/Content/DataTables/russian.json'
+                }
             });
         };
     </script>

@@ -18,10 +18,9 @@
             <p>
                 @foreach (AuthenticationDescription p in loginProviders)
                 {
-                    <button type="submit" class="btn btn-block btn-social btn-flat btn-@p.AuthenticationType.ToLower()" id="@p.AuthenticationType" name="provider" value="@p.AuthenticationType" title="Log in using your @p.Caption account"><i class="fa fa-@p.AuthenticationType.ToLower()"></i> Use @p.AuthenticationType account</button>
+                    <button type="submit" class="btn btn-block btn-social btn-flat btn-@p.AuthenticationType.ToLower()" id="@p.AuthenticationType" name="provider" value="@p.AuthenticationType" title="Log in using your @p.Caption account"><i class="fa fa-@p.AuthenticationType.ToLower()"></i> Использовать @p.AuthenticationType аккаунт</button>
                 }
             </p>
         }
     }
 }
-
