@@ -19,7 +19,7 @@ namespace JinnSports.Parser.App
 {
     public class ApiConnection
     {
-        private static readonly ILog Log = LogManager.GetLogger(typeof(ApiConnection));
+        private static readonly ILog Log = LogManager.GetLogger("AppLog");
 
         private string baseUrl;
         private string controllerUrn;

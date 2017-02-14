@@ -13,7 +13,7 @@ namespace JinnSports.BLL.Service
 {
     public class AdminService : IAdminService
     {
-        private static readonly ILog Log = LogManager.GetLogger(typeof(AdminService));
+        private static readonly ILog Log = LogManager.GetLogger("AppLog");
 
         private readonly IUnitOfWork dataUnit;
 

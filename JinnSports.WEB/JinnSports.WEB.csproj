@@ -62,6 +62,10 @@
       <HintPath>..\packages\AutoMapper.5.2.0\lib\net45\AutoMapper.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="log4net, Version=2.0.7.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.7\lib\net45-full\log4net.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
       <Private>True</Private>
@@ -528,6 +532,7 @@
     <Content Include="Scripts\Jinn\core\app-instance.js" />
     <Content Include="Scripts\Jinn\core\event-dispatcher.js" />
     <Content Include="Scripts\Jinn\core\1extensions.js" />
+    <Content Include="Scripts\Jinn\core\logger.js" />
     <Content Include="Scripts\Jinn\core\router.js" />
     <Content Include="Scripts\Jinn\core\templates.js" />
     <Content Include="Scripts\Jinn\xinit\1init.js" />
@@ -557,6 +562,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\ConformityController.cs" />
+    <Compile Include="Areas\Admin\Controllers\LoggerController.cs" />
     <Compile Include="Areas\Admin\Controllers\ParserController.cs" />
     <Compile Include="Areas\Admin\Controllers\PredictionsController.cs" />
     <Compile Include="Areas\Mvc\Controllers\EventController.cs" />
