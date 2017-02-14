@@ -19,7 +19,6 @@ namespace PredictorApplication.Models
         private PredictorMonitor()
         {
             this.IsAvailable = true;
-            this.ConfigureAutoMapper();
         }
 
         public bool IsAvailable { get; private set; }
@@ -64,30 +63,6 @@ namespace PredictorApplication.Models
         private void ChangeStatus()
         {
             this.IsAvailable = true;
-        }
-
-        private void ConfigureAutoMapper()
-        {
-            Mapper.Initialize(config =>
-            {
-                config.CreateMap<TeamEventDTO, TeamEvent>()
-                    .ForMember(
-                        e => e.AttackScore,
-                        opt => opt.MapFrom(
-                            s => s.AttackScore))
-                   .ForMember(
-                        e => e.DefenseScore,
-                        opt => opt.MapFrom(
-                            s => s.DefenseScore))
-                    .ForMember(
-                        e => e.IsHomeGame,
-                        opt => opt.MapFrom(
-                            s => s.IsHomeGame))
-                   .ForMember(
-                        e => e.Date,
-                        opt => opt.MapFrom(
-                            s => new DateTime(s.Date)));
-            });
         }
     }
 }

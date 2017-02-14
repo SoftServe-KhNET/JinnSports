@@ -22,15 +22,15 @@ namespace PredictorBalancer
         public ActionResult Add(string baseUrl, string controllerUrn, int timeoutSec)
         {
             this.monitorService = new MonitorService();
-            monitorService.Add(baseUrl, controllerUrn, timeoutSec);
-            return RedirectToAction("Index");
+            this.monitorService.Add(baseUrl, controllerUrn, timeoutSec);
+            return this.RedirectToAction("Index");
         }
 
         public ActionResult Delete(int id)
         {
             this.monitorService = new MonitorService();
-            monitorService.Delete(id);
-            return RedirectToAction("Index");
+            this.monitorService.Delete(id);
+            return this.RedirectToAction("Index");
         }
 
     }

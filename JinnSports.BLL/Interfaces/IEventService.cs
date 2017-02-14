@@ -18,6 +18,7 @@ namespace JinnSports.BLL.Interfaces
         /// Get events for sport type
         /// </summary>
         /// <param name="sportId">Sport type ID</param>
+        /// <param name="time"></param>
         /// <param name="skip"></param>
         /// <param name="take"></param>
         /// <returns></returns>
@@ -29,5 +30,6 @@ namespace JinnSports.BLL.Interfaces
 
         IEnumerable<SportTypeDto> GetSportTypes();
 
+        void RunPredictions();
     }
 }

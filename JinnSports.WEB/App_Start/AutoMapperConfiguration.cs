@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using AutoMapper;
+﻿using AutoMapper;
 using JinnSports.BLL.Dtos;
 using JinnSports.Entities.Entities;
 using System.Linq;
@@ -62,7 +61,7 @@ namespace JinnSports.WEB
                .ForMember(
                     e => e.Score,
                     opt => opt.MapFrom(
-                        res => ((res.Results.ElementAt(0).Score==-1 || res.Results.ElementAt(1).Score==-1) ? "—:—" : 
+                        res => ((res.Results.ElementAt(0).Score == -1 || res.Results.ElementAt(1).Score == -1) ? "—:—" : 
                             string.Format(
                             "{0} : {1}",
                             res.Results.ElementAt(0).Score,

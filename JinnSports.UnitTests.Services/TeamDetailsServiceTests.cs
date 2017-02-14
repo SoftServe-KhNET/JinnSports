@@ -578,10 +578,12 @@ namespace JinnSports.UnitTests.Services
                 la_vs_Ph
             };
 
-            this.databaseTransaction = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions
-            {
-                IsolationLevel = IsolationLevel.Serializable
-            });
+            this.databaseTransaction = new TransactionScope(
+                TransactionScopeOption.Required, 
+                new TransactionOptions
+                {
+                    IsolationLevel = IsolationLevel.Serializable
+                });
         }
 
         [TearDown]

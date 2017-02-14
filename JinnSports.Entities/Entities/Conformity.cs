@@ -9,9 +9,7 @@ namespace JinnSports.Entities.Entities
         public string InputName { get; set; }
 
         public string ExistedName { get; set; }
-
-        public bool IsConfirmed { get; set; }
-
+                
         public TempResult TempResult { get; set; }
 
         public bool Equals(Conformity conformity)
@@ -27,8 +25,7 @@ namespace JinnSports.Entities.Entities
             }
 
             return (this.InputName == conformity.InputName) && 
-                (this.ExistedName == conformity.ExistedName) && 
-                (this.IsConfirmed == conformity.IsConfirmed);
+                (this.ExistedName == conformity.ExistedName);
         }
 
         public override int GetHashCode()
@@ -39,8 +36,7 @@ namespace JinnSports.Entities.Entities
             }
 
             int hashCode = this.InputName.GetHashCode() ^ 
-                this.ExistedName.GetHashCode() ^ 
-                this.IsConfirmed.GetHashCode() ^ 
+                this.ExistedName.GetHashCode() ^                  
                 this.TempResult.GetHashCode();
             
             return hashCode;

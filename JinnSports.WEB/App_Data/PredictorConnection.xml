@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ApiConnectionPath>
-  <url>http://localhost:7611</url>
+  <url>http://109.86.183.42:8082</url>
   <name>api/Balancer</name>
   <timeout>400</timeout>
 </ApiConnectionPath>

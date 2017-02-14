@@ -39,9 +39,13 @@ namespace PredictorBalancer.Models
 
         public void SendPredictions(IEnumerable<PredictionDTO> predictions)
         {
-            ApiConnection<IEnumerable<PredictionDTO>> connection = new ApiConnection<IEnumerable<PredictionDTO>>(Package.CallBackURL,
-                                                                        Package.CallBackController, Package.CallBackTimeout);
+            ApiConnection<IEnumerable<PredictionDTO>> connection = new ApiConnection<IEnumerable<PredictionDTO>>(
+                Package.CallBackURL,
+                Package.CallBackController, 
+                Package.CallBackTimeout);
+
             connection.Send(predictions);
+            Notifier.SendEmail($"{predictions.Count()} predictions send back at {DateTime.Now.ToString()}");
         }
 
         public async void SendIncomingEvents(PackageDTO package, string baseUrl)
@@ -68,6 +72,8 @@ namespace PredictorBalancer.Models
                     predictor.SendIncomingEvents(this.CreatePackage(package.IncomigEvents.Skip(count * size).Take(size), baseUrl));
                     count++;
                 }
+
+                Notifier.SendEmail($"New task with {predictors.Count()} awailable predictors at {DateTime.Now.ToString()}. Processing {package.IncomigEvents.Count()} Entries.");
             }
             catch (Exception ex)
             {
@@ -76,16 +82,13 @@ namespace PredictorBalancer.Models
             
         }
 
-        // TODO: resolve async
         public async Task UpdateStatus()
         {
             List<Task> tasks = new List<Task>();
 
             foreach (Predictor predictor in this.Predictors.GetAll())
             {
-                Task task = new Task(predictor.UpdateStatus);
-                task.Start();
-                tasks.Add(task);
+                tasks.Add(Task.Factory.StartNew(predictor.UpdateStatus));
             }
             await Task.WhenAll(tasks);
         }
@@ -96,7 +99,7 @@ namespace PredictorBalancer.Models
             {
                 IncomigEvents = incomingEvents,
                 CallBackURL = baseUrl,
-                CallBackController = $"api/Balancer",
+                CallBackController = $"api/Predictions",
                 CallBackTimeout = 60
             };
         }

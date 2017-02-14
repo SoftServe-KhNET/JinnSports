@@ -130,7 +130,7 @@ namespace JinnSports.WEB.Controllers
                 : message == ManageMessageId.RemoveLoginSuccess ? "The external login was removed."
                 : message == ManageMessageId.Error ? "An error has occurred."
                 : string.Empty;
-            ViewBag.HasLocalPassword = this.userService.HasPassword(User);
+            ViewBag.HasLocalPassword = this.userService.HasPassword(this.User);
             ViewBag.ReturnUrl = Url.Action("Manage");
             return this.View();
         }
@@ -303,7 +303,7 @@ namespace JinnSports.WEB.Controllers
         public ActionResult RemoveAccountList()
         {
             var linkedAccounts = this.userService.GetLogins(this.userService.GetGuid(User.Identity.GetUserId()));
-            ViewBag.ShowRemoveButton = this.userService.HasPassword(User) || linkedAccounts.Count > 1;
+            ViewBag.ShowRemoveButton = this.userService.HasPassword(this.User) || linkedAccounts.Count > 1;
             return (ActionResult)PartialView("_RemoveAccountPartial", linkedAccounts);
         }
 

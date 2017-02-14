@@ -62,7 +62,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Configurations\ClaimConfiguration.cs" />
     <Compile Include="Configurations\ExternalLoginConfiguration.cs" />
     <Compile Include="Configurations\RoleConfiguration.cs" />
     <Compile Include="Configurations\UserConfiguration.cs" />
@@ -107,6 +106,14 @@
     <Compile Include="Migrations\201701231823068_Predictor.cs" />
     <Compile Include="Migrations\201701231823068_Predictor.Designer.cs">
       <DependentUpon>201701231823068_Predictor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201702031702291_ConformConfirmationDelete.cs" />
+    <Compile Include="Migrations\201702031702291_ConformConfirmationDelete.Designer.cs">
+      <DependentUpon>201702031702291_ConformConfirmationDelete.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201702130844508_ClaimsDeleted.cs" />
+    <Compile Include="Migrations\201702130844508_ClaimsDeleted.Designer.cs">
+      <DependentUpon>201702130844508_ClaimsDeleted.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -157,6 +164,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201701231823068_Predictor.resx">
       <DependentUpon>201701231823068_Predictor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201702031702291_ConformConfirmationDelete.resx">
+      <DependentUpon>201702031702291_ConformConfirmationDelete.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201702130844508_ClaimsDeleted.resx">
+      <DependentUpon>201702130844508_ClaimsDeleted.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup />

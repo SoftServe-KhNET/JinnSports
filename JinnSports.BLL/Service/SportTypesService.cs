@@ -8,16 +8,11 @@ using log4net;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace JinnSports.BLL.Service
 {
     public class SportTypeService : ISportTypeService
     {
-        private const string SPORTCONTEXT = "SportsContext";
-
         private static readonly ILog Log = LogManager.GetLogger(typeof(EventsService));
 
         private readonly IUnitOfWork dataUnit;
@@ -26,6 +21,7 @@ namespace JinnSports.BLL.Service
         {
             this.dataUnit = unitOfWork;
         }
+
         public int Count(int sportTypeId, int time)
         {
             int count;
@@ -71,7 +67,7 @@ namespace JinnSports.BLL.Service
 
             if (sportTypeId != 0)
             {
-                if(time != 0)
+                if (time != 0)
                 {
                     sportEvents =
                         this.dataUnit.GetRepository<SportEvent>().Get(
@@ -153,7 +149,6 @@ namespace JinnSports.BLL.Service
                     SportType sportType = sportEvents.ElementAt(0).SportType;
 
                     foreach (SportEvent sportEvent in sportEvents)
-
                     {
                         if (sportEvent.SportType.Id != sportType.Id)
                         {

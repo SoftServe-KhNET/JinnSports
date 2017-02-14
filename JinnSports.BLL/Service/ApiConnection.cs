@@ -8,6 +8,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Configuration;
 using System.Web.Hosting;
 using System.Xml;
 
@@ -35,6 +36,7 @@ namespace JinnSports.BLL.Service
                     client.Timeout = new TimeSpan(0, 0, this.timeoutSec);
                     client.DefaultRequestHeaders.Accept.Clear();
                     client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                    client.DefaultRequestHeaders.Add(WebConfigurationManager.AppSettings["ApiKey"], WebConfigurationManager.AppSettings["ApiKeyValue"]);
 
                     string json = JsonConvert.SerializeObject(package, Newtonsoft.Json.Formatting.Indented);
                     StringContent content = new StringContent(json, Encoding.UTF8, "application/json");

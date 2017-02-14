@@ -35,6 +35,7 @@ namespace PredictorApplication.Models
                     client.Timeout = new TimeSpan(0, 0, this.timeoutSec);
                     client.DefaultRequestHeaders.Accept.Clear();
                     client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                    client.DefaultRequestHeaders.Add("X-ServiceCode", "x");
 
                     string json = JsonConvert.SerializeObject(predictions, Newtonsoft.Json.Formatting.Indented);
                     StringContent content = new StringContent(json, Encoding.UTF8, "application/json");

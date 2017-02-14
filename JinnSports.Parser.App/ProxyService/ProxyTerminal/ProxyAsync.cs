@@ -2,11 +2,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Net;
 using System.Diagnostics;
-using JinnSports.Parser.App.ProxyService.ProxyConnections;
 using System.Threading;
 using JinnSports.Parser.App.Configuration.Proxy;
 using JinnSports.Parser.App.WebConnection;

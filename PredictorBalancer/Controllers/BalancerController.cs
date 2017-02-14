@@ -13,16 +13,11 @@ namespace PredictorBalancer.Controllers
     {
         private BalancerMonitor instance;
 
-        public void PostPackage([FromBody]PackageDTO package)
+        public IHttpActionResult PostPackage([FromBody]PackageDTO package)
         {
             this.instance = BalancerMonitor.GetInstance();
-            this.instance.SendIncomingEvents(package, RequestContext.VirtualPathRoot);
-        }
-
-        public void PostPredictions([FromBody]IEnumerable<PredictionDTO> predictions)
-        {
-            this.instance = BalancerMonitor.GetInstance();
-            this.instance.SendPredictions(predictions);
+            this.instance.SendIncomingEvents(package, Request.RequestUri.GetLeftPart(UriPartial.Authority));
+            return this.Ok();
         }
     }
 }

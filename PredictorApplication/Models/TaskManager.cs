@@ -4,6 +4,7 @@ using ScorePredictor;
 using ScorePredictor.EventData;
 using System;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace PredictorApplication.Models
@@ -49,7 +50,7 @@ namespace PredictorApplication.Models
 
                 Prediction prediction = this.CreatePrediction(incomingEvent);
 
-                int maxScore = new SettingsReader().ReadMaxScore(incomingEvent.SportType);
+                int maxScore = SettingsReader.GetInstance().ReadMaxScore(incomingEvent.SportType);
 
                 foreach (TeamInfo teamInfo in incomingEvent.TeamsInfo)
                 {

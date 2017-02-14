@@ -1,4 +1,4 @@
-﻿'use strict';
+﻿'use sctrict';
 
 var View = function (additionalProps) {
     var prefix = 'v';

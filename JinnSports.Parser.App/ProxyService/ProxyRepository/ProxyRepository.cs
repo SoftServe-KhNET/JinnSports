@@ -5,25 +5,22 @@ using System.Xml.Serialization;
 using System.IO;
 using JinnSports.Parser.App.ProxyService.ProxyEntities;
 using JinnSports.Parser.App.ProxyService.ProxyInterfaces;
-using JinnSports.Parser.App.ProxyService.ProxyEnums;
 using JinnSports.Parser.App.Configuration.Proxy;
-using System.Configuration;
-using System.Web;
 using System.Web.Hosting;
 
 namespace JinnSports.Parser.App.ProxyService.ProxyRepository
 {
     public class ProxyRepository<T> : IProxyRepository<T> where T : IProxyServer
     {
-        private XmlSerializer xmlSerializer;
         private static object repLocker = new object();
+        private XmlSerializer xmlSerializer;
         private string path;
 
         public ProxyRepository()
         {
             this.path = HostingEnvironment.MapPath("~/App_Data/") + ProxySettings.GetPath();
             this.xmlSerializer = new XmlSerializer(typeof(List<ProxyServer>));
-            this.Interval = ProxySettings.GetCooldown();         
+            this.Interval = ProxySettings.GetCooldown();
         }
 
         public int Interval { get; private set; }

@@ -7,24 +7,20 @@
     Layout = "~/Areas/Mvc/Views/Shared/_Layout.cshtml";
 }
 
-
-    <h2 style="text-align:center">Teams</h2>
-    <table id="teams" class="table table-hover table-striped"
-           cellspacing="0" style="border-collapse:collapse;">
-        <thead style="background: #6495ED; font-size : 16px;">
+<h2 style="text-align:center">Команды</h2>
+<table id="teams" class="table table-hover table-striped" style="border-collapse:collapse;">
+    <thead style="background: #6495ED; font-size : 16px;">
+        <tr>
+            <th scope="col">Команда</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (TeamDto team in Model.TeamDtos)
+        {
             <tr>
-                <th scope="col">Team</th>
+                <td>@Html.ActionLink(team.Name, "Details", "Team", new { id = team.Id }, null)</td>
             </tr>
-        </thead>
-        <tbody>
-            @foreach (TeamDto team in Model.TeamDtos)
-            {
-                <tr>
-                    <td scope = "col" > @Html.ActionLink(team.Name, "Details", "Team", new { id = team.Id }, null) </td>
-                </tr >
-            }
-        </tbody>
-    </table>
-    @Html.Partial("_TeamPaginationPartial", Model)
-
-
+        }
+    </tbody>
+</table>
+@Html.Partial("_TeamPaginationPartial", Model)

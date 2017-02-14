@@ -1,8 +1,7 @@
+using System.Data.Entity.Migrations;
+
 namespace JinnSports.DAL.Migrations
 {
-    using System;
-    using System.Data.Entity.Migrations;
-    
     public partial class Predictor : DbMigration
     {
         public override void Up()
@@ -31,13 +30,13 @@ namespace JinnSports.DAL.Migrations
         
         public override void Down()
         {
-            DropForeignKey("dbo.EventPredictions", "SportEvent_Id", "dbo.SportEvents");
-            DropForeignKey("dbo.EventPredictions", "HomeTeam_Id", "dbo.Teams");
-            DropForeignKey("dbo.EventPredictions", "AwayTeam_Id", "dbo.Teams");
-            DropIndex("dbo.EventPredictions", new[] { "SportEvent_Id" });
-            DropIndex("dbo.EventPredictions", new[] { "HomeTeam_Id" });
-            DropIndex("dbo.EventPredictions", new[] { "AwayTeam_Id" });
-            DropTable("dbo.EventPredictions");
+            this.DropForeignKey("dbo.EventPredictions", "SportEvent_Id", "dbo.SportEvents");
+            this.DropForeignKey("dbo.EventPredictions", "HomeTeam_Id", "dbo.Teams");
+            this.DropForeignKey("dbo.EventPredictions", "AwayTeam_Id", "dbo.Teams");
+            this.DropIndex("dbo.EventPredictions", new[] { "SportEvent_Id" });
+            this.DropIndex("dbo.EventPredictions", new[] { "HomeTeam_Id" });
+            this.DropIndex("dbo.EventPredictions", new[] { "AwayTeam_Id" });
+            this.DropTable("dbo.EventPredictions");
         }
     }
 }

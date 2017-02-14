@@ -1,0 +1,19 @@
+﻿@using JinnSports.BLL.Dtos
+@model IEnumerable<EventPredictionDto>
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- select -->
+<h2>Предсказания результатов матчей</h2>
+<div>
+    @foreach (EventPredictionDto ep in Model)
+    {
+        <div>
+            <p>@ep.EventType | @ep.EventDate</p>
+            <p>Home team: @ep.HomeTeamName | Away team: @ep.AwayTeamName</p>
+            <p>Home Win Probability: @ep.HomeWinProbability % | Draw Probability: @ep.DrawProbability % | Away Win Probability: @ep.AwayWinProbability %</p>
+            <hr />
+        </div>
+    }
+</div>

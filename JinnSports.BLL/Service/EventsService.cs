@@ -176,7 +176,7 @@ namespace JinnSports.BLL.Service
                         {
                             team = this.dataUnit.GetRepository<TeamName>()
                             .Get((x) => x.Name == team.Name).Select(x => x.Team).FirstOrDefault();
-
+                            
                             Result result = new Result { Team = team, Score = resultDTO.Score ?? -1, IsHome = resultDTO.IsHome };
                             sportEvent.Results.Add(result);
                         }
@@ -207,8 +207,7 @@ namespace JinnSports.BLL.Service
                 }
                 this.dataUnit.SaveChanges();
 
-                // TODO: resolve injection
-                //this.predictionSender.SendPredictionRequest(); // Check new events and send request to Predictor
+                this.predictionSender.SendPredictionRequest();
             }
             catch (Exception ex)
             {
@@ -217,6 +216,11 @@ namespace JinnSports.BLL.Service
             }
             Log.Info("Transferred data sucessfully saved");
             return true;
+        }
+
+        public void RunPredictions()
+        {
+            this.predictionSender.SendPredictionRequest();
         }
 
         private void Save(TempSportEvent tempEvent, SportEvent sportEvent)

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace JinnSports.BLL.Dtos
+﻿namespace JinnSports.BLL.Dtos
 {
     public class TeamDto
     {

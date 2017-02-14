@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-function Model(additionalProps) {
+var Model = function (additionalProps) {
     this.data = {};
     var prefix = 'm';
     this._id = prefix + _.getUniqueId();
@@ -13,7 +13,11 @@ function Model(additionalProps) {
 };
 
 _.extend(Model.prototype, {
-    init: function () { },
+
+    // Some initial actions
+    init: function () {
+        return this;
+    },
 
     // Setting new data and notifying about it
     // TODO: ability to set multiple key:value or set as {key:value} object
