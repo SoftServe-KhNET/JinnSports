@@ -1,4 +1,5 @@
-﻿using System;
+﻿using JinnSports.Parser.App.WebConnection;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -9,6 +10,6 @@ namespace JinnSports.Parser.App.ProxyService.ProxyInterfaces
 {
     public interface IProxyAsync
     {
-        HttpWebResponse GetProxyAsync();
+        ProxyHttpWebResponse GetProxyAsync();
     }
 }
