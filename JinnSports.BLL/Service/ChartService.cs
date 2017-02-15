@@ -10,7 +10,7 @@ namespace JinnSports.BLL.Service
 {
     public class ChartService : IChartService
     {
-        private static readonly ILog Log = LogManager.GetLogger(typeof(ChartService));
+        private static readonly ILog Log = LogManager.GetLogger("AppLog");
 
         private readonly IUnitOfWork unitOfWork;
 

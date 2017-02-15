@@ -62,6 +62,10 @@
       <HintPath>..\packages\AutoMapper.5.2.0\lib\net45\AutoMapper.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="log4net, Version=2.0.7.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.7\lib\net45-full\log4net.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
       <Private>True</Private>
@@ -210,6 +214,7 @@
     <Content Include="Content\AdminLTE\skins\skin-yellow.min.css" />
     <Content Include="Content\AdminLTE\skins\_all-skins.css" />
     <Content Include="Content\AdminLTE\skins\_all-skins.min.css" />
+    <Content Include="Content\auth-style.css" />
     <Content Include="Content\blue%402x.png" />
     <Content Include="Content\blue.png" />
     <Content Include="Content\bootstrap-theme.css" />
@@ -528,21 +533,24 @@
     <Content Include="Scripts\DataTables\responsive.jqueryui.min.js" />
     <Content Include="Scripts\DataTables\responsive.semanticui.js" />
     <Content Include="Scripts\DataTables\responsive.semanticui.min.js" />
-    <Content Include="Scripts\Jinn\components\%24j_elements\%24j_selector.js" />
-    <Content Include="Scripts\Jinn\components\table component\table-model.js" />
-    <Content Include="Scripts\Jinn\components\%24j_elements\%24j_table.js" />
-    <Content Include="Scripts\Jinn\components\tables\events.js" />
-    <Content Include="Scripts\Jinn\components\tables\teams.js" />
+    <Content Include="Scripts\Jinn\components\Table\%24j_elements\%24j_selector.js" />
+    <Content Include="Scripts\Jinn\components\Table\%24j_elements\%24j_table.js" />
+    <Content Include="Scripts\Jinn\components\Table\table-model\table-model.js" />
+    <Content Include="Scripts\Jinn\components\Table\tables\events.js" />
+    <Content Include="Scripts\Jinn\components\Table\tables\teams.js" />
     <Content Include="Scripts\Jinn\core\app-instance.js" />
     <Content Include="Scripts\Jinn\core\event-dispatcher.js" />
     <Content Include="Scripts\Jinn\core\extensions.js" />
     <Content Include="Scripts\Jinn\core\router.js" />
-    <Content Include="Scripts\Jinn\core\templates.js" />
+    <Content Include="Scripts\Jinn\core\template.js" />
     <Content Include="Scripts\Jinn\init.js" />
     <Content Include="Scripts\icheck.min.js" />
     <Content Include="Scripts\Jinn\components\AdminK\1Model.js" />
     <Content Include="Scripts\Jinn\components\AdminK\2View.js" />
     <Content Include="Scripts\Jinn\components\AdminK\3Main.js" />
+    <Content Include="Scripts\Jinn\components\Authorization\auth-model.js" />
+    <Content Include="Scripts\Jinn\components\Authorization\auth-view.js" />
+    <Content Include="Scripts\Jinn\core\logger.js" />
     <Content Include="Scripts\Jinn\models\base-model.js" />
     <Content Include="Scripts\Jinn\views\base-view.js" />
     <Content Include="Scripts\jquery-3.1.1.js" />
@@ -568,6 +576,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\ConformityController.cs" />
+    <Compile Include="Areas\Admin\Controllers\LoggerController.cs" />
     <Compile Include="Areas\Admin\Controllers\ParserController.cs" />
     <Compile Include="Areas\Admin\Controllers\PredictionsController.cs" />
     <Compile Include="Areas\Jinn\Controllers\TeamsController.cs" />
@@ -582,6 +591,7 @@
     <Compile Include="Areas\Mvc\MvcAreaRegistration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\Api\EventController.cs" />
+    <Compile Include="Controllers\Api\NewsController.cs" />
     <Compile Include="Controllers\Api\TeamController.cs" />
     <Compile Include="Controllers\Api\TeamDetailsController.cs" />
     <Compile Include="Areas\Admin\Controllers\SportEventsController.cs" />
@@ -646,6 +656,8 @@
     <Folder Include="Areas\Admin\Models\" />
     <Folder Include="Areas\Admin\Views\Shared\" />
     <Folder Include="Areas\Jinn\Views\Shared\" />
+    <Folder Include="Scripts\Jinn\components\News\" />
+    <Folder Include="Scripts\Jinn\xinit\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DTO\DTO.csproj">

@@ -20,8 +20,7 @@ namespace JinnSports.Parser.App.HtmlParsers
 {
     public class HTMLParser24score
     {
-        private static readonly ILog Log =
-            LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Log = LogManager.GetLogger("AppLog");
 
         private IProxyTerminal proxyTerminal;
 
@@ -40,9 +39,9 @@ namespace JinnSports.Parser.App.HtmlParsers
                 ApiConnection api = new ApiConnection(/*ApiConnectionStrings.URL, ApiConnectionStrings.Controller*/);
 
                 Uri footballUrl = new Uri("https://24score.com/?date=");
-                //Uri basketballUrl = new Uri("https://24score.com/basketball/?date=");
-                //Uri hokkeyUrl = new Uri("https://24score.com/ice_hockey/?date=");
-                List<Uri> selectedUris = new List<Uri> { footballUrl/*, basketballUrl, hokkeyUrl*/ };
+                Uri basketballUrl = new Uri("https://24score.com/basketball/?date=");
+                Uri hokkeyUrl = new Uri("https://24score.com/ice_hockey/?date=");
+                List<Uri> selectedUris = new List<Uri> { footballUrl, basketballUrl, hokkeyUrl };
                 
                 foreach (Uri baseUrl in selectedUris)                
                 {
@@ -92,9 +91,6 @@ namespace JinnSports.Parser.App.HtmlParsers
             IProxyHttpWebResponse response;
             while (true)
             {
-                //HttpWebRequest request = (HttpWebRequest)WebRequest.Create(new Uri(url));
-                //request.Headers.Set(HttpRequestHeader.ContentEncoding, "1251");
-                //response = request.GetResponse() as HttpWebResponse;
                 response = this.proxyTerminal.GetProxyResponse(new Uri(url));
 
                 try
@@ -104,7 +100,7 @@ namespace JinnSports.Parser.App.HtmlParsers
                 }
                 catch (Exception ex)
                 {
-                    proxyTerminal.MakeProxyUnavaliable(response.Proxy);
+                    this.proxyTerminal.MakeProxyUnavaliable(response.Proxy);
                     Log.Error(ex);
                 }
             }

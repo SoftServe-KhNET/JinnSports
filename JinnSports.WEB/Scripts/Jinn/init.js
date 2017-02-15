@@ -1,4 +1,4 @@
-(function () {
+(function() {
     'use strict';
 
     var jinn = null;
@@ -8,11 +8,13 @@
 
         jinn = new JinnApp();
 
-        var teams = new tableModel();
-        var tview1 = new teamsView(teams);
-        var eview1 = new eventsView(teams);
+        var mtable = new tableModel();
+        //var authModel = new authModel();
+        //var authView = new AuthView(authModel);
+        var tview = new teamsView(mtable);
+        var eview = new eventsView(mtable);
 
-        jinn._addElements(teams, tview1, eview1);
+        jinn._addElements(mtable, tview, eview);
         jinn.router = new jinn.Router({
 
             map: {
@@ -27,12 +29,13 @@
 
             teams: function () {
                 this.hideAllViews();
-                tview1.show();
+                tview.show();
             },
 
             results: function () {
                 this.hideAllViews();
-                eview1.show();
+                eview.show();
+                authView.show();
             },
 
             hideAllViews: function () {

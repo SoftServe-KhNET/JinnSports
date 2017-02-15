@@ -1,4 +1,4 @@
-'use strict';
+﻿'use strict';
 var httpRequest = null;
 
 function tableModel() {
@@ -20,8 +20,7 @@ function tableModel() {
                     var params = connectionString.split('?')[1] + ["&draw=" + draw + "&start=" + start + "&length=" + length];
                     connectionString = connectionString.split('?')[0]
                 }
-                else
-                {
+                else {
                     var params = ["draw=" + draw + "&start=" + start + "&length=" + length];
                 }
                 self.sendRequest(connectionString, params, getResponseFromServer, "GET");

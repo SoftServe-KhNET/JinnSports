@@ -28,9 +28,7 @@ namespace JinnSports.Parser.App.JsonParsers
 
     public class JsonParser
     {
-        private static readonly ILog Log =
-            LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-
+        private static readonly ILog Log = LogManager.GetLogger("AppLog");
         private IProxyTerminal proxyTerminal;
 
         public JsonParser() : this(new Uri("http://results.fbwebdn.com/results.json.php"))
@@ -64,7 +62,7 @@ namespace JinnSports.Parser.App.JsonParsers
                     }
                     catch (Exception ex)
                     {
-                        proxyTerminal.MakeProxyUnavaliable(proxy);
+                        this.proxyTerminal.MakeProxyUnavaliable(proxy);
                         Log.Error(ex);
                     }
                 }
@@ -89,13 +87,10 @@ namespace JinnSports.Parser.App.JsonParsers
 
             string url = string.Format("{0}?locale={1}", uri.ToString(), locale == Locale.EN ? "en" : "ru");
 
-             //HttpWebRequest request = (HttpWebRequest)WebRequest.Create(new Uri(url));
-             //request.Headers.Set(HttpRequestHeader.ContentEncoding, "1251");
-             //response = request.GetResponse() as HttpWebResponse;
-             response = this.proxyTerminal.GetProxyResponse(new Uri(url));
-             result = new StreamReader(response.Response.GetResponseStream()).ReadToEnd();
-             proxy = response.Proxy;
-             return result;
+            response = this.proxyTerminal.GetProxyResponse(new Uri(url));
+            result = new StreamReader(response.Response.GetResponseStream()).ReadToEnd();
+            proxy = response.Proxy;
+            return result;
         }
 
         public JsonResult DeserializeJson(string jsonStr)

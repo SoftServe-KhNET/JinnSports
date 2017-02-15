@@ -48,8 +48,8 @@ namespace JinnSports.BLL.RssParser
                     {
                         Time = DateTime.Parse(descendant.Element("pubDate")?.Value)
                             .ToShortTimeString(),
-                        Title = descendant.Element("title")?.Value,
-                        Description = descendant.Element("description")?.Value,
+                        Title = descendant.Element("title")?.Value.Replace('\"', '\''), 
+                        Description = descendant.Element("description")?.Value.Replace('\"', '\''),
                         Link = descendant.Element("link")?.Value
                     })
                 .ToList();
