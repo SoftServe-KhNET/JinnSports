@@ -1,4 +1,5 @@
-﻿using JinnSports.BLL.Dtos;
+﻿using JinnSports.BLL;
+using JinnSports.BLL.Dtos;
 using JinnSports.BLL.Dtos.SportType;
 using JinnSports.BLL.Interfaces;
 using JinnSports.BLL.Service;
@@ -23,9 +24,9 @@ namespace JinnSports.WEB.Areas.Mvc.Controllers
         }
 
         // GET: Mvc/Event
-        public ActionResult Index(int page = 1, int id = 0, int time = 0)
+        public ActionResult Index(int page = 1, int id = 0, TimeSelector timeSelector = TimeSelector.All)
         {
-            int recordsTotal = this.sportTypeService.Count(id, time);
+            int recordsTotal = this.sportTypeService.Count(id, timeSelector);
 
             if (page < 1)
             {
@@ -34,8 +35,8 @@ namespace JinnSports.WEB.Areas.Mvc.Controllers
 
             PageInfo pageInfo = new PageInfo(recordsTotal, page, PAGESIZE);
             SportTypeSelectDto sportTypeModel = this.sportTypeService.GetSportTypes(
-                id, 
-                time,
+                id,
+                timeSelector,
                 (page - 1) * PAGESIZE, 
                 PAGESIZE);
 
@@ -54,21 +55,6 @@ namespace JinnSports.WEB.Areas.Mvc.Controllers
             {
                 return this.View();
             }
-        }
-
-        [HttpPost]
-        public ActionResult PostIndex(string sportTypeSelector, string timeSelector)
-        {
-            int sportTypeId = 
-                !string.IsNullOrEmpty(sportTypeSelector) ? Convert.ToInt32(sportTypeSelector) : 0;
-            
-            int timeId = 
-                !string.IsNullOrEmpty(timeSelector) ? Convert.ToInt32(timeSelector) : 1;
-
-            int recordsTotal = this.sportTypeService.Count(sportTypeId, timeId - 1);
-
-            return this.RedirectToAction(
-                "Index", new { id = sportTypeId, page = 1, time = timeId - 1 });
         }
     }
 }

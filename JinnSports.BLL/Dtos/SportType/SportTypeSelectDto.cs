@@ -8,7 +8,7 @@ namespace JinnSports.BLL.Dtos.SportType
 
         public string SelectedName { get; set; }
 
-        public int SelectedTime { get; set; }
+        public TimeSelector SelectedTime { get; set; }
 
         public IEnumerable<SportTypeDto> SportTypes { get; set; }
 

@@ -22,9 +22,11 @@ namespace JinnSports.BLL.Service
             this.dataUnit = unitOfWork;
         }
 
-        public int Count(int sportTypeId, int time)
+        public int Count(int sportTypeId, TimeSelector timeSelector)
         {
             int count;
+            int time = (int)timeSelector;
+
             if (sportTypeId != 0)
             {
                 if (time != 0)
@@ -58,13 +60,13 @@ namespace JinnSports.BLL.Service
             return count;
         }
 
-        public SportTypeSelectDto GetSportTypes(int sportTypeId, int time, int skip, int take)
+        public SportTypeSelectDto GetSportTypes(int sportTypeId, TimeSelector timeSelector, int skip, int take)
         {
             IList<ResultDto> results = new List<ResultDto>();
             IList<SportTypeListDto> sportTypeListDtos = new List<SportTypeListDto>();
             ICollection<SportEvent> sportEvents = new List<SportEvent>();
             string selectedName;
-
+            int time = (int)timeSelector;
             if (sportTypeId != 0)
             {
                 if (time != 0)
@@ -185,7 +187,7 @@ namespace JinnSports.BLL.Service
             {
                 SelectedId = sportTypeId,
                 SelectedName = selectedName,
-                SelectedTime = time,
+                SelectedTime = timeSelector,
                 SportTypes = this.GetAllSportTypes(),
                 SportTypeResults = sportTypeListDtos
             };
