@@ -1,0 +1,108 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/MainStyles")
+    @Styles.Render("~/Content/css")
+    <meta name="description" content="Sport portal" />
+    <link rel="icon" href="@Url.Content("~/Content/favicon.ico")" />
+</head>
+<body class="layout-top-nav skin-blue">
+<div id="component-header">
+    <div id="authentification" style="float: right; background: inherit;"></div>
+</div>
+    <div class="content-wrapper">
+        <div class="container">
+            <div id="adminka"></div>
+            <div class="col-md-9">
+                <!-- Table -->
+                <div id="table-wrapper">
+                    <div class="$j_table-component"></div>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <!-- News -->
+                <div id="component-news"></div>
+            </div>
+        </div>
+    </div>
+    
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/app")
+    <script>
+        (function () {
+            'use strict';
+
+            var jinn = null;
+
+            // On page loaded
+            document.addEventListener('DOMContentLoaded', function () {
+
+                jinn = new JinnApp();
+
+                // Models
+                var universalTableModel = new tableModel();
+                var adminPanelModel = new adminModel();
+                var newsModel = new jinn.Model(new NewsModel());
+
+                jinn._addElements(universalTableModel, adminPanelModel, newsModel);
+
+                // Views
+                var headerView = new jinn.View(new HeaderView());
+                var teamsTableView = new teamsView(universalTableModel);
+                var eventsTableView = new eventsView(universalTableModel);
+                var authorizationView = new AuthView(new AuthModel());
+                authorizationView.show();
+                var newsView = new jinn.View(new NewsView(), newsModel);
+                var adminPanelView = new adminView(adminPanelModel);
+
+                jinn._addElements(teamsTableView, eventsTableView, authorizationView, newsView, adminPanelView);
+
+                jinn.router = new jinn.Router({
+
+                    map: {
+                        '#teams': 'teams',
+                        '#results': 'results',
+                        '#auth': 'auth',
+                        '#admin': 'admin'
+                    },
+
+                    teams: function () {
+                        this.hideAllViews();
+                        newsView.show();
+                        teamsTableView.show();
+                    },
+
+                    results: function () {
+                        this.hideAllViews();
+                        newsView.show();
+                        eventsTableView.show();
+                    },
+
+                    admin: function() {
+                        this.hideAllViews();
+                        adminPanelView.show();
+                    },
+
+                    hideAllViews: function () {
+                        var views = jinn._views;
+                        for (var viewId in views) {
+                            if (views.hasOwnProperty(viewId)) {
+                                views[viewId].hide();
+                            }
+                        }
+                    }
+
+                });
+
+                jinn._run('#teams');
+            });
+        })();
+    </script>
+</body>
+
+</html>

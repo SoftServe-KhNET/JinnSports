@@ -1,44 +1,35 @@
 ﻿'use strict';
 function adminView(model) {
     return new View({
-
         render: function () {
-            var cont = $("#adminForm");            
-            
-            if (cont.length > 0) {                
+            var cont = $("#adminForm");
+
+            if (cont.length > 0) {
                 cont.remove();
                 this.renderConfs();
-            }
-            else {                
+            } else {
                 this.renderConfs();
             }
         },
 
-        init: function () {
-            console.log("init");
-            this.setupHandlers()
-                .enable();
-            this.models[0].updateData();
-        },
-          
-        doubleInputPreventer: function(event){
-            if (event.target.tagName == 'INPUT') {                
+        doubleInputPreventer: function (event) {
+            if (event.target.tagName == 'INPUT') {
                 if (event.target.value != "") {
                     $('#' + event.target.parentElement.parentElement.id + " select")["0"].value = "Existed Name";
-                }   
+                }
             }
-            if (event.target.tagName == 'SELECT') {                
+            if (event.target.tagName == 'SELECT') {
                 if (event.target.value != 0) {
                     $('#' + event.target.parentElement.parentElement.id + " input")["0"].value = '';
                 }
             }
         },
-          
+
         renderConfs: function () {
             var self = this;
             var data = this.models[0].data.data;
             var cont = $("#adminka");
-            
+
             var fragment = $(document.createDocumentFragment());
             var mainhd = $('<h2></h2>').text("Naming matching panel");
             fragment.append(mainhd);
@@ -62,13 +53,14 @@ function adminView(model) {
                     .autocomplete({
                         source: function (request, response) {
                             var myExp = new RegExp(request.term, 'i');
-                            var output=[];
-                            $.each(self.models[0].data.data.Names, function (key, val) {                                
-                                if (val.search(myExp) != -1) {                                    
-                                    var result = { label: val, value:val };
-                                    output.push(result);
-                                }
-                            })                            
+                            var output = [];
+                            $.each(self.models[0].data.data.Names,
+                                function (key, val) {
+                                    if (val.search(myExp) != -1) {
+                                        var result = { label: val, value: val };
+                                        output.push(result);
+                                    }
+                                })
                             response(output);
                         },
                         minLength: 1
@@ -99,40 +91,48 @@ function adminView(model) {
                 }
                 label2.append(select.val("Existed Name"));
                 div.append(label2);
-                form.append(div);                
+                form.append(div);
             }
-           
+
             var btn = $('<button>Save</button>').click(this.save.bind(this));
             form.append(btn);
             fragment.append(form);
-            cont.append(fragment);            
+            cont.append(fragment);
         },
 
         collectData: function () {
             console.log("collect");
-            var divs = $('form div');            
+            var divs = $('form div');
             var dataToSend = [];
 
             for (var i = 0; i < divs.length; i++) {
                 var input = $('#' + divs[i].id + ' h4')[0].innerText;
                 var existed = $('#' + divs[i].id + ' input')[0].value;
                 var select = $('#' + divs[i].id + ' select')[0].value;
-                
+
                 if (existed != "") {
-                    dataToSend.push({ Id : 0, InputName: input, ExistedName: existed });
+                    dataToSend.push({ Id: 0, InputName: input, ExistedName: existed });
                 }
                 if (select != "Existed Name") {
                     dataToSend.push({ Id: 0, InputName: input, ExistedName: select });
-                }  
+                }
             }
-                        
+
             return dataToSend;
         },
 
         save: function (e) {
-            e.preventDefault();            
-            var data = this.collectData();            
+            e.preventDefault();
+            var data = this.collectData();
             this.models[0].send(data);
+        },
+
+        show: function() {
+            this.models[0].updateData();
+        },
+
+        hide: function() {
+            $("#adminka").html("");
         }
-    }, model)
+    }, model);
 };

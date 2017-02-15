@@ -42,11 +42,12 @@ function $j_selector(additionalProps)
                 selectorLabel.innerHTML = this.$j_data.info;
                 selectorLabel.appendChild(selector);
             }
+            var tableWrapper = document.getElementById('table-wrapper');
             if (selectorContainer) {
                 selectorContainer.appendChild(selectorLabel);
-                document.body.appendChild(selectorContainer);
+                tableWrapper.appendChild(selectorContainer);
             } else {
-                document.body.appendChild(selectorLabel);
+                tableWrapper.appendChild(selectorLabel);
             }
         },
 
