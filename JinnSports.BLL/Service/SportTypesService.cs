@@ -13,7 +13,7 @@ namespace JinnSports.BLL.Service
 {
     public class SportTypeService : ISportTypeService
     {
-        private static readonly ILog Log = LogManager.GetLogger(typeof(EventsService));
+        private static readonly ILog Log = LogManager.GetLogger("AppLog");
 
         private readonly IUnitOfWork dataUnit;
 
