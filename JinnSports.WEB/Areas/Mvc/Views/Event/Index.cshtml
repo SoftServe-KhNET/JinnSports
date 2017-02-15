@@ -1,5 +1,6 @@
 ﻿@using System.Collections.Generic;
 @using JinnSports.WEB.Areas.Mvc.Models
+@using JinnSports.BLL
 @using JinnSports.BLL.Dtos;
 @using JinnSports.BLL.Dtos.SportType;
 
@@ -10,11 +11,11 @@
     Layout = "~/Areas/Mvc/Views/Shared/_Layout.cshtml";
 }
 
-    @using (Html.BeginForm("PostIndex", "Event", FormMethod.Post))
+    @using (Html.BeginForm("Index", "Event", FormMethod.Get))
     {
         <div>
-            <label for="sportTypeSelector">Выберите тип спорта</label>
-            <select class="form-control" id="sportTypeSelector" name="sportTypeSelector">
+            <label for="id">Выберите тип спорта</label>
+            <select class="form-control" id="id" name="id">
                 <option value="0">Все</option>
                 @foreach (SportTypeDto sportType in Model.SportTypeSelectDto.SportTypes)
                 {
@@ -31,13 +32,23 @@
 
             <p class="divider"></p>
 
-            <label for="timeSelector">Выберите время</label>
+            
+            <label for="timeSelector">Выберите время</label>            
             <select class="form-control" id="timeSelector" name="timeSelector">
-                <option value=1>Все</option>
-                <option value=0>Прошлое</option>
-                <option value=2>Будущее</option>
-            </select>
-            <input class="btn btn-primary" type="submit" name="Select" value="Выбрать" />
+                @foreach (KeyValuePair<TimeSelector, string> item in SportEventViewModel.TimeSelection)
+                {
+                    if (item.Key == Model.SportTypeSelectDto.SelectedTime)
+                    {
+                        <option selected value=@item.Key>@item.Value</option>
+                    }
+                    else
+                    {
+                        <option value=@item.Key>@item.Value</option>
+                    }
+                }
+            </select> 
+            <p class="divider"></p>          
+            <input class="btn btn-primary" type="submit" value="Выбрать" />
         </div>
     }
     <div>

@@ -120,6 +120,7 @@
     <Compile Include="Service\TeamDetailsService.cs" />
     <Compile Include="Service\TeamService.cs" />
     <Compile Include="Service\UserService.cs" />
+    <Compile Include="TimeSelector.cs" />
     <Compile Include="Utilities\AutofacConfig.cs" />
     <Compile Include="Utilities\NewsConfiguration.cs" />
   </ItemGroup>
