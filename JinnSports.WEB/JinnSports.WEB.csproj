@@ -366,6 +366,11 @@
     <Content Include="Content\DataTables\images\sort_desc.png" />
     <Content Include="Content\DataTables\images\sort_desc_disabled.png" />
     <Content Include="Content\DataTables\swf\flashExport.swf" />
+    <Content Include="Content\Jinn\select.css" />
+    <Content Include="Content\Jinn\pagination.css" />
+    <Content Include="Content\Jinn\style.css" />
+    <Content Include="Content\Jinn\table.css" />
+    <Content Include="Content\Site.css" />
     <Content Include="Content\favicon.ico" />
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\font-awesome.min.css" />
@@ -441,6 +446,8 @@
     <Content Include="Areas\Admin\Views\Conformities\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Conformities\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Parser\Index.cshtml" />
+    <Content Include="Areas\Jinn\Views\web.config" />
+    <Content Include="Areas\Jinn\Views\Teams\Index.cshtml" />
     <Content Include="fonts\fontawesome-webfont.eot" />
     <Content Include="fonts\fontawesome-webfont.ttf" />
     <Content Include="fonts\fontawesome-webfont.woff" />
@@ -526,28 +533,31 @@
     <Content Include="Scripts\DataTables\responsive.jqueryui.min.js" />
     <Content Include="Scripts\DataTables\responsive.semanticui.js" />
     <Content Include="Scripts\DataTables\responsive.semanticui.min.js" />
+    <Content Include="Scripts\Jinn\components\Table\%24j_elements\%24j_selector.js" />
+    <Content Include="Scripts\Jinn\components\Table\%24j_elements\%24j_table.js" />
+    <Content Include="Scripts\Jinn\components\Table\table-model\table-model.js" />
+    <Content Include="Scripts\Jinn\components\Table\tables\events.js" />
+    <Content Include="Scripts\Jinn\components\Table\tables\teams.js" />
+    <Content Include="Scripts\Jinn\core\app-instance.js" />
+    <Content Include="Scripts\Jinn\core\event-dispatcher.js" />
+    <Content Include="Scripts\Jinn\core\extensions.js" />
+    <Content Include="Scripts\Jinn\core\router.js" />
+    <Content Include="Scripts\Jinn\core\template.js" />
+    <Content Include="Scripts\Jinn\init.js" />
     <Content Include="Scripts\icheck.min.js" />
     <Content Include="Scripts\Jinn\components\AdminK\1Model.js" />
     <Content Include="Scripts\Jinn\components\AdminK\2View.js" />
     <Content Include="Scripts\Jinn\components\AdminK\3Main.js" />
     <Content Include="Scripts\Jinn\components\Authorization\auth-model.js" />
     <Content Include="Scripts\Jinn\components\Authorization\auth-view.js" />
-    <Content Include="Scripts\Jinn\core\app-instance.js" />
-    <Content Include="Scripts\Jinn\core\event-dispatcher.js" />
-    <Content Include="Scripts\Jinn\core\1extensions.js" />
     <Content Include="Scripts\Jinn\core\logger.js" />
-    <Content Include="Scripts\Jinn\core\router.js" />
-    <Content Include="Scripts\Jinn\core\templates.js" />
-    <Content Include="Scripts\Jinn\init.js" />
-    <Content Include="Scripts\Jinn\xinit\1init.js" />
     <Content Include="Scripts\Jinn\models\base-model.js" />
     <Content Include="Scripts\Jinn\views\base-view.js" />
     <Content Include="Scripts\jquery-3.1.1.js" />
     <Content Include="Scripts\jquery-3.1.1.min.js" />
     <Content Include="Scripts\jquery-3.1.1.slim.js" />
     <Content Include="Scripts\jquery-3.1.1.slim.min.js" />
-    <Content Include="Scripts\jquery-ui-1.12.1.js" />
-    <Content Include="Scripts\jquery-ui-1.12.1.min.js" />
+    <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\loader.js" />
     <Content Include="Scripts\MyScripts\3Main.js" />
     <Content Include="Scripts\MyScripts\1Model.js" />
@@ -569,6 +579,8 @@
     <Compile Include="Areas\Admin\Controllers\LoggerController.cs" />
     <Compile Include="Areas\Admin\Controllers\ParserController.cs" />
     <Compile Include="Areas\Admin\Controllers\PredictionsController.cs" />
+    <Compile Include="Areas\Jinn\Controllers\TeamsController.cs" />
+    <Compile Include="Areas\Jinn\JinnAreaRegistration.cs" />
     <Compile Include="Areas\Mvc\Controllers\EventController.cs" />
     <Compile Include="Areas\Mvc\Controllers\HomeController.cs" />
     <Compile Include="Areas\Mvc\Controllers\TeamController.cs" />
@@ -643,7 +655,9 @@
   <ItemGroup>
     <Folder Include="Areas\Admin\Models\" />
     <Folder Include="Areas\Admin\Views\Shared\" />
+    <Folder Include="Areas\Jinn\Views\Shared\" />
     <Folder Include="Scripts\Jinn\components\News\" />
+    <Folder Include="Scripts\Jinn\xinit\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DTO\DTO.csproj">

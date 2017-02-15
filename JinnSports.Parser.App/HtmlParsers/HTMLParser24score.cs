@@ -14,6 +14,7 @@ using JinnSports.Parser.App.ProxyService.ProxyInterfaces;
 using JinnSports.DataAccessInterfaces.Interfaces;
 using System.Threading.Tasks;
 using System.Diagnostics;
+using JinnSports.Parser.App.Interfaces;
 
 namespace JinnSports.Parser.App.HtmlParsers
 {
@@ -38,9 +39,9 @@ namespace JinnSports.Parser.App.HtmlParsers
                 ApiConnection api = new ApiConnection(/*ApiConnectionStrings.URL, ApiConnectionStrings.Controller*/);
 
                 Uri footballUrl = new Uri("https://24score.com/?date=");
-                //Uri basketballUrl = new Uri("https://24score.com/basketball/?date=");
-                //Uri hokkeyUrl = new Uri("https://24score.com/ice_hockey/?date=");
-                List<Uri> selectedUris = new List<Uri> { footballUrl/*, basketballUrl, hokkeyUrl*/ };
+                Uri basketballUrl = new Uri("https://24score.com/basketball/?date=");
+                Uri hokkeyUrl = new Uri("https://24score.com/ice_hockey/?date=");
+                List<Uri> selectedUris = new List<Uri> { footballUrl, basketballUrl, hokkeyUrl };
                 
                 foreach (Uri baseUrl in selectedUris)                
                 {
@@ -87,20 +88,19 @@ namespace JinnSports.Parser.App.HtmlParsers
 
         private string GetHtml(string url)
         {
-            HttpWebResponse response;
+            IProxyHttpWebResponse response;
             while (true)
             {
-                //HttpWebRequest request = (HttpWebRequest)WebRequest.Create(new Uri(url));
-                //request.Headers.Set(HttpRequestHeader.ContentEncoding, "1251");
-                //response = request.GetResponse() as HttpWebResponse;
                 response = this.proxyTerminal.GetProxyResponse(new Uri(url));
+
                 try
                 {
-                    string html = new StreamReader(response.GetResponseStream()).ReadToEnd();
+                    string html = new StreamReader(response.Response.GetResponseStream()).ReadToEnd();
                     return html;
                 }
                 catch (Exception ex)
                 {
+                    this.proxyTerminal.MakeProxyUnavaliable(response.Proxy);
                     Log.Error(ex);
                 }
             }

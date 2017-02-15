@@ -1,5 +1,6 @@
 using AutoMapper;
 using DTO.JSON;
+using JinnSports.BLL;
 using JinnSports.BLL.Dtos;
 using JinnSports.BLL.Extentions;
 using JinnSports.BLL.Interfaces;
@@ -210,9 +211,9 @@ namespace JinnSports.UnitTests.Services
         }
 
         [Test]
-        [TestCase(1, 0)]
-        [TestCase(2, 0)]
-        public void CountCheckEventsExist(int sportId, int time)
+        [TestCase(1, TimeSelector.All)]
+        [TestCase(2, TimeSelector.All)]
+        public void CountCheckEventsExist(int sportId, TimeSelector time)
         {
             Assert.AreNotEqual(this.databaseSportsContext.SportEvents.Count(), 0);
 
@@ -225,10 +226,10 @@ namespace JinnSports.UnitTests.Services
             Assert.AreEqual(expectedCount, actualCount);
         }
 
-        [TestCase(-1, 0)]
-        [TestCase(4, 0)]
-        [TestCase(9999, 0)]
-        public void CountCheckEventsNotExist(int sportId, int time)
+        [TestCase(-1, TimeSelector.All)]
+        [TestCase(4, TimeSelector.All)]
+        [TestCase(9999, TimeSelector.All)]
+        public void CountCheckEventsNotExist(int sportId, TimeSelector time)
         {
             int expectedCount = this.databaseSportsContext
                 .SportEvents.Where(e => e.SportType.Id == sportId).Count();
@@ -239,12 +240,12 @@ namespace JinnSports.UnitTests.Services
         }
 
         [Test]
-        [TestCase(1, 0, 0, 10)]
-        [TestCase(1, 0, 1, 3)]
-        [TestCase(1, 0, 2, 1)]
-        [TestCase(2, 0, 0, 10)]
-        [TestCase(2, 0, 1, 1)]
-        public void GetSportEventsCheckEventsExist(int sportId, int time, int skip, int take)
+        [TestCase(1, TimeSelector.All, 0, 10)]
+        [TestCase(1, TimeSelector.All, 1, 3)]
+        [TestCase(1, TimeSelector.All, 2, 1)]
+        [TestCase(2, TimeSelector.All, 0, 10)]
+        [TestCase(2, TimeSelector.All, 1, 1)]
+        public void GetSportEventsCheckEventsExist(int sportId, TimeSelector time, int skip, int take)
         {
             // Get SportEvents from datavase directly and check, that they are exist
             List<SportEvent> expectedSportEvents = this.databaseSportsContext.SportEvents
@@ -293,15 +294,15 @@ namespace JinnSports.UnitTests.Services
         }
 
         [Test]
-        [TestCase(1, 0, 10, 10)]
-        [TestCase(2, 0, 10, 10)]
-        [TestCase(3, 0, 0, 10)]
-        [TestCase(3, 0, 1, 1)]
-        [TestCase(3, 0, 10, 10)]
-        [TestCase(4, 0, 0, 10)]
-        [TestCase(4, 0, 1, 1)]
-        [TestCase(4, 0, 10, 10)]
-        public void GetSportEventsCheckEventsNotExist(int sportId, int time, int skip, int take)
+        [TestCase(1, TimeSelector.All, 10, 10)]
+        [TestCase(2, TimeSelector.All, 10, 10)]
+        [TestCase(3, TimeSelector.All, 0, 10)]
+        [TestCase(3, TimeSelector.All, 1, 1)]
+        [TestCase(3, TimeSelector.All, 10, 10)]
+        [TestCase(4, TimeSelector.All, 0, 10)]
+        [TestCase(4, TimeSelector.All, 1, 1)]
+        [TestCase(4, TimeSelector.All, 10, 10)]
+        public void GetSportEventsCheckEventsNotExist(int sportId, TimeSelector time, int skip, int take)
         {
             // Get SportEvents from database directly and check, that they are not exist
             List<SportEvent> expectedSportEvents = this.databaseSportsContext.SportEvents

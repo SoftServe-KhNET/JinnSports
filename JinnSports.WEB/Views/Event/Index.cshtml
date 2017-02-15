@@ -1,4 +1,5 @@
 ﻿@using JinnSports.BLL.Dtos.SportType
+@using JinnSports.BLL
 @model IEnumerable<SportTypeDto>
 @{
     ViewBag.Title = "Результаты матчей";
@@ -21,9 +22,9 @@
 
     <label for="selectSportType">Выберите время</label>
     <select class="sportTime" id="sportTime" onchange="selectSport()">
-        <option value=1>Все</option>
-        <option value=0>Прошлое</option>
-        <option value=2>Будущее</option>
+        <option value=@((int)TimeSelector.All)>Все</option>
+        <option value=@((int)TimeSelector.Past)>Прошлое</option>
+        <option value=@((int)TimeSelector.Future)>Будущее</option>
     </select>
 </div>
 <div class="box">
@@ -80,7 +81,7 @@
             var time = timeList.options[timeList.selectedIndex].value;
 
             $('#eventTable').dataTable().fnDestroy();
-            loadResults(selectedId, time - 1);
+            loadResults(selectedId, time);
         };
     </script>
     <script>
