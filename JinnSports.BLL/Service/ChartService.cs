@@ -10,7 +10,7 @@ namespace JinnSports.BLL.Service
 {
     public class ChartService : IChartService
     {
-        private static readonly ILog Log = LogManager.GetLogger(typeof(ChartService));
+        private static readonly ILog Log = LogManager.GetLogger("AppLog");
 
         private readonly IUnitOfWork unitOfWork;
 
@@ -46,6 +46,10 @@ namespace JinnSports.BLL.Service
                 // If draw - adding last winrate
                 if (winners.Count > 1)
                 {
+                    if (dataTable.Rows.Count == 0)
+                    {
+                        continue;
+                    }
                     winrate = int.Parse(dataTable.Rows[dataTable.Rows.Count - 1].C.ElementAt(1).V.ToString());
                     totalGamesCounter--;
                 }

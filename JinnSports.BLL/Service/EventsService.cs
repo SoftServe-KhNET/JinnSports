@@ -18,7 +18,7 @@ namespace JinnSports.BLL.Service
     {
         private const string SPORTCONTEXT = "SportsContext";
 
-        private static readonly ILog Log = LogManager.GetLogger(typeof(EventsService));
+        private static readonly ILog Log = LogManager.GetLogger("AppLog");
 
         private readonly IUnitOfWork dataUnit;
         
@@ -30,9 +30,11 @@ namespace JinnSports.BLL.Service
             this.predictionSender = new PredictoionSender(this.dataUnit);
         }
 
-        public int Count(int sportTypeId, int time)
+        public int Count(int sportTypeId, TimeSelector timeSelector)
         {
             int count;
+            int time = (int)timeSelector;
+
             if (sportTypeId != 0)
             {
                 IEnumerable<SportEvent> sportEvents = this.dataUnit.GetRepository<SportEvent>().Get(filter: m => m.SportType.Id == sportTypeId);
@@ -61,9 +63,10 @@ namespace JinnSports.BLL.Service
             return count;
         }
 
-        public IEnumerable<ResultDto> GetSportEvents(int sportTypeId, int time, int skip, int take)
+        public IEnumerable<ResultDto> GetSportEvents(int sportTypeId, TimeSelector timeSelector, int skip, int take)
         {
             IList<ResultDto> results = new List<ResultDto>();
+            int time = (int)timeSelector;
 
             IEnumerable<SportEvent> sportEvents;
             if (sportTypeId != 0)
@@ -137,7 +140,7 @@ namespace JinnSports.BLL.Service
             INewsService newsService = new NewsService();
             var news = newsService.GetLastNews();
 
-            IEnumerable<ResultDto> upcomingEvents = this.GetSportEvents(0, 1, 0, 0);
+            IEnumerable<ResultDto> upcomingEvents = this.GetSportEvents(0, TimeSelector.Future, 0, 0);
 
             return new MainPageDto() { News = news, UpcomingEvents = upcomingEvents };
         }

@@ -3,7 +3,8 @@ using System.Linq;
 using JinnSports.Parser.App.ProxyService.ProxyRepository;
 using System.Net;
 using System.IO;
-using HtmlAgilityPack;
+using AngleSharp.Dom;
+using AngleSharp.Parser.Html;
 using System.Globalization;
 using System.Collections.Generic;
 using JinnSports.Parser.App.ProxyService.ProxyEntities;
@@ -12,12 +13,15 @@ using JinnSports.Parser.App.Configuration.Proxy;
 using System.Configuration;
 using System.Web;
 using System.Web.Hosting;
+using log4net;
 
 namespace JinnSports.Parser.App.ProxyService.ProxyParser
 {
     public class ProxyParser
     {
         private string path;
+        private static readonly ILog Log =
+           LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         public ProxyParser()
         {
@@ -90,39 +94,47 @@ namespace JinnSports.Parser.App.ProxyService.ProxyParser
                 string result = string.Empty;
                 req = (HttpWebRequest)WebRequest.Create(url + "?page=" + page++);
                 req.Headers.Set(HttpRequestHeader.ContentEncoding, "utf-8");
-                //TODO try
-                resp = (HttpWebResponse)req.GetResponse();
-                result = new StreamReader(resp.GetResponseStream()).ReadToEnd();
-                HtmlDocument doc = new HtmlDocument();
-                doc.LoadHtml(result);
-                HtmlNode doc_proxyArea = doc.DocumentNode.SelectSingleNode("//table/tbody");
+
                 try
                 {
-                    foreach (HtmlNode doc_lineNode in doc_proxyArea.SelectNodes("tr"))
-                    {
-                        HtmlNodeCollection doc_proxyLine = doc_lineNode.SelectNodes("td");
+                    resp = (HttpWebResponse)req.GetResponse();
+                    result = new StreamReader(resp.GetResponseStream()).ReadToEnd();
+                    var parser = new HtmlParser();
+                    var doc = parser.Parse(result);
+                    var doc_proxyArea = doc.QuerySelectorAll("table tbody tr");
 
-                        //Entities formation
-                        HtmlProxyServer proxyEntity = new HtmlProxyServer();
-                        proxyEntity.Type = doc_proxyLine.ElementAt(5).InnerText.Split('\n')[1].Split('\r')[0];
-                        if (proxyEntity.Type == "HTTPS")
+                    if (doc_proxyArea.Length > 0)
+                    {
+                        foreach (var doc_lineNode in doc_proxyArea)
                         {
-                            proxyEntity.Ip = doc_proxyLine.ElementAt(1).InnerText;
-                            if (proxyEntities.HtmlProxies.Where(x => x.Ip == proxyEntity.Ip).ToList().Count() == 0)
+                            var doc_proxyLine = doc_lineNode.QuerySelectorAll("td");
+
+                            //Entities formation
+                            HtmlProxyServer proxyEntity = new HtmlProxyServer();
+                            proxyEntity.Type = doc_proxyLine.ElementAt(5).TextContent.Split('\n')[1].Split('\r')[0];
+                            if (proxyEntity.Type == "HTTPS")
                             {
-                                proxyEntity.Port = doc_proxyLine.ElementAt(2).InnerText;
-                                proxyEntity.Anonymity = doc_proxyLine.ElementAt(4).InnerText;
-                                NumberFormatInfo provider = new NumberFormatInfo();
-                                provider.NumberDecimalSeparator = ".";
-                                proxyEntity.Ping = Convert.ToDouble(doc_proxyLine.ElementAt(6).InnerText, provider);
-                                proxyEntities.HtmlProxies.Add(proxyEntity);
+                                proxyEntity.Ip = doc_proxyLine.ElementAt(1).TextContent;
+                                if (proxyEntities.HtmlProxies.Where(x => x.Ip == proxyEntity.Ip).ToList().Count() == 0)
+                                {
+                                    proxyEntity.Port = doc_proxyLine.ElementAt(2).TextContent;
+                                    proxyEntity.Anonymity = doc_proxyLine.ElementAt(4).TextContent;
+                                    NumberFormatInfo provider = new NumberFormatInfo();
+                                    provider.NumberDecimalSeparator = ".";
+                                    proxyEntity.Ping = Convert.ToDouble(doc_proxyLine.ElementAt(6).TextContent, provider);
+                                    proxyEntities.HtmlProxies.Add(proxyEntity);
+                                }
                             }
                         }
                     }
+                    else
+                    {
+                        lastPage = true;
+                    }
                 }
-                catch
+                catch(Exception ex)
                 {
-                    lastPage = true;
+                    Log.Error(ex); 
                 }
             }
             return proxyEntities;

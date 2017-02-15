@@ -16,7 +16,7 @@ namespace JinnSports.WEB
             AutoMapperConfiguration.Configure();
             AutofacConfig.Configure();
             BundleConfig.RegisterBundles(BundleTable.Bundles);
-            ParserService.Initialize();
+            //ParserService.Initialize();
         }
     }
 }

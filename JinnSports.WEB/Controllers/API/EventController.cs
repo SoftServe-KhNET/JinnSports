@@ -1,4 +1,5 @@
-﻿using JinnSports.BLL.Dtos;
+﻿using JinnSports.BLL;
+using JinnSports.BLL.Dtos;
 using JinnSports.BLL.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -18,7 +19,7 @@ namespace JinnSports.WEB.ApiControllers
         }
 
         [HttpGet]
-        public IHttpActionResult LoadEvents(int sportTypeId, int time)
+        public IHttpActionResult LoadEvents(int sportTypeId, TimeSelector time)
         {
             var a = sportTypeId;
 

@@ -13,7 +13,11 @@ var Model = function (additionalProps) {
 };
 
 _.extend(Model.prototype, {
-    init: function () { },
+
+    // Some initial actions
+    init: function () {
+        return this;
+    },
 
     // Setting new data and notifying about it
     // TODO: ability to set multiple key:value or set as {key:value} object

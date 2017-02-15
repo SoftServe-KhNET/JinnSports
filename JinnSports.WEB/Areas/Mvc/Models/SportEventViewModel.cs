@@ -1,13 +1,25 @@
-﻿using JinnSports.BLL.Dtos.SportType;
+﻿using JinnSports.BLL;
+using JinnSports.BLL.Dtos.SportType;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace JinnSports.WEB.Areas.Mvc.Models
 {
     public class SportEventViewModel
     {
+        static SportEventViewModel()
+        {
+            TimeSelection = new Dictionary<TimeSelector, string>();
+            TimeSelection.Add(TimeSelector.All, "Все");
+            TimeSelection.Add(TimeSelector.Past, "Прошлое");
+            TimeSelection.Add(TimeSelector.Future, "Будущее");
+        }
+
+        public static IDictionary<TimeSelector, string> TimeSelection { get; private set; }
+
         public SportTypeSelectDto SportTypeSelectDto { get; set; }
 
         public PageInfo PageInfo { get; set; }

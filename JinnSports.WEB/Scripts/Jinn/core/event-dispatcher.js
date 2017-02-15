@@ -1,4 +1,4 @@
-'use strict';
+﻿'use strict';
 
 function EventService() {
     this._listeners = [];
@@ -42,7 +42,11 @@ _.extend(EventService.prototype, {
     }
 });
 
+EventService.on = EventService.registerListener;
+EventService.off = EventService.unregisterListener;
+EventService.notify = EventService.sendMessage;
+
 EventService.messages = {
     MODEL_HAS_BEEN_UPDATED: 'ModelHasBeenUpdated',
     MODEL_HAS_BEEN_DESTROYED: 'ModelHasBeenDestroyed'
-};
+}

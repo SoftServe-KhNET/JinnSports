@@ -45,7 +45,7 @@ namespace JinnSports.BLL.Service
                 htmlParser.Parse();
             }));
 
-            await Task.WhenAll(tasks.ToArray());
+            await Task.WhenAll(tasks);
         }
 
         public static async Task UpdateProxy()

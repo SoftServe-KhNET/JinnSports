@@ -71,6 +71,8 @@
     <Compile Include="Dtos\AdminApiViewModel.cs" />
     <Compile Include="Dtos\Charts\GoogleVisualizationDataTable.cs" />
     <Compile Include="Dtos\Charts\WinRateChartDto.cs" />
+    <Compile Include="Dtos\ClientLog\LogDto.cs" />
+    <Compile Include="Dtos\ClientLog\LogEventDto.cs" />
     <Compile Include="Dtos\ConformityApiViewModel.cs" />
     <Compile Include="Dtos\ConformityDto.cs" />
     <Compile Include="Dtos\ConformityViewModel.cs" />
@@ -94,6 +96,7 @@
     <Compile Include="Interfaces\IChartService.cs" />
     <Compile Include="Interfaces\IAdminService.cs" />
     <Compile Include="Interfaces\IEventService.cs" />
+    <Compile Include="Interfaces\ILoggerService.cs" />
     <Compile Include="Interfaces\INewsService.cs" />
     <Compile Include="Interfaces\IPredictionsService.cs" />
     <Compile Include="Interfaces\IResultService.cs" />
@@ -109,6 +112,7 @@
     <Compile Include="Service\ChartService.cs" />
     <Compile Include="Service\AdminService.cs" />
     <Compile Include="Service\EventsService.cs" />
+    <Compile Include="Service\LoggerService.cs" />
     <Compile Include="Service\NewsService.cs" />
     <Compile Include="Service\ParserService.cs" />
     <Compile Include="Service\PredictionsService.cs" />
@@ -116,6 +120,7 @@
     <Compile Include="Service\TeamDetailsService.cs" />
     <Compile Include="Service\TeamService.cs" />
     <Compile Include="Service\UserService.cs" />
+    <Compile Include="TimeSelector.cs" />
     <Compile Include="Utilities\AutofacConfig.cs" />
     <Compile Include="Utilities\NewsConfiguration.cs" />
   </ItemGroup>
