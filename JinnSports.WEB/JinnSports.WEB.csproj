@@ -599,9 +599,11 @@
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\EventPredictionController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\RegisterController.cs" />
     <Compile Include="Controllers\TeamController.cs" />
     <Compile Include="Controllers\EventController.cs" />
     <Compile Include="Controllers\TeamDetailsController.cs" />
+    <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Filters\ValidateCustomAntiForgeryTokenAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
