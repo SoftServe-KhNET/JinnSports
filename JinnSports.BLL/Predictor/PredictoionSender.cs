@@ -28,7 +28,7 @@ namespace JinnSports.BLL.Service
         {
             //this.sendRequest = new Task(this.CreateRequest);
             //this.sendRequest.Start();
-            CreateRequest();
+            this.CreateRequest();
         }
 
         private void CreateRequest()

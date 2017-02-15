@@ -10,16 +10,6 @@ namespace JinnSports.WEB.Areas.Mvc.Models
 {
     public class SportEventViewModel
     {
-        public SportTypeSelectDto SportTypeSelectDto { get; set; }
-
-        public PageInfo PageInfo { get; set; }
-
-        public string ActionName { get; set; }
-
-        public string ControllerName { get; set; }
-
-        public static IDictionary<TimeSelector, string> TimeSelection { get; private set; }
-
         static SportEventViewModel()
         {
             TimeSelection = new Dictionary<TimeSelector, string>();
@@ -27,5 +17,15 @@ namespace JinnSports.WEB.Areas.Mvc.Models
             TimeSelection.Add(TimeSelector.Past, "Прошлое");
             TimeSelection.Add(TimeSelector.Future, "Будущее");
         }
+
+        public static IDictionary<TimeSelector, string> TimeSelection { get; private set; }
+
+        public SportTypeSelectDto SportTypeSelectDto { get; set; }
+
+        public PageInfo PageInfo { get; set; }
+
+        public string ActionName { get; set; }
+
+        public string ControllerName { get; set; }
     }
 }
