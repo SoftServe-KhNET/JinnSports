@@ -14,9 +14,9 @@ function HeaderView(){
 		var ulElement = document.createElement('ul');
 		
 		ulElement.appendChild(this.buildHeaderElement('/', 'JinnSports'));
-		ulElement.appendChild(this.buildHeaderElement('#', 'Главная'));
 		ulElement.appendChild(this.buildHeaderElement('#teams', 'Команды'));
 		ulElement.appendChild(this.buildHeaderElement('#results', 'Результаты'));
+		ulElement.appendChild(this.buildHeaderElement('#admin', 'Админка'));
 		
 		
 		this.headerComponent.appendChild(ulElement);

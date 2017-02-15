@@ -14,7 +14,6 @@ function NewsView(){
 	this.init = function(){
 		
 		this.newsComponent = document.getElementById('component-news');	
-		this.newsComponent.className = 'col-md-3';
 		this.newsBody = document.createElement('div');
 		this.newsBody.className = 'box box-warning';
 		this.newsComponent.appendChild(this.newsBody);

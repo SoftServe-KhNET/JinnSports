@@ -171,7 +171,7 @@
 
             var params = JSON.stringify(credentials);
 
-            self.post("api/Values", params, self.onLoad).then(function (text) {
+            self.post("/api/Values", params, self.onLoad).then(function (text) {
                 self.printMessage(text);
             }, function(error) {
                 console.log(error);
@@ -197,7 +197,7 @@
 
             var params = JSON.stringify(credentials);
 
-            self.post("api/Register", params, self.onRegLoad).then(function (text) {
+            self.post("/api/Register", params, self.onRegLoad).then(function (text) {
                 self.printMessageReg(text);
             }, function (error) {
                 console.log(error);
@@ -347,7 +347,7 @@
             userInfo.id = "user-info";
             userInfo.innerHTML = "Howdy, " + user + "!";
 
-            var content = document.querySelector(".body-content");
+            var content = document.getElementById("authentification");
             content.appendChild(userInfo);
 
             self.deleteBackground(document.querySelector(".modal-background"));

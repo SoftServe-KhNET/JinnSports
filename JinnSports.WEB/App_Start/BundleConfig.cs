@@ -18,7 +18,8 @@ namespace JinnSports.WEB
                 .Include("~/Content/font-awesome.css")
                 .Include("~/Content/themes/base/all.css")
                 .Include("~/Content/auth-style.css")
-                .Include("~/Content/style.css")); 
+                .Include("~/Content/style.css")
+                .Include("~/Content/header.css")); 
 
             bundles.Add(new StyleBundle("~/Content/DataTableStyles")
                 .Include("~/Content/DataTables/css/dataTables.bootstrap.css"));

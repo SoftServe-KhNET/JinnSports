@@ -1,10 +1,9 @@
 ﻿'use strict';
 var httpRequest = null;
 
-function authModel() {
+function AuthModel() {
 
     return new Model({
 
-        
-    })
+    });
 };

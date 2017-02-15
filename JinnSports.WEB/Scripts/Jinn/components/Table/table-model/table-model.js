@@ -5,7 +5,7 @@ function tableModel() {
 
     return new Model({
         data: {
-            teams: [],
+            teams: []
         },
 
         updateData: function (connectionString, records_per_page, currentPage) {

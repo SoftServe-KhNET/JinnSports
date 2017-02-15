@@ -159,7 +159,9 @@ function $j_table(additionalParameters, model) {
             }
             tbl.appendChild(tbdy);
             tableContainer.appendChild(tbl);
-            document.body.appendChild(tableContainer);
+            var tableWrapper = document.getElementById('table-wrapper');
+            tableWrapper.appendChild(tableContainer);
+            //document.body.appendChild(tableContainer);
         },
 
         buildPagingNavBar: function () {
