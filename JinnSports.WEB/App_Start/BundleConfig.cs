@@ -37,14 +37,21 @@ namespace JinnSports.WEB
                 .Include("~/Scripts/DataTables/jquery.dataTables.min.js")
                 .Include("~/Scripts/DataTables/dataTables.bootstrap.min.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
+                "~/Scripts/Jinn/core/extensions.js",
+                "~/Scripts/jquery-{version}.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/app").IncludeDirectory(
+                "~/Scripts/Jinn", "*.js", true));
+
+            bundles.Add(new StyleBundle("~/Content/css").Include(
+                "~/Content/Jinn/*.css"));
+
             bundles.Add(new ScriptBundle("~/Scripts/GoogleCharts", googleChartsCdnPath)
                 .Include("~/Scripts/loader.js"));
 
             bundles.Add(new ScriptBundle("~/Scripts/iCheck", icheckCdnPath)
                 .Include("~/Scripts/icheck.min.js"));
-
-            bundles.Add(new ScriptBundle("~/bundles/app").IncludeDirectory(
-                "~/Scripts/Jinn", "*.js", true));
         }
     }
 }
